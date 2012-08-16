@@ -1,0 +1,250 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#
+# Univention Corporate Client
+#  A tool for creating UCC images
+#
+# Copyright (C) 2012 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# The source code of this program is made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this program provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use this program under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+
+from optparse import OptionParser
+import ConfigParser
+
+import os
+import shutil
+import string
+import subprocess
+import sys
+import tempfile
+
+# Helper function to run a command and give an error message if the command failed
+def _run_cmd(cmd_block)
+	retcode = subprocess.call(cmd_block , shell=False, env=os.environ)
+	if retcode:
+		print 'ERROR: The command "%s" failed with the error code %d' % (string.join(cmd_block), retcode)
+	return retcode
+
+# Do some cleanup stuff
+def _cleanup(options, base_dir):
+	bootstrap_dir = os.path.join(base_dir, 'bootstrap')
+
+	# Check if a shell exists
+	bash_bin = os.path.join(bootstrap_dir, 'bin/sh')
+	if os.path.exists(bash_bin):
+		cleanup_fd = os.path.join(bootstrap_dir, 'cleanup-ucc.sh')
+		fd = open(cleanup_fd, 'w')
+		fd.write('''#!/bin/sh
+	umount /proc
+
+	exit 0
+	''')
+
+		fd.close()
+		os.chmod(cleanup_fd, 0744)
+
+		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, './cleanup-ucc.sh' ]
+		_run_cmd(cmd_block)
+
+	cmd_block = ['/bin/umount', bootstrap_dir]
+	_run_cmd(cmd_block)
+
+	# if options.cleanup:
+	#	shutil.rmtree(base_dir)
+
+class Parser(ConfigParser.ConfigParser):
+	def get(self, section, option, default = None):
+		if not self.has_section(section):
+			return default
+		if not self.has_option(section, option):
+			return default
+		return ConfigParser.ConfigParser.get(self, section, option)
+		# return super(Parser, self).get(section, option)
+
+	def getboolean(self, section, option, default = False):
+		if not self.has_section(section):
+			return default
+		if not self.has_option(section, option):
+			return default
+		return ConfigParser.ConfigParser.getboolean(self, section, option)
+		# return super(Parser, self).getboolean(section, option)
+
+	def get_mirror(self):
+		return self.get('Software', 'mirror', 'http://ubuntu.knut.univention.de/ubuntu/')
+	def get_version(self):
+		return self.get('General', 'version', 'precise')
+	def get_hostname(self):
+		return config.get('General', 'hostname', 'ucc')
+	def get_domainname(self):
+		return config.get('General', 'domainname', 'local')
+		
+		
+
+if __name__ == '__main__':
+
+	usage = '''%s [options] -c config_file ''' % sys.argv[0]
+	parser = OptionParser(usage=usage)
+
+	parser.add_option("-c", "--conf", action="store", dest="config_file", help="Config file for ucc-image-creator")
+	parser.add_option("-C", "--no-cleanup", action="store_false", dest="cleanup", default=True, help="Do not cleanup temporary files")
+	parser.add_option("-T", "--temp-dir", action="store", dest="base_dir", help="Use a predefined temp dir, this is helpful if -c has been used in a previous run")
+	parser.add_option("-B", "--skip-bootstrap", action="store_false", dest="bootstrap", default=True, help="Do not call debootstrap again a predefined temp dir, this is helpful if -c has been used in a previous run")
+
+	(options, args) = parser.parse_args()
+
+	if not options.config_file:
+		print 'ERROR: Missing argument -c config_file.'
+		print parser.print_help()
+		sys.exit(1)
+
+	if not os.path.exists(options.config_file):
+		print 'ERROR: config_file %s was not found.' % options.config_file
+		print parser.print_help()
+		sys.exit(1)
+
+	config = Parser()
+	config.read(options.config_file)
+
+	if options.base_dir:
+		base_dir = options.base_dir
+	else:
+		base_dir = tempfile.mkdtemp()
+
+	print 'DEBUG: Temp Directory: %s' % base_dir
+
+	# TODO: call hooks
+
+	# Create the image
+	image = os.path.join(base_dir, config.get('Image', 'name', 'ucc-image.img'))
+	image_size = float(config.get('Image', 'size', '20'))
+	cmd_block = ['dd', 'if=/dev/zero', 'of=%s' % (image), 'bs=1M', 'count=1', 'seek=%d' % (image_size*1000)]
+	if _run_cmd(cmd_block):
+		sys.exit(1)
+
+	fs = config.get('Image', 'filesystem', 'ext4')
+	cmd_block = ['mkfs.%s' % fs, '-F', image ]
+	if _run_cmd(cmd_block):
+		sys.exit(1)
+
+	bootstrap_dir = os.path.join(base_dir, 'bootstrap')
+	os.mkdir(bootstrap_dir)
+
+	# Mount the image
+	cmd_block = ['mount', '-o', 'loop', image, bootstrap_dir]
+	if _run_cmd(cmd_block):
+		_cleanup(options, base_dir)
+		sys.exit(1)
+	
+	# Bootstrap the mounted image
+	# debootstrap precise ucc http://ubuntu.knut.univention.de/ubuntu/
+	if options.bootstrap:
+		cmd_block = ['/usr/sbin/debootstrap',  config.get_version(), bootstrap_dir , config.get_mirror()]
+		print 'DEBUG: Call %s' % string.join(cmd_block)
+		if _run_cmd(cmd_block):
+			_cleanup(options, base_dir)
+			sys.exit(1)
+
+	# Modify sources.list
+	sources_list = os.path.join(bootstrap_dir, 'etc/apt/sources.list')
+	fd = open(sources_list, 'w')
+	
+	parts = ['main', 'restricted']
+	for p in ['universe', 'multiverse']:
+		if config.getboolean('Software',p , 'False'):
+			parts.append(p)
+
+	fd.write('deb %s %s %s\n' % (config.get_mirror(), config.get_version(), string.join(parts)))
+
+	for p in ['updates', 'security', 'backports']:
+		if config.getboolean('Software', p, 'False'):
+			fd.write('deb %s %s-%s %s\n' % (config.get_mirror(), config.get_version(), p, string.join(parts)))
+
+	if config.getboolean('Software', 'partner', 'False'):
+		fd.write('deb %s %s partner\n' % (config.get_mirror(), config.get_version()))
+
+	if config.get('Software', 'sources_list'):
+		fd.write(config.get('Software', 'sources_list'))
+		fd.write('\n')
+
+	fd.close()
+
+	# Create the ucc install script which will be executed in the chroot
+	install_fd = os.path.join(bootstrap_dir, 'install-ucc.sh')
+	fd = open(install_fd, 'w')
+	fd.write('''#!/bin/bash -e
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+''')
+
+	if config.getboolean('Software', 'ucc', 'False'):
+		fd.write('apt-get -s install univention-config-registry\n')
+		fd.write('#ucr set hostname="%s" domainname="%s"\n' % (config.get_hostname(), config.get_domainname()))
+	else:
+		fd.write('hostname "%s"\n' % config.get_hostname())
+		
+	# Mount proc
+	fd.write('mount -t proc proc proc\n')
+
+	# Create UCC configuration directory
+	fd.write('mkdir -p ucc-config\n')
+
+	for package in config.get('Software', 'packages_no_recommends').split('\n'):
+		package = package.strip()
+		if package:
+			fd.write('apt-get -s --no-install-recommends install %s\n' % package)
+
+	for package in config.get('Software', 'packages').split('\n'):
+		package = package.strip()
+		if package:
+			fd.write('apt-get -s install %s\n' % package)
+			
+	fd.close()
+	os.chmod(install_fd, 0744)
+
+	# Call the created install ucc script
+	cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, './install-ucc.sh' ]
+	print 'DEBUG: Call %s' % string.join(cmd_block)
+	if _run_cmd(cmd_block):
+		_cleanup(options, base_dir)
+		sys.exit(1)
+		
+	# Write the partition settings into the image, this file will be used by
+	# the partition script
+	if config.has_section('Partitioning'):
+		partition_file = os.path.join(bootstrap_dir, 'ucc-config/partition_info')
+		fd = open(partition_file, 'w')
+		for option in config.options('Partitioning'):
+			if config.get('Partitioning', option):
+				fd.write('%s="%s"\n' % (option, config.get('Partitioning', option))
+		fd.close()
+
+		if config.get('Partitioning', 'script'):
+			shutil.copy(config.get('Partitioning', 'script'), os.path.join(bootstrap_dir, 'ucc-config/customer_script'))
+			
+	
+	_cleanup(options, base_dir)
+	sys.exit(0)
+

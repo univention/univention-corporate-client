@@ -1,0 +1,20 @@
+Source: ucc-image-toolkit
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.5.5
+Build-Depends: debhelper (>> 7)
+
+Package: ucs-image-toolkit
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends},
+ debootstrap ( >= 1.0.39)
+Provides: ${python:Provides}
+Description: Toolkit for creating UCC images
+ This package contains tools to create Univention Corporate
+ Client images.
+ .
+ It is part of Univention Corporate Client (UCC)
+ For more information about UCC refer to:
+ http://www.univention.de/
+
