@@ -49,8 +49,8 @@ def _run_cmd(cmd_block)
 	return retcode
 
 # Do some cleanup stuff
-def _cleanup(options, base_dir):
-	bootstrap_dir = os.path.join(base_dir, 'bootstrap')
+def _cleanup(options, basedir):
+	bootstrap_dir = os.path.join(basedir, 'bootstrap')
 
 	# Check if a shell exists
 	bash_bin = os.path.join(bootstrap_dir, 'bin/sh')
@@ -73,7 +73,7 @@ def _cleanup(options, base_dir):
 	_run_cmd(cmd_block)
 
 	# if options.cleanup:
-	#	shutil.rmtree(base_dir)
+	#	shutil.rmtree(basedir)
 
 class Parser(ConfigParser.ConfigParser):
 	def get(self, section, option, default = None):
@@ -110,7 +110,8 @@ if __name__ == '__main__':
 
 	parser.add_option("-c", "--conf", action="store", dest="config_file", help="Config file for ucc-image-creator")
 	parser.add_option("-C", "--no-cleanup", action="store_false", dest="cleanup", default=True, help="Do not cleanup temporary files")
-	parser.add_option("-T", "--temp-dir", action="store", dest="base_dir", help="Use a predefined temp dir, this is helpful if -c has been used in a previous run")
+	parser.add_option("-t", "--tempdir-base", action="store", dest="tempdir_base", help="Use a predefined tempdir for tempfile")
+	parser.add_option("-b", "--basedir", action="store", dest="basedir", help="Use a predefined base dirctory, this is helpful if -c has been used in a previous run")
 	parser.add_option("-B", "--skip-bootstrap", action="store_false", dest="bootstrap", default=True, help="Do not call debootstrap again a predefined temp dir, this is helpful if -c has been used in a previous run")
 
 	(options, args) = parser.parse_args()
@@ -128,17 +129,17 @@ if __name__ == '__main__':
 	config = Parser()
 	config.read(options.config_file)
 
-	if options.base_dir:
-		base_dir = options.base_dir
+	if options.basedir:
+		basedir = options.basedir
 	else:
-		base_dir = tempfile.mkdtemp()
+		basedir = tempfile.mkdtemp(tempdir=options.tempdir_base)
 
-	print 'DEBUG: Temp Directory: %s' % base_dir
+	print 'DEBUG: Temp Directory: %s' % basedir
 
 	# TODO: call hooks
 
 	# Create the image
-	image = os.path.join(base_dir, config.get('Image', 'name', 'ucc-image.img'))
+	image = os.path.join(basedir, config.get('Image', 'name', 'ucc-image.img'))
 	image_size = float(config.get('Image', 'size', '20'))
 	cmd_block = ['dd', 'if=/dev/zero', 'of=%s' % (image), 'bs=1M', 'count=1', 'seek=%d' % (image_size*1000)]
 	if _run_cmd(cmd_block):
@@ -149,13 +150,13 @@ if __name__ == '__main__':
 	if _run_cmd(cmd_block):
 		sys.exit(1)
 
-	bootstrap_dir = os.path.join(base_dir, 'bootstrap')
+	bootstrap_dir = os.path.join(basedir, 'bootstrap')
 	os.mkdir(bootstrap_dir)
 
 	# Mount the image
 	cmd_block = ['mount', '-o', 'loop', image, bootstrap_dir]
 	if _run_cmd(cmd_block):
-		_cleanup(options, base_dir)
+		_cleanup(options, basedir)
 		sys.exit(1)
 	
 	# Bootstrap the mounted image
@@ -164,7 +165,7 @@ if __name__ == '__main__':
 		cmd_block = ['/usr/sbin/debootstrap',  config.get_version(), bootstrap_dir , config.get_mirror()]
 		print 'DEBUG: Call %s' % string.join(cmd_block)
 		if _run_cmd(cmd_block):
-			_cleanup(options, base_dir)
+			_cleanup(options, basedir)
 			sys.exit(1)
 
 	# Modify sources.list
@@ -200,7 +201,7 @@ apt-get update
 ''')
 
 	if config.getboolean('Software', 'ucc', 'False'):
-		fd.write('apt-get -s install univention-config-registry\n')
+		fd.write('apt-get install univention-config-registry\n')
 		fd.write('#ucr set hostname="%s" domainname="%s"\n' % (config.get_hostname(), config.get_domainname()))
 	else:
 		fd.write('hostname "%s"\n' % config.get_hostname())
@@ -214,12 +215,12 @@ apt-get update
 	for package in config.get('Software', 'packages_no_recommends').split('\n'):
 		package = package.strip()
 		if package:
-			fd.write('apt-get -s --no-install-recommends install %s\n' % package)
+			fd.write('apt-get --no-install-recommends install %s\n' % package)
 
 	for package in config.get('Software', 'packages').split('\n'):
 		package = package.strip()
 		if package:
-			fd.write('apt-get -s install %s\n' % package)
+			fd.write('apt-get install %s\n' % package)
 			
 	fd.close()
 	os.chmod(install_fd, 0744)
@@ -228,7 +229,7 @@ apt-get update
 	cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, './install-ucc.sh' ]
 	print 'DEBUG: Call %s' % string.join(cmd_block)
 	if _run_cmd(cmd_block):
-		_cleanup(options, base_dir)
+		_cleanup(options, basedir)
 		sys.exit(1)
 		
 	# Write the partition settings into the image, this file will be used by
@@ -245,6 +246,6 @@ apt-get update
 			shutil.copy(config.get('Partitioning', 'script'), os.path.join(bootstrap_dir, 'ucc-config/customer_script'))
 			
 	
-	_cleanup(options, base_dir)
+	_cleanup(options, basedir)
 	sys.exit(0)
 
