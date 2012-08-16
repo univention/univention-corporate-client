@@ -1,3 +1,9 @@
+ucc-image-toolkit (0.9.1-4) precise; urgency=low
+
+  * Complete rename of binary package to ucc-image-toolkit (Bug #28033)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Thu, 16 Aug 2012 12:10:17 +0200
+
 ucc-image-toolkit (0.9.1-3) precise; urgency=low
 
   * Rename binary package to ucc-image-toolkit (Bug #28033)
