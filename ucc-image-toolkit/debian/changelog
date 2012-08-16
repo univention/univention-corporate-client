@@ -1,3 +1,9 @@
+ucc-image-toolkit (0.9.1-3) precise; urgency=low
+
+  * Rename binary package to ucc-image-toolkit (Bug #28033)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Thu, 16 Aug 2012 12:02:53 +0200
+
 ucc-image-toolkit (0.9.1-2) precise; urgency=low
 
   * Remove --simulate flag from apt-get calls (Bug #28033)
