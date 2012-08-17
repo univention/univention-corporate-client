@@ -44,7 +44,10 @@ import traceback
 
 # Helper function to run a command and give an error message if the command failed
 def _run_cmd(cmd_block, fd=sys.stdout):
-	retcode = subprocess.call(cmd_block , shell=False, env=os.environ, stdout=fd, stderr=fd)
+	env=os.environ
+	env['DEBIAN_FRONTEND'] = 'noninteractive'
+
+	retcode = subprocess.call(cmd_block , shell=False, env=env, stdout=fd, stderr=fd)
 	if retcode:
 		msg = 'The command "%s" failed with the error code %d' % (string.join(cmd_block), retcode)
 		raise RuntimeError(msg)
@@ -89,14 +92,21 @@ def _cleanup(options, workingdir):
 	except OSError:
 		pass
 
+	if options.cleanup:
+		cdrom_dir = os.path.join(workingdir, 'cdrom')
+		if os.path.exists(cdrom_dir):
+			try:
+				shutil.rmtree(cdrom_dir)
+			except OSError:
+				pass
+
 class Parser(ConfigParser.ConfigParser):
 	def get(self, section, option, default = None):
 		if not self.has_section(section):
 			return default
 		if not self.has_option(section, option):
 			return default
-		return string.split(ConfigParser.ConfigParser.get(self, section, option), '#')[0]
-		# return super(Parser, self).get(section, option)
+		return ConfigParser.ConfigParser.get(self, section, option)
 
 	def getboolean(self, section, option, default = False):
 		if not self.has_section(section):
@@ -104,7 +114,6 @@ class Parser(ConfigParser.ConfigParser):
 		if not self.has_option(section, option):
 			return default
 		return ConfigParser.ConfigParser.getboolean(self, section, option)
-		# return super(Parser, self).getboolean(section, option)
 
 	def get_mirror(self):
 		return self.get('Software', 'mirror', 'http://ubuntu.knut.univention.de/ubuntu/')
@@ -205,16 +214,16 @@ if __name__ == '__main__':
 		
 		parts = ['main', 'restricted']
 		for p in ['universe', 'multiverse']:
-			if config.getboolean('Software',p , 'False'):
+			if config.getboolean('Software',p , False):
 				parts.append(p)
 
 		fd.write('deb %s %s %s\n' % (config.get_mirror(), config.get_version(), string.join(parts)))
 
 		for p in ['updates', 'security', 'backports']:
-			if config.getboolean('Software', p, 'False'):
+			if config.getboolean('Software', p, False):
 				fd.write('deb %s %s-%s %s\n' % (config.get_mirror(), config.get_version(), p, string.join(parts)))
 
-		if config.getboolean('Software', 'partner', 'False'):
+		if config.getboolean('Software', 'partner', False):
 			fd.write('deb %s %s partner\n' % (config.get_mirror(), config.get_version()))
 
 		if config.get('Software', 'sources_list'):
@@ -228,8 +237,8 @@ if __name__ == '__main__':
 		_run_cmd(cmd_block, logfile_fd)
 		_print_done()
 
-		if config.getboolean('Software', 'ucc', 'False'):
-			_print_process('Installing Univention Configuration Registry')
+		if config.getboolean('Software', 'ucc', False):
+			_print_process('Installing univention-config-registry')
 			cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', 'install', '--yes', '--force-yes', 'univention-config-registry']
 			_run_cmd(cmd_block, logfile_fd)
 			cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'ucr', 'set', 'hostname="%s"' % config.get_hostname(), 'domainname="%s"'% config.get_domainname()]
@@ -246,7 +255,8 @@ if __name__ == '__main__':
 		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'mkdir', '-p', '/usr/share/initramfs-tools/scripts/ucc-config']
 		_run_cmd(cmd_block, logfile_fd)
 
-		for package in config.get('Software', 'packages_no_recommends').split('\n'):
+		for package in config.get('Software', 'packages_no_recommends', '').split('\n'):
+			package = package.split('#')[0]
 			package = package.strip()
 			if package:
 				_print_process('Installing package %s' % package)
@@ -254,7 +264,8 @@ if __name__ == '__main__':
 				_run_cmd(cmd_block, logfile_fd)
 				_print_done()
 
-		for package in config.get('Software', 'packages').split('\n'):
+		for package in config.get('Software', 'packages', '').split('\n'):
+			package = package.split('#')[0]
 			package = package.strip()
 			if package:
 				_print_process('Installing package %s' % package)
@@ -302,6 +313,30 @@ if __name__ == '__main__':
 		if os.path.exists(initrd_src):
 			shutil.copy(initrd_src, initrd_dest)
 
+		# Create ISO image
+		if config.get('Image', 'iso'):
+			# TODO: the creation of the ISO image should be done in the chroot environment
+			iso_dest = os.path.join(workingdir, config.get('Image', 'iso'))
+			cd_dir = os.path.join(workingdir, 'cdrom')
+			os.mkdir(cd_dir)
+
+			boot_dir = os.path.join(cd_dir, 'boot')
+			shutil.copytree(os.path.join(bootstrap_dir, 'boot'), boot_dir)
+
+			grub_cfg = open(os.path.join(boot_dir, 'grub/grub.cfg'), 'w')
+			grub_cfg.write('''
+menuentry 'Univention Corporate Client' {
+        linux /boot/vmlinuz-3.2.0-29-generic ro
+        initrd /boot/initrd.img-3.2.0-29-generic
+}
+			''')
+			grub_cfg.close()
+			
+			if config.getboolean('Image', 'include_image_on_iso', False):
+				shutil.copy(image, cd_dir)
+			cmd_block = ['grub-mkrescue', '-o', iso_dest, cd_dir]
+			_run_cmd(cmd_block, logfile_fd)
+
 	except RuntimeError,e:
 		print '\nERROR: %s (abort)\n' % e
 		traceback.print_exc(file=logfile_fd)
@@ -316,9 +351,11 @@ if __name__ == '__main__':
 
 	if exitcode == 0:
 		print '\nThe image creation was successful:'
-		print 'Image : %s' % image
-		print 'Kernel: %s' % kernel_dest
-		print 'Initrd: %s' % initrd_dest
+		print 'Image           : %s' % image
+		print 'Kernel          : %s' % kernel_dest
+		print 'Initrd          : %s' % initrd_dest
+		if config.get('Image', 'iso'):
+			print 'CDROM ISO Image : %s' % iso_dest
 
 	_cleanup(options, workingdir)
 
