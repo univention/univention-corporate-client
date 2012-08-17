@@ -1,3 +1,9 @@
+ucc-image-toolkit (0.9.1-5) precise; urgency=low
+
+  * More ucc-image cleanups (Bug #28033)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Thu, 16 Aug 2012 12:18:41 +0200
+
 ucc-image-toolkit (0.9.1-4) precise; urgency=low
 
   * Complete rename of binary package to ucc-image-toolkit (Bug #28033)

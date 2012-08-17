@@ -40,17 +40,19 @@ import string
 import subprocess
 import sys
 import tempfile
+import traceback
 
 # Helper function to run a command and give an error message if the command failed
-def _run_cmd(cmd_block)
-	retcode = subprocess.call(cmd_block , shell=False, env=os.environ)
+def _run_cmd(cmd_block, fd=sys.stdout):
+	retcode = subprocess.call(cmd_block , shell=False, env=os.environ, stdout=fd, stderr=fd)
 	if retcode:
-		print 'ERROR: The command "%s" failed with the error code %d' % (string.join(cmd_block), retcode)
+		msg = 'The command "%s" failed with the error code %d' % (string.join(cmd_block), retcode)
+		raise RuntimeError(msg)
 	return retcode
 
 # Do some cleanup stuff
-def _cleanup(options, basedir):
-	bootstrap_dir = os.path.join(basedir, 'bootstrap')
+def _cleanup(options, workingdir):
+	bootstrap_dir = os.path.join(workingdir, 'bootstrap')
 
 	# Check if a shell exists
 	bash_bin = os.path.join(bootstrap_dir, 'bin/sh')
@@ -67,13 +69,25 @@ def _cleanup(options, basedir):
 		os.chmod(cleanup_fd, 0744)
 
 		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, './cleanup-ucc.sh' ]
-		_run_cmd(cmd_block)
+		try:
+			_run_cmd(cmd_block)
+		except RuntimeError:
+			# Ignore RuntimeErrors in _cleanup
+			pass
+		os.remove(os.path.join(bootstrap_dir, './cleanup-ucc.sh'))
 
 	cmd_block = ['/bin/umount', bootstrap_dir]
-	_run_cmd(cmd_block)
+	try:
+		_run_cmd(cmd_block)
+	except RuntimeError:
+		# Ignore RuntimeErrors in _cleanup
+		pass
 
-	# if options.cleanup:
-	#	shutil.rmtree(basedir)
+	# Try to remove empty debootstrap directory
+	try:
+		os.rmdir(bootstrap_dir)
+	except OSError:
+		pass
 
 class Parser(ConfigParser.ConfigParser):
 	def get(self, section, option, default = None):
@@ -81,7 +95,7 @@ class Parser(ConfigParser.ConfigParser):
 			return default
 		if not self.has_option(section, option):
 			return default
-		return ConfigParser.ConfigParser.get(self, section, option)
+		return string.split(ConfigParser.ConfigParser.get(self, section, option), '#')[0]
 		# return super(Parser, self).get(section, option)
 
 	def getboolean(self, section, option, default = False):
@@ -101,7 +115,13 @@ class Parser(ConfigParser.ConfigParser):
 	def get_domainname(self):
 		return config.get('General', 'domainname', 'local')
 		
-		
+def _print_process(msg):
+	print '%-65s' % msg,
+	sys.stdout.flush()
+
+def _print_done(msg='done'):
+	print '%s' % msg
+	sys.stdout.flush()
 
 if __name__ == '__main__':
 
@@ -111,7 +131,7 @@ if __name__ == '__main__':
 	parser.add_option("-c", "--conf", action="store", dest="config_file", help="Config file for ucc-image-creator")
 	parser.add_option("-C", "--no-cleanup", action="store_false", dest="cleanup", default=True, help="Do not cleanup temporary files")
 	parser.add_option("-t", "--tempdir-base", action="store", dest="tempdir_base", help="Use a predefined tempdir for tempfile")
-	parser.add_option("-b", "--basedir", action="store", dest="basedir", help="Use a predefined base dirctory, this is helpful if -c has been used in a previous run")
+	parser.add_option("-b", "--workingdir", action="store", dest="workingdir", help="Use a predefined working dirctory, this is helpful if -c has been used in a previous run")
 	parser.add_option("-B", "--skip-bootstrap", action="store_false", dest="bootstrap", default=True, help="Do not call debootstrap again a predefined temp dir, this is helpful if -c has been used in a previous run")
 
 	(options, args) = parser.parse_args()
@@ -126,126 +146,181 @@ if __name__ == '__main__':
 		print parser.print_help()
 		sys.exit(1)
 
+	exitcode = 0
+
 	config = Parser()
 	config.read(options.config_file)
 
-	if options.basedir:
-		basedir = options.basedir
+	_print_process('Creating working directory')
+
+	if options.workingdir:
+		workingdir = options.workingdir
 	else:
-		basedir = tempfile.mkdtemp(tempdir=options.tempdir_base)
+		workingdir = tempfile.mkdtemp(dir=options.tempdir_base)
 
-	print 'DEBUG: Temp Directory: %s' % basedir
+	_print_done('done (%s)' % workingdir)
 
-	# TODO: call hooks
-
-	# Create the image
-	image = os.path.join(basedir, config.get('Image', 'name', 'ucc-image.img'))
-	image_size = float(config.get('Image', 'size', '20'))
-	cmd_block = ['dd', 'if=/dev/zero', 'of=%s' % (image), 'bs=1M', 'count=1', 'seek=%d' % (image_size*1000)]
-	if _run_cmd(cmd_block):
-		sys.exit(1)
-
-	fs = config.get('Image', 'filesystem', 'ext4')
-	cmd_block = ['mkfs.%s' % fs, '-F', image ]
-	if _run_cmd(cmd_block):
-		sys.exit(1)
-
-	bootstrap_dir = os.path.join(basedir, 'bootstrap')
-	os.mkdir(bootstrap_dir)
-
-	# Mount the image
-	cmd_block = ['mount', '-o', 'loop', image, bootstrap_dir]
-	if _run_cmd(cmd_block):
-		_cleanup(options, basedir)
-		sys.exit(1)
+	_print_process('Creating logfile')
+	logfile = os.path.join(workingdir, 'logfile')
+	logfile_fd = open(logfile, 'w+')
 	
-	# Bootstrap the mounted image
-	# debootstrap precise ucc http://ubuntu.knut.univention.de/ubuntu/
-	if options.bootstrap:
-		cmd_block = ['/usr/sbin/debootstrap',  config.get_version(), bootstrap_dir , config.get_mirror()]
-		print 'DEBUG: Call %s' % string.join(cmd_block)
-		if _run_cmd(cmd_block):
-			_cleanup(options, basedir)
-			sys.exit(1)
+	_print_done('done (%s)' % logfile)
 
-	# Modify sources.list
-	sources_list = os.path.join(bootstrap_dir, 'etc/apt/sources.list')
-	fd = open(sources_list, 'w')
-	
-	parts = ['main', 'restricted']
-	for p in ['universe', 'multiverse']:
-		if config.getboolean('Software',p , 'False'):
-			parts.append(p)
+	try:
+		# TODO: call hooks
 
-	fd.write('deb %s %s %s\n' % (config.get_mirror(), config.get_version(), string.join(parts)))
+		_print_process('Creating debootstrap image')
+		# Create the image
+		image = os.path.join(workingdir, config.get('Image', 'name', 'ucc-image.img'))
+		image_size = float(config.get('Image', 'size', '20'))
+		cmd_block = ['dd', 'if=/dev/zero', 'of=%s' % (image), 'bs=1M', 'count=1', 'seek=%d' % (image_size*1000)]
+		_run_cmd(cmd_block, logfile_fd)
 
-	for p in ['updates', 'security', 'backports']:
-		if config.getboolean('Software', p, 'False'):
-			fd.write('deb %s %s-%s %s\n' % (config.get_mirror(), config.get_version(), p, string.join(parts)))
+		fs = config.get('Image', 'filesystem', 'ext4')
+		cmd_block = ['mkfs.%s' % fs, '-F', image ]
+		_run_cmd(cmd_block, logfile_fd)
 
-	if config.getboolean('Software', 'partner', 'False'):
-		fd.write('deb %s %s partner\n' % (config.get_mirror(), config.get_version()))
+		bootstrap_dir = os.path.join(workingdir, 'bootstrap')
+		os.mkdir(bootstrap_dir)
+		_print_done()
 
-	if config.get('Software', 'sources_list'):
-		fd.write(config.get('Software', 'sources_list'))
-		fd.write('\n')
-
-	fd.close()
-
-	# Create the ucc install script which will be executed in the chroot
-	install_fd = os.path.join(bootstrap_dir, 'install-ucc.sh')
-	fd = open(install_fd, 'w')
-	fd.write('''#!/bin/bash -e
-export DEBIAN_FRONTEND=noninteractive
-apt-get update
-''')
-
-	if config.getboolean('Software', 'ucc', 'False'):
-		fd.write('apt-get install univention-config-registry\n')
-		fd.write('#ucr set hostname="%s" domainname="%s"\n' % (config.get_hostname(), config.get_domainname()))
-	else:
-		fd.write('hostname "%s"\n' % config.get_hostname())
+		_print_process('Mounting debootstrap image')
+		# Mount the image
+		cmd_block = ['mount', '-o', 'loop', image, bootstrap_dir]
+		_run_cmd(cmd_block, logfile_fd)
+		_print_done()
 		
-	# Mount proc
-	fd.write('mount -t proc proc proc\n')
+		_print_process('Installing base system (this may take a while)')
+		# Bootstrap the mounted image
+		# debootstrap precise ucc http://ubuntu.knut.univention.de/ubuntu/
+		if options.bootstrap:
+			cmd_block = ['/usr/sbin/debootstrap',  config.get_version(), bootstrap_dir , config.get_mirror()]
+			_run_cmd(cmd_block, logfile_fd)
+		_print_done()
 
-	# Create UCC configuration directory
-	fd.write('mkdir -p ucc-config\n')
-
-	for package in config.get('Software', 'packages_no_recommends').split('\n'):
-		package = package.strip()
-		if package:
-			fd.write('apt-get --no-install-recommends install %s\n' % package)
-
-	for package in config.get('Software', 'packages').split('\n'):
-		package = package.strip()
-		if package:
-			fd.write('apt-get install %s\n' % package)
-			
-	fd.close()
-	os.chmod(install_fd, 0744)
-
-	# Call the created install ucc script
-	cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, './install-ucc.sh' ]
-	print 'DEBUG: Call %s' % string.join(cmd_block)
-	if _run_cmd(cmd_block):
-		_cleanup(options, basedir)
-		sys.exit(1)
+		_print_process('Preparing repository settings')
+		# Modify sources.list
+		sources_list = os.path.join(bootstrap_dir, 'etc/apt/sources.list')
+		fd = open(sources_list, 'w')
 		
-	# Write the partition settings into the image, this file will be used by
-	# the partition script
-	if config.has_section('Partitioning'):
-		partition_file = os.path.join(bootstrap_dir, 'ucc-config/partition_info')
-		fd = open(partition_file, 'w')
-		for option in config.options('Partitioning'):
-			if config.get('Partitioning', option):
-				fd.write('%s="%s"\n' % (option, config.get('Partitioning', option))
+		parts = ['main', 'restricted']
+		for p in ['universe', 'multiverse']:
+			if config.getboolean('Software',p , 'False'):
+				parts.append(p)
+
+		fd.write('deb %s %s %s\n' % (config.get_mirror(), config.get_version(), string.join(parts)))
+
+		for p in ['updates', 'security', 'backports']:
+			if config.getboolean('Software', p, 'False'):
+				fd.write('deb %s %s-%s %s\n' % (config.get_mirror(), config.get_version(), p, string.join(parts)))
+
+		if config.getboolean('Software', 'partner', 'False'):
+			fd.write('deb %s %s partner\n' % (config.get_mirror(), config.get_version()))
+
+		if config.get('Software', 'sources_list'):
+			fd.write(config.get('Software', 'sources_list'))
+			fd.write('\n')
+
 		fd.close()
 
-		if config.get('Partitioning', 'script'):
-			shutil.copy(config.get('Partitioning', 'script'), os.path.join(bootstrap_dir, 'ucc-config/customer_script'))
-			
-	
-	_cleanup(options, basedir)
-	sys.exit(0)
+		# TODO: export DEBIAN_FRONTEND=noninteractive
+		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', 'update' ]
+		_run_cmd(cmd_block, logfile_fd)
+		_print_done()
+
+		if config.getboolean('Software', 'ucc', 'False'):
+			_print_process('Installing Univention Configuration Registry')
+			cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', 'install', '--yes', '--force-yes', 'univention-config-registry']
+			_run_cmd(cmd_block, logfile_fd)
+			cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'ucr', 'set', 'hostname="%s"' % config.get_hostname(), 'domainname="%s"'% config.get_domainname()]
+			_run_cmd(cmd_block, logfile_fd)
+		else:
+			_print_process('Setting hostname')
+			cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'hostname', config.get_hostname()]
+			_run_cmd(cmd_block, logfile_fd)
+		_print_done()
+
+		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'mount', '-t', 'proc', 'proc', 'proc']
+		_run_cmd(cmd_block, logfile_fd)
+		
+		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'mkdir', '-p', '/usr/share/initramfs-tools/scripts/ucc-config']
+		_run_cmd(cmd_block, logfile_fd)
+
+		for package in config.get('Software', 'packages_no_recommends').split('\n'):
+			package = package.strip()
+			if package:
+				_print_process('Installing package %s' % package)
+				cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', '--no-install-recommends', 'install', '--yes', '--force-yes', package]
+				_run_cmd(cmd_block, logfile_fd)
+				_print_done()
+
+		for package in config.get('Software', 'packages').split('\n'):
+			package = package.strip()
+			if package:
+				_print_process('Installing package %s' % package)
+				cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', 'install', '--yes', '--force-yes', package]
+				_run_cmd(cmd_block, logfile_fd)
+				_print_done()
+				
+		# Write the partition settings into the image, this file will be used by
+		# the partition script
+		_print_process('Re-creating initrd')
+		initrd_config_dir = os.path.join(bootstrap_dir, 'usr/share/initramfs-tools/scripts/ucc-config/')
+		if config.has_section('Partitioning'):
+			partition_file = os.path.join(initrd_config_dir, 'partition_info')
+			fd = open(partition_file, 'w')
+			for option in config.options('Partitioning'):
+				if config.get('Partitioning', option):
+					fd.write('%s="%s"\n' % (option, config.get('Partitioning', option)))
+			fd.close()
+
+			if config.get('Partitioning', 'script'):
+				shutil.copy(config.get('Partitioning', 'script'), os.path.join(initrd_config_dir, 'custom_script'))
+		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'update-initramfs', '-k', 'all', '-c']
+		_run_cmd(cmd_block, logfile_fd)
+		_print_done()
+				
+		# Copy kernel
+		kernel_link = os.path.join(bootstrap_dir, 'vmlinuz')
+		try:
+			kernel_src = os.path.join(bootstrap_dir, os.readlink(kernel_link).strip('/'))
+		except OSError,e:
+			kernel_src = kernel_link
+
+		kernel_dest = os.path.join(workingdir, config.get('Image', 'kernel', 'ucc-image.kernel'))
+		if os.path.exists(kernel_src):
+			shutil.copy(kernel_src, kernel_dest)
+
+		# Copy initrd
+		initrd_link = os.path.join(bootstrap_dir, 'initrd.img')
+		try:
+			initrd_src = os.path.join(bootstrap_dir, os.readlink(initrd_link).strip('/'))
+		except OSError,e:
+			initrd_src = initrd_link
+
+		initrd_dest = os.path.join(workingdir, config.get('Image', 'initrd', 'ucc-image.initrd'))
+		if os.path.exists(initrd_src):
+			shutil.copy(initrd_src, initrd_dest)
+
+	except RuntimeError,e:
+		print '\nERROR: %s (abort)\n' % e
+		traceback.print_exc(file=logfile_fd)
+		exitcode = 100
+
+	except Exception,e:
+		print '\nERROR: %s (abort)\n' % e
+		traceback.print_exc(file=logfile_fd)
+		exitcode = 100
+
+	logfile_fd.close()
+
+	if exitcode == 0:
+		print '\nThe image creation was successful:'
+		print 'Image : %s' % image
+		print 'Kernel: %s' % kernel_dest
+		print 'Initrd: %s' % initrd_dest
+
+	_cleanup(options, workingdir)
+
+	sys.exit(exitcode)
 
