@@ -54,7 +54,7 @@ def _run_cmd(cmd_block, fd=sys.stdout):
 	return retcode
 
 # Do some cleanup stuff
-def _cleanup(options, workingdir):
+def _cleanup(options, workingdir, logfile_fd):
 	bootstrap_dir = os.path.join(workingdir, 'bootstrap')
 
 	# Check if a shell exists
@@ -63,7 +63,11 @@ def _cleanup(options, workingdir):
 		cleanup_fd = os.path.join(bootstrap_dir, 'cleanup-ucc.sh')
 		fd = open(cleanup_fd, 'w')
 		fd.write('''#!/bin/sh
+	test -e /etc/init.d/dbus && service dbus stop
 	umount /proc
+
+	# Wait for two seconds, otherwise the umount might fail
+	sleep 2
 
 	exit 0
 	''')
@@ -73,7 +77,7 @@ def _cleanup(options, workingdir):
 
 		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, './cleanup-ucc.sh' ]
 		try:
-			_run_cmd(cmd_block)
+			_run_cmd(cmd_block, logfile_fd)
 		except RuntimeError:
 			# Ignore RuntimeErrors in _cleanup
 			pass
@@ -139,7 +143,8 @@ if __name__ == '__main__':
 
 	parser.add_option("-c", "--conf", action="store", dest="config_file", help="Config file for ucc-image-creator")
 	parser.add_option("-C", "--no-cleanup", action="store_false", dest="cleanup", default=True, help="Do not cleanup temporary files")
-	parser.add_option("-t", "--tempdir-base", action="store", dest="tempdir_base", help="Use a predefined tempdir for tempfile")
+	parser.add_option("-t", "--targetdir", action="store", dest="targetdir", help="Copy output files to targetdir")
+	parser.add_option("-T", "--tempdir-base", action="store", dest="tempdir_base", help="Use a predefined tempdir for tempfile")
 	parser.add_option("-b", "--workingdir", action="store", dest="workingdir", help="Use a predefined working dirctory, this is helpful if -c has been used in a previous run")
 	parser.add_option("-B", "--skip-bootstrap", action="store_false", dest="bootstrap", default=True, help="Do not call debootstrap again a predefined temp dir, this is helpful if -c has been used in a previous run")
 
@@ -167,6 +172,14 @@ if __name__ == '__main__':
 	else:
 		workingdir = tempfile.mkdtemp(dir=options.tempdir_base)
 
+	if options.targetdir:
+		targetdir = options.targetdir
+	else:
+		targetdir = workingdir
+
+	if not os.path.exists(targetdir):
+		os.mkdir(targetdir)
+
 	_print_done('done (%s)' % workingdir)
 
 	_print_process('Creating logfile')
@@ -180,7 +193,8 @@ if __name__ == '__main__':
 
 		_print_process('Creating debootstrap image')
 		# Create the image
-		image = os.path.join(workingdir, config.get('Image', 'name', 'ucc-image.img'))
+		image = os.path.join(targetdir, config.get('Image', 'name', 'ucc-image.img'))
+		bzip_image = None
 		image_size = float(config.get('Image', 'size', '20'))
 		cmd_block = ['dd', 'if=/dev/zero', 'of=%s' % (image), 'bs=1M', 'count=1', 'seek=%d' % (image_size*1000)]
 		_run_cmd(cmd_block, logfile_fd)
@@ -239,9 +253,9 @@ if __name__ == '__main__':
 
 		if config.getboolean('Software', 'ucc', False):
 			_print_process('Installing univention-config-registry')
-			cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', 'install', '--yes', '--force-yes', 'univention-config-registry']
+			cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', 'install', '--yes', '--force-yes', '--no-install-recommends', 'univention-config-registry', 'bc', 'rsync', 'dosfstools']
 			_run_cmd(cmd_block, logfile_fd)
-			cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'ucr', 'set', 'hostname="%s"' % config.get_hostname(), 'domainname="%s"'% config.get_domainname()]
+			cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'ucr', 'set', 'hostname=%s' % config.get_hostname(), 'domainname=%s'% config.get_domainname()]
 			_run_cmd(cmd_block, logfile_fd)
 		else:
 			_print_process('Setting hostname')
@@ -249,8 +263,17 @@ if __name__ == '__main__':
 			_run_cmd(cmd_block, logfile_fd)
 		_print_done()
 
+		# Set root password
+		if config.get('General', 'root_password'):
+			_print_process('Setting root password')
+			cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'usermod', '-p', config.get('General', 'root_password'), 'root']
+			_run_cmd(cmd_block, logfile_fd)
+			_print_done()
+
 		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'mount', '-t', 'proc', 'proc', 'proc']
 		_run_cmd(cmd_block, logfile_fd)
+
+		shutil.copy('/etc/resolv.conf', os.path.join(bootstrap_dir, 'etc'))
 		
 		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'mkdir', '-p', '/usr/share/initramfs-tools/scripts/ucc-config']
 		_run_cmd(cmd_block, logfile_fd)
@@ -262,6 +285,8 @@ if __name__ == '__main__':
 				_print_process('Installing package %s' % package)
 				cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', '--no-install-recommends', 'install', '--yes', '--force-yes', package]
 				_run_cmd(cmd_block, logfile_fd)
+				cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', 'clean']
+				_run_cmd(cmd_block, logfile_fd)
 				_print_done()
 
 		for package in config.get('Software', 'packages', '').split('\n'):
@@ -271,8 +296,29 @@ if __name__ == '__main__':
 				_print_process('Installing package %s' % package)
 				cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', 'install', '--yes', '--force-yes', package]
 				_run_cmd(cmd_block, logfile_fd)
+				cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'apt-get', 'clean']
+				_run_cmd(cmd_block, logfile_fd)
 				_print_done()
 				
+		# TODO: the lightdm.conf should be a UCR template and a ucc-lightdm package could set the UCR variables
+		lightdm_config = os.path.join(bootstrap_dir, 'etc/lightdm/lightdm.conf')
+		fd = open(lightdm_config, 'a+')
+		# TODO: make it configurable
+		if config.getboolean('General', 'automatic_login'):
+			# Lightdm:
+			fd.write('autologin-guest=true\nautologin-user-timeout=0\n')
+			# GDM:
+			#fd.write('[daemon]\nTimedLoginEnable=true\nTimedLogin=%s\nTimedLoginDelay=1\n' % config.get('General', 'automatic_login_user'))
+			#fd.close()
+			#cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'adduser', '--disabled-password', '--system', config.get('General', 'automatic_login_user')]
+			#_run_cmd(cmd_block, logfile_fd)
+			#if config.get('General', 'automatic_login_password'):
+			#	cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'usermod', '-p', config.get('General', 'automatic_login_password'), config.get('General', 'automatic_login_user')]
+			#	_run_cmd(cmd_block, logfile_fd)
+		fd.write('user-session=LXDE\n')
+		fd.close()
+			
+			
 		# Write the partition settings into the image, this file will be used by
 		# the partition script
 		_print_process('Re-creating initrd')
@@ -287,6 +333,16 @@ if __name__ == '__main__':
 
 			if config.get('Partitioning', 'script'):
 				shutil.copy(config.get('Partitioning', 'script'), os.path.join(initrd_config_dir, 'custom_script'))
+		if config.get('Image', 'initramfs_modules'):
+			fd = open(os.path.join(bootstrap_dir, 'etc/initramfs-tools/modules'), 'a+')
+			fd.write(config.get('Image', 'initramfs_modules'))
+			fd.close()
+		# TODO: use a package
+		if os.path.exists('/usr/share/ucc-image-toolkit/initramfs-tools/hooks/ucc'):
+			shutil.copy('/usr/share/ucc-image-toolkit/initramfs-tools/hooks/ucc', os.path.join(bootstrap_dir, 'usr/share/initramfs-tools/hooks'))
+		if os.path.exists('/usr/share/ucc-image-toolkit/initramfs-tools/ucc'):
+			shutil.copy('/usr/share/ucc-image-toolkit/initramfs-tools/ucc', os.path.join(bootstrap_dir, 'usr/share/initramfs-tools/scripts'))
+
 		cmd_block = ['/usr/sbin/chroot',  bootstrap_dir, 'update-initramfs', '-k', 'all', '-c']
 		_run_cmd(cmd_block, logfile_fd)
 		_print_done()
@@ -298,9 +354,10 @@ if __name__ == '__main__':
 		except OSError,e:
 			kernel_src = kernel_link
 
-		kernel_dest = os.path.join(workingdir, config.get('Image', 'kernel', 'ucc-image.kernel'))
+		kernel_dest = os.path.join(targetdir, config.get('Image', 'kernel', 'ucc-image.kernel'))
 		if os.path.exists(kernel_src):
 			shutil.copy(kernel_src, kernel_dest)
+		os.chmod(kernel_dest, 0644)
 
 		# Copy initrd
 		initrd_link = os.path.join(bootstrap_dir, 'initrd.img')
@@ -309,33 +366,73 @@ if __name__ == '__main__':
 		except OSError,e:
 			initrd_src = initrd_link
 
-		initrd_dest = os.path.join(workingdir, config.get('Image', 'initrd', 'ucc-image.initrd'))
+		initrd_dest = os.path.join(targetdir, config.get('Image', 'initrd', 'ucc-image.initrd'))
 		if os.path.exists(initrd_src):
 			shutil.copy(initrd_src, initrd_dest)
 
 		# Create ISO image
 		if config.get('Image', 'iso'):
 			# TODO: the creation of the ISO image should be done in the chroot environment
-			iso_dest = os.path.join(workingdir, config.get('Image', 'iso'))
+			iso_dest = os.path.join(targetdir, config.get('Image', 'iso'))
 			cd_dir = os.path.join(workingdir, 'cdrom')
 			os.mkdir(cd_dir)
+
+			# Mark the medium as UCC device
+			fd = open(os.path.join(cd_dir, '.ucc'), 'w')
+			fd.write('version=1.0\n')
+			image_name = config.get('Image', 'name', 'ucc-image.img')
+			if config.getboolean('Image', 'bzip_compressed', False):
+				fd.write('image=%s\n' % (image_name + '.bz2'))
+			else:
+				fd.write('image=%s\n' % image_name)
+			fd.close()
 
 			boot_dir = os.path.join(cd_dir, 'boot')
 			shutil.copytree(os.path.join(bootstrap_dir, 'boot'), boot_dir)
 
 			grub_cfg = open(os.path.join(boot_dir, 'grub/grub.cfg'), 'w')
 			grub_cfg.write('''
-menuentry 'Univention Corporate Client' {
-        linux /boot/vmlinuz-3.2.0-29-generic ro
+menuentry 'Univention Corporate Client - Boot UCC from CDROM/USB device (overlayfs)' {
+        linux /boot/vmlinuz-3.2.0-29-generic ro boot=ucc ucc=overlayfs quiet
+        initrd /boot/initrd.img-3.2.0-29-generic
+}
+menuentry 'Univention Corporate Client - Boot UCC from CDROM/USB device (aufs)' {
+        linux /boot/vmlinuz-3.2.0-29-generic ro boot=ucc ucc=aufs quiet
+        initrd /boot/initrd.img-3.2.0-29-generic
+}
+menuentry 'Univention Corporate Client - Boot UCC from local harddisk installation' {
+        linux /boot/vmlinuz-3.2.0-29-generic ro boot=ucc ucc=local root=search quiet
+        initrd /boot/initrd.img-3.2.0-29-generic
+}
+menuentry 'Univention Corporate Client - Install UCC to local harddisk' {
+        linux /boot/vmlinuz-3.2.0-29-generic ro boot=ucc ucc=inst quiet
+        initrd /boot/initrd.img-3.2.0-29-generic
+}
+menuentry 'Univention Corporate Client - Update and boot local UCC installation' {
+        linux /boot/vmlinuz-3.2.0-29-generic ro boot=ucc ucc=update root=search quiet
+        initrd /boot/initrd.img-3.2.0-29-generic
+}
+menuentry 'Debug Shell' {
+        linux /boot/vmlinuz-3.2.0-29-generic ro init=/bin/sh rootdelay=3
         initrd /boot/initrd.img-3.2.0-29-generic
 }
 			''')
 			grub_cfg.close()
 			
 			if config.getboolean('Image', 'include_image_on_iso', False):
-				shutil.copy(image, cd_dir)
+				if config.getboolean('Image', 'bzip_compressed', False):
+					_print_process('Compress chroot image')
+					bzip_image = image + '.bz2'
+					cmd_block = [ 'bzip2', image]
+					_run_cmd(cmd_block, logfile_fd)
+					shutil.copy(bzip_image, cd_dir)
+					_print_done()
+				else:
+					shutil.copy(image, cd_dir)
+			_print_process('Create ISO image')
 			cmd_block = ['grub-mkrescue', '-o', iso_dest, cd_dir]
 			_run_cmd(cmd_block, logfile_fd)
+			_print_done()
 
 	except RuntimeError,e:
 		print '\nERROR: %s (abort)\n' % e
@@ -347,17 +444,21 @@ menuentry 'Univention Corporate Client' {
 		traceback.print_exc(file=logfile_fd)
 		exitcode = 100
 
-	logfile_fd.close()
 
 	if exitcode == 0:
 		print '\nThe image creation was successful:'
-		print 'Image           : %s' % image
-		print 'Kernel          : %s' % kernel_dest
-		print 'Initrd          : %s' % initrd_dest
+		if bzip_image:
+			print 'Image (compressed): %s' % bzip_image
+		else:
+			print 'Image             : %s' % image
+		print 'Kernel            : %s' % kernel_dest
+		print 'Initrd            : %s' % initrd_dest
 		if config.get('Image', 'iso'):
-			print 'CDROM ISO Image : %s' % iso_dest
+			print 'CDROM ISO Image   : %s' % iso_dest
 
-	_cleanup(options, workingdir)
+	_cleanup(options, workingdir, logfile_fd)
+
+	logfile_fd.close()
 
 	sys.exit(exitcode)
 

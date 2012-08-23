@@ -8,8 +8,8 @@ Build-Depends: debhelper (>> 7)
 Package: ucc-image-toolkit
 Architecture: all
 Depends: ${misc:Depends}, ${python:Depends},
- debootstrap ( >= 1.0.39)
-Recommends: grub-common,
+ debootstrap ( >= 1.0.39),
+ grub-common,
  xorriso
 Provides: ${python:Provides}
 Description: Toolkit for creating UCC images

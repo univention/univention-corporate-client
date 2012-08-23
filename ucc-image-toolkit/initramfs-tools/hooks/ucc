@@ -1,0 +1,38 @@
+#!/bin/sh -e
+# initramfs hook for UCC
+
+PREREQ=""
+
+# Output pre-requisites
+prereqs()
+{
+        echo "$PREREQ"
+}
+
+case "$1" in
+    prereqs)
+        prereqs
+        exit 0
+        ;;
+esac
+
+
+. /usr/share/initramfs-tools/hook-functions
+
+copy_exec /sbin/parted /sbin
+copy_exec /sbin/partprobe /sbin
+copy_exec /sbin/mkfs.ext4 /sbin
+copy_exec /sbin/mkfs.ext3 /sbin
+copy_exec /sbin/mkfs.ext2 /sbin
+copy_exec /sbin/mkfs.vfat /sbin
+copy_exec /sbin/mke2fs /sbin
+copy_exec /sbin/mkswap /sbin
+copy_exec /usr/bin/bc /bin
+copy_exec /bin/bunzip2 /bin
+copy_exec /bin/bzcat /bin
+copy_exec /usr/bin/rsync /bin
+
+# DEBUG
+copy_exec /usr/bin/vi /bin
+cp -a /lib/terminfo/ $DESTDIR/lib/
+

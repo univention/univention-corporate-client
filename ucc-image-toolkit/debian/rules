@@ -30,6 +30,9 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
+override_dh_compress:
+	dh_compress -Xucc-desktop.cfg -Xucc-thinclient.cfg
+
 %:
 	dh $@
 
