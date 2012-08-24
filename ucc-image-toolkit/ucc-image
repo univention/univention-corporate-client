@@ -378,7 +378,7 @@ if __name__ == '__main__':
 			os.mkdir(cd_dir)
 
 			# Mark the medium as UCC device
-			fd = open(os.path.join(cd_dir, '.ucc'), 'w')
+			fd = open(os.path.join(cd_dir, 'ucc-config'), 'w')
 			fd.write('version=1.0\n')
 			image_name = config.get('Image', 'name', 'ucc-image.img')
 			if config.getboolean('Image', 'bzip_compressed', False):

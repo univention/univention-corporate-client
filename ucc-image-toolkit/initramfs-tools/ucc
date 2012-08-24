@@ -3,30 +3,32 @@
 ## To use this initramfs script the option boot=ucc must be given to the kernel
 ## command line. The followin values are supported:
 ##  - inst
-##		Perform an installation to the local harddisk. WARNING: local partitions
-##		will be deleted!
+##		Perform an installation to the local harddisk. WARNING: local
+##		partitions will be deleted!
 ##  - update
 ##		This will update the local installed UCC image.
 ##  - local
 ##		This boots an local installed UCC image.
 ##  - overlayfs
-##		This uses the image on the boot device as read only master image and use
-##		an overlay module.
+##		This uses the image on the boot device as read only master image and
+##		use	an overlay module.
 ##  - aufs
 ##		
 ## The following kernel commandline parameter are supported (/proc/cmdline):
 ##	- force_partition # TODO
-##		If force_partition is given, the auto partition will not ask again. This
-##		setting overwrites the value from the image.
+##		If force_partition is given, the auto partition will not ask again.
+##		This setting overwrites the value from the image.
 ##	- force_partition_timeout # TODO
 ##		Timeout in seconds for force_partitions.
 ##	- repartition # TODO
-##		By default the update will not re partition the devices. If repartition is given
-##		the harddsik will be partitioned before the update will be installed
+##		By default the update will not re partition the devices. If repartition
+##		is given the harddsik will be partitioned before the update will be
+##		installed
 ##	- root=<device>	# TODO
 ##		Specifies the root partition with the ucc image.
 ##	- image=<image>
-##		Specifies the UCC image. This parameter will overwrite the setting via .ucc file
+##		Specifies the UCC image. This parameter will overwrite the setting via
+##		ucc-config file
 
 ## Helper function to add /dev/ to a device name
 _add_dev()
@@ -294,7 +296,7 @@ _mount_local_boot_device ()
 
 		mount -t nfs -o nolock,ro $nfsroot /ucc_tmp/boot_medium
 
-		test -e /ucc_tmp/boot_medium/.ucc && . /ucc_tmp/boot_medium/.ucc
+		test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
 
 		if [ -n "$IMAGE" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
 			return 0
@@ -315,7 +317,7 @@ _mount_local_boot_device ()
 		if mount $mount_option /dev/$device /ucc_tmp/boot_medium; then
 
 			echo "Found UCC device: $device"
-			test -e /ucc_tmp/boot_medium/.ucc && . /ucc_tmp/boot_medium/.ucc
+			test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
 
 			if [ -n "$IMAGE" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
 				return 0
@@ -339,32 +341,33 @@ _update_local_image ()
 	mkdir -p /ucc_tmp/boot_medium
 
 	if _mount_local_boot_device; then
-		test -e /ucc_tmp/boot_medium/.ucc && . /ucc_tmp/boot_medium/.ucc
+		test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
 		for img in "$IMAGE" "$image"; do
-			if [ -e "/ucc_tmp/boot_medium/${img}" ]; then
+			if [ -n "$img" -a -e "/ucc_tmp/boot_medium/${img}" ]; then
 				echo "INFO: Copy UCC image to local harddsik: "
 				rsync --progress "/ucc_tmp/boot_medium/${image}" /ucc_tmp/root
-				if [ -e /ucc_tmp/boot_medium/.ucc ]; then
-					cp /ucc_tmp/boot_medium/.ucc /ucc_tmp/
+				if [ -e /ucc_tmp/boot_medium/ucc-config ]; then
+					cp /ucc_tmp/boot_medium/ucc-config /ucc_tmp/root/
 				else
-					echo "image=${img}" >/ucc_tmp/.ucc
+					echo "image=${img}" >/ucc_tmp/root/ucc-config
 				fi
 				break
 			fi
 		done
-		if [ ! -e /ucc_tmp/.ucc ]; then
-			echo "INFO: Did not found image defined in .ucc on $device. Given image name in .ucc is \"$image\"."
+		if [ ! -e /ucc_tmp/ucc-config ]; then
+			echo "INFO: Did not found image defined in ucc-config on $device. Given image name in ucc-config is \"$image\"."
 		fi
 		umount /ucc_tmp/boot_medium
 	fi
 
-	test -e /ucc_tmp/.ucc && . /ucc_tmp/.ucc
+	test -e /ucc_tmp/ucc-config && . /ucc_tmp/ucc-config
 
 	if [ -n "$image" ] && [ -e "/ucc_tmp/root/${image}" ]; then
 		mount -o loop "/ucc_tmp/root/${image}" /root/
 
 		mkdir -p /root/ucc_root
 		mount -o move /ucc_tmp/root /root/ucc_root
+		echo "image=${image}" >/root/ucc_root/ucc-config
 	fi
 }
 
@@ -460,16 +463,41 @@ _mount_local_root_device()
 {
 	local device
 
-	for device in $(cat /proc/partitions | grep -v ^major | awk '{print $4}'); do
+	cat /proc/partitions | grep -v ^major | awk '{print $1" "$2" "$4}' | while read major minor device; do
 		ID_FS_TYPE=""
 		mount_option=""
+
+		test -z "$device" && continue
+
 		eval "$(blkid -o udev /dev/$device)"
 		if [ -n "$ID_FS_TYPE" ]; then
 			mount_option="-t $ID_FS_TYPE"
 		fi
+
+		# include/linux/genhd.h: GENHD_FL_CD
+		if [ "$minor" = 0 ]; then
+			sys_path="/sys/block/${device}"
+		else
+			# get major device for sys ro path
+			major_device="$(awk '{if ($1=='$major' && $2==0) { print $4}}' /proc/partitions)"
+			sys_path="/sys/block/${major_device}/${device}"
+		fi
+		ro="$(cat ${sys_path}/ro)"
+		if [ "$ro" != 0 ]; then
+			# Skipping read-only device
+			continue
+		fi
+
+		# include/linux/genhd.h: GENHD_FL_CD
+		cap="$(cat ${sys_path}/capability)"
+		cap=$(echo "obase=10;ibase=16;${cap}" | bc)
+		if [ "$((cap & 8))" = 8 ]; then
+			# Skipping CD device
+			continue
+		fi
 		if mount $mount_option /dev/$device /ucc_tmp/root; then
 
-			test -e /ucc_tmp/root/.ucc && . /ucc_tmp/root/.ucc
+			test -e /ucc_tmp/root/ucc-config && . /ucc_tmp/root/ucc-config
 
 			if [ -n "$IMAGE" -a -e "/ucc_tmp/root/${IMAGE}" ]; then
 				ROOT="/dev/$device"
@@ -500,17 +528,17 @@ ucc_image_local()
 		mount ${ROOT} /ucc_tmp/root
 	fi
 
-	test -e /ucc_tmp/root/.ucc && . /ucc_tmp/root/.ucc
+	test -e /ucc_tmp/root/ucc-config && . /ucc_tmp/root/ucc-config
 
-	for img in "$IMAGE" "$img"; do
-		test -z "${img}" && continue
-		mount -o loop "/ucc_tmp/root/${img}" /root/
-		mount -o move /ucc_tmp/root /root/ucc_root
-		found_media="${img}"
-		break
+	for img in "$IMAGE" "$image"; do
+		if [ -n "${img}" -a -e "/ucc_tmp/root/${img}" ]; then
+			mount -o loop "/ucc_tmp/root/${img}" /root/
+			mount -o move /ucc_tmp/root /root/ucc_root
+			break
+		fi
 	done
 
-	if [ -z "$found_media" ]; then
+	if ! mount | grep -qs " on /root "; then
 		echo "ERROR: An UCC image was not found!"
 		panic "Dropping to a shell!"
 	fi
@@ -529,20 +557,18 @@ ucc_image_ro()
 		mkdir -p /ucc_tmp/root-ro
 		mkdir -p /ucc_tmp/root-rw
 		
-		test -e /ucc_tmp/boot_medium/.ucc && . /ucc_tmp/boot_medium/.ucc
+		test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
 
 		mount -t tmpfs tmpfs-root /ucc_tmp/root-rw
 
-		for img in "$IMAGE" "$img"; do
-			test -z "$img" && continue
-			if [ -e "/ucc_tmp/boot_medium/${img}" ]; then
+		for img in "$IMAGE" "$image"; do
+			if [ -n "${img}" -a -e "/ucc_tmp/boot_medium/${img}" ]; then
 				mount -o loop,ro,noload /ucc_tmp/boot_medium/${img} /ucc_tmp/root-ro
-				found_media="${img}"
 				break
 			fi
 		done
 
-		if [ -z "$found_media" ]; then
+		if ! mount | grep -qs " on /ucc_tmp/root-ro "; then
 			echo "ERROR: An UCC image was not found!"
 			panic "Dropping to a shell!"
 		fi
@@ -595,6 +621,8 @@ mountroot()
 			;;
 		esac
 	done
+
+	test -z "$ROOT" && ROOT="search"
 
 	export IMAGE
 

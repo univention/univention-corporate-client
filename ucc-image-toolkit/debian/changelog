@@ -1,3 +1,10 @@
+ucc-image-toolkit (0.9.1-8) precise; urgency=low
+
+  * Use ucc-config file instead of .ucc (Bug #28033)
+  * Update installation of an UCC image (Bug #28033)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 24 Aug 2012 09:32:18 +0200
+
 ucc-image-toolkit (0.9.1-7) precise; urgency=low
 
   * Improve the boot support (PXE, local boot, CDROM or USB boot)
