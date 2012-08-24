@@ -1,3 +1,0 @@
-ucc-image usr/sbin/
-example/* usr/share/doc/ucc-image-toolkit/example/
-initramfs-tools/* usr/share/ucc-image-toolkit/initramfs-tools/
