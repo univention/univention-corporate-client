@@ -16,6 +16,12 @@ Description[en]=The session script to be used for automatic logins (full path) (
 Type=str
 Categories=system-desktop
 
+[kdm/theme]
+Description[de]=Name des zu verwendenden KDM-Themes (absoluter Dateiname, z.B. usr/share/kde4/apps/kdm/themes/univention)
+Description[en]=Name of the KDM theme to use (absolute file path, e.g. usr/share/kde4/apps/kdm/themes/univention
+Type=str
+Categories=system-desktop
+
 
 
 

@@ -1,0 +1,42 @@
+# This is not really a .desktop file like the rest, but it is useful to treat
+# it as such
+
+[KdmGreeterTheme]
+Greeter=ucc.xml
+Name=UCC
+Name[ca]=UCC
+Name[ca@valencia]=UCC
+Name[cs]=UCC
+Name[da]=UCC
+Name[de]=UCC
+Name[es]=UCC
+Name[et]=UCC
+Name[fi]=UCC
+Name[fr]=UCC
+Name[hu]=UCC
+Name[ia]=UCC
+Name[it]=UCC
+Name[kk]=UCC
+Name[ko]=UCC
+Name[nb]=UCC
+Name[nds]=UCC
+Name[nl]=UCC
+Name[pl]=UCC
+Name[pt]=UCC
+Name[pt_BR]=UCC
+Name[ro]=UCC
+Name[sk]=UCC
+Name[sl]=UCC
+Name[sr]=UCC
+Name[sr@ijekavian]=UCC
+Name[sr@ijekavianlatin]=UCC
+Name[sr@latin]=UCC
+Name[sv]=UCC
+Name[tr]=UCC
+Name[uk]=UCC
+Name[x-test]=UCC
+Name[zh_TW]=AUCC
+
+Author=Univention GmbH
+Copyright=All rights reserved | packages@univention.de
+Screenshot=screenshot.png

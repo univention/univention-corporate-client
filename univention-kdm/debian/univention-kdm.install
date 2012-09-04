@@ -1,1 +1,2 @@
 sessions/firefox /etc/kde4/kdm/
+theme/*  /usr/share/kde4/apps/kdm/themes/ucc
