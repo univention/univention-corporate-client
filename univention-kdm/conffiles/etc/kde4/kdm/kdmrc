@@ -242,15 +242,6 @@ if configRegistry.is_true('kdm/autostart', False):
    print 'Session=' + configRegistry.get('kdm/autostart/user', '/etc/kde4/kdm/Xsession')
 else:
    print 'Session=/etc/kde4/kdm/Xsession'
-
-
-autologin = configRegistry.get('nscd/logfile')
-if logfile:
-        print '\tlogfile\t\t\t%s' % logfile
-
-
-
-
 @!@
 # The program to run if Session fails.
 # Default is "/usr/bin/xterm"
@@ -456,17 +447,17 @@ MaxShowUID=29999
 # "IfNoAuth" - grab if the display requires no X authorization
 # "Always" - always grab
 # Default is IfNoAuth
-# Needed to fix https://bugs.launchpad.net/ubuntu/+source/lightdm/+bug/972537
+# Needed to fix https://bugs.launchpad.net/ubuntu/+source/kde-workspace/+bug/641712
 GrabInput=Always
 # Hold the X-server grabbed the whole time the greeter is visible. This
 # may be more secure, but it will disable any background and other
 # X-clients started from the Setup script.
 # Default is false
-# Needed to fix https://bugs.launchpad.net/ubuntu/+source/lightdm/+bug/972537
+# Needed to fix https://bugs.launchpad.net/ubuntu/+source/kde-workspace/+bug/641712
 GrabServer=true
 # How many seconds to wait for grab to succeed.
 # Default is 3
-# Needed to fix https://bugs.launchpad.net/ubuntu/+source/lightdm/+bug/972537
+# Needed to fix https://bugs.launchpad.net/ubuntu/+source/kde-workspace/+bug/641712
 GrabTimeout=3
 # Warn, if display has no X-authorization (local auth cannot be created,
 # XDMCP display wants no auth, or display is foreign from StaticServers).
