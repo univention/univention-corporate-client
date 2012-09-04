@@ -1,0 +1,16 @@
+Source: univention-kdm
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper,
+ univention-config-dev,
+ ucslint
+
+Package: univention-kdm
+Architecture: all
+Depends: ${misc:Depends},
+ univention-base-files
+Description: UCS - KDM configuration
+ This package integrates the KDM login manager into 
+ Univention Corporate Client.

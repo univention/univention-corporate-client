@@ -1,0 +1,35 @@
+[gdm/theme]
+Description[de]=Name des zu verwendenden GDM-Theme
+Description[en]=Name of the GDM theme to use
+Type=str
+Categories=system-desktop
+
+[gdm/session/dir]
+Description[de]=Verzeichnis mit den verfügbaren Sitzungsbeschreibungen
+Description[en]=Directory with descriptions of available sessions
+Type=str
+Categories=system-desktop
+
+[gdm/session/default]
+Description[de]=Standard-GDM-Sitzungsskript
+Description[en]=Default GDM session script
+Type=str
+Categories=Desktop
+
+[gdm/theme]
+Description[de]=Name des zu verwendenden GDM-Theme
+Description[en]=Name of the GDM theme to use
+Type=str
+Categories=system-desktop
+
+[gdm/session/dir]
+Description[de]=Verzeichnis mit den verfügbaren Sitzungsbeschreibungen
+Description[en]=Directory with descriptions of available sessions
+Type=str
+Categories=system-desktop
+
+[gdm/session/default]
+Description[de]=Standard-GDM-Sitzungsskript
+Description[en]=Default GDM session script
+Type=str
+Categories=Desktop
