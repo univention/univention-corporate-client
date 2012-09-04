@@ -239,7 +239,7 @@ if configRegistry.is_true('kdm/autostart', False):
    print 'AutoLoginEnable=true'
    print 'AutoLoginAgain=true'
    print 'AutoLoginUser=' + configRegistry.get('kdm/autostart/user', 'autostart')
-   print 'Session=' + configRegistry.get('kdm/autostart/user', '/etc/kde4/kdm/Xsession')
+   print 'Session=' + configRegistry.get('kdm/autostart/session', '/etc/kde4/kdm/Xsession')
 else:
    print 'Session=/etc/kde4/kdm/Xsession'
 @!@
