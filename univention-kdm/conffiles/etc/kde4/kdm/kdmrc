@@ -222,13 +222,13 @@ Willing=/etc/kde4/kdm/Xwilling
 # A program to run before the greeter is shown. Can be used to start an
 # xconsole or an alternative background generator. Subject to word splitting.
 # Default is ""
-Setup=/etc/kde4/kdm/Xsetup
+Setup=/usr/bin/univention-run-kdm-sessions-xsetup
 # A program to run before a user session starts. Subject to word splitting.
 # Default is ""
-Startup=/etc/kde4/kdm/Xstartup
+Startup=/usr/bin/univention-run-kdm-sessions-xstartup
 # A program to run after a user session exits. Subject to word splitting.
 # Default is ""
-Reset=/etc/kde4/kdm/Xreset
+Reset=/usr/bin/univention-run-kdm-sessions-xreset
 # The program which is run as the user which logs in. It is supposed to
 # interpret the session argument (see SessionsDirs) and start an appropriate
 # session according to it. Subject to word splitting.

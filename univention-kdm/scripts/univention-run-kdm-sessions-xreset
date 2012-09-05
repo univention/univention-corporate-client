@@ -1,6 +1,5 @@
-#!/bin/sh
-#
-# Univention KDM -  postinst script
+#!/bin/sh 
+# Univention Corporate Client
 #
 # Copyright 2012 Univention GmbH
 #
@@ -29,18 +28,5 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-#DEBHELPER#
-
-eval "$(univention-config-registry shell)"
-
-adduser --system --home /tmp --shell "/bin/bash" --disabled-password autostart
-
-ln -s /usr/sbin/univention-ucc-fetch-user-policies /etc/kde4/kdm/sessions/xstartup/010_univention-ucc-fetch-user-policies
-ln -s /etc/kde4/kdm/Xstartup /etc/kde4/kdm/sessions/xstartup/030_Xstartup
-
-ln -s /etc/kde4/kdm/Xsetup /etc/kde4/kdm/sessions/xsetup/030_Xsetup
-
-ln -s /etc/kde4/kdm/Xreset /etc/kde4/kdm/sessions/xreset/030_Xreset
-
-
-exit 0
+run-parts /etc/kde4/kdm/sessions/xreset
+	  / 

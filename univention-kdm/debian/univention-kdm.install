@@ -1,3 +1,6 @@
 sessions/firefox /etc/kde4/kdm/
 theme/*  /usr/share/kde4/apps/kdm/themes/ucc
 scripts/univention-ucc-fetch-user-policies /usr/sbin
+scripts/univention-run-kdm-sessions-xreset /usr/bin
+scripts/univention-run-kdm-sessions-xsetup /usr/bin
+scripts/univention-run-kdm-sessions-xstartup /usr/bin

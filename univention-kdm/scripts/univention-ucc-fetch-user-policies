@@ -39,3 +39,6 @@ user_dn="$(ucs_convertUID2DN "$USER")"
 
 univention-policy-result -h "$ldap_server_name" -D "$ldap_hostdn" -y /etc/machine.secret "$user_dn" > /tmp/"$USER"-policy.txt
 
+# This is the file executed as standard
+
+. /etc/kde4/kdm/Xstartup
