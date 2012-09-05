@@ -1,4 +1,10 @@
 #! /bin/sh
+
+# Based on the Debian/Kubuntu script
+# The Debian packaging is © 2007-2010, Debian Qt/KDE Maintainers
+# <debian-qt-kde@lists.debian.org> and is licensed under the GPL, 
+# see `/usr/share/common-licenses/GPL'.
+
 # Xstartup - run as root before session starts
 
 PATH="$PATH:/usr/bin/X11"

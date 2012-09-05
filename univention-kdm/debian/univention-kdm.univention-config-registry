@@ -4,3 +4,6 @@ Variables: kdm/autostart
 Variables: kdm/autostart/user
 Variables: kdm/autostart/session
 Variables: kdm/theme
+
+Type: file
+File: etc/kde4/kdm/Xstartup
