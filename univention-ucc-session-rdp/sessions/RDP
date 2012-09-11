@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # UCC - RDP session script
 #
@@ -41,7 +41,7 @@ fi
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
-params=""
+params="--no-tls --no-nla"
 server=""
 
 #rdpKeyboard=`univention-keyboardmapping --xtordp $xorg_keyboard_options_XkbLayout`
@@ -82,14 +82,17 @@ server=""
 # 	params="$params -r $rdp_redirect"
 # fi
 
-if [ -n "$rdp_user" ]; then
-	params="$params -u $rdp_user"
-fi
+# if [ -n "$rdp_user" ]; then
+# 	params="$params -u $rdp_user"
+# fi
+
+policy_windows_ts=`grep -A 1 univentionCorporateClientUserWindowsTerminalserver /tmp/"$USER"-policy.txt  | grep Value | awk -F ":" '{print $2}' | sed -e 's/^[[:space:]]*//' `
 
 if [ -n "$rdp_server" ]; then
 	server="$rdp_server"
-elif [ -n "$univentionWindowsTerminalServer" ]; then
-	server="$univentionWindowsTerminalServer"
+elif [ -n "$policy_windows_ts" ]; then
+	server="$policy_windows_ts"
+	echo "$policy_windows_ts" > /tmp/s3
 else
 	messageFile=$(mktemp)
 	echo "
@@ -103,10 +106,7 @@ or by setting the UCR variable rdp/server via an UCR policy.
 	cleanup_and_exit
 fi
 
-while true
-do
-	eval xfreerdp $params $server
-done
+/usr/bin/xfreerdp "$params" "$server"
 
 cleanup_and_exit
 
