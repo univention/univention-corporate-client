@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # UCC - RDP session script
 #
@@ -35,8 +35,8 @@ function cleanup_and_exit {
 }
 
 if test -e /tmp/passwd; then
-	PASSWD=`cat /tmp/passwd | base64-decode`
-	export PASSWD
+    PASSWD=`cat /tmp/passwd | base64-decode`
+    export PASSWD
 fi
 
 eval "$(/usr/sbin/univention-config-registry shell)"
@@ -50,30 +50,6 @@ server=""
 # 	params="$params -k $rdpKeyboard"
 # fi
 
-# if [ -n "$rdp_colour_depth" ]; then
-# 	params="$params -a $rdp_colour_depth"
-# else
-# 	params="$params -a 16"
-# fi
-
-# if [ -n "$rdp_domainname" ]; then
-# 	params="$params -d $rdp_domainname"
-# elif [ -n "$univentionWindowsDomain" ]; then
-# 	params="$params -d $univentionWindowsDomain"
-# fi
-
-# if [ -n "$rdp_client" ]; then
-# 	params="$params -n $rdp_client"
-# else
-# 	params="$params -n $hostname"
-# fi
-
-# if [ -n "$rdp_geometry" ]; then
-# 	params="$params -g $rdp_geometry"
-# else
-# 	params="$params -f"
-# fi
-
 # if [ -n "$univentionSoundEnabled" -a "$univentionSoundEnabled" = "1" ] && [ -z "$rdp_alsa_disabled" ]; then
 # 	params="$params -r sound:local:alsa"
 # fi
@@ -82,18 +58,31 @@ server=""
 # 	params="$params -r $rdp_redirect"
 # fi
 
-# if [ -n "$rdp_user" ]; then
-# 	params="$params -u $rdp_user"
-# fi
+
+if [ -n "$rdp_user" ]; then
+    params="$params -u $rdp_user"
+else
+    params="$params -u $USER"
+fi
+
+if [ -n "$rdp_domainname" ]; then
+    params="$params -d $rdp_domainname"
+else
+    policy_windows_domain=`grep -A 1 univentionCorporateClientUserWindowsDomain /tmp/"$USER"-policy.txt  | grep Value | awk -F ":" '{print $2}' | sed -e 's/^[[:space:]]*//' `
+    params="$params -d $policy_windows_domain"
+fi
 
 policy_windows_ts=`grep -A 1 univentionCorporateClientUserWindowsTerminalserver /tmp/"$USER"-policy.txt  | grep Value | awk -F ":" '{print $2}' | sed -e 's/^[[:space:]]*//' `
 
+if [ -n "$policy_windows_ts" ]; then
+	server="$policy_windows_ts"
+fi
+
 if [ -n "$rdp_server" ]; then
 	server="$rdp_server"
-elif [ -n "$policy_windows_ts" ]; then
-	server="$policy_windows_ts"
-	echo "$policy_windows_ts" > /tmp/s3
-else
+fi
+
+if [ -z "$server" ]; then
 	messageFile=$(mktemp)
 	echo "
 No RDP server was found.
@@ -106,7 +95,12 @@ or by setting the UCR variable rdp/server via an UCR policy.
 	cleanup_and_exit
 fi
 
-/usr/bin/xfreerdp "$params" "$server"
+/usr/bin/xfreerdp $params $server
+ret=$?
+echo $ret > /tmp/4
+if [ $ret == 131 ]; then
+    xmessage "Could not contact terminal server" "$server"
+fi
 
 cleanup_and_exit
 
