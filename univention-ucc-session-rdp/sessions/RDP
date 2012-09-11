@@ -54,10 +54,9 @@ server=""
 # 	params="$params -r sound:local:alsa"
 # fi
 
-# if [ -n "$rdp_redirect" ]; then
-# 	params="$params -r $rdp_redirect"
-# fi
-
+if [ -n "$rdp_redirectdisk" -a "$rdp_redirectdisk" = "1" ]; then
+    params="$params --plugin rdpdr --data disk:local-drives:/var/drives"
+fi
 
 if [ -n "$rdp_user" ]; then
     params="$params -u $rdp_user"
@@ -95,9 +94,9 @@ or by setting the UCR variable rdp/server via an UCR policy.
 	cleanup_and_exit
 fi
 
-/usr/bin/xfreerdp $params $server
+/usr/bin/xfreerdp $params -- $server
 ret=$?
-echo $ret > /tmp/4
+
 if [ $ret == 131 ]; then
     xmessage "Could not contact terminal server" "$server"
 fi

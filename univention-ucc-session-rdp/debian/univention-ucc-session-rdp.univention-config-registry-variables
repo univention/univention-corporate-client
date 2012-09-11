@@ -4,9 +4,9 @@ Description[en]=RDP domainname
 Type=str
 Categories=system-desktop
 
-[rdp/redirect]
-Description[de]=Aktiviert die Hardware-Weiterleitung
-Description[en]=Enable device redirection
+[rdp/redirectdisk]
+Description[de]=Aktiviert die Weiterleitung des Verzeichnis /var/drives unter dem Namen local-drives
+Description[en]=Enable the redirection of the directories below /var/drives under the name local-drives
 Type=str
 Categories=system-desktop
 
