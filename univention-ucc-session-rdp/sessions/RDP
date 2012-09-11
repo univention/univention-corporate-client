@@ -1,0 +1,112 @@
+#!/bin/bash
+#
+# UCC - RDP session script
+#
+# Copyright (C) 2012 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# Binary versions of this file provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+function cleanup_and_exit {
+    if test -e /tmp/passwd; then
+	rm -rf /tmp/passwd
+    fi
+    exit
+}
+
+if test -e /tmp/passwd; then
+	PASSWD=`cat /tmp/passwd | base64-decode`
+	export PASSWD
+fi
+
+eval "$(/usr/sbin/univention-config-registry shell)"
+
+params=""
+server=""
+
+#rdpKeyboard=`univention-keyboardmapping --xtordp $xorg_keyboard_options_XkbLayout`
+
+# if [ -n "$rdpKeyboard" ]; then
+# 	params="$params -k $rdpKeyboard"
+# fi
+
+# if [ -n "$rdp_colour_depth" ]; then
+# 	params="$params -a $rdp_colour_depth"
+# else
+# 	params="$params -a 16"
+# fi
+
+# if [ -n "$rdp_domainname" ]; then
+# 	params="$params -d $rdp_domainname"
+# elif [ -n "$univentionWindowsDomain" ]; then
+# 	params="$params -d $univentionWindowsDomain"
+# fi
+
+# if [ -n "$rdp_client" ]; then
+# 	params="$params -n $rdp_client"
+# else
+# 	params="$params -n $hostname"
+# fi
+
+# if [ -n "$rdp_geometry" ]; then
+# 	params="$params -g $rdp_geometry"
+# else
+# 	params="$params -f"
+# fi
+
+# if [ -n "$univentionSoundEnabled" -a "$univentionSoundEnabled" = "1" ] && [ -z "$rdp_alsa_disabled" ]; then
+# 	params="$params -r sound:local:alsa"
+# fi
+
+# if [ -n "$rdp_redirect" ]; then
+# 	params="$params -r $rdp_redirect"
+# fi
+
+if [ -n "$rdp_user" ]; then
+	params="$params -u $rdp_user"
+fi
+
+if [ -n "$rdp_server" ]; then
+	server="$rdp_server"
+elif [ -n "$univentionWindowsTerminalServer" ]; then
+	server="$univentionWindowsTerminalServer"
+else
+	messageFile=$(mktemp)
+	echo "
+No RDP server was found.
+
+The RDP server can configured via the input field Windows
+terminal server in the UCC user session policy or by
+or by setting the UCR variable rdp/server via an UCR policy.
+" >>$messageFile
+	xmessage -file "$messageFile"
+	cleanup_and_exit
+fi
+
+while true
+do
+	eval xfreerdp $params $server
+done
+
+cleanup_and_exit
+

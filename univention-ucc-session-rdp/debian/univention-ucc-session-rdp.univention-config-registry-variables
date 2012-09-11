@@ -1,0 +1,48 @@
+[rdp/windowmanager/disabled]
+Description[de]=Deakiviert den Windowmanager beim Start vom RDP-Client
+Description[en]=Disable window manager while starting rdp client
+Type=str
+Categories=system-desktop
+
+[rdp/colour/depth]
+Description[de]=Farbtiefe der RDP-Sitzung
+Description[en]=Colour depth of RDP session
+Type=str
+Categories=system-desktop
+
+[rdp/domainname]
+Description[de]=RDP-Domänenname
+Description[en]=RDP domainname
+Type=str
+Categories=system-desktop
+
+[rdp/client]
+Description[de]=Client Name
+Description[en]=Client name
+Type=str
+Categories=system-desktop
+
+[rdp/geometry]
+Description[de]=Desktop Größe (BxH)
+Description[en]=Desktop geometry (WxH)
+Type=str
+Categories=system-desktop
+
+[rdp/redirect]
+Description[de]=Aktiviert die Hardware-Weiterleitung
+Description[en]=Enable device redirection
+Type=str
+Categories=system-desktop
+
+[rdp/user]
+Description[de]=RDP-Benutzername
+Description[en]=RDP Username
+Type=str
+Categories=system-desktop
+
+[rdp/server]
+Description[de]=Adresse des RDP-Server
+Description[en]=Address of the RDP server
+Type=str
+Categories=system-desktop
+

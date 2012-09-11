@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=RDP
+Comment=Login to a Windows terminal server via RDP
+Comment[de]=Anmeldung auf einem Windows Terminalserver über RDP
+Exec=/usr/share/xsessions/RDP
+Type=Xsession
+

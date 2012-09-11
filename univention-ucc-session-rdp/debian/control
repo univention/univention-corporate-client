@@ -1,0 +1,13 @@
+Source: univention-ucc-session-rdp
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Build-Depends: debhelper, univention-config-dev
+Standards-Version: 3.8.2
+
+Package: univention-ucc-session-rdp
+Architecture: all
+Depends: x11-utils, xfreerdp
+Description: UCC session script for RDP
+ This package provides the logon scripts to Windows terminal servers
+ over RDP.
