@@ -28,34 +28,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-configure: configure-stamp
-configure-stamp:
-	dh_testdir
-	touch configure-stamp
-
-build: configure-stamp
-	dh_testdir
-
-	cd src; ${MAKE}; cd -
-
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp configure-stamp
-
-	cd src; $(MAKE) clean; cd -
-	rm -f *~ univention-name-to-unicode
-
-	dh_clean
 
 S=$(CURDIR)/debian/univention-session
 C=$(CURDIR)/debian/univention-client-session
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k
-	dh_installdirs
 
 	install -d -m 0755 \
 		${C}/etc/gdm/Sessions \
@@ -69,42 +44,9 @@ install: build
 	install -m 4755 src/client-run $C/usr/bin/univention-client-run
 	install -m 4755 src/server $S/usr/bin/univention-session
 
-	install -m 755 demo-cleanup.sh $C/usr/share/univention-client-login/cleanup-demo.sh
-
 	install -m 0644 sessions/kill-process-by-display ${S}/usr/share/univention-client-login
 	install -m 0755 sessions/client_login.sh ${S}/usr/share/univention-client-login
 
 	install -m 0755 sessions/KDE.Session ${C}/etc/univention/
 	install -m 0755 sessions/KDE.Shutdown ${S}/usr/share/univention-client-login
 
-	install -m 0755 sessions/rdesktop.Session ${C}/etc/univention
-	install -m 0755 sessions/rdesktop.Shutdown ${S}/usr/share/univention-client-login
-
-	univention-thin-client-download-debs -d `pwd`/debian/univention-thin-client-login/var/lib/univention-client-root/thin-client-archive/login -p univention-client-session
-
-	univention-install-baseconfig
-
-binary-indep: build install
-
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installdocs
-	dh_installexamples
-	dh_installmenu
-	dh_installcron
-	dh_installman
-	dh_installinfo
-	dh_installchangelogs
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms -X usr/bin/univention-
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
