@@ -32,3 +32,4 @@ void send_command_fd ( char * buffer, int recv_fd, int send_fd );
 void send_command ( char * buffer );
 void recv_command_fd ( char * buffer, int buflen, int recv_fd, int send_fd );
 void recv_command ( char * buffer, int buflen );
+void init_server ( void );

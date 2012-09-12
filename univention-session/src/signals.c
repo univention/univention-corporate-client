@@ -65,7 +65,9 @@ void __block_signals ( void )
 
 void __unblock_signals ( void )
 {
+  /*
   sigset_t sigset;
+  */
 
   if ( (sig_block_count--) != 0 ) return;
   sigprocmask ( SIG_UNBLOCK, &block_mask, NULL );

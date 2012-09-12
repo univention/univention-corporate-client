@@ -76,7 +76,7 @@ int script_read_handler ( int fd )
 
   get_command_args ( buffer, p, MAX_CMD_ARGS );
 
-  if (debug_level && argv )
+  if (debug_level)
     {
       int i;
       debug_printf ( "args: ");

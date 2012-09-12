@@ -38,6 +38,7 @@
 #include <wait.h>
 #include <errno.h>
 #include <string.h>
+#include <fcntl.h>
 
 extern int errno;
 
@@ -69,23 +70,74 @@ int connection_read_handler ( int fd )
 	return 0;
 }
 
+/*
+ * Move file descriptor and mark as CLOSE-ON-EXEC.
+ */
+static int move_fd(int oldfd, int newfd) {
+	int flags;
+	int tmpfd;
+
+	if (oldfd != newfd)
+		tmpfd = dup2(oldfd, newfd);
+	else
+		tmpfd = newfd;
+	if (tmpfd != newfd)
+		fatal_perror("Error dup2 failed\n");
+	flags = fcntl(tmpfd, F_GETFD);
+	if (flags == -1)
+		fatal_perror("Error getting tmpfd status\n");
+	flags |= FD_CLOEXEC;
+	if (fcntl(tmpfd, F_SETFD, flags) == -1)
+		fatal_perror("Error setting tmpfd status\n");
+
+	return tmpfd;
+}
+
+/*
+ * Open /dev/null on fd in mode given by flags.
+ */
+static void open_dev_null(int fd, int flags) {
+	int tmpfd;
+
+	close(fd); /* ignore error if already closed. */
+	tmpfd = open("/dev/null", flags);
+	if (tmpfd < 0)
+		fatal_perror("Error opening /dev/null\n");
+	if (tmpfd != fd) {
+		int ret;
+
+		ret = dup2(tmpfd, fd);
+		if (ret < 0)
+			fatal_perror("Error dup2 failed\n");
+		ret = close(tmpfd);
+		if (ret < 0)
+			fatal_perror("Error closing fd\n");
+	}
+}
+
+/*
+ * Clone FDs for client<->server communication inherited from SESSION_RSH
+ * to private FDs and mark them as CLOSE-ON-EXEC.
+ * Re-open STDIN and STDOUT as /dev/null to protect channel from non-protocol
+ * data. STDERR uses a separate channel and needs not to be changed; keep it
+ * for debugging.
+ *
+ * FD 3 and 4 are used to not mix with STDIN=0, STDOUT=1 and STDERR=2.
+ * Don't use dup() after closing previous FDs with close()!
+ */
 void init_server_pipes ( void )
 {
-	/* FIXME: what is fd 3? maybe use dup() instead */
-	send_fd = dup2 ( STDOUT_FILENO, 3 );
-	if ( send_fd < 0 )
-		fatal_perror ( "dup failed" );
-	close ( STDOUT_FILENO );
+	send_fd = move_fd(STDOUT_FILENO, 3);
 	if ( debug_level )
 		debug_printf ( "to_client fd=%d\n", send_fd );
-	/* FIXME: see above */
-	recv_fd = dup2 ( STDIN_FILENO, 4);
-	if ( recv_fd < 0 )
-		fatal_perror ( "dup failed" );
-	close ( STDIN_FILENO );
+	open_dev_null(STDOUT_FILENO, O_WRONLY);
+
+	recv_fd = move_fd(STDIN_FILENO, 4);
 	add_read_fd ( recv_fd, connection_read_handler );
 	if ( debug_level )
 		debug_printf ( "from_client fd=%d\n", recv_fd );
+	open_dev_null(STDIN_FILENO, O_RDONLY);
+
 	return;
 }
 

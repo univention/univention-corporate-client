@@ -83,7 +83,7 @@ int command_socket_client_handler ( int fd )
 
   get_command_args ( buffer, p, MAX_CMD_ARGS );
 
-  if (debug_level && argv )
+  if (debug_level)
     {
       int i;
       debug_printf ( "args: ");
@@ -100,7 +100,7 @@ int command_socket_client_handler ( int fd )
 /* create a new connection */
 int command_socket_handler ( int fd )
 {
-  int len = sizeof ( sock_name );
+  socklen_t len = sizeof ( sock_name );
   int new_fd = accept ( sock_fd, (struct sockaddr*) &sock_name, &len );
   if (new_fd != -1) {
     add_read_fd ( new_fd, command_socket_client_handler );

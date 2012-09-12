@@ -42,4 +42,4 @@ install:	${PROGS}
 	install -m 755 client-run ${DESTDIR}/usr/bin/univention-client-run
 
 clean:
-	rm -f ${OBJS} ${OBJS} ${SRV_OBJS} ${CL_OBJS} {$CLR_OBJS} *~ ${PROGS} ${LIB} 
+	${RM} ${OBJS} ${OBJS} ${SRV_OBJS} ${CL_OBJS} ${CLR_OBJS} *~ ${PROGS} ${LIB}
