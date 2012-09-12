@@ -1,32 +1,11 @@
-Source: univention-thin-client-login
+Source: univention-session
 Section: univention
 Priority: optional
 Maintainer: Univention GmbH <packages@univention.de>
 Build-Depends: debhelper, univention-config-dev, libunivention-config-dev, libunivention-debug-dev
-Standards-Version: 3.6.2
+Standards-Version: 3.8.2
 
-Package: univention-thin-client-login
-Architecture: any
-Replaces: univention-client-login
-Conflicts: univention-client-login
-Depends: ${shlib:Depends}, univention-skel, univention-session
-Pre-Depends: univention-thin-client-basesystem
-Description: UCS - Session manager (meta package)
- Univention Session manages desktop sessions. It keeps
- track of processes started and terminates them when the
- session is over. Server and client exchange alive messages
- so that it can quickly be detect when either one becomes
- unavailable.
- .
- This meta package installs the server component and
- integrates the client part into the thin client environment.
- .
- This package is part of Univention Corporate Server (UCS),
- an integrated, directory driven solution for managing
- corporate environments. For more information about UCS,
- refer to: http://www.univention.de/
-
-Package: univention-session
+Package: univention-session-server
 Architecture: any
 Replaces: univention-client-login
 Conflicts: univention-client-login
@@ -38,12 +17,9 @@ Description: UCS - session manager (server part)
  so that it can quickly be detect when either one becomes
  unavailable.
  .
- This package is part of Univention Corporate Server (UCS),
- an integrated, directory driven solution for managing
- corporate environments. For more information about UCS,
- refer to: http://www.univention.de/
+ This package provides the server part.
 
-Package: univention-client-session
+Package: univention-session-client
 Architecture: any
 Depends: ${shlib:Depends}, rsh-client
 Description: UCS - session manager (client part)
@@ -53,7 +29,4 @@ Description: UCS - session manager (client part)
  so that it can quickly be detect when either one becomes
  unavailable.
  .
- This package is part of Univention Corporate Server (UCS),
- an integrated, directory driven solution for managing
- corporate environments. For more information about UCS,
- refer to: http://www.univention.de/
+ This package provides the client part.
