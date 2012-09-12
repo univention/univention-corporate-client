@@ -9,7 +9,7 @@ Package: univention-session-server
 Architecture: any
 Replaces: univention-client-login
 Conflicts: univention-client-login
-Depends: ${shlib:Depends}, univention-skel
+Depends: ${shlib:Depends}
 Description: UCS - session manager (server part)
  Univention Session manages desktop sessions. It keeps
  track of processes started and terminates them when the

@@ -26,20 +26,13 @@ ${LIB}: ${OBJS}
 	ar rcu ${LIB} ${OBJS}
 
 client:	${LIB} ${CL_OBJS}
-	$(CC) -o client ${CL_OBJS} ${LIB} $(LIBS) $(LDFLAGS)
+	$(CC) -o univention-session-client ${CL_OBJS} ${LIB} $(LIBS) $(LDFLAGS)
 
 server:	${LIB} ${SRV_OBJS}
-	$(CC) -o server ${SRV_OBJS} ${LIB} $(LIBS) $(LDFLAGS)
+	$(CC) -o univention-session-server ${SRV_OBJS} ${LIB} $(LIBS) $(LDFLAGS)
 
 client-run:	${LIB} ${CLR_OBJS}
-	$(CC) -o client-run ${CLR_OBJS} ${LIB} -lpthread $(LIBS) $(LDFLAGS)
-
-install:	${PROGS}
-	install -d ${DESTDIR}/usr/bin \
-		${DESTDIR}/var/lib/univention-client-root/bin/usr/bin
-	install -m 4755 server ${DESTDIR}/usr/bin/univention-session
-	install -m 4755 client ${DESTDIR}/var/lib/univention-client-root/usr/bin/univention-login
-	install -m 755 client-run ${DESTDIR}/usr/bin/univention-client-run
+	$(CC) -o univention-session-client-run ${CLR_OBJS} ${LIB} -lpthread $(LIBS) $(LDFLAGS)
 
 clean:
 	${RM} ${OBJS} ${OBJS} ${SRV_OBJS} ${CL_OBJS} ${CLR_OBJS} *~ ${PROGS} ${LIB}
