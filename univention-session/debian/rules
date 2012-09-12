@@ -40,13 +40,3 @@ C=$(CURDIR)/debian/univention-client-session
 		${S}/usr/bin/ \
 		${S}/usr/share/univention-client-login
 
-	install -m 4755 src/client $C/usr/bin/univention-client
-	install -m 4755 src/client-run $C/usr/bin/univention-client-run
-	install -m 4755 src/server $S/usr/bin/univention-session
-
-	install -m 0644 sessions/kill-process-by-display ${S}/usr/share/univention-client-login
-	install -m 0755 sessions/client_login.sh ${S}/usr/share/univention-client-login
-
-	install -m 0755 sessions/KDE.Session ${C}/etc/univention/
-	install -m 0755 sessions/KDE.Shutdown ${S}/usr/share/univention-client-login
-

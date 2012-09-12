@@ -1,0 +1,2 @@
+src/client /usr/bin/univention-session-client
+src/client-run /usr/bin/univention-session-client-run
