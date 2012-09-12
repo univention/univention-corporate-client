@@ -2,7 +2,7 @@ Source: univention-session
 Section: univention
 Priority: optional
 Maintainer: Univention GmbH <packages@univention.de>
-Build-Depends: debhelper, univention-config-dev, libunivention-config-dev, libunivention-debug-dev
+Build-Depends: debhelper, univention-config-dev, libunivention-config-dev, libunivention-debug-dev, ucslint
 Standards-Version: 3.8.2
 
 Package: univention-session-server
