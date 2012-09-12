@@ -28,15 +28,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+override_dh_auto_install:
+	univention-install-config-registry
+	univention-install-config-registry-info
+	dh_auto_install
 
-S=$(CURDIR)/debian/univention-session
-C=$(CURDIR)/debian/univention-client-session
+override_dh_auto_build:
+	ucslint
+	dh_auto_build
 
-	install -d -m 0755 \
-		${C}/etc/gdm/Sessions \
-		${C}/etc/univention/ \
-		${C}/usr/bin/ \
-		${C}/usr/share/univention-client-login \
-		${S}/usr/bin/ \
-		${S}/usr/share/univention-client-login
-
+%:
+	dh $@
