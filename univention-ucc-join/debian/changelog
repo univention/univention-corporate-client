@@ -1,0 +1,5 @@
+univention-ucc-join (1.0-1) unstable; urgency=low
+
+  * Initial release (Bug #28029)
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Mon, 17 Sep 2012 14:37:49 +0200
