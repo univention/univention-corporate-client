@@ -10,7 +10,6 @@ Build-Depends: debhelper,
 Package: univention-join
 Architecture: all
 Depends: ${misc:Depends},
- univention-directory-manager-tools,
  univention-config-registry,
  shell-univention-lib,
  univention-ssh,

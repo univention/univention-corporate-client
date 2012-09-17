@@ -371,7 +371,9 @@ check_ldap_tls_connection
 download_host_certificate
 
 # invalidate the nscd hosts cache
-nscd -i hosts
+if [ -x /usr/sbin/nscd ]; then
+	nscd -i hosts
+fi
 
 univention-config-registry set ldap/server/name="$DCNAME" >>/var/log/univention/join.log 2>&1
 univention-config-registry set ldap/server/port?7389 >>/var/log/univention/join.log 2>&1
@@ -382,7 +384,6 @@ set_kerberos_realm "$DCPWD" "$DCACCOUNT" "$DCNAME" "$REALM"
 cat /etc/ldap/ldap.conf  | sed -e "s|#.*||g" | grep -q TLS_CACERT || echo "TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem" >>/etc/ldap/ldap.conf
 
 touch /var/univention-join/joined
-ln -sf /var/univention-join/joined /usr/share/univention-join/.joined
 
 if [ -n "$REMOVE_PWD_FILE" -a -n "$DCPWD" ]; then
 	rm -f $DCPWD
