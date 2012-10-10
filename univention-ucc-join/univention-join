@@ -132,14 +132,14 @@ done
 echo -n "Insert hostname of client: "
 read HOSTNAME
 
-ucr set hostname="$HOSTNAME"
+ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
 
 if [ -z "$DOMAINNAME" ]; then
 	echo -n "Insert domain name of client: "
 	read DOMAINNAME
 fi
 
-ucr set domainname="$DOMAINNAME"
+ucr set domainname="$DOMAINNAME" >>/var/log/univention/join.log 2>&1
 
 if [ -z "$DCACCOUNT" ]; then
 	echo -n "Insert DC Master Account : "
