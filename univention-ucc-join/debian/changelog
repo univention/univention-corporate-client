@@ -1,3 +1,10 @@
+univention-ucc-join (1.0-2) unstable; urgency=low
+
+  * Bump version for 3.1
+  * Set hostname and domainname during join (Bug #28029)
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Wed, 10 Oct 2012 15:15:46 +0200
+
 univention-ucc-join (1.0-1) unstable; urgency=low
 
   * Initial release (Bug #28029)
