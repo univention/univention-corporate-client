@@ -1,0 +1,5 @@
+univention-ucc-pam (1.0.0-1) unstable; urgency=low
+
+  * Initial release (Bug #28509)
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Wed, 10 Oct 2012 14:30:10 +0200

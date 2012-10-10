@@ -1,0 +1,26 @@
+Source: univention-ucc-pam
+Section: univention
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper,
+ univention-config-dev,
+ ucslint
+
+Package: univention-ucc-pam
+Architecture: all
+Depends: ${misc:Depends},
+ univention-config-registry,
+ libpam-ldap,
+ libnss-ldap,
+ ldap-utils,
+ libpam-heimdal,
+ heimdal-clients,
+ nss-updatedb,
+ libnss-db,
+ libpam-ccreds,
+ nscd
+Description: UCC - PAM configuration and integration into UCS management system
+ This package contains the configuration for the pluggable
+ authentication modules (PAM) and the network name switch
+ modules (NSS). It allows for the authentication using flat
+ files, LDAP, Kerberos 5 and Windows NT Domains.
