@@ -15,6 +15,7 @@ Depends: ${misc:Depends},
  univention-ssh,
  tofrodos,
  ldap-utils,
- python-univention-lib
+ python-univention-lib,
+ auth-client-config
 Description: UCC - UCS domain join
  univention-join integrates an UCC client into a UCS domain.
