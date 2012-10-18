@@ -1,0 +1,15 @@
+Source: univention-upstart
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper,
+ univention-config-dev,
+ ucslint
+
+Package: univention-upstart
+Architecture: all
+Depends: ${misc:Depends}
+Description: Configuration files for Upstart service jobs
+ This package integrates configuration files for various
+ services managed through upstart. 
