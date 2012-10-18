@@ -1,0 +1,5 @@
+univention-corporate-client (1.0-1) unstable; urgency=low
+
+  * Initial release (Bug #28832)
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Thu, 18 Oct 2012 16:43:05 +0200

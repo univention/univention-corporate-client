@@ -1,0 +1,13 @@
+Source: univention-corporate-client
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper, ucslint
+
+Package: univention-corporate-client
+Architecture: all
+Depends: univention-config, python-univention-lib, univention-base-files, shell-univention-lib, univention-policy-tools, univention-join, univention-upstart
+Description: Metapackage for Univention Corporate Client
+ This package defines dependencies on the various packages
+ needed on a Univention Corporate Client system.
