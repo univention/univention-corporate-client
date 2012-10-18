@@ -1,3 +1,11 @@
+univention-ucc-pam (1.0.0-2) unstable; urgency=low
+
+  * Remove trailing whitespace lines, lead to parsing errors (Bug #28509)
+  * Add UCR template for nsswitch.conf, otherwise it gets overwritten by
+    the dependencies pulled in.	 
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Thu, 18 Oct 2012 14:02:06 +0200
+
 univention-ucc-pam (1.0.0-1) unstable; urgency=low
 
   * Initial release (Bug #28509)

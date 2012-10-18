@@ -12,12 +12,6 @@ Depends: ${misc:Depends},
  univention-config-registry,
  libpam-ldap,
  libnss-ldap,
- ldap-utils,
- libpam-heimdal,
- heimdal-clients,
- nss-updatedb,
- libnss-db,
- libpam-ccreds,
  nscd
 Description: UCC - PAM configuration and integration into UCS management system
  This package contains the configuration for the pluggable
