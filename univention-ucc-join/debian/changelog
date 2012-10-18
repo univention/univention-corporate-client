@@ -1,3 +1,9 @@
+univention-ucc-join (1.0-5) unstable; urgency=low
+
+  * Also set kerberos/kdc during join (Bug #28029) 
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Thu, 18 Oct 2012 15:26:26 +0200
+
 univention-ucc-join (1.0-4) unstable; urgency=low
 
   * Copy machine.secret to ldap.secret, needed by libnss-ldap (Bug #28029) 
