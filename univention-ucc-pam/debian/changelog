@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-3) unstable; urgency=low
+
+  * Register UCR variables properly (Bug #28509)
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Thu, 18 Oct 2012 14:30:27 +0200
+
 univention-ucc-pam (1.0.0-2) unstable; urgency=low
 
   * Remove trailing whitespace lines, lead to parsing errors (Bug #28509)
