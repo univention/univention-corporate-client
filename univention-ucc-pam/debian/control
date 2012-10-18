@@ -12,7 +12,8 @@ Depends: ${misc:Depends},
  univention-config-registry,
  libpam-ldap,
  libnss-ldap,
- nscd
+ nscd,
+ libpam-modules
 Description: UCC - PAM configuration and integration into UCS management system
  This package contains the configuration for the pluggable
  authentication modules (PAM) and the network name switch
