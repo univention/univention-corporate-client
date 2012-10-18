@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-5) unstable; urgency=low
+
+  * Don't make auth methods configurable for UCC (Bug #28509)
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Thu, 18 Oct 2012 14:44:50 +0200
+
 univention-ucc-pam (1.0.0-4) unstable; urgency=low
 
   * Fix ucslint test (Bug #28509)
