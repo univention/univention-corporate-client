@@ -13,3 +13,9 @@ Type: file
 File: etc/nsswitch.conf
 Variables: auth/methods
 Variables: nsswitch/ldap
+
+Type: file
+File: etc/krb5.conf
+Variables: kerberos/realm
+Variables: kerberos/kdc
+Variables: kerberos/adminserver
