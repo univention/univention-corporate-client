@@ -1,3 +1,9 @@
+univention-ucc-join (1.0-4) unstable; urgency=low
+
+  * Copy machine.secret to ldap.secret, needed by libnss-ldap (Bug #28029) 
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Thu, 18 Oct 2012 14:07:36 +0200
+
 univention-ucc-join (1.0-3) unstable; urgency=low
 
   * Depend on auth-client-config (Bug #28029) 

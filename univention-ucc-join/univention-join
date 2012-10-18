@@ -272,12 +272,7 @@ fi
 
 master_version="$(univention-ssh "$DCPWD" "$DCACCOUNT"@"$DCNAME" /usr/sbin/ucr search --brief ^version/version$ | sed -ne 's|^version/version: ||p')"
 
-if [ "${master_version:0:1}" -lt 3 ]; then
-	# UCS 2.x does not support the -binddn parameter
-	auth_cmd="-bindaccount \"$DCACCOUNT\" -bindpwfile \"$DCPWD\""
-else
-	auth_cmd="-binddn \"$binddn\" -bindpwfile \"$DCPWD\""
-fi
+auth_cmd="-binddn \"$binddn\" -bindpwfile \"$DCPWD\""
 
 # TODO: proper device handling including stuff like wlan0 etc.
 IP=`LANG=C /sbin/ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
@@ -312,6 +307,7 @@ if [ -n "$res" ]; then
 		echo -n "$pwd" >/etc/machine.secret
 		fromdos /etc/machine.secret
 		chmod 600 /etc/machine.secret
+		cp -a /etc/machine.secret /etc/ldap.secret
 		if [ -e /etc/machine.secret.SAVE ]; then
 		    chmod 600 /etc/machine.secret.SAVE
 		fi
