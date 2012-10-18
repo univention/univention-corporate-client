@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-7) unstable; urgency=low
+
+  * Fix names of debhelper files (Bug #28509)
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Thu, 18 Oct 2012 15:08:03 +0200
+
 univention-ucc-pam (1.0.0-6) unstable; urgency=low
 
   * Automatic creation of home directories during login (Bug #28509)
