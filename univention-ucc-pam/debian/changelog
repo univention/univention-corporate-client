@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-9) unstable; urgency=low
+
+  * Fix template (Bug #28509)
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Thu, 18 Oct 2012 15:36:33 +0200
+
 univention-ucc-pam (1.0.0-8) unstable; urgency=low
 
   * Integrate Kerberos (Bug #28509)
