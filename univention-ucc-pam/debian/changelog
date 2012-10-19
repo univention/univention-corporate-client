@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-11) unstable; urgency=low
+
+  * Register /etc/security/group (Bug #28509)
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Fri, 19 Oct 2012 09:28:37 +0200
+
 univention-ucc-pam (1.0.0-10) unstable; urgency=low
 
   * Fix indentation (Bug #28509)
