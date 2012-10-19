@@ -307,7 +307,7 @@ if [ -n "$res" ]; then
 		echo -n "$pwd" >/etc/machine.secret
 		fromdos /etc/machine.secret
 		chmod 600 /etc/machine.secret
-		cp -a /etc/machine.secret /etc/ldap.secret
+		ln -s /etc/machine.secret /etc/ldap.secret
 		if [ -e /etc/machine.secret.SAVE ]; then
 		    chmod 600 /etc/machine.secret.SAVE
 		fi

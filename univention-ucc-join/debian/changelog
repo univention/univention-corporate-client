@@ -1,7 +1,8 @@
 univention-ucc-join (1.0-6) unstable; urgency=low
 
   * ldap/master/port needs to be defined earlier (Bug #28029) 
-  * Add dependency on univention-ucc-pam	
+  * Add dependency on univention-ucc-pam
+  * Add a symlink rather than copying ldap.secret (Bug #28029) 
 
  -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Fri, 19 Oct 2012 12:20:43 +0200
 
