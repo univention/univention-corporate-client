@@ -7,7 +7,7 @@ Build-Depends: debhelper, ucslint
 
 Package: univention-corporate-client
 Architecture: all
-Depends: univention-config, python-univention-lib, univention-base-files, shell-univention-lib, univention-policy-tools, univention-join, univention-upstart
+Depends: univention-config, python-univention-lib, univention-base-files, shell-univention-lib, univention-policy-tools, univention-join, univention-upstart, univention-ucc-pam
 Description: Metapackage for Univention Corporate Client
  This package defines dependencies on the various packages
  needed on a Univention Corporate Client system.
