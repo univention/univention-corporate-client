@@ -10,7 +10,7 @@ Build-Depends: debhelper,
 Package: univention-kdm
 Architecture: all
 Depends: ${misc:Depends},
- univention-base-files, shell-univention-lib
+ univention-base-files, shell-univention-lib, kdm
 Description: UCS - KDM configuration
  This package integrates the KDM login manager into 
  Univention Corporate Client.
