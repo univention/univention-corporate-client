@@ -1,3 +1,10 @@
+univention-kdm (1.0-4) unstable; urgency=low
+
+  * If no autostart script is specified via kdm/autostart/session, run the
+    Firefox autostart script, not the regular logon script (Bug #28298)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 22 Oct 2012 14:30:24 +0200
+
 univention-kdm (1.0-3) unstable; urgency=low
 
   * Add a dependency on univention-policy-tools (Bug #28298)
