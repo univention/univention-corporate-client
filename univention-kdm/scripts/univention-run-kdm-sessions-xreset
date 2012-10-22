@@ -29,4 +29,3 @@
 # <http://www.gnu.org/licenses/>.
 
 run-parts /etc/kde4/kdm/sessions/xreset
-	  / 
