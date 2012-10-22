@@ -1,0 +1,16 @@
+Source: univention-lightdm
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper,
+ univention-config-dev,
+ ucslint
+
+Package: univention-lightdm
+Architecture: all
+Depends: ${misc:Depends},
+ univention-base-files, shell-univention-lib, lightdm, lightdm-gtk-greeter, univention-policy-tools
+Description: UCS - LightDM configuration
+ This package integrates the LightDM login manager into 
+ Univention Corporate Client.

@@ -1,0 +1,8 @@
+/usr/sbin
+/usr/bin
+/etc/kde4/kdm
+/usr/share/kde4/apps/kdm/themes/ucc
+/etc/lightdm/display-setup
+/etc/lightdm/greeter-setup
+/etc/lightdm/session-setup
+/etc/lightdm/session-cleanup

@@ -1,0 +1,6 @@
+sessions/firefox /usr/share/xsessions
+scripts/univention-ucc-fetch-user-policies /usr/sbin
+univention-run-lightdm-display-setup /usr/bin
+univention-run-lightdm-greeter-setup /usr/bin
+univention-run-lightdm-session-cleanup /usr/bin
+univention-run-lightdm-session-setup /usr/bin
