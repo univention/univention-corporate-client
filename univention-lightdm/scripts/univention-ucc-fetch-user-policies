@@ -42,3 +42,5 @@ univention-policy-result -h "$ldap_server_name" -D "$ldap_hostdn" -y /etc/machin
 # This is the file executed as standard
 
 . /etc/kde4/kdm/Xstartup
+
+/usr/bin/startlxde
