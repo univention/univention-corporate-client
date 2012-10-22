@@ -1,3 +1,9 @@
+univention-corporate-client (1.0-5) unstable; urgency=low
+
+  * Really commit .install file to SVN (Bug #28030)
+
+ -- Moritz Mühlenhoff <muehlenhoffunivention.de>  Mon, 22 Oct 2012 13:12:07 +0200
+
 univention-corporate-client (1.0-4) unstable; urgency=low
 
   * Update dirs file (Bug #28030)
