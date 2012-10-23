@@ -1,5 +1,6 @@
-#!/bin/bash 
-# Univention Corporate Client
+#!/bin/sh
+#
+# Univention lightdm -  postinst script
 #
 # Copyright 2012 Univention GmbH
 #
@@ -28,13 +29,12 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-# This script is during during session startup with root privileges to retrieve
-# the LDAP policies for the user logging in
+#DEBHELPER#
 
-. /usr/share/univention-lib/ldap.sh
+eval "$(univention-config-registry shell)"
 
-eval "$(/usr/sbin/univention-config-registry shell ldap/hostdn ldap/server/name)"
+adduser --system --home /tmp --shell "/bin/bash" --disabled-password autostart
 
-user_dn="$(ucs_convertUID2DN "$USER")"
+ln -s /usr/sbin/univention-ucc-fetch-user-policies /etc/lightdm/session-setup/010_univention-ucc-fetch-user-policies
 
-univention-policy-result -h "$ldap_server_name" -D "$ldap_hostdn" -y /etc/machine.secret "$user_dn" > /tmp/"$USER"-policy.txt
+exit 0

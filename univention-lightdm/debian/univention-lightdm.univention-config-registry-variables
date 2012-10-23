@@ -1,0 +1,31 @@
+[kdm/autostart]
+Description[de]=Aktiviert die automatische Anmeldung
+Description[en]=Activates automatic login at the display manager
+Type=bool
+Categories=system-desktop
+
+[kdm/autostart/user]
+Description[de]=Der Benutzer, mit dem die automatische Anmeldung am Login-Manager erfolgen soll (Standard: autostart)
+Description[en]=The user to be used for automatic login at the display manager (default: autostart)
+Type=str
+Categories=system-desktop
+
+[kdm/autostart/session]
+Description[de]=Das für die automatische Anmeldung zu verwendende Anmeldeskript (voller Pfad) (Standard: /etc/kde4/kdm/Xsession)
+Description[en]=The session script to be used for automatic logins (full path) (default: /etc/kde4/kdm/Xsession)
+Type=str
+Categories=system-desktop
+
+[kdm/theme]
+Description[de]=Name des zu verwendenden KDM-Themes (absoluter Dateiname, z.B. usr/share/kde4/apps/kdm/themes/univention)
+Description[en]=Name of the KDM theme to use (absolute file path, e.g. usr/share/kde4/apps/kdm/themes/univention
+Type=str
+Categories=system-desktop
+
+
+
+
+
+
+
+
