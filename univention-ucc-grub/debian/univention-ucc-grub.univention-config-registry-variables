@@ -1,0 +1,19 @@
+[grub/timeout]
+Description[de]=Wartezeit in Sekunden bevor der Standardkernel gebootet wird
+Description[en]=Timeout in seconds, before automatically booting the default entry
+Type=int
+Categories=system-base
+
+[grub/hidden/timeout]
+Description[de]=Die angegebene Zeit in Sekunden wird auf einen Tastendruck gewartet, bevor das Menü angezeigt wird. Wenn keine Taste gedrückt wurde, wird das Menü für grub/timeout-Sekunden angezeigt, bevor der Standard-Eintrag gestartet wird.
+Description[en]=Wait this many seconds for a key to be pressed before displaying the menu. If no key is pressed during that time, display the menu for the number of seconds specified in grub/timeout before booting the default entry.
+Type=int
+Categories=system-base
+
+[grub/append]
+Description[de]=Zu übergebende Optionen für den Linux-Kernel
+Description[en]=Options to be passed to the Linux kernel
+Type=str
+Categories=system-base
+
+

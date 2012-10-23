@@ -1,0 +1,7 @@
+Type: file
+File: etc/default/grub
+Postinst: grub-update.py
+Variables: grub/hidden/timeout
+Variables: grub/timeout
+Variables: grub/append
+Variables: boot/ucc
