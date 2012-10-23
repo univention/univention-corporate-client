@@ -29,6 +29,8 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
+. /usr/share/univention-lib/all.sh
+
 function cleanup_and_exit {
     if test -e /tmp/passwd; then
 	rm -rf /tmp/passwd
@@ -38,21 +40,35 @@ function cleanup_and_exit {
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
-params="--no-tls --no-nla"
-server=""
+params=""
+
+if [ -n "$rdp_checknla" -a "$rdp_checknla" = "yes" ]; then
+    echo "By default NLA validation is enabled"
+else
+    echo "Disabling NLA validation"
+    params="$params --no-nla"
+fi
+
+if [ -n "$rdp_checktls" -a "$rdp_checktls" = "yes" ]; then
+    echo "By default TLS validation is enabled"
+else
+    echo "Disabling TLS validation"
+    params="$params --no-tls"
+fi
+
 
 if test -e /tmp/passwd; then
     PASSWD=`cat /tmp/passwd`
     params="$params -p $PASSWD"
 fi
 
-#rdpKeyboard=`univention-keyboardmapping --xtordp $xorg_keyboard_options_XkbLayout`
+if [ -n "$rdp_keyboard" ]; then
+    params="$params -k $rdp_keyboard"
+else
+    rdpKeyboard=`univention-keyboardmapping --xtofreerdp $xorg_keyboard_options_XkbLayout`
+    params="$params -k $rdpKeyboard"
+fi
 
-# if [ -n "$rdpKeyboard" ]; then
-# 	params="$params -k $rdpKeyboard"
-# fi
-
-# TODO: https://forge.univention.org/bugzilla/show_bug.cgi?id=28466
 # if [ -n "$univentionSoundEnabled" -a "$univentionSoundEnabled" = "1" ] && [ -z "$rdp_alsa_disabled" ]; then
 # 	params="$params -r sound:local:alsa"
 # fi
@@ -76,6 +92,7 @@ fi
 
 policy_windows_ts=`grep -A 1 univentionCorporateClientUserWindowsTerminalserver /tmp/"$USER"-policy.txt  | grep Value | awk -F ":" '{print $2}' | sed -e 's/^[[:space:]]*//' `
 
+server=""
 if [ -n "$policy_windows_ts" ]; then
 	server="$policy_windows_ts"
 fi
@@ -104,6 +121,5 @@ if [ $ret == 131 ]; then
     xmessage "Could not contact terminal server" "$server"
 fi
 
-#TODO: Wieder aktivieren wenn univention-password-store integriert ist
 #cleanup_and_exit
 
