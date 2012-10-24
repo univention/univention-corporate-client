@@ -33,8 +33,8 @@
 
 eval "$(univention-config-registry shell)"
 
-adduser --system --home /tmp --shell "/bin/bash" --disabled-password autostart
-
-ln -s /usr/sbin/univention-ucc-fetch-user-policies /etc/lightdm/session-setup/010_univention-ucc-fetch-user-policies
+if [ ! -L /etc/lightdm/session-setup/010_univention-ucc-fetch-user-policies ]; then
+	ln -s /usr/sbin/univention-ucc-fetch-user-policies /etc/lightdm/session-setup/010_univention-ucc-fetch-user-policies
+fi
 
 exit 0

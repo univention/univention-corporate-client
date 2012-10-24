@@ -1,3 +1,9 @@
+univention-lightdm (1.0-2) unstable; urgency=low
+
+  * Fix autostart (Bug #28298)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 24 Oct 2012 10:02:58 +0200
+
 univention-lightdm (1.0-1) unstable; urgency=low
 
   * Initial release (Bug #28298)

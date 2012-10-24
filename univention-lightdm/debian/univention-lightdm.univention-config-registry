@@ -1,5 +1,4 @@
 Type: file
 File: etc/lightdm/lightdm.conf
 Variables: lightdm/autostart
-Variables: lightdm/autostart/user
 Variables: lightdm/autostart/session
