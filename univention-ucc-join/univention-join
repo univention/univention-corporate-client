@@ -41,7 +41,7 @@ eval "$(univention-config-registry shell)"
 REMOVE_PWD_FILE=""
 
 display_help() {
-echo "-hostname <name>:        Hostname"
+echo "-forced-hostname <name>:  Force a hostname, don't autogenerate"
 echo "-domainname <name>:      Domain name"
 echo "-dcaccount <account>:    name of DC master account"
 echo "-dcpwd <password file>:  file with DC master password"
@@ -92,9 +92,9 @@ check_ldap_tls_connection () {
 while [ $# -gt 0 ]
 do
 	case "$1" in
-		"-hostname")
+		"-forced-hostname")
 			shift
-			HOSTNAME="$1"
+			forcedhostname="$1"
 			shift
 			;;
 		"-domainname")
@@ -129,17 +129,35 @@ do
 	esac
 done
 
-echo -n "Insert hostname of client: "
-read HOSTNAME
 
-ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+    
 
-if [ -z "$DOMAINNAME" ]; then
+if  [ "$hostname" =  "$hostname_generated" ]; then
+    echo "Rejoining system, not generating a new hostname"
+else
+    if [ -z "$hostname_uccprefix" ]; then
+	hostname_uccprefix="ucc-"
+    fi	
+
+    rnd=$((RANDOM % 99999))
+    hostsuffix=`printf "%05d" "$rnd"`
+    HOSTNAME="$hostname_uccprefix$hostsuffix"
+
+    if [ -n "$forced_hostname" ]; then
+	HOSTNAME="$forced_hostname"
+    fi
+
+    ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+
+    if [ -z "$DOMAINNAME" ]; then
 	echo -n "Insert domain name of client: "
 	read DOMAINNAME
+    fi
+    
+    ucr set domainname="$DOMAINNAME" >>/var/log/univention/join.log 2>&1
+
 fi
 
-ucr set domainname="$DOMAINNAME" >>/var/log/univention/join.log 2>&1
 
 if [ -z "$DCACCOUNT" ]; then
 	echo -n "Insert DC Master Account : "
@@ -307,7 +325,11 @@ if [ -n "$res" ]; then
 		echo -n "$pwd" >/etc/machine.secret
 		fromdos /etc/machine.secret
 		chmod 600 /etc/machine.secret
-		ln -s /etc/machine.secret /etc/ldap.secret
+
+		if [ ! -e /etc/ldap.secret ]; then
+			ln -s /etc/machine.secret /etc/ldap.secret
+		fi
+
 		if [ -e /etc/machine.secret.SAVE ]; then
 		    chmod 600 /etc/machine.secret.SAVE
 		fi
@@ -382,6 +404,8 @@ univention-config-registry set kerberos/adminserver="$DCNAME" >>/var/log/univent
 univention-config-registry set kerberos/kdc="$DCNAME" >>/var/log/univention/join.log 2>&1
 set_kerberos_realm "$DCPWD" "$DCACCOUNT" "$DCNAME" "$REALM"
 cat /etc/ldap/ldap.conf  | sed -e "s|#.*||g" | grep -q TLS_CACERT || echo "TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem" >>/etc/ldap/ldap.conf
+
+ucr set hostname/generated="$HOSTNAME" >>/var/log/univention/join.log 2>&1
 
 touch /var/univention-join/joined
 
