@@ -1,3 +1,9 @@
+univention-lightdm (1.0-4) unstable; urgency=low
+
+  * Fix copy&paste error (Bug #28298)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 24 Oct 2012 12:22:25 +0200
+
 univention-lightdm (1.0-3) unstable; urgency=low
 
   * Depend on gconf, needed for creation of guest account (Bug #28298)
