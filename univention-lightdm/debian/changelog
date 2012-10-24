@@ -1,3 +1,10 @@
+univention-lightdm (1.0-3) unstable; urgency=low
+
+  * Depend on gconf, needed for creation of guest account (Bug #28298)
+  * Quit univention-ucc-fetch-user-policies script if not joined yet	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 24 Oct 2012 11:15:02 +0200
+
 univention-lightdm (1.0-2) unstable; urgency=low
 
   * Fix autostart (Bug #28298)

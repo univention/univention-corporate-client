@@ -35,6 +35,12 @@
 
 eval "$(/usr/sbin/univention-config-registry shell ldap/hostdn ldap/server/name)"
 
+if [ -z "$ldap_hostdn" ]; then
+    echo "System not joined yet, skipping policy retrieval"
+    echo 0
+fi
+
+
 user_dn="$(ucs_convertUID2DN "$USER")"
 
 univention-policy-result -h "$ldap_server_name" -D "$ldap_hostdn" -y /etc/machine.secret "$user_dn" > /tmp/"$USER"-policy.txt
