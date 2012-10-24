@@ -1,0 +1,13 @@
+Source: univention-ucc-session-firefox
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Build-Depends: debhelper, univention-config-dev, ucslint
+Standards-Version: 3.8.2
+
+Package: univention-ucc-session-firefox
+Architecture: all
+Depends: firefox, openbox
+Description: UCC session script for RDP
+ This package provides the logon scripts to automatically start 
+ a Firefox browser session.

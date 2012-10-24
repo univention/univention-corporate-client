@@ -1,0 +1,5 @@
+univention-ucc-session-firefox (1.0.0-1) unstable; urgency=low
+
+  * Initial Release. Bug #28298
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 24 Oct 2012 09:51:06 +0200

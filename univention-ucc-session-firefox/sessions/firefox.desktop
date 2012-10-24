@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Firefox
+Comment=Firefox browser session
+Comment[de]=Firefox Browser-Sitzung
+Exec=/usr/share/xsessions/firefox
+# Icon=
+Type=Application
