@@ -5,8 +5,8 @@ Type=bool
 Categories=system-desktop
 
 [lightdm/autostart/session]
-Description[de]=Das für die automatische Anmeldung zu verwendende Anmeldeskript (voller Pfad) (Standard: /etc/lightdm/sessions/firefox)
-Description[en]=The session script to be used for automatic logins (full path) (default: /etc/lightdm/sessions/firefox)
+Description[de]=Das für die automatische Anmeldung zu verwendende Anmeldeskript (Name der .deskop-Datei unter /usr/share/xsessions, Standard: LXDE)
+Description[en]=The session script to be used for automatic logins (Name of .deskop-Datei below /usr/share/xsessions, Standard: LXDE)
 Type=str
 Categories=system-desktop
 
