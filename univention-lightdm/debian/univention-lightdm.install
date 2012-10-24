@@ -1,4 +1,3 @@
-sessions/firefox /etc/lightdm/sessions
 scripts/univention-ucc-fetch-user-policies /usr/sbin
 univention-run-lightdm-display-setup /usr/bin
 univention-run-lightdm-greeter-setup /usr/bin
