@@ -56,6 +56,9 @@
 ##	- image=<image>
 ##		Specifies the UCC image. This parameter will overwrite the setting via
 ##		ucc-config file
+##	- share=<share>
+##		Specifies the share for the UCC image. This value can be set in the 
+##		Managementsystem
 ##	- net_dev=<network device>
 ##		For this interface is dhclient called during the boot (default is eth0)
 
@@ -448,20 +451,25 @@ ucc_installation()
 	fi
 
 	if [ "$continuation_prompt" != "false" ]; then
-		echo "$continuation_message"
+		echo -e "$continuation_message" | sed -e "s|@PARTITION_DEVICE@|$partition_device|g"
+
+		if [ -z "$continuation_dialog" -o -z "$continuation_dialog_no" -o -z "$continuation_dialog_yes" -o -z "$continuation_dialog_error" ]; then
+			echo "ERROR: continuation_dialog variables are not set."
+			panic "Dropping to a shell!"
+		fi
 
 		while true; do
-			echo -n "Do you want to continue? (yes|no) "
+			echo -ne "$continuation_dialog"
 			read answer
 			
-			if [ "$answer" = "no" ]; then
+			if [ "$answer" = "$continuation_dialog_no" ]; then
 				panic
 				break
-			elif [ "$answer" = "yes" ]; then
+			elif [ "$answer" = "$continuation_dialog_yes" ]; then
 				partition "$partition_device"
 				break
 			else
-				echo "Please insert yes or no"
+				echo -e "$continuation_dialog_error"
 			fi
 		done
 
@@ -660,6 +668,9 @@ mountroot()
 		image=*)
 			IMAGE=${x#image=}
 			;;
+		share=*)
+			SHARE=${x#share=}
+			;;
 		force_partition)
 			force_partition=true
 			;;
@@ -675,7 +686,7 @@ mountroot()
 	test -z "$ROOT" && ROOT="search"
 	test -z "$net_dev" && net_dev="eth0"
 
-	export IMAGE
+	export IMAGE SHARE
 
 	if [ "$UCC" = "inst" ]; then 
 		sleep 1 # Give udevadm one more second

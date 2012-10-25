@@ -1,2 +1,2 @@
-initramfs-tools/hooks/ucc /usr/share/initramfs-tools/hook
+initramfs-tools/hooks/ucc /usr/share/initramfs-tools/hooks
 initramfs-tools/scripts/ucc /usr/share/initramfs-tools/scripts
