@@ -1,0 +1,116 @@
+#!/usr/bin/python
+#
+# Univention Corporate Client
+#  helper script: register a file in persistent storage
+#
+# Copyright 2012 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# The source code of this program is made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this program provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use this program under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+
+import os, shutil, subprocess, sys
+from univention.config_registry import ConfigRegistry
+
+def usage():
+	print "Usage: univention-ucc-manage-persistent [file|ucr] [add|remove] [<filename>|<ucrvariable>]"
+	sys.exit(1)
+
+def generate_var(lst):
+	s = ""
+	for i in lst:
+		s = s + str(i) + ";"
+
+	if len(lst) > 0:
+		print s[:-1]
+		return s[:-1]
+	else:
+		return ""
+
+
+if len(sys.argv) != 4:
+	usage()
+
+type = sys.argv[1]
+mode = sys.argv[2]
+name = sys.argv[3]
+
+
+configRegistry = ConfigRegistry()
+configRegistry.load()
+
+if type == "file":
+	fvar = configRegistry.get("ucc/persistent/files", "")
+	files = fvar.split(";")
+
+	if mode == "add":
+		if not os.path.exists(name):
+			print "File does not exist, exit"
+			sys.exit(1)
+
+		if files.count(name) > 0:
+			print "File already present, quitting"
+			sys.exit(0)
+				
+		files.append(name)
+		subprocess.call('/usr/sbin/univention-config-registry set ucc/persistent/files="' + generate_var(files) + '"', shell=True) 
+
+	elif mode == "remove":
+		if files.count(name) == 0:
+			print "File not present, quitting"
+			sys.exit(0)
+
+		files.remove(name)
+		subprocess.call('/usr/sbin/univention-config-registry set ucc/persistent/files="' + generate_var(files) + '"', shell=True) 
+	else:
+		usage()
+
+elif type == "ucr":
+	uvar = configRegistry.get("ucc/persistent/ucr", "")
+	vars = uvar.split(";")
+
+	if mode == "add":
+		if vars.count(name) > 0:
+			print "Variable already present, quitting"
+			sys.exit(0)
+				
+		vars.append(name)
+		subprocess.call('/usr/sbin/univention-config-registry set ucc/persistent/ucr="' + generate_var(vars) + '"', shell=True) 
+
+	elif mode == "remove":
+		if vars.count(name) == 0:
+			print "Variable not present, quitting"
+			sys.exit(0)
+
+		vars.remove(name)
+		subprocess.call('/usr/sbin/univention-config-registry set ucc/persistent/ucr="' + generate_var(vars) + '"', shell=True) 
+	else:
+		usage()
+
+
+
+
+
+else:
+	usage()
