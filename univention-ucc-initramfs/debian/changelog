@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.0-3) precise; urgency=low
+
+  * Added install file (Bug #28037)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Thu, 25 Oct 2012 07:02:39 +0200
+
 univention-ucc-initramfs (1.0.0-2) precise; urgency=low
 
   * Added copyright block to initramfs scripts and hooks (Bug #28037)
