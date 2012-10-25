@@ -1,0 +1,666 @@
+## Root filesystem mounting and partitiong for UCC                    -*- shell-script -*-
+
+## To use this initramfs script the option boot=ucc must be given to the kernel
+## command line. The followin values are supported:
+##  - inst
+##		Perform an installation to the local harddisk. WARNING: local
+##		partitions will be deleted!
+##  - update
+##		This will update the local installed UCC image. If no partition has been
+##		found, it will be partitioned
+##  - local
+##		This boots an local installed UCC image.
+##  - overlayfs
+##		This uses the image on the boot device as read only master image and
+##		use	an overlay module.
+##  - aufs
+##		
+## The following kernel commandline parameter are supported (/proc/cmdline):
+##	- force_partition # TODO
+##		If force_partition is given, the auto partition will not ask again.
+##		This setting overwrites the value from the image.
+##	- force_partition_timeout # TODO
+##		Timeout in seconds for force_partitions.
+##	- root=<device>	# TODO
+##		Specifies the root partition with the ucc image.
+##	- image=<image>
+##		Specifies the UCC image. This parameter will overwrite the setting via
+##		ucc-config file
+##	- net_dev=<network device>
+##		For this interface is dhclient called during the boot (default is eth0)
+
+## Helper function to add /dev/ to a device name
+_add_dev()
+{
+	if echo "$1" | grep -sq ^/dev ; then
+		echo "$1"
+	 else
+		echo "/dev/$1"
+	 fi
+}
+
+## Helper function to read the environment variables
+_get_var()
+{
+	set | sed -ne "s|'$||;s|^${1}='||p"
+}
+
+
+## search_devices tries to search the harddsik
+search_device()
+{
+	local device
+
+	for device in $(cat /proc/partitions | grep -v ^major | awk '{print $4}'); do
+		if [ ! -d "/sys/block/${device}" ]; then
+			# Ignore partitions
+			continue
+		fi
+
+		# include/linux/genhd.h: GENHD_FL_CD
+		ro="$(cat /sys/block/${device}/ro)"
+		if [ "$ro" != 0 ]; then
+			# Skipping read-only device
+			continue
+		fi
+
+		# include/linux/genhd.h: GENHD_FL_CD
+		cap="$(cat /sys/block/${device}/capability)"
+		cap=$(echo "obase=10;ibase=16;${cap}" | bc)
+		if [ "$((cap & 8))" = 8 ]; then
+			# Skipping CD device
+			continue
+		fi
+
+		# ignore device mapper devices
+		if echo "${device}" | grep -sq ^"dm-" ; then
+			# Skipping device mapper devices
+			continue
+		fi
+
+		# check blacklist
+		if [ -n "$device_blacklist" ]; then
+			if echo "$device_blacklist" | grep -sqE "(^removable | removable | removable$|^removable$)" ; then
+				# Skipping removable devices
+				
+				removable="$(cat /sys/block/${device}/removable)"
+				if [ "$removable" = 1 ]; then
+					continue
+				fi
+			fi
+			if echo "$device_blacklist" | grep -sqE "(^${device} | ${device} | ${device}$|^${device}$)" ; then
+				continue
+			fi
+
+		fi
+		echo $device
+		break	# Use the first device
+	done
+}
+
+## Writes the fastab in the new installed system
+_write_fstab()
+{
+	if [ ! -e "/root/etc/fstab" ] || grep -qs "^# UNCONFIGURED FSTAB FOR BASE SYSTEM" /root/etc/fstab; then
+		cat >/root/etc/fstab <<__EOT__
+# "# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+proc            /proc           proc    nodev,noexec,nosuid 0       0
+__EOT__
+	fi
+
+	if [ -e "/ucc_tmp/fstab" ]; then
+		cat /ucc_tmp/fstab >>/root/etc/fstab
+	fi
+	
+}
+
+## This helper copies all files from the image to a new local partition
+_copy_files()
+{
+	local device
+
+	if [ -e "/ucc_tmp/copy_files" ]; then
+		BASE="/ucc_tmp/copy_files.d"
+		mkdir -p "${BASE}"
+
+		cat /ucc_tmp/copy_files | while read device fs mp; do
+			mkdir -p "${BASE}/${mp}"
+			mount -t "${fs}" "$device" "${BASE}/${mp}"
+			if [ -d "/root${mp}" ]; then
+				cp -a "/root/${mp}" "${BASE}/${mp%/*}/"
+			fi
+			umount "${BASE}/${mp}"
+		done
+	fi
+}
+
+## wrapper for the device search
+_search_device()
+{
+	local device="$1"
+
+	if [ "$device" = "auto" ]; then
+		device="$(search_device)"
+	elif [ -z "$device" ]; then
+		echo "ERROR: Missing \"device: \" in ucc image configuration."
+		return 1
+	# else -> Using pre-defined device
+	fi
+
+	echo "$(_add_dev $device)"
+
+	return 0
+}
+
+## Partition the harddsik
+partition()
+{
+
+	local partition_device="$1"
+
+	mkdir -p /ucc_tmp
+
+	# Read PT
+	pt="$(/sbin/parted -s ${partition_device} unit MB print)"
+	if echo "$pt" | grep -sq "unrecognised disk label"; then
+		echo "Partition table on ${partition_device} is empty."
+		echo "Creating GPT on ${partition_device}"
+		parted -s "${partition_device}" mklabel GPT
+	fi
+		
+	if [ -n "$remove_partitions" ]; then
+		for rp in $remove_partitions; do
+			if [ "$rp" = "auto" ]; then
+				echo "INFO: delete partition: auto determination"
+				# TODO
+				d_name="$(echo $partition_device | sed -e 's|/dev/||')"
+				for partition_path in $(ls -d /sys/block/${d_name}/${d_name}* 2>/dev/null); do
+					partition="$(basename $partition_path)"
+					partition_number="$(echo $partition | sed -e "s|${d_name}||")"
+					parted -s "${partition_device}" rm "$partition_number"
+				done
+			else
+				rp="$(_add_dev $rp)"
+				if echo "$rp" | grep -sq "^${partition_device}"; then
+					echo "INFO: delete partition: $rp"
+					number=$(echo $rp | sed -ne "s|^${partition_device}||p")
+					if [ -n "$number" ]; then
+						echo "INFO: delete partition: call parted -s ${partition_device} rm $number"
+						parted -s "${partition_device}" rm "$number"
+						
+					fi
+				else
+					echo "INFO: delete partition: ignore $rp"
+				fi
+			fi
+		done
+	fi
+
+	disk_size=$(/sbin/parted -s "${partition_device}" unit MB print | sed -ne "s|^Disk ${partition_device}: ||;s|MB$||p")
+	# Check 1024 partitons
+	if [ -z "$partition_start" ]; then
+		partition_start=1
+	fi
+	count=1
+
+	i=0
+	while [ $i -lt 1024 ]; do
+		name="$(_get_var partition${i}_name)"
+		if [ -n "$name" ];then
+			# SIZE and range calculation
+			size="$(_get_var partition${i}_size)"
+			if [ "$size" = "expand" ]; then
+				size="$((disk_size-partition_start))"
+			elif echo "$size" | grep -sq "\%$"; then
+				ssize="$(echo $size | sed -ne 's|%$||p')"
+				size="$((disk_size*ssize/100))"
+			fi
+			end_mb="$((partition_start+size))"
+
+			parted -s "${partition_device}" mkpart "$name" "$partition_start" "$end_mb"
+
+			partition_start="$end_mb"
+
+			partition_fs="$(_get_var partition${i}_fs)"
+			if [ -n "$partition_fs" ]; then
+				if [ -e "/sbin/mkfs.$partition_fs" ]; then
+					echo "Creating filesystem on ${partition_device}${count}"
+					eval "/sbin/mkfs.$partition_fs" "${partition_device}${count}" > /dev/null 2>&1
+				elif [ "$partition_fs" = "swap" ]; then
+					/sbin/mkswap "${partition_device}${count}" > /dev/null 2>&1
+				elif [ "$partition_fs" = "efi" ]; then
+					parted -s "${partition_device}" set ${count} bios_grub on > /dev/null 2>&1
+				fi
+			fi
+			
+			partition_flags="$(_get_var partition${i}_flags)"
+			if [ -n "$partition_flags" ]; then
+				for flag in $partition_flags; do
+					parted -s "${partition_device}" set ${count} ${flag} on
+				done
+			fi
+
+			image_mount="$(_get_var partition${i}_image_mount)"
+			mountpoint="$(_get_var partition${i}_mountpoint)"
+			if [ "$mountpoint" = "/" ]; then
+				mkdir /ucc_tmp/root
+				mount -t $partition_fs "${partition_device}${count}" /ucc_tmp/root
+				echo "/dev/loop0	/	$partition_fs	errors=remount-ro	0	1" >>/ucc_tmp/fstab
+
+			elif [ "$image_mount" = "true" ]; then
+				# mount these partitions later
+				mkdir -p "/root/$mountpoint"
+				TYPE=""
+				UUID=""
+				eval "$(blkid -o udev ${partition_device}${count})"
+				if [ -n "$ID_FS_UUID" ]; then
+					D="UUID=$ID_FS_UUID"
+				else
+					D="${partition_device}${count}"
+				fi
+				if [ "$partition_fs" = "swap" ]; then
+					echo "$D	none	swap	sw	0	0" >>/ucc_tmp/fstab
+				else
+					echo "$D	$mountpoint	$partition_fs	defaults	0	2" >>/ucc_tmp/fstab
+				fi
+				
+			fi
+			copy_files="$(_get_var partition${i}_copy_files)"
+			if [ "$copy_files" = "true" ]; then
+				echo "${partition_device}${count} $partition_fs $mountpoint" >>ucc_tmp/copy_files
+			fi
+			count=$((count+1))
+		fi
+		i=$((i+1))
+	done
+
+}
+
+## Search and mount the local boot device such as CDROM or USB stick. In case
+## of a network boot, the network will be activated and the NFS root is mounted
+_mount_local_boot_device ()
+{
+	mkdir -p /ucc_tmp/boot_medium
+
+	if [ -n "$nfsroot" ]; then
+		# cleanup DEVICE, it will be used in the configure_networing function
+		DEVICE=""
+		configure_networking
+
+		mount -t nfs -o nolock,ro $nfsroot /ucc_tmp/boot_medium
+
+		test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
+
+		if [ -n "$IMAGE" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
+			return 0
+		elif [ -n "${image}" -a -e "/ucc_tmp/boot_medium/${image}" ]; then
+			return 0
+		else
+			umount /ucc_tmp/boot_medium
+		fi
+	fi
+
+	for device in $(cat /proc/partitions | grep -v ^major | awk '{print $4}'); do
+		ID_FS_TYPE=""
+		mount_option=""
+		eval "$(blkid -o udev /dev/$device)"
+		if [ -n "$ID_FS_TYPE" ]; then
+			mount_option="-t $ID_FS_TYPE"
+		fi
+		if mount $mount_option /dev/$device /ucc_tmp/boot_medium; then
+
+			echo "Found UCC device: $device"
+			test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
+
+			if [ -n "$IMAGE" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
+				return 0
+			elif [ -n "${image}" -a -e "/ucc_tmp/boot_medium/${image}" ]; then
+				return 0
+			else
+				umount /ucc_tmp/boot_medium
+			fi
+		fi
+	done
+
+	# Not found
+	return 1
+}
+
+## Copy the UCC image to the local disk
+_update_local_image ()
+{
+	local device
+
+	mkdir -p /ucc_tmp/boot_medium
+
+	if _mount_local_boot_device; then
+		test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
+		for img in "$IMAGE" "$image"; do
+			if [ -n "$img" -a -e "/ucc_tmp/boot_medium/${img}" ]; then
+				echo "INFO: Copy UCC image to local harddsik: "
+				rsync --progress "/ucc_tmp/boot_medium/${image}" /ucc_tmp/root
+				if [ -e /ucc_tmp/boot_medium/ucc-config ]; then
+					cp /ucc_tmp/boot_medium/ucc-config /ucc_tmp/root/
+				else
+					echo "image=${img}" >/ucc_tmp/root/ucc-config
+				fi
+				break
+			fi
+		done
+		if [ ! -e /ucc_tmp/ucc-config ]; then
+			echo "INFO: Did not find image defined in ucc-config on $device. Given image name in ucc-config is \"$image\"."
+		fi
+		umount /ucc_tmp/boot_medium
+	fi
+
+	test -e /ucc_tmp/ucc-config && . /ucc_tmp/ucc-config
+
+	if [ -n "$image" ] && [ -e "/ucc_tmp/root/${image}" ]; then
+		mount -o loop "/ucc_tmp/root/${image}" /root/
+
+		mkdir -p /root/ucc_root
+		mount -o move /ucc_tmp/root /root/ucc_root
+		echo "image=${image}" >/root/ucc_root/ucc-config
+	fi
+}
+
+## Install grub in the chroot. This is much easier than
+## copy the whole grub stuff into the ramdisk and make grub
+## compatible with busybox
+_install_grub ()
+{
+	local device="$1"
+
+	for d in dev sys proc; do
+		mount -o move /${d} /root/${d}
+	done
+
+	echo "#!bin/sh" >>/root/grub-inst.sh
+	if grep -qs "/boot" /root/etc/fstab; then
+		echo "mount /boot" >>/root/grub-inst.sh
+	fi
+	echo "update-grub >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
+	echo "grub-install $device >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
+	if grep -qs "/boot" /root/etc/fstab; then
+		echo "umount /boot" >>/root/grub-inst.sh
+	fi
+
+	chmod +x /root/grub-inst.sh
+	chroot root ./grub-inst.sh
+	rm /root/grub-inst.sh
+
+	for d in dev sys proc; do
+		mount -o move /root/${d} /${d}
+	done
+		
+}
+
+## Ask if the partiton should be done and start the post installation
+## configuration
+ucc_installation()
+{
+	local partition_device
+
+	clear
+
+	test -e /scripts/ucc-config/partition_info && . /scripts/ucc-config/partition_info
+
+	partition_device="$(_search_device ${device})"
+	if [ $? != 0 ]; then
+		echo "ERROR: Failed to search device."
+		panic "Dropping to a shell!"
+	fi
+
+	if [ "$continuation_prompt" != "false" ]; then
+		echo "$continuation_message"
+
+		while true; do
+			echo -n "Do you want to continue? (yes|no) "
+			read answer
+			
+			if [ "$answer" = "no" ]; then
+				panic
+				break
+			elif [ "$answer" = "yes" ]; then
+				partition "$partition_device"
+				break
+			else
+				echo "Please insert yes or no"
+			fi
+		done
+
+	else
+		echo "Starting partitioning in 30 seconds. Press CTRL-C to abort."
+		sleep 30
+		partition "$partition_device"
+	fi
+
+	# Search image
+	_update_local_image
+	
+	# Write fstab
+	_write_fstab
+
+	# Copy files from image to local partitions
+	_copy_files
+
+	echo "Install grub"
+	# Install grub
+	_install_grub "$partition_device"
+}
+
+## Update the local UCC image
+ucc_update()
+{
+	local net_dev="$1"
+
+	mkdir -p /ucc_tmp/root
+
+	if [ "${ROOT}" = "search" ]; then
+		if ! _mount_local_root_device; then
+			echo "A local root device has not been found. Switch to the installation mode!"
+			ucc_installation
+			return
+		fi
+	else
+		mount ${ROOT} /ucc_tmp/root
+	fi
+
+	# Bring up the network
+	ifconfig "$net_dev" up
+	udhcpc -s /etc/udhcpc/default.script -i "$net_dev"
+
+	_update_local_image
+}
+
+_mount_local_root_device()
+{
+	local device
+
+	cat /proc/partitions | grep -v ^major | awk '{print $1" "$2" "$4}' | while read major minor device; do
+		ID_FS_TYPE=""
+		mount_option=""
+
+		test -z "$device" && continue
+
+		eval "$(blkid -o udev /dev/$device)"
+		if [ -n "$ID_FS_TYPE" ]; then
+			mount_option="-t $ID_FS_TYPE"
+		fi
+
+		# include/linux/genhd.h: GENHD_FL_CD
+		if [ "$minor" = 0 ]; then
+			sys_path="/sys/block/${device}"
+		else
+			# get major device for sys ro path
+			major_device="$(awk '{if ($1=='$major' && $2==0) { print $4}}' /proc/partitions)"
+			sys_path="/sys/block/${major_device}/${device}"
+		fi
+		ro="$(cat ${sys_path}/ro)"
+		if [ "$ro" != 0 ]; then
+			# Skipping read-only device
+			continue
+		fi
+
+		# include/linux/genhd.h: GENHD_FL_CD
+		cap="$(cat ${sys_path}/capability)"
+		cap=$(echo "obase=10;ibase=16;${cap}" | bc)
+		if [ "$((cap & 8))" = 8 ]; then
+			# Skipping CD device
+			continue
+		fi
+		if mount $mount_option /dev/$device /ucc_tmp/root; then
+
+			test -e /ucc_tmp/root/ucc-config && . /ucc_tmp/root/ucc-config
+
+			if [ -n "$IMAGE" -a -e "/ucc_tmp/root/${IMAGE}" ]; then
+				ROOT="/dev/$device"
+				return 0
+			elif [ -n "${image}" -a -e "/ucc_tmp/root/${image}" ]; then
+				ROOT="/dev/$device"
+				return 0
+			else
+				umount /ucc_tmp/root
+			fi
+		fi
+	done
+
+}
+
+## Boot into the local UCC image
+ucc_image_local()
+{
+	# TODO: cleanup
+	mkdir -p /ucc_tmp/root
+
+	if [ "${ROOT}" = "search" ]; then
+		if ! _mount_local_root_device; then
+			echo "ERROR: local root device was not found. Try kernel commandline argument root=</dev/...>"
+			panic "Dropping to a shell!"
+		fi
+	else
+		mount ${ROOT} /ucc_tmp/root
+	fi
+
+	test -e /ucc_tmp/root/ucc-config && . /ucc_tmp/root/ucc-config
+
+	for img in "$IMAGE" "$image"; do
+		if [ -n "${img}" -a -e "/ucc_tmp/root/${img}" ]; then
+			mount -o loop "/ucc_tmp/root/${img}" /root/
+			mount -o move /ucc_tmp/root /root/ucc_root
+			break
+		fi
+	done
+
+	if ! mount | grep -qs " on /root "; then
+		echo "ERROR: An UCC image was not found!"
+		panic "Dropping to a shell!"
+	fi
+}
+
+ucc_image_ro()
+{
+	local device
+
+	mode="$1" # overlayfs or aufs
+
+	if _mount_local_boot_device; then
+
+		modprobe "$mode"
+
+		mkdir -p /ucc_tmp/root-ro
+		mkdir -p /ucc_tmp/root-rw
+		
+		test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
+
+		mount -t tmpfs tmpfs-root /ucc_tmp/root-rw
+
+		for img in "$IMAGE" "$image"; do
+			if [ -n "${img}" -a -e "/ucc_tmp/boot_medium/${img}" ]; then
+				mount -o loop,ro,noload /ucc_tmp/boot_medium/${img} /ucc_tmp/root-ro
+				break
+			fi
+		done
+
+		if ! mount | grep -qs " on /ucc_tmp/root-ro "; then
+			echo "ERROR: An UCC image was not found!"
+			panic "Dropping to a shell!"
+		fi
+			
+		if [ "$mode" = "aufs" ]; then
+			mount -t aufs -o dirs=/ucc_tmp/root-rw:/ucc_tmp/root-ro=ro aufs /root
+		else
+			mount -t overlayfs -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/root-rw overlayfs-root /root/
+		fi
+
+		mkdir -p /root/root-rw /root/root-ro /root/root-boot_medium
+		mount -o move /ucc_tmp/root-rw /root/root-rw
+		mount -o move /ucc_tmp/root-ro /root/root-ro
+		mount -o move /ucc_tmp/boot_medium /root/root-boot_medium
+	else
+		echo "ERROR: A local boot device was not found."
+		panic "Dropping to a shell!"
+	fi
+	
+}
+
+mountroot()
+{
+	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-top"
+	run_scripts /scripts/local-top
+	[ "$quiet" != "y" ] && log_end_msg
+
+	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-premount"
+	run_scripts /scripts/local-premount
+	[ "$quiet" != "y" ] && log_end_msg
+
+	udevadm settle # wait for udev
+
+	for x in $(cat /proc/cmdline); do
+		case $x in
+		ucc=*)
+			UCC=${x#ucc=}
+			;;
+		image=*)
+			IMAGE=${x#image=}
+			;;
+		force_partition)
+			force_partition=true
+			;;
+		force_partition_timeout=*)
+			force_partition_timeout=${x#force_partition_timeout=}
+			;;
+		net_dev)
+			net_dev={x#net_dev=}
+			;;
+		esac
+	done
+
+	test -z "$ROOT" && ROOT="search"
+	test -z "$net_dev" && net_dev="eth0"
+
+	export IMAGE
+
+	if [ "$UCC" = "inst" ]; then 
+		sleep 1 # Give udevadm one more second
+		ucc_installation
+	elif [ "$UCC" = "update" ]; then
+		ucc_update "$net_dev"
+	elif [ "$UCC" = "local" ]; then
+		ucc_image_local
+	elif [ "$UCC" = "overlayfs" ]; then
+		ucc_image_ro overlayfs
+	elif [ "$UCC" = "aufs" ]; then
+		ucc_image_ro aufs
+	else
+		echo "ERROR: Missing ucc=<bootmode> in /proc/cmdline."
+		panic "Dropping to a shell!"
+	fi
+
+}

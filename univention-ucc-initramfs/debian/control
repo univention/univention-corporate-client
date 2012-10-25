@@ -1,0 +1,23 @@
+Source: univention-ucc-initramfs
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper,
+ univention-config-dev,
+ ucslint
+
+Package: univention-ucc-initramfs
+Architecture: all
+Depends: ${misc:Depends},
+ udhcpc,
+ parted,
+ rsync
+Description: UCS - meta package for the initramfs configuration
+ This package contains the configuration for the initramfs configuration.
+ .
+ This package is part of Univention Corporate Server (UCS),
+ an integrated, directory driven solution for managing
+ corporate environments. For more information about UCS,
+ refer to: http://www.univention.de/
+

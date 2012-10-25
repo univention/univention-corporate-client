@@ -1,3 +1,9 @@
+univention-corporate-client (1.0-6) unstable; urgency=low
+
+  * Added univention-ucc-initramfs to the dependency list (Bug #28033)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Thu, 25 Oct 2012 06:22:59 +0200
+
 univention-corporate-client (1.0-5) unstable; urgency=low
 
   * Really commit .install file to SVN (Bug #28030)
