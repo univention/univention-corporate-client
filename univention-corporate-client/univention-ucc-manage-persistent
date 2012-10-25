@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 #
 # Univention Corporate Client
 #  helper script: register a file in persistent storage
