@@ -1,3 +1,9 @@
+univention-corporate-client (1.0-6.1) unstable; urgency=low
+
+  * Manage persistent files (Bug #28033)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 25 Oct 2012 12:33:58 +0200
+
 univention-corporate-client (1.0-6) unstable; urgency=low
 
   * Added univention-ucc-initramfs to the dependency list (Bug #28033)

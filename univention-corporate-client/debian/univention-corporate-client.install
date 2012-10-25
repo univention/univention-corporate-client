@@ -1,1 +1,3 @@
 univention-ldap-server-available usr/sbin
+univention-ucc-manage-persistent usr/sbin
+univention-ucc-sync-persistent-files usr/sbin
