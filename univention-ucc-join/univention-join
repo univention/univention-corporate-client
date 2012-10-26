@@ -94,7 +94,7 @@ do
 	case "$1" in
 		"-forced-hostname")
 			shift
-			forcedhostname="$1"
+			forced_hostname="$1"
 			shift
 			;;
 		"-domainname")
@@ -129,11 +129,16 @@ do
 	esac
 done
 
-
-    
+   
 
 if  [ "$hostname" =  "$hostname_generated" ]; then
-    echo "Rejoining system, not generating a new hostname"
+
+    if [ -n "$forced_hostname" ]; then
+	HOSTNAME="$forced_hostname"
+    else
+	echo "Rejoining system, not generating a new hostname"
+    fi
+
 else
     if [ -z "$hostname_uccprefix" ]; then
 	hostname_uccprefix="ucc-"
@@ -251,7 +256,7 @@ fi
 
 if [ -z "$LDAPBASE" ]; then
 	echo -n "Search ldap/base"
-	ldap_base="$(univention-ssh "$DCPWD" "$DCACCOUNT"@"$DCNAME" /usr/sbin/ucr search --brief ^ldap/base$ | sed -ne 's|^ldap/base: ||p')"
+	ldap_base="$(univention-ssh "$DCPWD" "$DCACCOUNT"@"$DCNAME" /usr/sbin/ucr search --brief ^ldap/base$ | sed -ne 's|^ldap/base: ||p')" >>/var/log/univention/join.log 2>&1
 	
 else
 	ldap_base="$LDAPBASE"
@@ -393,9 +398,17 @@ mkdir -p /etc/univention/ssl/ucsCA
 
 univention-scp $DCPWD "-r $DCACCOUNT@$DCNAME:/etc/univention/ssl/ucsCA/CAcert.pem /etc/univention/ssl/ucsCA/" >>/var/log/univention/join.log 2>&1
 
-chmod 755 /etc/univention/ssl
-chmod 755 /etc/univention/ssl/ucsCA
-chmod 644 /etc/univention/ssl/ucsCA/CAcert.pem
+if [ -e "/etc/univention/ssl" ]; then
+	chmod 755 /etc/univention/ssl
+fi
+
+if [ -e "/etc/univention/ssl/ucsCA" ]; then
+	chmod 755 /etc/univention/ssl/ucsCA
+fi
+
+if [ -e "/etc/univention/ssl/ucsCA/CAcert.pem" ]; then
+	chmod 644 /etc/univention/ssl/ucsCA/CAcert.pem
+fi
 
 univention-config-registry set ldap/master/port?7389 >>/var/log/univention/join.log 2>&1
 
@@ -416,7 +429,13 @@ univention-config-registry set kerberos/kdc="$DCNAME" >>/var/log/univention/join
 set_kerberos_realm "$DCPWD" "$DCACCOUNT" "$DCNAME" "$REALM"
 cat /etc/ldap/ldap.conf  | sed -e "s|#.*||g" | grep -q TLS_CACERT || echo "TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem" >>/etc/ldap/ldap.conf
 
-ucr set hostname/generated="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+if [ -z "$forced_hostname" ]; then
+    ucr set hostname/generated="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+    univention-ucc-manage-persistent ucr add hostname/generated >>/var/log/univention/join.log 2>&1
+else
+    ucr unset hostname/generated >>/var/log/univention/join.log 2>&1
+    univention-ucc-manage-persistent ucr remove hostname/generated >>/var/log/univention/join.log 2>&1
+fi
 
 touch /var/univention-join/joined
 
@@ -437,7 +456,6 @@ univention-ucc-manage-persistent ucr add ldap/server/name >>/var/log/univention/
 univention-ucc-manage-persistent ucr add ldap/master >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent ucr add kerberos/adminserver >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent ucr add kerberos/kdc >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent ucr add hostname/generated >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent ucr add ldap/hostdn >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent ucr add kerberos/realm >>/var/log/univention/join.log 2>&1
 
