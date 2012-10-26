@@ -1,3 +1,10 @@
+univention-ucc-join (1.0-8) unstable; urgency=low
+
+  * Incremented generated hostname if already present in management system
+    (Bug #28090)	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 26 Oct 2012 12:31:41 +0200
+
 univention-ucc-join (1.0-7) unstable; urgency=low
 
   * If no join account name is specified, use the Administrator account

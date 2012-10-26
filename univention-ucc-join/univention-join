@@ -143,12 +143,19 @@ else
     hostsuffix=`printf "%05d" "$rnd"`
     HOSTNAME="$hostname_uccprefix$hostsuffix"
 
+    exists=`univention-ldapsearch "(&(uid="$HOSTNAME"$)(objectClass=univentionCorporateClient))" | grep  ^dn`
+    while [ -n "$exists" ]; do
+	# Host already exists, incrementing host suffix plus 1
+	hostsuffix=$((hostsuffix+1))
+	HOSTNAME="$hostname_uccprefix$hostsuffix"
+	exists=`univention-ldapsearch "(&(uid="$HOSTNAME"$)(objectClass=univentionCorporateClient))" | grep  ^dn`
+    done
+
     if [ -n "$forced_hostname" ]; then
 	HOSTNAME="$forced_hostname"
     fi
 
 	echo "Initial join of this UCC system, using hostname $HOSTNAME"
-
     ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
 fi
 
