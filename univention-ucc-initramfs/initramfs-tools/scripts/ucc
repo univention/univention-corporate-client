@@ -358,6 +358,29 @@ _mount_local_boot_device ()
 	return 1
 }
 
+
+_sync_to_persistent ()
+{
+	local img="$1"
+	mount -o loop "$img" /root/
+	mkdir -p /root/ucc_root
+	mount -o move /ucc_tmp/root /root/ucc_root
+	chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-persistent
+	mount -o move /root/ucc_root /ucc_tmp/root
+	umount /root
+	
+}
+
+_sync_from_persistent ()
+{
+	local img="$1"
+	mount -o loop "$img" /root/
+	mount -o move /ucc_tmp/root /root/ucc_root
+	chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-ucc
+	mount -o move /root/ucc_root /ucc_tmp/root
+	umount /root
+}
+
 ## Copy the UCC image to the local disk
 _update_local_image ()
 {
@@ -368,11 +391,27 @@ _update_local_image ()
 	if _mount_local_boot_device; then
 		if [ -n "${IMAGE}" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
 			if ! test -e "/ucc_tmp/root/local_image.md5" || ! diff "/ucc_tmp/root/local_image.md5" "/ucc_tmp/boot_medium/${IMAGE}.md5">/dev/null ; then
+				if [ -e /ucc_tmp/root/local_image ]; then
+					old_image="$(cat /ucc_tmp/root/local_image)"
+
+					if [ -e "/ucc_tmp/root/$old_image" ]; then
+						_sync_to_persistent "/ucc_tmp/root/$old_image"
+						touch /ucc_tmp/root/ucc_sync_back_from_persistent
+					fi
+				fi
+
+				# Move the image to the new name
+				mv "/ucc_tmp/root/$old_image" "/ucc_tmp/root/${IMAGE}"
+
 				# a local images does not exists
 				echo "INFO: Copy UCC image to local harddsik: "
 				rsync --progress "/ucc_tmp/boot_medium/${IMAGE}" /ucc_tmp/root
 				echo "${IMAGE}" >/ucc_tmp/root/local_image
 				cp "/ucc_tmp/boot_medium/${IMAGE}.md5" /ucc_tmp/root/local_image.md5
+				if [ -e "/ucc_tmp/root/ucc_sync_back_from_persistent" ]; then
+					_sync_from_persistent "/ucc_tmp/root/${IMAGE}"
+					rm "/ucc_tmp/root/ucc_sync_back_from_persistent"
+				fi
 			else
 				echo "INFO: Do not copy the UCC image to local harddsik. The image was not updated."
 			fi
