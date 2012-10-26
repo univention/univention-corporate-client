@@ -1,3 +1,12 @@
+univention-ucc-join (1.0-10) unstable; urgency=low
+
+  * Set current nameserver to UCR if no nameserver is set via UCR
+    (Bug #28080)
+  * Suggest a domainname during the join
+  * Fixed tabs / spaces
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 26 Oct 2012 22:04:42 +0200
+
 univention-ucc-join (1.0-9) unstable; urgency=low
 
   * Redirect log output

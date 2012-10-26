@@ -42,8 +42,8 @@ REMOVE_PWD_FILE=""
 
 display_help() {
 echo "-forced-hostname <name>:  Force a hostname, don't autogenerate"
-echo "-domainname <name>:      Domain name"
-echo "-dcaccount <account>:    name of DC master account"
+echo "-domainname <name>:	  Domain name"
+echo "-dcaccount <account>:	name of DC master account"
 echo "-dcpwd <password file>:  file with DC master password"
 echo "-ldapbase <ldap base>:   LDAP Base DN, e.g. dc=test,dc=local"
 echo "-realm <kerberos realm>: Kerberos realm, e.g. TEST.LOCAL"
@@ -52,7 +52,7 @@ echo "-realm <kerberos realm>: Kerberos realm, e.g. TEST.LOCAL"
 
 
 failed_message () {
-	echo "* Join failed!                                                           *"
+	echo "* Join failed!														   *"
 	echo "**************************************************************************"
 	echo "* Message:  $@"
 	echo "**************************************************************************"
@@ -133,43 +133,56 @@ done
 
 if  [ "$hostname" =  "$hostname_generated" ]; then
 
-    if [ -n "$forced_hostname" ]; then
-	HOSTNAME="$forced_hostname"
-    else
-	echo "Rejoining system, not generating a new hostname"
-    fi
+	if [ -n "$forced_hostname" ]; then
+		HOSTNAME="$forced_hostname"
+	else
+		echo "Rejoining system, not generating a new hostname"
+	fi
 
 else
-    if [ -z "$hostname_uccprefix" ]; then
-	hostname_uccprefix="ucc-"
-    fi	
+	if [ -z "$hostname_uccprefix" ]; then
+		hostname_uccprefix="ucc-"
+	fi	
 
-    rnd=$((RANDOM % 99999))
-    hostsuffix=`printf "%05d" "$rnd"`
-    HOSTNAME="$hostname_uccprefix$hostsuffix"
-
-    exists=`univention-ldapsearch "(&(uid="$HOSTNAME"$)(objectClass=univentionCorporateClient))" | grep  ^dn`
-    while [ -n "$exists" ]; do
-	# Host already exists, incrementing host suffix plus 1
-	hostsuffix=$((hostsuffix+1))
+	rnd=$((RANDOM % 99999))
+	hostsuffix=`printf "%05d" "$rnd"`
 	HOSTNAME="$hostname_uccprefix$hostsuffix"
-	exists=`univention-ldapsearch "(&(uid="$HOSTNAME"$)(objectClass=univentionCorporateClient))" | grep  ^dn`
-    done
 
-    if [ -n "$forced_hostname" ]; then
+	exists=`univention-ldapsearch "(&(uid="$HOSTNAME"$)(objectClass=univentionCorporateClient))" | grep  ^dn`
+	while [ -n "$exists" ]; do
+		# Host already exists, incrementing host suffix plus 1
+		hostsuffix=$((hostsuffix+1))
+		HOSTNAME="$hostname_uccprefix$hostsuffix"
+		exists=`univention-ldapsearch "(&(uid="$HOSTNAME"$)(objectClass=univentionCorporateClient))" | grep  ^dn`
+	done
+
+	if [ -n "$forced_hostname" ]; then
 	HOSTNAME="$forced_hostname"
-    fi
+	fi
 
 	echo "Initial join of this UCC system, using hostname $HOSTNAME"
-    ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+	ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
 fi
 
+# Save the current domain in $testdomain
+testdomain="$(cat /etc/resolv.conf  | sed -ne 's|^domain\t*||p')"
+
+# If the nameserver was only set via dhcp, the ucr set domainname command will
+# overwrite the /etc/resolv.conf.
+# So, let's check if the nameserver variables are empty and set them to the nameserver
+# values from the current /etc/resolv.conf
+cat /etc/resolv.conf | sed -ne 's|^nameserver ||p' | while read ns; do
+	test -z "$(ucr get nameserver1)" && ucr set nameserver1="$ns" >>/var/log/univention/join.log 2>&1 && continue
+	test -z "$(ucr get nameserver2)" && ucr set nameserver2="$ns" >>/var/log/univention/join.log 2>&1 && continue
+	test -z "$(ucr get nameserver3)" && ucr set nameserver3="$ns" >>/var/log/univention/join.log 2>&1 && continue
+done
 
 if [ -z "$DOMAINNAME" ]; then
-echo -n "Insert domain name of client: "
-read DOMAINNAME
+	echo -n "Insert domain name of client [$testdomain]: "
+	read DOMAINNAME
+	test -z "$DOMAINNAME" && DOMAINNAME="$testdomain"
 fi
-    
+
 ucr set domainname="$DOMAINNAME" >>/var/log/univention/join.log 2>&1
 
 
@@ -318,7 +331,7 @@ IP=`LANG=C /sbin/ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '
 NETMASK=`LANG=C /sbin/ifconfig eth0 | grep "inet addr" | awk -F: '{print $3}'  | awk '{print $1}'`
 
 if [ -n "$IP" ]; then
-    ip_cmd="-ip $IP -netmask $NETMASK"
+	ip_cmd="-ip $IP -netmask $NETMASK"
 fi
 
 echo -n "Join Computer Account: "
@@ -327,7 +340,7 @@ res=`univention-ssh $DCPWD $DCACCOUNT@$DCNAME /usr/share/univention-join/univent
 univention-ssh $DCPWD $DCACCOUNT@$DCNAME "rm $DCPWD" >>/var/log/univention/join.log 2>&1
 res_message=`echo "$res" | sed -n '/^E:/ { s/^E:\s*// p }'`
 if [ -z "$res_message" ]; then
-    echo -e "\033[60Gdone"
+	echo -e "\033[60Gdone"
 fi
 
 if [ -n "$res" ]; then
@@ -352,7 +365,7 @@ if [ -n "$res" ]; then
 		fi
 
 		if [ -e /etc/machine.secret.SAVE ]; then
-		    chmod 600 /etc/machine.secret.SAVE
+			chmod 600 /etc/machine.secret.SAVE
 		fi
 	else
 		if [ -n "$res_message" ]; then
@@ -430,11 +443,11 @@ set_kerberos_realm "$DCPWD" "$DCACCOUNT" "$DCNAME" "$REALM"
 cat /etc/ldap/ldap.conf  | sed -e "s|#.*||g" | grep -q TLS_CACERT || echo "TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem" >>/etc/ldap/ldap.conf
 
 if [ -z "$forced_hostname" ]; then
-    ucr set hostname/generated="$HOSTNAME" >>/var/log/univention/join.log 2>&1
-    univention-ucc-manage-persistent ucr add hostname/generated >>/var/log/univention/join.log 2>&1
+	ucr set hostname/generated="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+	univention-ucc-manage-persistent ucr add hostname/generated >>/var/log/univention/join.log 2>&1
 else
-    ucr unset hostname/generated >>/var/log/univention/join.log 2>&1
-    univention-ucc-manage-persistent ucr remove hostname/generated >>/var/log/univention/join.log 2>&1
+	ucr unset hostname/generated >>/var/log/univention/join.log 2>&1
+	univention-ucc-manage-persistent ucr remove hostname/generated >>/var/log/univention/join.log 2>&1
 fi
 
 touch /var/univention-join/joined
