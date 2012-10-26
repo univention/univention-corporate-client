@@ -147,22 +147,31 @@ else
 	HOSTNAME="$forced_hostname"
     fi
 
+	echo "Initial join of this UCC system, using hostname $HOSTNAME"
+
     ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
-
-    if [ -z "$DOMAINNAME" ]; then
-	echo -n "Insert domain name of client: "
-	read DOMAINNAME
-    fi
-    
-    ucr set domainname="$DOMAINNAME" >>/var/log/univention/join.log 2>&1
-
 fi
+
+
+if [ -z "$DOMAINNAME" ]; then
+echo -n "Insert domain name of client: "
+read DOMAINNAME
+fi
+    
+ucr set domainname="$DOMAINNAME" >>/var/log/univention/join.log 2>&1
+
 
 
 if [ -z "$DCACCOUNT" ]; then
-	echo -n "Insert DC Master Account : "
+	echo -n "Insert DC Master Account [Administrator] : "
 	read DCACCOUNT
 fi
+
+if [ -z "$DCACCOUNT" ]; then
+	DCACCOUNT=Administrator
+fi
+
+
 if [ -z "$DCPWD" ]; then
 	echo -n "Insert DC Master Password: "
 	read -s password
@@ -200,7 +209,7 @@ if [ -z "$DCNAME" ]; then
 fi
 
 if [ -z "$DCNAME" ]; then
-	failed_message "missing dns service record for _domaincontroller_master._tcp.$DOMAINNAME"
+	failed_message "missing dns service record for _domaincontroller_master._tcp.$DOMAINNAME. Please verify whether the 'nameserver entry' /etc/resolv.conf points to a UCS DNS server"
 fi
 
 
@@ -371,17 +380,12 @@ set_kerberos_realm ()
 		fi
 	fi
 	univention-config-registry set kerberos/realm="$realm" >>/var/log/univention/join.log 2>&1
-
 }
 
 mkdir -p /etc/univention/ssl/ucsCA
 
 univention-scp $DCPWD "-r $DCACCOUNT@$DCNAME:/etc/univention/ssl/ucsCA/CAcert.pem /etc/univention/ssl/ucsCA/" >>/var/log/univention/join.log 2>&1
-if [ ! -e /etc/univention/ssl/ucsCA/CAcert.pem ]; then
-	univention-scp $DCPWD "-r $DCACCOUNT@$DCNAME:/etc/univention/ssl/udsCA/CAcert.pem /etc/univention/ssl/ucsCA/" >>/var/log/univention/join.log 2>&1
-fi
 
-# prevent join from failing if umask is modified (Bug #21587)
 chmod 755 /etc/univention/ssl
 chmod 755 /etc/univention/ssl/ucsCA
 chmod 644 /etc/univention/ssl/ucsCA/CAcert.pem
@@ -419,5 +423,33 @@ fi
 
 # Activate ldap in nsswitch
 auth-client-config -t nss -p lac_ldap
+
+ucr set lightdm/autostart=no >>/var/log/univention/join.log 2>&1
+
+univention-ucc-manage-persistent ucr add ldap/server/name >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent ucr add ldap/master >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent ucr add kerberos/adminserver >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent ucr add kerberos/kdc >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent ucr add hostname/generated >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent ucr add ldap/hostdn >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent ucr add kerberos/realm >>/var/log/univention/join.log 2>&1
+
+univention-ucc-manage-persistent file add /etc/univention/ssl/ucsCA/CAcert.pem >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/machine.secret >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME/cert.pem >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME/openssl.cnf >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME/private.key >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME/req.pem >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME.$DOMAINNAME/cert.pem >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME.$DOMAINNAME/openssl.cnf >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME.$DOMAINNAME/private.key >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME.$DOMAINNAME/req.pem >>/var/log/univention/join.log 2>&1
+
+# Not every UCC system uses join scripts
+if [ -e "/var/univention-join/status" ]; then
+	univention-ucc-manage-persistent file add /var/univention-join/status >>/var/log/univention/join.log 2>&1
+fi
+
+echo "Joined successfully"
 
 exit 0

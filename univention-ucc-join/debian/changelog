@@ -1,3 +1,12 @@
+univention-ucc-join (1.0-7) unstable; urgency=low
+
+  * If no join account name is specified, use the Administrator account
+  * Use univention-ucc-manage-persistent to store persistent files/UCR
+    variables (Bug #28090)
+  * Improve error message in case of DNS problems	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 26 Oct 2012 09:41:52 +0200
+
 univention-ucc-join (1.0-6.1) unstable; urgency=low
 
   * Automatic generation of hostnames during join (Bug #28090)
