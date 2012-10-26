@@ -61,6 +61,8 @@ copy_exec /usr/bin/bc /bin
 copy_exec /bin/bunzip2 /bin
 copy_exec /bin/bzcat /bin
 copy_exec /usr/bin/rsync /bin
+copy_exec /usr/bin/md5sum /bin
+copy_exec /usr/bin/diff /bin
 
 # DEBUG
 copy_exec /usr/bin/vi /bin

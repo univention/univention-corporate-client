@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.0-5) precise; urgency=low
+
+  * Remove ucc-config file (Bug #28036)
+  * Update the upgrade mechanism (Bug #28036)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 26 Oct 2012 10:03:58 +0200
+
 univention-ucc-initramfs (1.0.0-4) precise; urgency=low
 
   * Show more informations for the partition and make the dialog

@@ -54,8 +54,7 @@
 ##	- root=<device>	# TODO
 ##		Specifies the root partition with the ucc image.
 ##	- image=<image>
-##		Specifies the UCC image. This parameter will overwrite the setting via
-##		ucc-config file
+##		Specifies the UCC image
 ##	- share=<share>
 ##		Specifies the share for the UCC image. This value can be set in the 
 ##		Managementsystem
@@ -282,8 +281,9 @@ partition()
 			image_mount="$(_get_var partition${i}_image_mount)"
 			mountpoint="$(_get_var partition${i}_mountpoint)"
 			if [ "$mountpoint" = "/" ]; then
-				mkdir /ucc_tmp/root
+				mkdir -p /ucc_tmp/root
 				mount -t $partition_fs "${partition_device}${count}" /ucc_tmp/root
+				touch /ucc_tmp/root/ucc_root_device
 				echo "/dev/loop0	/	$partition_fs	errors=remount-ro	0	1" >>/ucc_tmp/fstab
 
 			elif [ "$image_mount" = "true" ]; then
@@ -328,11 +328,7 @@ _mount_local_boot_device ()
 
 		mount -t nfs -o nolock,ro $nfsroot /ucc_tmp/boot_medium
 
-		test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
-
 		if [ -n "$IMAGE" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
-			return 0
-		elif [ -n "${image}" -a -e "/ucc_tmp/boot_medium/${image}" ]; then
 			return 0
 		else
 			umount /ucc_tmp/boot_medium
@@ -349,11 +345,8 @@ _mount_local_boot_device ()
 		if mount $mount_option /dev/$device /ucc_tmp/boot_medium; then
 
 			echo "Found UCC device: $device"
-			test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
 
 			if [ -n "$IMAGE" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
-				return 0
-			elif [ -n "${image}" -a -e "/ucc_tmp/boot_medium/${image}" ]; then
 				return 0
 			else
 				umount /ucc_tmp/boot_medium
@@ -373,33 +366,27 @@ _update_local_image ()
 	mkdir -p /ucc_tmp/boot_medium
 
 	if _mount_local_boot_device; then
-		test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
-		for img in "$IMAGE" "$image"; do
-			if [ -n "$img" -a -e "/ucc_tmp/boot_medium/${img}" ]; then
+		if [ -n "${IMAGE}" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
+			if ! test -e "/ucc_tmp/root/local_image.md5" || ! diff "/ucc_tmp/root/local_image.md5" "/ucc_tmp/boot_medium/${IMAGE}.md5">/dev/null ; then
+				# a local images does not exists
 				echo "INFO: Copy UCC image to local harddsik: "
-				rsync --progress "/ucc_tmp/boot_medium/${image}" /ucc_tmp/root
-				if [ -e /ucc_tmp/boot_medium/ucc-config ]; then
-					cp /ucc_tmp/boot_medium/ucc-config /ucc_tmp/root/
-				else
-					echo "image=${img}" >/ucc_tmp/root/ucc-config
-				fi
-				break
+				rsync --progress "/ucc_tmp/boot_medium/${IMAGE}" /ucc_tmp/root
+				echo "${IMAGE}" >/ucc_tmp/root/local_image
+				cp "/ucc_tmp/boot_medium/${IMAGE}.md5" /ucc_tmp/root/local_image.md5
+			else
+				echo "INFO: Do not copy the UCC image to local harddsik. The image was not updated."
 			fi
-		done
-		if [ ! -e /ucc_tmp/ucc-config ]; then
-			echo "INFO: Did not find image defined in ucc-config on $device. Given image name in ucc-config is \"$image\"."
+			break
 		fi
 		umount /ucc_tmp/boot_medium
 	fi
 
-	test -e /ucc_tmp/ucc-config && . /ucc_tmp/ucc-config
-
-	if [ -n "$image" ] && [ -e "/ucc_tmp/root/${image}" ]; then
-		mount -o loop "/ucc_tmp/root/${image}" /root/
+	if [ -e "/ucc_tmp/root/local_image" ]; then
+		local_image="$(cat /ucc_tmp/root/local_image)"
+		mount -o loop "/ucc_tmp/root/${local_image}" /root/
 
 		mkdir -p /root/ucc_root
 		mount -o move /ucc_tmp/root /root/ucc_root
-		echo "image=${image}" >/root/ucc_root/ucc-config
 	fi
 }
 
@@ -409,6 +396,8 @@ _update_local_image ()
 _install_grub ()
 {
 	local device="$1"
+
+	echo "Install grub"
 
 	for d in dev sys proc; do
 		mount -o move /${d} /root/${d}
@@ -440,7 +429,7 @@ ucc_installation()
 {
 	local partition_device
 
-	clear
+	# clear
 
 	test -e /scripts/ucc-config/partition_info && . /scripts/ucc-config/partition_info
 
@@ -488,19 +477,30 @@ ucc_installation()
 	# Copy files from image to local partitions
 	_copy_files
 
-	echo "Install grub"
 	# Install grub
 	_install_grub "$partition_device"
+}
+
+## Start the network
+_start_dhcpclient()
+{
+	local net_dev="$1"
+
+	# Bring up the network if this is not a PXE Boot
+	test -n "$ip" && return
+
+	ifconfig "$net_dev" up
+	udhcpc -s /etc/udhcpc/default.script -i "$net_dev"
 }
 
 ## Update the local UCC image
 ucc_update()
 {
-	local net_dev="$1"
-
 	mkdir -p /ucc_tmp/root
 
-	if [ "${ROOT}" = "search" ]; then
+	# If the root device was set to search or /dev/nfs and the system
+	# should be updated, this system must be installed
+	if [ "${ROOT}" = "search" -o "${ROOT}" = '/dev/nfs' ]; then
 		if ! _mount_local_root_device; then
 			echo "A local root device has not been found. Switch to the installation mode!"
 			ucc_installation
@@ -510,16 +510,16 @@ ucc_update()
 		mount ${ROOT} /ucc_tmp/root
 	fi
 
-	# Bring up the network
-	ifconfig "$net_dev" up
-	udhcpc -s /etc/udhcpc/default.script -i "$net_dev"
-
+	# TODO: This is only possible if the system is joined.
+	#       The image must be read from one DC
 	_update_local_image
 }
 
 _mount_local_root_device()
 {
 	local device
+
+	umount /ucc_tmp/root
 
 	cat /proc/partitions | grep -v ^major | awk '{print $1" "$2" "$4}' | while read major minor device; do
 		ID_FS_TYPE=""
@@ -540,35 +540,38 @@ _mount_local_root_device()
 			major_device="$(awk '{if ($1=='$major' && $2==0) { print $4}}' /proc/partitions)"
 			sys_path="/sys/block/${major_device}/${device}"
 		fi
-		ro="$(cat ${sys_path}/ro)"
-		if [ "$ro" != 0 ]; then
-			# Skipping read-only device
-			continue
+		if [ -e "${sys_path}/ro" ]; then
+			ro="$(cat ${sys_path}/ro)"
+			if [ "$ro" != 0 ]; then
+				# Skipping read-only device
+				continue
+			fi
 		fi
 
 		# include/linux/genhd.h: GENHD_FL_CD
-		cap="$(cat ${sys_path}/capability)"
-		cap=$(echo "obase=10;ibase=16;${cap}" | bc)
-		if [ "$((cap & 8))" = 8 ]; then
-			# Skipping CD device
-			continue
+		if [ -e "${sys_path}/capability)" ]; then
+			cap="$(cat ${sys_path}/capability)"
+			cap=$(echo "obase=10;ibase=16;${cap}" | bc)
+			if [ "$((cap & 8))" = 8 ]; then
+				# Skipping CD device
+				continue
+			fi
 		fi
 		if mount $mount_option /dev/$device /ucc_tmp/root; then
 
-			test -e /ucc_tmp/root/ucc-config && . /ucc_tmp/root/ucc-config
-
-			if [ -n "$IMAGE" -a -e "/ucc_tmp/root/${IMAGE}" ]; then
-				ROOT="/dev/$device"
-				return 0
-			elif [ -n "${image}" -a -e "/ucc_tmp/root/${image}" ]; then
-				ROOT="/dev/$device"
-				return 0
+			if [ -e "/ucc_tmp/root/ucc_root_device" ]; then
+				# This is the root device
+				echo "Found a local ucc root device: /dev/$device"
+				break
 			else
 				umount /ucc_tmp/root
 			fi
+
 		fi
 	done
 
+	test -e "/ucc_tmp/root/ucc_root_device"
+	return $?
 }
 
 ## Boot into the local UCC image
@@ -586,15 +589,11 @@ ucc_image_local()
 		mount ${ROOT} /ucc_tmp/root
 	fi
 
-	test -e /ucc_tmp/root/ucc-config && . /ucc_tmp/root/ucc-config
-
-	for img in "$IMAGE" "$image"; do
-		if [ -n "${img}" -a -e "/ucc_tmp/root/${img}" ]; then
-			mount -o loop "/ucc_tmp/root/${img}" /root/
-			mount -o move /ucc_tmp/root /root/ucc_root
-			break
-		fi
-	done
+	if [ -n "${IMAGE}" -a -e "/ucc_tmp/root/${IMAGE}" ]; then
+		mount -o loop "/ucc_tmp/root/${IMAGE}" /root/
+		mount -o move /ucc_tmp/root /root/ucc_root
+		break
+	fi
 
 	if ! mount | grep -qs " on /root "; then
 		echo "ERROR: An UCC image was not found!"
@@ -615,16 +614,12 @@ ucc_image_ro()
 		mkdir -p /ucc_tmp/root-ro
 		mkdir -p /ucc_tmp/root-rw
 		
-		test -e /ucc_tmp/boot_medium/ucc-config && . /ucc_tmp/boot_medium/ucc-config
-
 		mount -t tmpfs tmpfs-root /ucc_tmp/root-rw
 
-		for img in "$IMAGE" "$image"; do
-			if [ -n "${img}" -a -e "/ucc_tmp/boot_medium/${img}" ]; then
-				mount -o loop,ro,noload /ucc_tmp/boot_medium/${img} /ucc_tmp/root-ro
-				break
-			fi
-		done
+		if [ -n "${IMAGE}" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
+			mount -o loop,ro,noload /ucc_tmp/boot_medium/${IMAGE} /ucc_tmp/root-ro
+			break
+		fi
 
 		if ! mount | grep -qs " on /ucc_tmp/root-ro "; then
 			echo "ERROR: An UCC image was not found!"
@@ -683,21 +678,28 @@ mountroot()
 		esac
 	done
 
+	# Set defaults
 	test -z "$ROOT" && ROOT="search"
 	test -z "$net_dev" && net_dev="eth0"
 
 	export IMAGE SHARE
 
 	if [ "$UCC" = "inst" ]; then 
+		echo "Starting UCC installation mode"
 		sleep 1 # Give udevadm one more second
 		ucc_installation
 	elif [ "$UCC" = "update" ]; then
-		ucc_update "$net_dev"
+		echo "Starting UCC update mode"
+		_start_dhcpclient "$net_dev"
+		ucc_update
 	elif [ "$UCC" = "local" ]; then
+		echo "Starting UCC local mode"
 		ucc_image_local
 	elif [ "$UCC" = "overlayfs" ]; then
+		echo "Starting UCC overlayfs mode"
 		ucc_image_ro overlayfs
 	elif [ "$UCC" = "aufs" ]; then
+		echo "Starting UCC aufs mode"
 		ucc_image_ro aufs
 	else
 		echo "ERROR: Missing ucc=<bootmode> in /proc/cmdline."
