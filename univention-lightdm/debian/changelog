@@ -1,3 +1,10 @@
+univention-lightdm (1.0-7) unstable; urgency=low
+
+  * Test availability of LDAP server in univention-ucc-fetch-user-policies, needed
+    for logins without a working LDAP server (Bug #28039)	 
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 29 Oct 2012 16:43:12 +0100
+
 univention-lightdm (1.0-6) unstable; urgency=low
 
   * Fix install file (Bug #28298)
