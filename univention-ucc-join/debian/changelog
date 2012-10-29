@@ -1,3 +1,15 @@
+univention-ucc-join (1.0-11) unstable; urgency=low
+
+  * Bugfixes: Bug #28090
+  * - Rename option for specified hostname to "hostname"	
+  * - Stop NSCD during join to prevent caching problems when resolving the
+      ownership of the SSL host certificate	  
+  * - Perform existance check of host account with the binddn
+  * - If a hostname has been specified, a rejoin reuses that hostname. To
+      switch back to a generated hostname, hostname/manual needs to be unset	
+	
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 29 Oct 2012 12:23:06 +0100
+
 univention-ucc-join (1.0-10) unstable; urgency=low
 
   * Set current nameserver to UCR if no nameserver is set via UCR

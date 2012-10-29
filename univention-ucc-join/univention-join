@@ -41,9 +41,9 @@ eval "$(univention-config-registry shell)"
 REMOVE_PWD_FILE=""
 
 display_help() {
-echo "-forced-hostname <name>:  Force a hostname, don't autogenerate"
-echo "-domainname <name>:	  Domain name"
-echo "-dcaccount <account>:	name of DC master account"
+echo "-hostname <name>:        Force a hostname, don't autogenerate"
+echo "-domainname <name>:      Domain name"
+echo "-dcaccount <account>:    name of DC master account"
 echo "-dcpwd <password file>:  file with DC master password"
 echo "-ldapbase <ldap base>:   LDAP Base DN, e.g. dc=test,dc=local"
 echo "-realm <kerberos realm>: Kerberos realm, e.g. TEST.LOCAL"
@@ -52,7 +52,7 @@ echo "-realm <kerberos realm>: Kerberos realm, e.g. TEST.LOCAL"
 
 
 failed_message () {
-	echo "* Join failed!														   *"
+	echo "* Join failed!                                                           *"
 	echo "**************************************************************************"
 	echo "* Message:  $@"
 	echo "**************************************************************************"
@@ -74,6 +74,7 @@ download_host_certificate () {
 		univention-scp $HOSTPWD "-r $HOSTACCOUNT@$DCNAME:/etc/univention/ssl/$HOSTNAME /etc/univention/ssl/" >>/var/log/univention/join.log 2>&1
 		univention-scp $HOSTPWD "-r $HOSTACCOUNT@$DCNAME:/etc/univention/ssl/$HOSTNAME.$DOMAINNAME /etc/univention/ssl/" >>/var/log/univention/join.log 2>&1
 	done
+	echo -e "\033[60Gdone"
 }
 
 check_ldap_tls_connection () {
@@ -92,7 +93,7 @@ check_ldap_tls_connection () {
 while [ $# -gt 0 ]
 do
 	case "$1" in
-		"-forced-hostname")
+		"-hostname")
 			shift
 			forced_hostname="$1"
 			shift
@@ -129,41 +130,12 @@ do
 	esac
 done
 
-   
-
-if  [ "$hostname" =  "$hostname_generated" ]; then
-
-	if [ -n "$forced_hostname" ]; then
-		HOSTNAME="$forced_hostname"
-	else
-		echo "Rejoining system, not generating a new hostname"
-	fi
-
-else
-	if [ -z "$hostname_uccprefix" ]; then
-		hostname_uccprefix="ucc-"
-	fi	
-
-	rnd=$((RANDOM % 99999))
-	hostsuffix=`printf "%05d" "$rnd"`
-	HOSTNAME="$hostname_uccprefix$hostsuffix"
-
-	exists=`univention-ldapsearch "(&(uid="$HOSTNAME"$)(objectClass=univentionCorporateClient))" | grep  ^dn`
-	while [ -n "$exists" ]; do
-		# Host already exists, incrementing host suffix plus 1
-		hostsuffix=$((hostsuffix+1))
-		HOSTNAME="$hostname_uccprefix$hostsuffix"
-		exists=`univention-ldapsearch "(&(uid="$HOSTNAME"$)(objectClass=univentionCorporateClient))" | grep  ^dn`
-	done
-
-	if [ -n "$forced_hostname" ]; then
-	HOSTNAME="$forced_hostname"
-	fi
-
-	echo "Initial join of this UCC system, using hostname $HOSTNAME"
-	ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+if [ -x /etc/init.d/nscd ]; then
+	echo -n "Stopping NSCD: "
+	/etc/init.d/nscd stop >>/var/log/univention/join.log 2>&1
+	echo -e "\033[60Gdone"
 fi
-
+   
 # Save the current domain in $testdomain
 testdomain="$(cat /etc/resolv.conf  | sed -ne 's|^domain\t*||p')"
 
@@ -182,10 +154,8 @@ if [ -z "$DOMAINNAME" ]; then
 	read DOMAINNAME
 	test -z "$DOMAINNAME" && DOMAINNAME="$testdomain"
 fi
-
+    
 ucr set domainname="$DOMAINNAME" >>/var/log/univention/join.log 2>&1
-
-
 
 if [ -z "$DCACCOUNT" ]; then
 	echo -n "Insert DC Master Account [Administrator] : "
@@ -232,6 +202,7 @@ if [ -z "$DCNAME" ]; then
 		done
 	fi
 fi
+
 
 if [ -z "$DCNAME" ]; then
 	failed_message "missing dns service record for _domaincontroller_master._tcp.$DOMAINNAME. Please verify whether the 'nameserver entry' /etc/resolv.conf points to a UCS DNS server"
@@ -333,6 +304,52 @@ NETMASK=`LANG=C /sbin/ifconfig eth0 | grep "inet addr" | awk -F: '{print $3}'  |
 if [ -n "$IP" ]; then
 	ip_cmd="-ip $IP -netmask $NETMASK"
 fi
+
+
+if  [ "$hostname" =  "$hostname_generated" ]; then
+
+    if [ -n "$forced_hostname" ]; then
+		HOSTNAME="$forced_hostname"
+    else
+		echo "Rejoining system, not generating a new hostname"
+    fi
+
+else
+	if [ -n "$forced_hostname" ]; then
+		HOSTNAME="$forced_hostname"
+		ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+	fi
+
+    if is_ucr_true 'hostname/manual'; then
+		echo "Rejoining system, not generating a new hostname. If you want to switch this system to a"
+		echo "automatically generated hostname, you need to unset the UCR variable hostname/manual"
+
+    else
+		if [ -z "$hostname_uccprefix" ]; then
+			hostname_uccprefix="ucc-"
+		fi	
+
+		rnd=$((RANDOM % 99999))
+		hostsuffix=`printf "%05d" "$rnd"`
+		HOSTNAME="$hostname_uccprefix$hostsuffix"
+
+		while [ -n "$exists" ]; do
+			# Host already exists, incrementing host suffix plus 1
+			hostsuffix=$((hostsuffix+1))
+			HOSTNAME="$hostname_uccprefix$hostsuffix"
+			exists=`univention-ldapsearch -D "$binddn" -y "$DCPWD" "(&(uid="$HOSTNAME"$)(objectClass=univentionCorporateClient))" | grep  ^dn`
+		done
+
+		if [ -n "$forced_hostname" ]; then
+			HOSTNAME="$forced_hostname"
+		fi
+
+		echo "Initial join of this UCC system, using hostname $HOSTNAME"
+		ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+    fi
+fi
+
+
 
 echo -n "Join Computer Account: "
 univention-scp "$DCPWD" "$DCPWD" "$DCACCOUNT@$DCNAME:$DCPWD" >>/var/log/univention/join.log 2>&1
@@ -443,10 +460,13 @@ set_kerberos_realm "$DCPWD" "$DCACCOUNT" "$DCNAME" "$REALM"
 cat /etc/ldap/ldap.conf  | sed -e "s|#.*||g" | grep -q TLS_CACERT || echo "TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem" >>/etc/ldap/ldap.conf
 
 if [ -z "$forced_hostname" ]; then
-	ucr set hostname/generated="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+	if ! is_ucr_true 'hostname/manual'; then
+		ucr set hostname/generated="$HOSTNAME" >>/var/log/univention/join.log 2>&1
+	fi
 	univention-ucc-manage-persistent ucr add hostname/generated >>/var/log/univention/join.log 2>&1
 else
 	ucr unset hostname/generated >>/var/log/univention/join.log 2>&1
+	ucr set hostname/manual=true >>/var/log/univention/join.log 2>&1
 	univention-ucc-manage-persistent ucr remove hostname/generated >>/var/log/univention/join.log 2>&1
 fi
 
@@ -486,6 +506,12 @@ univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME.$DOMAINN
 # Not every UCC system uses join scripts
 if [ -e "/var/univention-join/status" ]; then
 	univention-ucc-manage-persistent file add /var/univention-join/status >>/var/log/univention/join.log 2>&1
+fi
+
+if [ -x /etc/init.d/nscd ]; then
+	echo -n "Starting NSCD: "
+	/etc/init.d/nscd start >>/var/log/univention/join.log 2>&1
+	echo -e "\033[60Gdone"
 fi
 
 echo "Joined successfully"
