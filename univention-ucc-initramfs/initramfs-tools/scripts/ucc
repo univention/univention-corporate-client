@@ -51,11 +51,11 @@
 ##		This setting overwrites the value from the image.
 ##	- force_partition_timeout # TODO
 ##		Timeout in seconds for force_partitions.
-##	- root=<device>	# TODO
+##	- root=<device>
 ##		Specifies the root partition with the ucc image.
 ##	- image=<image>
 ##		Specifies the UCC image
-##	- share=<share>
+##	- share=<share> # TODO
 ##		Specifies the share for the UCC image. This value can be set in the 
 ##		Managementsystem
 ##	- net_dev=<network device>
@@ -319,6 +319,7 @@ partition()
 ## of a network boot, the network will be activated and the NFS root is mounted
 _mount_local_boot_device ()
 {
+	echo "INFO: Mount local boot device"
 	mkdir -p /ucc_tmp/boot_medium
 
 	if [ -n "$nfsroot" ]; then
@@ -361,6 +362,7 @@ _mount_local_boot_device ()
 
 _sync_to_persistent ()
 {
+	echo "INFO: Sync files to persistent storage"
 	local img="$1"
 	mount -o loop "$img" /root/
 	mkdir -p /root/ucc_root
@@ -373,6 +375,7 @@ _sync_to_persistent ()
 
 _sync_from_persistent ()
 {
+	echo "INFO: Sync files from persistent storage"
 	local img="$1"
 	mount -o loop "$img" /root/
 	mount -o move /ucc_tmp/root /root/ucc_root
@@ -384,9 +387,11 @@ _sync_from_persistent ()
 ## Copy the UCC image to the local disk
 _update_local_image ()
 {
+	echo "INFO: Update/install local image"
 	local device
 
 	mkdir -p /ucc_tmp/boot_medium
+	echo "IMAGE: $IMAGE"
 
 	if _mount_local_boot_device; then
 		if [ -n "${IMAGE}" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
@@ -401,7 +406,9 @@ _update_local_image ()
 				fi
 
 				# Move the image to the new name
-				mv "/ucc_tmp/root/$old_image" "/ucc_tmp/root/${IMAGE}"
+				if [ -n "$old_image" -a -e "/ucc_tmp/root/$old_image" ]; then
+					mv "/ucc_tmp/root/$old_image" "/ucc_tmp/root/${IMAGE}"
+				fi
 
 				# a local images does not exists
 				echo "INFO: Copy UCC image to local harddsik: "
@@ -415,14 +422,16 @@ _update_local_image ()
 			else
 				echo "INFO: Do not copy the UCC image to local harddsik. The image was not updated."
 			fi
-			break
 		fi
 		umount /ucc_tmp/boot_medium
 	fi
 
 	if [ -e "/ucc_tmp/root/local_image" ]; then
 		local_image="$(cat /ucc_tmp/root/local_image)"
-		mount -o loop "/ucc_tmp/root/${local_image}" /root/
+		if ! mount -o loop "/ucc_tmp/root/${local_image}" /root/; then
+			echo "ERROR: failed to mount /ucc_tmp/root/${local_image} to /root"
+			panic "Dropping to a shell!"
+		fi
 
 		mkdir -p /root/ucc_root
 		mount -o move /ucc_tmp/root /root/ucc_root
@@ -434,9 +443,9 @@ _update_local_image ()
 ## compatible with busybox
 _install_grub ()
 {
-	local device="$1"
+	echo "INFO: Install grub boot loader"
 
-	echo "Install grub"
+	local device="$1"
 
 	for d in dev sys proc; do
 		mount -o move /${d} /root/${d}
@@ -478,7 +487,14 @@ ucc_installation()
 		panic "Dropping to a shell!"
 	fi
 
-	if [ "$continuation_prompt" != "false" ]; then
+	if [ "$continuation_prompt" = "false" ] || [ "$FORCE_PARTITION" = "yes" ]; then
+		if [ -z "$FORCE_PARTITION_TIMEOUT" ]; then
+			FORCE_PARTITION_TIMEOUT=60
+		fi
+		echo "Starting partitioning in $FORCE_PARTITION_TIMEOUT seconds. Press CTRL-C to abort."
+		sleep $FORCE_PARTITION_TIMEOUT
+		partition "$partition_device"
+	else
 		echo -e "$continuation_message" | sed -e "s|@PARTITION_DEVICE@|$partition_device|g"
 
 		if [ -z "$continuation_dialog" -o -z "$continuation_dialog_no" -o -z "$continuation_dialog_yes" -o -z "$continuation_dialog_error" ]; then
@@ -501,10 +517,6 @@ ucc_installation()
 			fi
 		done
 
-	else
-		echo "Starting partitioning in 30 seconds. Press CTRL-C to abort."
-		sleep 30
-		partition "$partition_device"
 	fi
 
 	# Search image
@@ -527,9 +539,10 @@ _start_dhcpclient()
 
 	# Bring up the network if this is not a PXE Boot
 	test -n "$ip" && return
+	echo "INFO: Starting dhcp client"
 
 	ifconfig "$net_dev" up
-	udhcpc -s /etc/udhcpc/default.script -i "$net_dev"
+	udhcpc -s /etc/udhcpc/default.script -i "$net_dev" -b
 }
 
 ## Update the local UCC image
@@ -557,6 +570,7 @@ ucc_update()
 _mount_local_root_device()
 {
 	local device
+	echo "INFO: Mount local root device"
 
 	umount /ucc_tmp/root
 
@@ -692,6 +706,8 @@ mountroot()
 	run_scripts /scripts/local-premount
 	[ "$quiet" != "y" ] && log_end_msg
 
+	clear
+
 	udevadm settle # wait for udev
 
 	for x in $(cat /proc/cmdline); do
@@ -706,10 +722,10 @@ mountroot()
 			SHARE=${x#share=}
 			;;
 		force_partition)
-			force_partition=true
+			FORCE_PARTITION=true
 			;;
 		force_partition_timeout=*)
-			force_partition_timeout=${x#force_partition_timeout=}
+			FORCE_PARTITION_timeout=${x#force_partition_timeout=}
 			;;
 		net_dev)
 			net_dev={x#net_dev=}
@@ -721,9 +737,9 @@ mountroot()
 	test -z "$ROOT" && ROOT="search"
 	test -z "$net_dev" && net_dev="eth0"
 
-	export IMAGE SHARE
+	export IMAGE SHARE FORCE_PARTITION FORCE_PARTITION_TIMEOUT
 
-	if [ "$UCC" = "inst" ]; then 
+	if [ "$UCC" = "installation" ]; then 
 		echo "Starting UCC installation mode"
 		sleep 1 # Give udevadm one more second
 		ucc_installation

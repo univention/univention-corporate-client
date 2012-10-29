@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.0-7) precise; urgency=low
+
+  * Added support for force_partiton (Bug #28037)
+  * Fork udhcpc to background to avoid an endless loop
+
+ -- Stefan Gohmann <gohmann@univention.de>  Mon, 29 Oct 2012 17:58:19 +0100
+
 univention-ucc-initramfs (1.0.0-6) precise; urgency=low
 
   * Call ucc-sync-persistent-files before updating (Bug #28037)
