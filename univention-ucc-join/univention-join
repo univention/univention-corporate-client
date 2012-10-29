@@ -491,6 +491,8 @@ univention-ucc-manage-persistent ucr add kerberos/adminserver >>/var/log/univent
 univention-ucc-manage-persistent ucr add kerberos/kdc >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent ucr add ldap/hostdn >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent ucr add kerberos/realm >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent ucr add hostname/manual >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent ucr add hostname >>/var/log/univention/join.log 2>&1
 
 univention-ucc-manage-persistent file add /etc/univention/ssl/ucsCA/CAcert.pem >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent file add /etc/machine.secret >>/var/log/univention/join.log 2>&1

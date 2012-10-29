@@ -1,3 +1,10 @@
+univention-ucc-join (1.0-12) unstable; urgency=low
+
+  * Also add hostname and hostname/manual to the list of persistent UCR
+    variables 	Bug #28090
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 29 Oct 2012 12:31:58 +0100
+
 univention-ucc-join (1.0-11) unstable; urgency=low
 
   * Bugfixes: Bug #28090
