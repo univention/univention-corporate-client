@@ -2,3 +2,4 @@ Type: file
 File: etc/lightdm/lightdm.conf
 Variables: lightdm/autostart
 Variables: lightdm/autostart/session
+Variables: lightdm/sessiondefault

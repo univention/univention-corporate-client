@@ -1,3 +1,10 @@
+univention-lightdm (1.0-9) unstable; urgency=low
+
+  * New UCR variable lightdm/sessiondefault to define the default for the session
+    selection (Bug #28298)	 
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 30 Oct 2012 15:15:47 +0100
+
 univention-lightdm (1.0-8) unstable; urgency=low
 
   * Recommend univention-ucc-session-firefox, univention-ucc-session-rdp (Bug #28298)

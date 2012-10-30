@@ -10,4 +10,9 @@ Description[en]=The session script to be used for automatic logins (Name of .des
 Type=str
 Categories=system-desktop
 
+[lightdm/sessiondefault]
+Description[de]=Die Voreinstellung für die Sitzung bei der interaktiven Benutzeranmeldung
+Description[en]=The default session in inactive user logins
+Type=str
+Categories=system-desktop
 
