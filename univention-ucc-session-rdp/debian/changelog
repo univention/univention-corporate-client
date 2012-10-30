@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.0-2) unstable; urgency=low
+
+  * Bump version Bug #22977
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 30 Oct 2012 11:40:35 +0100
+
 univention-ucc-session-rdp (1.0.0-1) unstable; urgency=low
 
   * Initial Release. Bug #22977
