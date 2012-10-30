@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-13) unstable; urgency=low
+
+  * Bump version (Bug #28039)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 30 Oct 2012 14:23:48 +0100
+
 univention-ucc-pam (1.0.0-12) unstable; urgency=low
 
   * Make /etc/pam.d/common* through UCR, pam-auth-update relies on
