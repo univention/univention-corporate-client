@@ -137,7 +137,7 @@ if [ -x /etc/init.d/nscd ]; then
 fi
    
 # Save the current domain in $testdomain
-testdomain="$(cat /etc/resolv.conf  | sed -ne 's|^domain\t*||p')"
+testdomain="$(cat /etc/resolv.conf  | sed -ne 's|^domain\t* *||p')"
 
 # If the nameserver was only set via dhcp, the ucr set domainname command will
 # overwrite the /etc/resolv.conf.

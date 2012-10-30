@@ -1,3 +1,9 @@
+univention-ucc-join (1.0-13) unstable; urgency=low
+
+  * Split spaces from the suggested domainname (Bug #28080)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Tue, 30 Oct 2012 12:24:53 +0100
+
 univention-ucc-join (1.0-12) unstable; urgency=low
 
   * Also add hostname and hostname/manual to the list of persistent UCR
