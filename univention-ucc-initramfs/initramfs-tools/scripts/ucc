@@ -696,6 +696,14 @@ ucc_image_ro()
 	
 }
 
+# Rollout
+ucc_rollout ()
+{
+	if [ ! -e /root/var/univention-join/joined ]; then
+		chroot /root /usr/sbin/univention-join
+	fi
+}
+
 mountroot()
 {
 	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-top"
@@ -747,6 +755,11 @@ mountroot()
 		echo "Starting UCC update mode"
 		_start_dhcpclient "$net_dev"
 		ucc_update
+	elif [ "$UCC" = "rollout" ]; then
+		echo "Starting UCC rollout mode"
+		_start_dhcpclient "$net_dev"
+		ucc_update
+		ucc_rollout
 	elif [ "$UCC" = "local" ]; then
 		echo "Starting UCC local mode"
 		ucc_image_local

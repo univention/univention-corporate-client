@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.0-8) precise; urgency=low
+
+  * Added rollout mode (Bug #28037)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Tue, 30 Oct 2012 10:44:33 +0100
+
 univention-ucc-initramfs (1.0.0-7) precise; urgency=low
 
   * Added support for force_partiton (Bug #28037)
