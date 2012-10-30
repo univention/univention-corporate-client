@@ -1,3 +1,10 @@
+univention-corporate-client (1.0-8) unstable; urgency=low
+
+  * Depend on univention-directory-policy to ensure that UCR policies
+    can be used (Bug #28333)	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 30 Oct 2012 11:55:01 +0100
+
 univention-corporate-client (1.0-7) unstable; urgency=low
 
   * Specify Python version (Bug #28033)
