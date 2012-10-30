@@ -16,7 +16,8 @@ Depends: univention-config,
  univention-upstart,
  univention-ucc-pam,
  univention-ucc-initramfs,
- univention-directory-policy
+ univention-directory-policy,
+ univention-lightdm
 Description: Metapackage for Univention Corporate Client
  This package defines dependencies on the various packages
  needed on a Univention Corporate Client system.
