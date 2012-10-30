@@ -1,3 +1,10 @@
+univention-ucc-pam (1.0.0-12) unstable; urgency=low
+
+  * Make /etc/pam.d/common* through UCR, pam-auth-update relies on
+    debconf and isn't controllable enough for our use (Bug #28039)	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 30 Oct 2012 09:51:30 +0100
+
 univention-ucc-pam (1.0.0-11) unstable; urgency=low
 
   * Register /etc/security/group (Bug #28509)

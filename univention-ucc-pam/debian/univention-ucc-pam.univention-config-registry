@@ -22,3 +22,18 @@ Variables: kerberos/adminserver
 
 Type: file
 File: etc/security/group.conf
+
+Type: file
+File: etc/pam.d/common-account
+
+Type: file
+File: etc/pam.d/common-auth
+
+Type: file
+File: etc/pam.d/common-password
+
+Type: file
+File: etc/pam.d/common-session
+
+Type: file
+File: etc/pam.d/common-session-noninteractive
