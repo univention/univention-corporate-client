@@ -15,7 +15,10 @@ Depends: ${misc:Depends},
  nscd,
  libpam-modules,
  heimdal-clients,
- libpam-heimdal
+ libpam-heimdal,
+ nss-updatedb,
+ libnss-db,
+ libpam-ccreds
 Description: UCC - PAM configuration and integration into UCS management system
  This package contains the configuration for the pluggable
  authentication modules (PAM) and the network name switch
