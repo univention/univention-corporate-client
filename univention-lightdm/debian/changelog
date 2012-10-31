@@ -1,3 +1,9 @@
+univention-lightdm (1.0-10) unstable; urgency=low
+
+  * Export all variables in scripts/univention-ucc-fetch-user-policies (Bug #28329)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 31 Oct 2012 09:37:58 +0100
+
 univention-lightdm (1.0-9) unstable; urgency=low
 
   * New UCR variable lightdm/sessiondefault to define the default for the session

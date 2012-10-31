@@ -33,7 +33,7 @@
 
 . /usr/share/univention-lib/ldap.sh
 
-eval "$(/usr/sbin/univention-config-registry shell ldap/hostdn ldap/server/name)"
+eval "$(/usr/sbin/univention-config-registry shell)"
 
 if [ -z "$ldap_hostdn" ]; then
     echo "System not joined yet, skipping policy retrieval"
