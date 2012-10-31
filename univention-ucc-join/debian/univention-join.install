@@ -1,4 +1,4 @@
 univention-join /usr/sbin
 check_join_status.sh /usr/sbin
-univention-run-join-scripts usr/share/univention-join/
+univention-run-join-scripts usr/sbin
 joinscripthelper.lib usr/share/univention-join/
