@@ -1,2 +1,4 @@
 usr/sbin
 var/univention-join
+usr/share/univention-join
+usr/lib/univention-install

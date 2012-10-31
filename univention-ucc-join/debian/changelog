@@ -1,3 +1,9 @@
+univention-ucc-join (1.0-14) unstable; urgency=low
+
+  * Add univention-run-join-scripts (Bug #28029)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 31 Oct 2012 08:21:41 +0100
+
 univention-ucc-join (1.0-13) unstable; urgency=low
 
   * Split spaces from the suggested domainname (Bug #28080)
