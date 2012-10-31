@@ -470,6 +470,8 @@ else
 	univention-ucc-manage-persistent ucr remove hostname/generated >>/var/log/univention/join.log 2>&1
 fi
 
+univention-run-join-scripts -dcaccount "$DCACCOUNT" -dcpwd "$DCPWD"
+
 touch /var/univention-join/joined
 
 if [ -n "$REMOVE_PWD_FILE" -a -n "$DCPWD" ]; then

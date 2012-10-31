@@ -1,3 +1,9 @@
+univention-ucc-join (1.0-15) unstable; urgency=low
+
+  * Run univention-run-join-scripts at the end of the join (Bug #28029)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 31 Oct 2012 09:03:37 +0100
+
 univention-ucc-join (1.0-14) unstable; urgency=low
 
   * Add univention-run-join-scripts (Bug #28029)
