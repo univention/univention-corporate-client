@@ -40,5 +40,10 @@ override_dh_auto_build:
 	cd src; ${MAKE}; cd -
 	dh_auto_build
 
+override_dh_fixperms:
+	dh_fixperms
+	chmod 4755 debian/univention-session-server/usr/bin/univention-session-server
+	chmod 4755 debian/univention-session-client/usr/bin/univention-session-client
+
 %:
 	dh $@

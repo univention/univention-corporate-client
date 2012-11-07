@@ -170,7 +170,7 @@ void connect_to_server ( void )
 
 	session_server = server_prog;
 	if ( !session_server ) session_server = getenv ( "SESSION_SERVER" );
-	if ( !session_server ) session_server = "univention-session";
+	if ( !session_server ) session_server = "univention-session-server";
 	my_server = server_host;
 	if ( !my_server ) my_server = getenv ( "SESSION_HOST" );
 	if ( !my_server ) fatal_error ( "no server\n" );

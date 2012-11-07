@@ -1,3 +1,9 @@
+univention-session (10.0-2) unstable; urgency=low
+
+  * install univention-session with setuid Bit (Bug #28349) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 07 Nov 2012 14:49:46 +0100
+
 univention-session (10.0-1) unstable; urgency=low
 
   * Initial release for UCC. Bump version so that it's bigger than previous
