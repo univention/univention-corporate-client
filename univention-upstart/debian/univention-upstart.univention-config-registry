@@ -1,3 +1,7 @@
 Type: file
 File: etc/init/avahi-daemon.conf
 Variables: avahi/autostart
+
+Type: file
+File: etc/init/lightdm.conf
+Variables: lightdm/autostart
