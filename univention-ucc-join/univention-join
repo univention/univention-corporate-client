@@ -485,7 +485,7 @@ fi
 # Activate ldap in nsswitch
 auth-client-config -t nss -p lac_ldap
 
-ucr set lightdm/autostart=no >>/var/log/univention/join.log 2>&1
+ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 
 univention-ucc-manage-persistent ucr add ldap/server/name >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent ucr add ldap/master >>/var/log/univention/join.log 2>&1

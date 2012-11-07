@@ -1,10 +1,10 @@
-[lightdm/autostart]
+[lightdm/autologin]
 Description[de]=Aktiviert die automatische Anmeldung
 Description[en]=Activates automatic login at the display manager
 Type=bool
 Categories=system-desktop
 
-[lightdm/autostart/session]
+[lightdm/autologin/session]
 Description[de]=Das für die automatische Anmeldung zu verwendende Anmeldeskript (Name der .deskop-Datei unter /usr/share/xsessions, Standard: LXDE)
 Description[en]=The session script to be used for automatic logins (Name of .deskop-Datei below /usr/share/xsessions, Standard: LXDE)
 Type=str
