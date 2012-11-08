@@ -1,3 +1,9 @@
+univention-lightdm (1.0-12) unstable; urgency=low
+
+  * added u-p-r hostdn to 010_univention-ucc-fetch-user-policies (Bug #28349) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 08 Nov 2012 14:53:37 +0100
+
 univention-lightdm (1.0-11) unstable; urgency=low
 
   * rename UCRV lightdm/{autostart,autologin} (Bug #29095)

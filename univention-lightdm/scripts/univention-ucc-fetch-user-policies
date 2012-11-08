@@ -40,8 +40,15 @@ if [ -z "$ldap_hostdn" ]; then
     exit 0
 fi
 
-if /bin/netcat -q0 -w4 $ldap_server_name $ldap_server_port </dev/null >/dev/null 2>&1; then
-    user_dn="$(ucs_convertUID2DN "$USER")"
+addition=$(echo "$ldap_server_addition" | sed -e "s/,/ /g")
+for host in $ldap_server_name $addition; do
+	if /bin/netcat -q0 -w4 $host $ldap_server_port </dev/null >/dev/null 2>&1; then
+		user_dn="$(ucs_convertUID2DN "$USER")"
+		univention-policy-result -s -h "$host" -D "$ldap_hostdn" \
+			-y /etc/machine.secret "$user_dn" > /tmp/"$USER"-policy.txt
+		univention-policy-result -s -h "$host" -D "$ldap_hostdn" \
+			-y /etc/machine.secret "$ldap_hostdn" > /tmp/"$(hostname)"-policy.txt
+	fi
+done
 
-    univention-policy-result -h "$ldap_server_name" -D "$ldap_hostdn" -y /etc/machine.secret "$user_dn" > /tmp/"$USER"-policy.txt
-fi
+exit 0
