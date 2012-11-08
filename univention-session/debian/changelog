@@ -1,3 +1,9 @@
+univention-session (10.0-5) unstable; urgency=low
+
+  * fixed permissions (Bug #28349) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 08 Nov 2012 17:14:17 +0100
+
 univention-session (10.0-4) unstable; urgency=low
 
   * fixed copyright (Bug #28349) 
