@@ -38,12 +38,16 @@
 ##  - update
 ##		This will update the local installed UCC image. If no partition has been
 ##		found, it will be partitioned
-##  - local
+##  - local or none
 ##		This boots an local installed UCC image.
 ##  - overlayfs
 ##		This uses the image on the boot device as read only master image and
 ##		use	an overlay module.
 ##  - aufs
+##		This uses the image on the boot device as read only master image and
+##		use	an aufs module.
+##  - shell or debug
+##		Use this to get a shell and start debugging
 ##		
 ## The following kernel commandline parameter are supported (/proc/cmdline):
 ##	- force_partition # TODO
@@ -760,7 +764,7 @@ mountroot()
 		_start_dhcpclient "$net_dev"
 		ucc_update
 		ucc_rollout
-	elif [ "$UCC" = "local" ]; then
+	elif [ "$UCC" = "local" -o "$UCC" = "none" ]; then
 		echo "Starting UCC local mode"
 		ucc_image_local
 	elif [ "$UCC" = "overlayfs" ]; then
@@ -769,9 +773,12 @@ mountroot()
 	elif [ "$UCC" = "aufs" ]; then
 		echo "Starting UCC aufs mode"
 		ucc_image_ro aufs
-	else
-		echo "ERROR: Missing ucc=<bootmode> in /proc/cmdline."
+	elif [ "$UCC" = "shell" -o "$UCC" = "debug" ]; then
+		echo "Starting UCC shell"
 		panic "Dropping to a shell!"
+	else
+		echo "Use local as fallback mode"
+		ucc_image_local
 	fi
 
 }
