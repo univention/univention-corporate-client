@@ -1,7 +1,8 @@
-/usr/sbin
-/usr/bin
-/etc/lightdm/sessions
-/etc/lightdm/display-setup
-/etc/lightdm/greeter-setup
-/etc/lightdm/session-setup
-/etc/lightdm/session-cleanup
+usr/sbin
+usr/bin
+etc/lightdm/sessions
+etc/lightdm/display-setup
+etc/lightdm/greeter-setup
+etc/lightdm/session-setup
+etc/lightdm/session-cleanup
+usr/share/univention-lightdm

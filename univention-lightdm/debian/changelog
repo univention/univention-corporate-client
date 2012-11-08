@@ -1,3 +1,9 @@
+univention-lightdm (1.0-13) unstable; urgency=low
+
+  * added force-user-session lib (Bug #29109) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 08 Nov 2012 17:29:23 +0100
+
 univention-lightdm (1.0-12) unstable; urgency=low
 
   * added u-p-r hostdn to 010_univention-ucc-fetch-user-policies (Bug #28349) 
