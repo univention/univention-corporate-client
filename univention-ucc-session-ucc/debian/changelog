@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (1.0.0-3) unstable; urgency=low
+
+  * added force-user-session (Bug #29109) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 08 Nov 2012 17:50:54 +0100
+
 univention-ucc-session-ucc (1.0.0-2) unstable; urgency=low
 
   * fixed UCC-remote (Bug #28349) 

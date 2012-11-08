@@ -29,6 +29,10 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
+# force user session
+if [ -e /usr/share/univention-lightdm/force-user-session ]; then
+    . /usr/share/univention-lightdm/force-user-session
+fi
 
 openbox &
 

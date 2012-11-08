@@ -1,3 +1,9 @@
+univention-ucc-session-firefox (1.0.1-1) unstable; urgency=low
+
+  * added force-user-session (Bug #29109) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 08 Nov 2012 17:50:34 +0100
+
 univention-ucc-session-firefox (1.0.0-1) unstable; urgency=low
 
   * Initial Release. Bug #28298
