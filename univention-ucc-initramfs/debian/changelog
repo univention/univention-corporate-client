@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.1-2) precise; urgency=low
+
+  * Also search for the root device if /dev/nfs was given (Bug #28990)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Thu, 08 Nov 2012 16:38:18 +0100
+
 univention-ucc-initramfs (1.0.1-1) precise; urgency=low
 
   * Added shell and debug and use local as default (Bug #28990)

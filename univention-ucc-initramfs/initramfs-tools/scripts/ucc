@@ -556,7 +556,7 @@ ucc_update()
 
 	# If the root device was set to search or /dev/nfs and the system
 	# should be updated, this system must be installed
-	if [ "${ROOT}" = "search" -o "${ROOT}" = '/dev/nfs' ]; then
+	if [ "${ROOT}" = "search" -o "${ROOT}" = "/dev/nfs" ]; then
 		if ! _mount_local_root_device; then
 			echo "A local root device has not been found. Switch to the installation mode!"
 			ucc_installation
@@ -634,10 +634,9 @@ _mount_local_root_device()
 ## Boot into the local UCC image
 ucc_image_local()
 {
-	# TODO: cleanup
 	mkdir -p /ucc_tmp/root
 
-	if [ "${ROOT}" = "search" ]; then
+	if [ "${ROOT}" = "search" -o "${ROOT}" = "/dev/nfs" ]; then
 		if ! _mount_local_root_device; then
 			echo "ERROR: local root device was not found. Try kernel commandline argument root=</dev/...>"
 			panic "Dropping to a shell!"
