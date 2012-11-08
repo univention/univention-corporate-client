@@ -1,0 +1,30 @@
+Source: univention-ucc-session-ucc
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Build-Depends: debhelper, ucslint
+Standards-Version: 3.8.2
+
+Package: univention-ucc-session-ucc
+Architecture: any
+Depends: ${shlib:Depends}
+Description: UCC session script
+ This package provides x session scripts for the
+ ucc session.
+ .
+ This package is part of Univention Corporate Server (UCS),
+ an integrated, directory driven solution for managing
+ corporate environments. For more information about UCS,
+ refer to: http://www.univention.de/
+
+Package: univention-ucc-session-ucc-remote
+Architecture: any
+Depends: ${shlib:Depends}, openssh-client, univention-session-client
+Description: UCC terminal server session script
+ This package provides x session scripts for the
+ ucc terminal server session.
+ .
+ This package is part of Univention Corporate Server (UCS),
+ an integrated, directory driven solution for managing
+ corporate environments. For more information about UCS,
+ refer to: http://www.univention.de/
