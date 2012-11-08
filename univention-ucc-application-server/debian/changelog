@@ -1,3 +1,9 @@
+univention-ucc-application-server (1.0.0-2) unstable; urgency=low
+
+  * fixed rules (Bug #22654) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 08 Nov 2012 15:41:44 +0100
+
 univention-ucc-application-server (1.0.0-1) unstable; urgency=low
 
   * initial release (Bug #22654) 
