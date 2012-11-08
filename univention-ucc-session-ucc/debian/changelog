@@ -1,0 +1,5 @@
+univention-ucc-session-ucc (1.0.0-1) unstable; urgency=low
+
+  * initial release (Bug #28349) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 08 Nov 2012 15:15:18 +0100
