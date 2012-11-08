@@ -1,3 +1,9 @@
+univention-session (10.0-3) unstable; urgency=low
+
+  * add ucc-ts.shutdown (Bug #28349) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 08 Nov 2012 13:25:13 +0100
+
 univention-session (10.0-2) unstable; urgency=low
 
   * install univention-session with setuid Bit (Bug #28349) 

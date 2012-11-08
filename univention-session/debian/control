@@ -21,7 +21,7 @@ Description: UCS - session manager (server part)
 
 Package: univention-session-client
 Architecture: any
-Depends: ${shlib:Depends}, rsh-client
+Depends: ${shlib:Depends}, openssh-client
 Description: UCS - session manager (client part)
  Univention Session manages desktop sessions. It keeps
  track of processes started and terminates them when the

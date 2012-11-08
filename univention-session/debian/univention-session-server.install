@@ -1,5 +1,4 @@
-src/univention-session-server /usr/bin/
-client_login.sh /usr/share/univention-client-login
-kill-process-by-display /usr/share/univention-client-login
-
-
+src/univention-session-server usr/bin/
+server/client-login usr/share/univention-client-login/
+server/kill-process-by-display usr/share/univention-client-login/
+server/UCC-TS.Shutdown usr/share/univention-client-login/
