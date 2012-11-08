@@ -38,4 +38,4 @@ export SESSION_RSH_ARGS='-X -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o 
 export SESSION_HOST="10.200.7.126"
 export FIFOFILE=/tmp/univention-client.sock.$USER
 
-univention-session-client -p /usr/share/univention-ucc-session-ucc-remote/UCC.Session  -f $FIFOFILE
+univention-session-client -p /usr/share/univention-ucc-session-ucc-remote/UCC-remote.Session  -f $FIFOFILE
