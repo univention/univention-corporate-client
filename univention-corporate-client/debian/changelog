@@ -1,3 +1,9 @@
+univention-corporate-client (1.0-10) unstable; urgency=low
+
+  * Set server/role to 'ucc' (Bug #29110)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 08 Nov 2012 16:53:45 +0100
+
 univention-corporate-client (1.0-9) unstable; urgency=low
 
   * Depend on univention-lightdm (Bug #28298)
