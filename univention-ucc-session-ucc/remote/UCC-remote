@@ -36,11 +36,37 @@ fi
 
 eval "$(/usr/sbin/ucr shell)"
 
-export SESSION_RSH=ssh
-export SESSION_RSH_ARGS='-X -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o PasswordAuthentication=no'
+if [ -e "/tmp/$USER-policy.txt" ]; then
+	. "/tmp/$USER-policy.txt"
+fi
 
-# TODO: find session host
-export SESSION_HOST="10.200.7.126"
+# check user policy for terminal server
+if [ -e "/tmp/$USER-policy.txt" ]; then
+	usrPolAttr="univentionCorporateClientUserUccTerminalserver"
+	servers=$(cat "/tmp/$USER-policy.txt" | grep "$usrPolAttr" | awk -F "$usrPolAttr=" '{print $2}' | sed 's/"//g')
+fi
+
+# overwrite user policy for terminal server if ucr policy to host is present
+if [ -n "$ucc_desktop" ]; then
+	servers="$ucc_desktop"
+fi
+
+# get session host
+minLoad=999999
+for server in $servers; do
+	sshOpts="-o StrictHostKeyChecking=no -o ConnectTimeout=3 -o BatchMode=yes"
+	myLoad="$(ssh "$USER"@"$server" univention-showload 2>/dev/null)"
+	if echo "$myLoad" | rgrep -q '^[0-9]+*'; then 
+		if [ -n "$myLoad" -a "$myLoad" -lt "$minLoad" ]; then
+			minLoad="$myLoad"
+			sessionHost="$server"
+		fi
+	fi
+done
+
+# start session
+export SESSION_HOST="$sessionHost"
 export FIFOFILE=/tmp/univention-client.sock.$USER
-
+export SESSION_RSH=ssh
+export SESSION_RSH_ARGS='-X -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o BatchMode=yes'
 univention-session-client -p /usr/share/univention-ucc-session-ucc-remote/UCC-remote.Session  -f $FIFOFILE

@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (1.0.0-4) unstable; urgency=low
+
+  * added host selection in ucc remote (Bug #29109) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 09 Nov 2012 23:09:22 +0100
+
 univention-ucc-session-ucc (1.0.0-3) unstable; urgency=low
 
   * added force-user-session (Bug #29109) 
