@@ -648,7 +648,11 @@ ucc_image_local()
 	if [ -n "${IMAGE}" -a -e "/ucc_tmp/root/${IMAGE}" ]; then
 		mount -o loop "/ucc_tmp/root/${IMAGE}" /root/
 		mount -o move /ucc_tmp/root /root/ucc_root
-		break
+	elif [ -e "/ucc_tmp/root/local_image" ]; then
+		# Use the local image if no image was given via /proc/cmdline
+		local_image="$(cat /ucc_tmp/root/local_image)"
+		mount -o loop "/ucc_tmp/root/$local_image" /root/
+		mount -o move /ucc_tmp/root /root/ucc_root
 	fi
 
 	if ! mount | grep -qs " on /root "; then

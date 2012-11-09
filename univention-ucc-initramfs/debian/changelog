@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.1-3) precise; urgency=low
+
+  * Mount the image via local_image file if no image was configured via
+    /proc/cmdline (Bug #28973)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 09 Nov 2012 07:33:04 +0100
+
 univention-ucc-initramfs (1.0.1-2) precise; urgency=low
 
   * Also search for the root device if /dev/nfs was given (Bug #28990)
