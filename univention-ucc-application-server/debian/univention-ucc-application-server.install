@@ -1,1 +1,2 @@
 univention-showload usr/bin/
+50univention-ucc-application-server.inst usr/lib/univention-install/
