@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.0-1) unstable; urgency=low
+
+  * added univention-mod-ldap-object.py (Bug #22654)
+
+ -- Felix Botner <botner@univention.de>  Fri, 09 Nov 2012 21:53:27 +0100
+
 univention-ucc-join (1.0-17) unstable; urgency=low
 
   * rename UCRV lightdm/{autostart,autologin} (Bug #29095)
@@ -44,7 +50,7 @@ univention-ucc-join (1.0-11) unstable; urgency=low
   * - Perform existance check of host account with the binddn
   * - If a hostname has been specified, a rejoin reuses that hostname. To
       switch back to a generated hostname, hostname/manual needs to be unset	
-	
+
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 29 Oct 2012 12:23:06 +0100
 
 univention-ucc-join (1.0-10) unstable; urgency=low
