@@ -1,3 +1,11 @@
+univention-ucc-initramfs (1.0.1-4) precise; urgency=low
+
+  * First support for the local flash in flash update (Bug #28972)
+  * Added a simple helper script which will be called from the initramfs
+    to read the image settings for this UCC (Bug #28972)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 09 Nov 2012 22:25:39 +0100
+
 univention-ucc-initramfs (1.0.1-3) precise; urgency=low
 
   * Mount the image via local_image file if no image was configured via

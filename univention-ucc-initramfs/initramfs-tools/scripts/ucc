@@ -388,6 +388,80 @@ _sync_from_persistent ()
 	umount /root
 }
 
+# Helper function to copy the image from /ucc_tmp/boot_medium/$1 to /ucc_tmp/root/
+# /ucc_tmp/boot_medium/ must be mounted
+_check_and_copy_image ()
+{
+	local img="$1"
+	if [ -n "${img}" -a -e "/ucc_tmp/boot_medium/${img}" ]; then
+		if ! test -e "/ucc_tmp/root/local_image.md5" || ! diff "/ucc_tmp/root/local_image.md5" "/ucc_tmp/boot_medium/${img}.md5">/dev/null ; then
+			if [ -e /ucc_tmp/root/local_image ]; then
+				old_image="$(cat /ucc_tmp/root/local_image)"
+
+				if [ -e "/ucc_tmp/root/$old_image" ]; then
+					_sync_to_persistent "/ucc_tmp/root/$old_image"
+					touch /ucc_tmp/root/ucc_sync_back_from_persistent
+				fi
+			fi
+
+			# Move the image to the new name
+			if [ -n "$old_image" -a -e "/ucc_tmp/root/$old_image" ]; then
+				mv "/ucc_tmp/root/$old_image" "/ucc_tmp/root/${img}"
+			fi
+
+			# A local images does not exist
+			echo "INFO: Copy UCC image to local harddsik: "
+			# TODO: check return value
+			rsync --progress "/ucc_tmp/boot_medium/${img}" /ucc_tmp/root
+			echo "${img}" >/ucc_tmp/root/local_image
+			cp "/ucc_tmp/boot_medium/${img}.md5" /ucc_tmp/root/local_image.md5
+			if [ -e "/ucc_tmp/root/ucc_sync_back_from_persistent" ]; then
+				_sync_from_persistent "/ucc_tmp/root/${img}"
+				rm "/ucc_tmp/root/ucc_sync_back_from_persistent"
+			fi
+		else
+			echo "INFO: Do not copy the UCC image to local harddsik. The image was not updated."
+		fi
+		sleep 60
+		return 0
+	else
+		return 1
+	fi
+}
+
+_mount_image ()
+{
+	if [ -e "/ucc_tmp/root/local_image" ]; then
+		local_image="$(cat /ucc_tmp/root/local_image)"
+		if mount -o loop "/ucc_tmp/root/${local_image}" /root/; then
+			return 0
+		fi
+	fi
+	return 1
+}
+
+_umount_image ()
+{
+	umount /root
+	return $?
+}
+
+_final_root_mount ()
+{
+	if [ -e "/ucc_tmp/root/local_image" ]; then
+		if ! _mount_image; then
+				echo "ERROR: failed to mount /ucc_tmp/root/${local_image} to /root"
+				panic "Dropping to a shell!"
+		fi
+
+		mkdir -p /root/ucc_root
+		mount -o move /ucc_tmp/root /root/ucc_root
+
+		return 0
+	fi
+	return 1
+}
+
 ## Copy the UCC image to the local disk
 _update_local_image ()
 {
@@ -398,48 +472,11 @@ _update_local_image ()
 	echo "IMAGE: $IMAGE"
 
 	if _mount_local_boot_device; then
-		if [ -n "${IMAGE}" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
-			if ! test -e "/ucc_tmp/root/local_image.md5" || ! diff "/ucc_tmp/root/local_image.md5" "/ucc_tmp/boot_medium/${IMAGE}.md5">/dev/null ; then
-				if [ -e /ucc_tmp/root/local_image ]; then
-					old_image="$(cat /ucc_tmp/root/local_image)"
-
-					if [ -e "/ucc_tmp/root/$old_image" ]; then
-						_sync_to_persistent "/ucc_tmp/root/$old_image"
-						touch /ucc_tmp/root/ucc_sync_back_from_persistent
-					fi
-				fi
-
-				# Move the image to the new name
-				if [ -n "$old_image" -a -e "/ucc_tmp/root/$old_image" ]; then
-					mv "/ucc_tmp/root/$old_image" "/ucc_tmp/root/${IMAGE}"
-				fi
-
-				# a local images does not exists
-				echo "INFO: Copy UCC image to local harddsik: "
-				rsync --progress "/ucc_tmp/boot_medium/${IMAGE}" /ucc_tmp/root
-				echo "${IMAGE}" >/ucc_tmp/root/local_image
-				cp "/ucc_tmp/boot_medium/${IMAGE}.md5" /ucc_tmp/root/local_image.md5
-				if [ -e "/ucc_tmp/root/ucc_sync_back_from_persistent" ]; then
-					_sync_from_persistent "/ucc_tmp/root/${IMAGE}"
-					rm "/ucc_tmp/root/ucc_sync_back_from_persistent"
-				fi
-			else
-				echo "INFO: Do not copy the UCC image to local harddsik. The image was not updated."
-			fi
-		fi
+		_check_and_copy_image "${IMAGE}"
 		umount /ucc_tmp/boot_medium
 	fi
 
-	if [ -e "/ucc_tmp/root/local_image" ]; then
-		local_image="$(cat /ucc_tmp/root/local_image)"
-		if ! mount -o loop "/ucc_tmp/root/${local_image}" /root/; then
-			echo "ERROR: failed to mount /ucc_tmp/root/${local_image} to /root"
-			panic "Dropping to a shell!"
-		fi
-
-		mkdir -p /root/ucc_root
-		mount -o move /ucc_tmp/root /root/ucc_root
-	fi
+	_final_root_mount
 }
 
 ## Install grub in the chroot. This is much easier than
@@ -549,6 +586,26 @@ _start_dhcpclient()
 	udhcpc -s /etc/udhcpc/default.script -i "$net_dev" -b
 }
 
+# start the network depending on the configuration in the image
+_start_network()
+{
+	# Image is mounted as /ucc_tmp/root
+	chroot /root /usr/sbin/ucr --shell search interfaces gateway nameserver>/tmp/ucr_interfaces
+	cat /tmp/ucr_interfaces | while read line; do
+		if [ -n "$(echo $line | grep _type=dhcp)" ]; then
+			iface="$(echo $line | sed -e 's|interfaces_\(.*\)_type=.*|\1|')"
+			ifconfig "${iface}" up
+			udhcpc -s /etc/udhcpc/default.script -i "${iface}" -b
+		elif [ -n "$(echo $line | grep _address=)" ]; then
+			iface="$(echo $line | sed -e 's|interfaces_\(.*\)_address=.*|\1|')"
+			addr=$(cat /tmp/ucr_interfaces | sed -ne "s|interfaces_${iface}_address=||p")
+			mask=$(cat /tmp/ucr_interfaces | sed -ne "s|interfaces_${iface}_netmask=||p")
+			ifconfig "${iface}" "${addr}" netmask "${mask}" up
+		fi
+	done
+	rm /tmp/ucr_interfaces
+}
+
 ## Update the local UCC image
 ucc_update()
 {
@@ -562,13 +619,39 @@ ucc_update()
 			ucc_installation
 			return
 		fi
+
+		_update_local_image
+
 	else
+		# In this case we boot from local boot menu
+		# TODO: 
+		# 		mount the local root device
+		#		bring up the local network with the configuration from the root device
+		#		chroot into the local boot device
+		#		search for images updates
 		mount ${ROOT} /ucc_tmp/root
+
+		if _mount_image; then
+			if [ ! -e /root/var/univention-join/joined ]; then
+				# The system is not joined. An image upgrade 
+				# is not possible. So dive into the image and boot
+				_umount_image
+				_final_root_mount
+			else
+				if _start_network; then
+					if chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script; then
+						chmod +x /tmp/upgrade_script
+						_umount_image
+						if /tmp/upgrade_script; then
+							_final_root_mount
+						fi
+					fi
+				fi
+			fi
+		fi
 	fi
 
-	# TODO: This is only possible if the system is joined.
-	#       The image must be read from one DC
-	_update_local_image
+	return 0
 }
 
 _mount_local_root_device()
