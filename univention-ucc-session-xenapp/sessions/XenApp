@@ -41,25 +41,15 @@ if [ -z "$citrix_windowmanager_disabled" -o "$citrix_windowmanager_disabled" = "
 	/usr/bin/openbox &
 fi
 
-# TODO
-# if [ -n "$univentionSoundEnabled" -a "1" = "$univentionSoundEnabled" ]; then
-#     sound="-sound"
-# fi
-
-# TODO
-# if [ ! -e /usr/lib/ICAClient/wfica ]; then
-#     echo "The Citrix Receiver client hasn't been installed yet." > /tmp/msg
-#     echo "Please refer to http://sdb.univention.de/1137 for" >> /tmp/msg
-#     echo "further instructions" >> /tmp/msg
-#     xmessage -file /tmp/msg
-#     rm /tmp/msg
-#     exit 0
-# fi
-
-#/usr/lib/ICAClient/wfica $sound -icaroot /usr/lib/ICAClient -nosplash /tmp/citrix.ica -domain "$domain" -username "$logonname" -clearpassword "$user_password"
+if [ ! -e /opt/Citrix/ICAClient ]; then
+	firefox file:///usr/share/ucc/install-citrix-receiver-hint.html
+	exit 0
+fi
 
 if [ -z "$citrix_webinterface" ]; then
 	firefox file:///usr/share/ucc/configure-website-hint.html
+else
+	firefox -url "$citrix_webinterface" -fullscreen
 fi
 
 
