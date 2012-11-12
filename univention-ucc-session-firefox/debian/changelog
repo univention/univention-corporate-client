@@ -1,3 +1,9 @@
+univention-ucc-session-firefox (1.0.1-2) unstable; urgency=low
+
+  * Make the Firefox start page configurable through firefox/startsite (Bug #24091)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 12 Nov 2012 14:04:19 +0100
+
 univention-ucc-session-firefox (1.0.1-1) unstable; urgency=low
 
   * added force-user-session (Bug #29109) 

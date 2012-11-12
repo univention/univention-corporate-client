@@ -36,5 +36,8 @@ fi
 
 openbox &
 
-firefox
-
+if [ -z "$firefox_startsite" ]; then
+	firefox -fullscreen
+else
+	firefox -url "$firefox_startsite" -fullscreen
+fi
