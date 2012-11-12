@@ -2,7 +2,7 @@
 #
 # Univention Corporate Client
 #
-# Bypass for entropy problems with the Citrix Receiver
+# Bypass entropy problems with the Citrix Receiver
 #
 # Copyright (C) 2007-2012 Univention GmbH
 #
@@ -31,9 +31,23 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-if [ ! -L "/dev/random" ]; then
+. /usr/share/univention-lib/all.sh
+
+eval "$(/usr/sbin/univention-config-registry shell)"
+
+# The Citrix Receiver 11.x queried /dev/random for certain network operations
+# /dev/random blocks if insufficient entropy is present, which could lead to
+# stalled logins. Please see the following references:
+# http://forums.citrix.com/thread.jspa?threadID=246296
+# http://forums.citrix.com/thread.jspa?threadID=311959
+#
+# It's not clear, whether this is still needed with Citrix Receiver 12
+
+if is_ucr_true citrix/linkdevrandom; then
+	if [ ! -L "/dev/random" ]; then
         mv /dev/random /dev/random.old
         ln -s /dev/urandom /dev/random
+	fi
 fi
 
 exit 0
