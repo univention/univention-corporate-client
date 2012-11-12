@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" xml:lang="de" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+	<title>Configuration of Citrix web interface required</title>
+  </head>
+<body>
+
+  <h1>Configuration of Citrix web interface required</h1>
+
+  <p>
+	The Citrix XenApp web interface hasn't been configured yet. It needs to be configured by
+	creating a <b>Univention Configuration Registry</b> policy in the Univention Management Console. 
+  </p>
+	
+  <p>
+	The <b>Variable</b> needs to be set to <i>ucc/xenapp/webinterface</i> and the <b>Value</b> to
+	the URL of your Citrix web interface (e.g. <i>https://HOST/Citrix/XenApp</i>.
+  </p>
+
+  <p>
+	This policy then needs to be assigned to the UCC clients, usually by binding the policy to the
+	<b>cn=computers</b> container.
+  </p>
+
+</body>
+
+</html>

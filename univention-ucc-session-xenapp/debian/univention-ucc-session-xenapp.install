@@ -1,3 +1,4 @@
 51univention-ucc-session-xenapp.inst /usr/lib/univention-install/
 sessions/XenApp /usr/share/xsessions
 sessions/XenApp.desktop /usr/share/xsessions
+configure-website-hint.html /usr/share/ucc

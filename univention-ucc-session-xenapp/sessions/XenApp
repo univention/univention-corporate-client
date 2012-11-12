@@ -35,13 +35,6 @@ if [ -e /usr/share/univention-lightdm/force-user-session ]; then
     . /usr/share/univention-lightdm/force-user-session
 fi
 
-if test -e /tmp/passwd; then
-    user_password=`cat /tmp/passwd | base64-decode`
-    rm /tmp/passwd
-fi
-   
-user=`whoami`
-
 eval "$(/usr/sbin/univention-config-registry shell)"
 
 # TODO
@@ -66,6 +59,12 @@ eval "$(/usr/sbin/univention-config-registry shell)"
 # fi
 
 #/usr/lib/ICAClient/wfica $sound -icaroot /usr/lib/ICAClient -nosplash /tmp/citrix.ica -domain "$domain" -username "$logonname" -clearpassword "$user_password"
+
+if [ -z "$ucc_xenapp_webinterface" ]; then
+	firefox file:///usr/share/ucc/configure-website-hint.html
+fi
+
+
 
 
 
