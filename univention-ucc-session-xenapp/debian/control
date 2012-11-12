@@ -2,12 +2,12 @@ Source: univention-ucc-session-xenapp
 Section: univention
 Priority: optional
 Maintainer: Univention GmbH <packages@univention.de>
-Build-Depends: debhelper, univention-config-dev
+Build-Depends: debhelper, univention-config-dev, ucslint
 Standards-Version: 3.7.2
 
 Package: univention-ucc-session-xenapp
 Architecture: all
-Depends: firefox, libxp6, ucslint
+Depends: firefox, libxp6, openbox
 Description: Integration package for XenApp terminal services
  This package installs the required packages to allow
  UCC systems to access terminal services.

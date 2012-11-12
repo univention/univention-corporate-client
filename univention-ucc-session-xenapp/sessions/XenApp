@@ -37,11 +37,9 @@ fi
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
-# TODO
-# # run a window-manager (metacity) to avoid optical failures of older citrix-client
-# if [ -z "$citrix_windowmanager_disabled" -o "$citrix_windowmanager_disabled" = "no" ]; then
-# 	/usr/bin/metacity &
-# fi
+if [ -z "$citrix_windowmanager_disabled" -o "$citrix_windowmanager_disabled" = "no" ]; then
+	/usr/bin/openbox &
+fi
 
 # TODO
 # if [ -n "$univentionSoundEnabled" -a "1" = "$univentionSoundEnabled" ]; then
@@ -60,7 +58,7 @@ eval "$(/usr/sbin/univention-config-registry shell)"
 
 #/usr/lib/ICAClient/wfica $sound -icaroot /usr/lib/ICAClient -nosplash /tmp/citrix.ica -domain "$domain" -username "$logonname" -clearpassword "$user_password"
 
-if [ -z "$ucc_xenapp_webinterface" ]; then
+if [ -z "$citrix_webinterface" ]; then
 	firefox file:///usr/share/ucc/configure-website-hint.html
 fi
 
