@@ -1,0 +1,5 @@
+univention-ucc-session-xenapp (1.0.0-1) unstable; urgency=low
+
+  * Initial Release. Bug #23010
+	
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 09 Nov 2012 14:38:26 +0100

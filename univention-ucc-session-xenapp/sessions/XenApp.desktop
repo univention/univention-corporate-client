@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=XenApp
+Comment=Login to a Citrix XenApp terminal server
+Comment[de]=Anmeldung auf einem Citrix XenApp Terminalserver
+Exec=/usr/share/xsessions/XenApp
+Type=Xsession
