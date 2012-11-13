@@ -2,4 +2,4 @@ sessions/XenApp /usr/share/xsessions
 sessions/XenApp.desktop /usr/share/xsessions
 configure-website-hint.html /usr/share/ucc
 install-citrix-receiver-hint.html /usr/share/ucc
-030-univention-citrix-add-entropy-workaround /etc/lightdm/session-setup/
+univention-citrix-add-entropy-workaround /usr/sbin

@@ -34,6 +34,8 @@
 
 . /usr/share/univention-lib/all.sh
 
-call_joinscript 51univention-ucc-session-xenapp.inst
+if [ ! -L /etc/lightdm/session-setup/030_univention-citrix-add-entropy-workaround ]; then
+	ln -s /usr/sbin/univention-citrix-add-entropy-workaround /etc/lightdm/session-setup/010_univention-citrix-add-entropy-workaround
+fi
 
 exit 0
