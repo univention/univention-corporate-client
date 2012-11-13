@@ -43,7 +43,7 @@ eval "$(/usr/sbin/univention-config-registry shell)"
 #
 # It's not clear, whether this is still needed with Citrix Receiver 12
 
-if is_ucr_true citrix/linkdevrandom; then
+if  [ "$citrix_linkdevrandom" =  "true" ]; then
 	if [ ! -L "/dev/random" ]; then
         mv /dev/random /dev/random.old
         ln -s /dev/urandom /dev/random
