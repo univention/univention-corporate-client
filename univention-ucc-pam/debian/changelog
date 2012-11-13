@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-14) unstable; urgency=low
+
+  * Fix common-session-noninteractive template (Bug #29207)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 13 Nov 2012 12:10:09 +0100
+
 univention-ucc-pam (1.0.0-13) unstable; urgency=low
 
   * Bump version (Bug #28039)

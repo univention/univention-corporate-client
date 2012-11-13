@@ -1,6 +1,6 @@
 @%@UCRWARNING=# @%@
 
- /etc/pam.d/common-session-noninteractive - session-related modules
+# /etc/pam.d/common-session-noninteractive - session-related modules
 # common to all non-interactive services
 #
 # This file is included from other service-specific PAM config files,
