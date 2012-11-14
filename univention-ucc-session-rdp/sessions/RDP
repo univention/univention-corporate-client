@@ -29,6 +29,7 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
+
 # force user session
 if [ -e /usr/share/univention-lightdm/force-user-session ]; then
     . /usr/share/univention-lightdm/force-user-session
@@ -61,7 +62,6 @@ else
     params="$params --no-tls"
 fi
 
-
 if test -e /tmp/passwd; then
     PASSWD=`cat /tmp/passwd`
     params="$params -p $PASSWD"
@@ -87,14 +87,44 @@ fi
 if [ -n "$rdp_user" ]; then
     params="$params -u $rdp_user"
 else
+
+if [[ $USER == guest-* ]]; then
+	messageFile=$(mktemp)
+	echo "
+You're currently logged in with a guest user account. This usually means
+that the UCC system hasn't been joined into the UCS domain yet.
+
+You can either 
+
+* Join this system into the domain using univention-join
+  and perform a user login using the <RDP> session 
+* Specify a login for the Windows terminal server using the UCR
+  variable rdp/user.
+
+A desktop session will now be started. You can initiate a terminal session 
+to a Windows terminal server by launching the application Remmina Remote 
+Desktop Client from the start menu.
+
+" >>$messageFile
+	xmessage -file "$messageFile"
+	/usr/bin/startlxde
+else
     params="$params -u $USER"
+	fi
 fi
 
 if [ -n "$rdp_domainname" ]; then
     params="$params -d $rdp_domainname"
 else
     policy_windows_domain=`grep -A 1 univentionCorporateClientUserWindowsDomain /tmp/"$USER"-policy.txt  | grep Value | awk -F ":" '{print $2}' | sed -e 's/^[[:space:]]*//' `
-    params="$params -d $policy_windows_domain"
+
+if [ -z "$policy_windows_domain" ]; then
+	echo "Use a local workstation login and not a domain login"
+else
+	params="$params -d $policy_windows_domain"
+fi	
+
+
 fi
 
 policy_windows_ts=`grep -A 1 univentionCorporateClientUserWindowsTerminalserver /tmp/"$USER"-policy.txt  | grep Value | awk -F ":" '{print $2}' | sed -e 's/^[[:space:]]*//' `
