@@ -74,9 +74,11 @@ else
     params="$params -k $rdpKeyboard"
 fi
 
-if is_ucr_true 'rdp/sound'; then
+if is_ucr_true 'rdp/disable-sound'; then
+	echo "Deactivating sound output"
+else
  	params="$params --plugin rdpsnd"
- fi
+fi
 
 if is_ucr_true 'rdp/redirectdisk'; then
     params="$params --plugin rdpdr --data disk:local-drives:/var/drives"
