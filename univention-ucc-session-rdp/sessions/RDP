@@ -47,14 +47,14 @@ eval "$(/usr/sbin/univention-config-registry shell)"
 
 params=""
 
-if [ -n "$rdp_checknla" -a "$rdp_checknla" = "yes" ]; then
+if is_ucr_true 'rdp/checknla'; then
     echo "By default NLA validation is enabled"
 else
     echo "Disabling NLA validation"
     params="$params --no-nla"
 fi
 
-if [ -n "$rdp_checktls" -a "$rdp_checktls" = "yes" ]; then
+if is_ucr_true 'rdp/checktls'; then
     echo "By default TLS validation is enabled"
 else
     echo "Disabling TLS validation"
@@ -74,11 +74,11 @@ else
     params="$params -k $rdpKeyboard"
 fi
 
-# if [ -n "$univentionSoundEnabled" -a "$univentionSoundEnabled" = "1" ] && [ -z "$rdp_alsa_disabled" ]; then
-# 	params="$params -r sound:local:alsa"
-# fi
+if is_ucr_true 'rdp/sound'; then
+ 	params="$params --plugin rdpsnd"
+ fi
 
-if [ -n "$rdp_redirectdisk" -a "$rdp_redirectdisk" = "1" ]; then
+if is_ucr_true 'rdp/redirectdisk'; then
     params="$params --plugin rdpdr --data disk:local-drives:/var/drives"
 fi
 

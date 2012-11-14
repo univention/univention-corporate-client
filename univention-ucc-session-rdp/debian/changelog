@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.1-2) unstable; urgency=low
+
+  * Activate sound (Bug #29109)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 14 Nov 2012 10:29:04 +0100
+
 univention-ucc-session-rdp (1.0.1-1) unstable; urgency=low
 
   * added force-user-session (Bug #29109) 
