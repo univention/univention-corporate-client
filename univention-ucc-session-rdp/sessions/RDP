@@ -46,7 +46,7 @@ function cleanup_and_exit {
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
-params=""
+params="-f"
 
 if is_ucr_true 'rdp/checknla'; then
     echo "By default NLA validation is enabled"

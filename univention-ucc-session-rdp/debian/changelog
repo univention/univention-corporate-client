@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.1-6) unstable; urgency=low
+
+  * Activate fullscreen mode
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 14 Nov 2012 12:58:58 +0100
+
 univention-ucc-session-rdp (1.0.1-5) unstable; urgency=low
 
   * Also test for login with the guest account (Bug #29222)
