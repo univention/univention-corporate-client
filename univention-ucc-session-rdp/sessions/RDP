@@ -111,14 +111,20 @@ fi
 if [ -z "$server" ]; then
 	messageFile=$(mktemp)
 	echo "
-No RDP server was found.
+No RDP server has been configured.
 
-The RDP server can configured via the input field Windows
-terminal server in the UCC user session policy or by
-or by setting the UCR variable rdp/server via an UCR policy.
+The Windows terminal server can be configured through the
+input field <Windows Terminal Server> in the UCC user session
+policy or setting the UCR variable rdp/server via an UCR policy.
+
+This hasn't been setup yet. A desktop session will now be started.
+You can initiate a terminal session to a Windows terminal server
+by launching the application Remmina Remote Desktop Client from
+the start menu.
+
 " >>$messageFile
 	xmessage -file "$messageFile"
-	cleanup_and_exit
+	/usr/bin/startlxde
 fi
 
 /usr/bin/xfreerdp $params $server

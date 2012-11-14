@@ -1,3 +1,10 @@
+univention-ucc-session-rdp (1.0.1-4) unstable; urgency=low
+
+  * Provide remmina as fallback for incompletely configured RDP session
+    (Bug #29222)	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 14 Nov 2012 11:15:24 +0100
+
 univention-ucc-session-rdp (1.0.1-3) unstable; urgency=low
 
   * Enable sound by default (Bug #29109)
