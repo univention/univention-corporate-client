@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.1-7) unstable; urgency=low
+
+  * Document UCR variable to disable sound (Bug #28466)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 14 Nov 2012 13:04:34 +0100
+
 univention-ucc-session-rdp (1.0.1-6) unstable; urgency=low
 
   * Activate fullscreen mode

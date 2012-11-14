@@ -40,4 +40,11 @@ Description[en]=If this variable is set to yes, network level authentication is 
 Type=str
 Categories=system-desktop
 
+[rdp/disable-sound]
+Description[de]=Wird diese Variable aktiviert, wird keine Soundausgabe in der RDP-Sitzung weitergeleitet
+Description[en]=If this variable is activated, no sound is redirected in the RDP session
+Type=bool
+Categories=system-desktop
+
+
 
