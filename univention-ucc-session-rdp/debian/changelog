@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.1-9) unstable; urgency=low
+
+  * Fix RDP option (Bug #28294)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 15 Nov 2012 15:05:57 +0100
+
 univention-ucc-session-rdp (1.0.1-8) unstable; urgency=low
 
   * Fix path to disk redirect (Bug #28294)
