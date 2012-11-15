@@ -1,0 +1,11 @@
+# legacy floppy drives:
+ACTION=="add", KERNEL=="fd[0-9]", RUN+="add_fstab_entry %k auto"
+
+# USB floppy drives:
+ACTION=="add", SUBSYSTEM=="block", KERNEL!="fd[0-9]", ENV{ID_TYPE}=="floppy", ATTRS{removable}=="1", RUN+="add_fstab_entry %k auto"
+
+# other drives:
+ACTION=="add", SUBSYSTEM=="block", ENV{ID_TYPE}!="floppy", RUN+="add_fstab_entry %k"
+
+# device removals:
+ACTION=="remove", SUBSYSTEM=="block", RUN+="remove_fstab_entry %k"

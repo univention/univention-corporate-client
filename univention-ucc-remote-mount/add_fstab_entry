@@ -1,0 +1,159 @@
+#!/bin/bash
+
+# Copyright (C) 2012 Univention GmbH
+#
+# http://www.univention.de/
+# 
+# All rights reserved.
+#
+# The source code of this program is made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this program provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use this program under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+
+# Debug
+echo "univention-ucc-remote-mount: add_fstab_entry called: options: $1 $2 $3"|logger
+
+##  if called by udev
+# add_fstab_entry
+# place in /lib/udev
+# $1 = devicename
+# $2 = fstype
+
+## if called by cdpinger
+# $1 = [add|remove]
+# $2 = "cdrom"
+# $3 = "auto" (filesystem?)
+
+call_cdpinger(){
+    if [ -z "$(pgrep -f -l "/usr/sbin/cdpinger $1")" ]; then
+        /usr/sbin/cdpinger $1 &
+		echo "univention-ucc-remote-mount: started cdpinger for $1"|logger
+        return 0
+    else
+        # already running cdpinger for this device
+        return 1
+    fi
+}
+
+. /usr/share/univention-lib/all.sh
+
+
+eval "$(univention-config-registry shell)"
+
+if ! is_ucr_true 'ucc/mount'; then
+    echo "univention-ucc-remote-mount: Device mount has been disabled, exiting" | logger
+    exit 0
+fi
+
+# check if we are called by cdpinger
+if [ "$1" = "add" ] || [ "$1" = "remove" ]; then
+    devicename=$(basename $2) # normally "cdrom"
+    fstype="$3"
+    if [ "$1" = "remove" ]; then # call remove_fstab_entry
+		/lib/udev/remove_fstab_entry "$2" "$3"
+    fi
+    # remove_fstab_entry will stop cdpinger because it don't see the difference 
+    # to an CD-eject, so we restart cdpinger here
+    call_cdpinger $devicename
+    return 0
+else
+    devicename=$(basename $1)
+    fstype=$2
+fi
+
+export $(udevinfo -qenv -n $devicename)
+
+if [ -n "$DM_NAME" ]; then
+	if [[ "$DM_NAME" == truecrypt* ]]; then
+		echo "univention-ucc-remote-mount: Ignoring Truecrypt dm device" | logger
+		exit 0
+	fi
+fi
+
+if [ "$ID_BUS" != "usb" ]; then
+    echo "univention-ucc-remote-mount: Device is not a USB device" | logger
+    exit 0
+fi
+
+# # handle CDROM devices, which do not produce udev add/remove events
+# if [ "${ID_TYPE}" = "cd" ]; then
+#     if call_cdpinger $devicename ; then
+#         # started new cdpinger, which will handle the rest
+#         exit 0
+#     fi
+# fi
+
+if [ -z "$fstype" ]; then
+    fstype="auto"
+fi
+
+LABEL=${ID_FS_LABEL_SAFE}
+
+BASEDEV=$(echo $devicename | tr -d "0-9")
+
+if [ ${BASEDEV} = "fd" ]; then
+    DEVNUM=$(echo $devicename | tr -d "fd")
+    LABEL="floppy${DEVNUM}"
+    FIXEDDEVICE="Y"
+elif [ -z ${LABEL} ]; then
+    LABEL=$(echo ${ID_BUS}${ID_TYPE}-$devicename |tr " " "_")
+fi
+
+# base path
+ROOT=/run/drives
+# make sure the root we mount exists
+if [ ! -d $ROOT ];then
+	mkdir ${ROOT}
+fi
+
+# invent $MOUNTPOINT
+MOUNTPOINT=$ROOT/$LABEL
+
+mountoptions=""
+filesystemoptions=""
+
+if [ "${ID_TYPE}" != "cd" ]; then
+	if is_ucr_true 'ucc/mount/sync'; then
+		mountoptions="-o sync"
+   	fi
+fi
+
+if [ "$fstype" != "auto" ]; then
+   	filesystemoptions="-t $fstype"
+fi
+
+vfatpresent=`blkid | grep /dev/$devicename | grep 'TYPE="vfat"'`
+if [ ! -z "${vfatpresent}" ]; then
+   	if [ -n "$mountoptions" ]; then
+		mountoptions="$mountoptions,umask=0000"
+   	else
+		mountoptions="-o umask=0000"
+   	fi
+fi
+
+if [ ! -d $MOUNTPOINT ];then
+   	mkdir ${MOUNTPOINT}
+fi
+
+mount $mountoptions $filesystemoptions /dev/$devicename ${MOUNTPOINT}
+
+if [ $? -ne 0 ]; then
+	rmdir ${MOUNTPOINT}
+fi

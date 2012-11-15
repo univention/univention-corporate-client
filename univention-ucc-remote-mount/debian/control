@@ -1,0 +1,14 @@
+Source: univention-ucc-remote-mount
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Build-Depends: debhelper, univention-config-dev, ucslint
+Standards-Version: 3.7.2
+
+Package: univention-ucc-remote-mount
+Architecture: all
+Conflicts: ltspfsd-core
+Description: Support for accessing local mass storage in remote sessions
+ This package provides udev mount scripts for local USB mass storage
+ of a UCC system. These mounts are then passed into terminal sessions
+ for RDP, XenApp and UCC.

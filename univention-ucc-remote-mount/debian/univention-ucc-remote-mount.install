@@ -1,0 +1,3 @@
+add_fstab_entry /lib/udev/
+remove_fstab_entry /lib/udev/
+50-ucc-remote-mount.rules /lib/udev/rules.d
