@@ -75,7 +75,6 @@ if [ "$1" = "add" ] || [ "$1" = "remove" ]; then
     return 0
 else
     devicename=$(basename $1)
-    fstype=$2
 fi
 
 export $(udevinfo -qenv -n $devicename)
@@ -135,16 +134,23 @@ if [ "${ID_TYPE}" != "cd" ]; then
    	fi
 fi
 
-if [ "$fstype" != "auto" ]; then
-   	filesystemoptions="-t $fstype"
-fi
-
 vfatpresent=`blkid | grep /dev/$devicename | grep 'TYPE="vfat"'`
 if [ ! -z "${vfatpresent}" ]; then
    	if [ -n "$mountoptions" ]; then
 		mountoptions="$mountoptions,umask=0000,iocharset=utf8"
    	else
 		mountoptions="-o umask=0000,iocharset=utf8"
+   	fi
+fi
+
+ntfspresent=`blkid | grep /dev/$devicename | grep 'TYPE="ntfs"'`
+if [ ! -z "${ntfspresent}" ]; then
+   	filesystemoptions="-t ntfs"
+
+   	if [ -n "$mountoptions" ]; then
+		mountoptions="$mountoptions,umask=0000"
+   	else
+		mountoptions="-o umask=0000"
    	fi
 fi
 
