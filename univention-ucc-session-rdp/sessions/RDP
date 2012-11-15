@@ -81,7 +81,7 @@ else
 fi
 
 if is_ucr_true 'rdp/redirectdisk'; then
-    params="$params --plugin rdpdr --data disk:local-drives:/var/drives"
+    params="$params --plugin rdpdr --data disk:local-drives:/run/drives"
 fi
 
 if [ -n "$rdp_user" ]; then
