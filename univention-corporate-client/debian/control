@@ -17,6 +17,7 @@ Depends: univention-config,
  univention-ucc-pam,
  univention-ucc-initramfs,
  univention-directory-policy,
+ univention-ucc-remote-mount,
  univention-lightdm
 Description: Metapackage for Univention Corporate Client
  This package defines dependencies on the various packages
