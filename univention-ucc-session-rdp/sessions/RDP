@@ -124,6 +124,10 @@ else
 	params="$params -d $policy_windows_domain"
 fi	
 
+if [ -n "$rdp_additionaloptions" ]; then
+	params="$params $rdp_additionaloptions"
+fi	
+
 
 fi
 

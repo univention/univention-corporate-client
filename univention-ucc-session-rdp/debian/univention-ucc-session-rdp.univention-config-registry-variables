@@ -46,5 +46,11 @@ Description[en]=If this variable is activated, no sound is redirected in the RDP
 Type=bool
 Categories=system-desktop
 
+[rdp/additionaloptions]
+Description[de]=Diese Variable kann genutzt werden, um zusätzliche Optionen an freerdp zu übergeben
+Description[en]=This variable can be used to pass additional options to freerdp
+Type=bool
+Categories=system-desktop
+
 
 

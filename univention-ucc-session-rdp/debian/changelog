@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.1-10) unstable; urgency=low
+
+  * Allow passing additional options (Bug #25957)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 16 Nov 2012 08:31:04 +0100
+
 univention-ucc-session-rdp (1.0.1-9) unstable; urgency=low
 
   * Fix RDP option (Bug #28294)
