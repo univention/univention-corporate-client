@@ -107,7 +107,7 @@ check_cd_status(void)
             if (last == CDP_CDROM_MOUNT) {
                 syslog (LOG_INFO, "Tray open.  Unmounting");
                 snprintf(cmd, sizeof cmd,
-                        "/lib/udev/ltspfs_entry remove_disc %s", device);
+                        "/lib/udev/remove_fstab_entry %s", device);
                 last = CDP_CDROM_UMOUNT;
                 return g_spawn_command_line_sync(cmd, NULL, NULL, NULL, NULL);
             }
@@ -116,7 +116,7 @@ check_cd_status(void)
             if (last == CDP_CDROM_UMOUNT) {
                 syslog (LOG_INFO, "Disk detected.  Mounting");
                 snprintf(cmd, sizeof cmd,
-                        "/lib/udev/ltspfs_entry add_disc %s iso9660,udf", device);
+                        "/lib/udev/add_fstab_entry %s iso9660,udf", device);
                 last = CDP_CDROM_MOUNT;
                 return g_spawn_command_line_sync(cmd, NULL, NULL, NULL, NULL);
             }
