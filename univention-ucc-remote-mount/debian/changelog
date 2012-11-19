@@ -1,3 +1,9 @@
+univention-ucc-remote-mount (1.0.0-2) unstable; urgency=low
+
+  * Depend on and integrate cdpinger (Bug #28294)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 19 Nov 2012 14:19:09 +0100
+
 univention-ucc-remote-mount (1.0.0-1) unstable; urgency=low
 
   * Initial release of UCC port. (Bug #28294)

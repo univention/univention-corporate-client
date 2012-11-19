@@ -41,7 +41,7 @@ done
 
 # check for running cdpinger
 
-# if [ -n "$(pgrep -f -l "/usr/sbin/cdpinger $devicename")" ]; then
-#     echo "remove_fstab_entry: stop " "$(pgrep -f -l "/usr/sbin/cdpinger $devicename")"|logger
-#     kill "$(pgrep -f -l "/usr/sbin/cdpinger $devicename"|awk '{print $1}')"
-# fi
+if [ -n "$(pgrep -f -l "/usr/sbin/cdpinger $devicename")" ]; then
+    echo "remove_fstab_entry: stop " "$(pgrep -f -l "/usr/sbin/cdpinger $devicename")"|logger
+    kill "$(pgrep -f -l "/usr/sbin/cdpinger $devicename"|awk '{print $1}')"
+fi

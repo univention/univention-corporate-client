@@ -91,13 +91,13 @@ if [ "$ID_BUS" != "usb" ]; then
     exit 0
 fi
 
-# # handle CDROM devices, which do not produce udev add/remove events
-# if [ "${ID_TYPE}" = "cd" ]; then
-#     if call_cdpinger $devicename ; then
-#         # started new cdpinger, which will handle the rest
-#         exit 0
-#     fi
-# fi
+# handle CDROM devices, which do not produce udev add/remove events
+if [ "${ID_TYPE}" = "cd" ]; then
+    if call_cdpinger $devicename ; then
+        # started new cdpinger, which will handle the rest
+        exit 0
+    fi
+fi
 
 if [ -z "$fstype" ]; then
     fstype="auto"
