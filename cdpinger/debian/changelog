@@ -1,3 +1,9 @@
+cdpinger (1.1-2+ucs4) unstable; urgency=low
+
+  * Really fix build (Bug #28294)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 19 Nov 2012 14:00:24 +0100
+
 cdpinger (1.1-2+ucs3) unstable; urgency=low
 
   * Try src format 1.0 (Bug #28294)
