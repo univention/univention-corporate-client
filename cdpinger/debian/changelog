@@ -1,0 +1,7 @@
+cdpinger (1.1-2) unstable; urgency=low
+
+  * Initial release:
+  * Import ltspfs 1.1-2 from Ubuntu 12.04 under the source package name cdpinger
+    (Bug #28294)	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 19 Nov 2012 12:56:11 +0100

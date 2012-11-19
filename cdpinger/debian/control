@@ -1,0 +1,15 @@
+Source: cdpinger
+Section: net
+Priority: optional
+Maintainer: Debian LTSP Maintainers <pkg-ltsp-devel@lists.alioth.debian.org>
+Uploaders: Vagrant Cascadian <vagrant@debian.org>
+Build-Depends: debhelper (>= 7.0.50~), autotools-dev, libfuse-dev, libx11-dev, pkg-config, libglib2.0-dev, lsb-release, dh-autoreconf
+Standards-Version: 3.9.2
+DM-Upload-Allowed: yes
+
+Package: cdpinger
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python (>= 2.4)
+Description: cdpinger tool from ltspfs source package
+ cdpinger tool from ltspfs source package, required for integration of 
+ CD drives into UCC.

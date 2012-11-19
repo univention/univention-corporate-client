@@ -1,0 +1,15 @@
+ltspfs (0.5.11-3) unstable; urgency=low
+
+    the mechanism for enabling local disks changed in version 0.5.6-1. set
+    LOCALDEV_DENY_INTERNAL_DISKS=false in /etc/lts.conf to enable local disks.
+ 
+ -- Vagrant Cascadian <vagrant@freegeek.org>  Wed, 22 Apr 2009 11:37:06 -0700
+
+ltspfs (0.5.0~) unstable; urgency=low
+
+    automatic mounting of non-removable devices is now disabled by default
+    to enable, in /etc/udev/rules.d/*ltspfsd.rules, remove ATTRS{removable}==1
+    from the appropriate lines.  see http://bugs.debian.org/432024 for more
+    information.
+
+ -- Vagrant Cascadian <vagrant@freegeek.org>  Thu, 10 Jan 2008 13:19:04 -0800

@@ -1,0 +1,10 @@
+# ltspfs doesn not release tarballs, though the current version can be found by
+# looking for AC_INIT in the following URL:
+# http://bazaar.launchpad.net/~ltsp-upstream/ltspfs/ltspfs-trunk/annotate/head:/configure.ac
+
+version=3
+
+# check versions uploaded to other distros:
+
+# ubuntu
+http://archive.ubuntu.com/ubuntu/pool/main/l/ltspfs/ltspfs_(.*)\.orig\.tar\.gz

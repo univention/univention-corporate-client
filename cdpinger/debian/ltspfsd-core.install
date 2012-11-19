@@ -1,0 +1,9 @@
+usr/bin/ltspfsd
+usr/sbin/cdpinger
+usr/sbin/ltspfs_mount
+usr/sbin/ltspfs_umount
+lib/udev/ltspfs_entry
+usr/share/man/man1/ltspfsd.1
+usr/share/man/man1/cdpinger.1
+usr/share/man/man1/ltspfs_mount.1
+usr/share/man/man1/ltspfs_umount.1

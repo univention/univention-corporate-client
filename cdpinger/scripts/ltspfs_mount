@@ -1,0 +1,18 @@
+#!/bin/sh
+[ -n "$1" ] || {
+    echo "Usage: $0 <mount point>"
+	exit 1
+}
+
+# ltspfs_mount, passed a directory name, used in /var/run/ltspfs_fstab.
+grep "$1" /var/run/ltspfs_fstab | while read DEV MOUNTPOINT TYPE OPTIONS DUMP PASS; do
+   [ -d ${MOUNTPOINT} ] || mkdir ${MOUNTPOINT}
+   # Check if it's already mounted, if not try to mount
+   if ! mountpoint -q ${MOUNTPOINT} && ! mount -t ${TYPE} -o ${OPTIONS} ${DEV} ${MOUNTPOINT} ; then
+        # Call ltspfs_entry remove if the mount fails and is not a floppy drive
+        case $MOUNTPOINT in
+            *floppy*) ;;
+            *) [ -z "$(grep ${MOUNTPOINT} /proc/mounts)" ] && /lib/udev/ltspfs_entry remove ${DEV} ;;
+        esac
+   fi
+done

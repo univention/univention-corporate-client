@@ -1,0 +1,10 @@
+#
+# sourced with .
+#
+# Script to cleanup local ltspfsmounter
+#
+
+if [ -f /var/run/ltspfs_fstab ] && [ -x /usr/sbin/ltspfsmounter ]; then
+    unset SSH_CONNECTION
+    su ${LDM_USERNAME} -c "LTSPFS_NOAUTH=True /usr/sbin/ltspfsmounter all cleanup" 
+fi

@@ -1,0 +1,19 @@
+#!/usr/bin/python
+
+# Issue notification on device insertion or removal. Useful for desktops such
+# as KDE or LXDE which do not automatically display icons for ltspfs mounts.
+#
+# Requires python-notify to be installed.
+
+import sys
+mode=sys.argv[1]
+ltspfs_mount=sys.argv[2]
+if mode == 'cleanup':
+    # do nothing in cleanup mode.
+    sys.exit(0)
+
+import pynotify
+if not pynotify.init("ltspfs"):
+    sys.exit(1)
+n = pynotify.Notification("ltspfs","%s" % mode+' '+ltspfs_mount)
+n.show()

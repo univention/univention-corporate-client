@@ -1,0 +1,36 @@
+.TH "LTSPFSD" "1" 
+.SH "NAME" 
+ltspfsd \(em daemon to serve fuse based filesystems over the network 
+.SH "SYNOPSIS" 
+.PP 
+\fBltspfsd\fR [\fB-a \fP]  [\fB-r \fP]  [\fB-d \fP]  
+.SH "DESCRIPTION" 
+.PP 
+This manual page documents briefly the 
+\fBltspfsd\fR command. 
+ 
+.PP 
+\fBltspfsd\fR is a program that provides access to local devices over the network from a ltspfs client 
+.SH "OPTIONS" 
+.IP "\fB-a\fP         " 10 
+for no authentication. The server will simply accept the XAUTH packet sent down, and always return OK. 
+.IP "\fB-r\fP         " 10 
+for read only. Specifying this causes the ltspfsd to behave as a readonly server, and won't allow any modification to the media. 
+.IP "\fB-d\fP         " 10 
+for debug. Server won't fork into the background, and will print messages to stderr. 
+.SH "SEE ALSO" 
+.PP 
+ltspfs (1). 
+.SH "AUTHOR" 
+.PP 
+This manual page was written by Oliver Grawert ogra@ubuntu.com for 
+the \fBDebian\fP system (but may be used by others).  Permission is 
+granted to copy, distribute and/or modify this document under 
+the terms of the GNU General Public License, Version 2 any  
+later version published by the Free Software Foundation. 
+ 
+.PP 
+On Debian systems, the complete text of the GNU General Public 
+License can be found in /usr/share/common-licenses/GPL. 
+ 
+.\" created by instant / docbook-to-man, Fri 25 Aug 2006, 21:38 

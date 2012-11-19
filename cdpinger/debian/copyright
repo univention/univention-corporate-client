@@ -1,0 +1,44 @@
+Format-Specification: http://wiki.debian.org/Proposals/CopyrightFormat?action=recall&rev=196
+Upstream-Maintainer: LTSP upstream team
+Upstream-Name: ltspfs
+Upstream-Source: http://bazaar.launchpad.net/~ltsp-upstream/ltspfs/ltspfs-trunk/
+
+Files: debian/*
+Copyright: 2006 Scott Balneaves <sbalneav@ltsp.org>
+ 2006-2009 Vagrant Cascadian <vagrant@freegeek.org>
+License: GPL-2+
+
+Files: src/ltspfsd_functions.c
+Copyright: Scott Balneaves <sbalneav@ltsp.org> 2006-2007
+License: GPL-2+
+
+Files: src/lbmount.c
+Copyright: Scott Balneaves <sbalneav@ltsp.org> 2006-2007
+ Martin Pitt, 2006
+ Vagrant Cascadian <vagrant@freegeek.org> 2008
+ Warren Togami <wtogami@redhat.com> 2008
+License: GPL-2+
+
+Files: src/ltspfsd.c 
+Copyright: Scott Balneaves <sbalneav@ltsp.org> 2005-2007
+ Gideon Romm <gadi@ltsp.org> 2009
+License: GPL-2+
+
+Files: src/common.c, src/ltspfsd_functions.c
+Copyright: Scott Balneaves <sbalneav@ltsp.org> 2005-2007
+License: GPL-2+
+
+Files: src/cdpinger.c
+Copyright: Scott Balneaves <sbalneav@ltsp.org> 2007-2008
+ Vagrant Cascadian <vagrant@freegeek.org> 2008
+ Gideon Romm <gadi@ltsp.org> 2009
+License: GPL-2+
+
+License: GPL-2+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU General Public License as
+  published by the Free Software Foundation; either version 2 of
+  the License, or (at your option) any later version.
+
+  On Debian and Ubuntu systems, a copy of the GNU General Public License version
+  2 may be found in the file /usr/share/common-licenses/GPL-2.

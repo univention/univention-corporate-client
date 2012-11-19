@@ -1,0 +1,540 @@
+  157 Vagrant Cascadian 2012-02-24
+      Add symlinks for Debian/Ubuntu for ltspfsd.rules creation in
+      init-ltsp.d.
+
+  156 Vagrant Cascadian 2012-02-24
+      Use init-ltsp.d hook for installing udev rules at boot.
+
+  155 Vagrant Cascadian 2012-02-24
+      Rename udev rules to ltspfsd.rules, and move them into
+      /usr/share/ltspfs/udev, which allows for installing rules at boot.
+
+  154 vagrant@freegeek.org	2011-10-28 {ltspfs-1.0}
+      version 1.0
+
+  153 vagrant@freegeek.org	2011-10-28 [merge]
+      merge patch from Scott Balneaves to fix 64 bit issues.
+
+  152 Stéphane Graber	2011-08-11 {ltspfs-0.9}
+      version 0.9
+
+  151 Stéphane Graber	2011-07-22
+      Launchpad: no change commit to trigger a test rebuild
+
+  150 Stéphane Graber	2011-07-07
+      ID_FS_LABEL is now usually 'safe'. Patch from gcc (LP: #690969)
+
+  149 Warren Togami	2011-06-16 {ltspfs-0.8}
+      version 0.8
+
+  148 Vagrant Cascadian 2011-02-05
+      cdpinger: add support for UDF formatted CDs and DVDs.
+
+  147 Stéphane Graber	2010-08-08 {ltspfs-0.7}
+      Release 0.7
+
+  146 Vagrant Cascadian 2010-06-25
+      init with "ltspfs" rather than simply "test".
+
+  145 Vagrant Cascadian 2010-06-25
+      Add example ltspfs mounted hook to issue notifications for
+      desktops that do not display icons. Thanks to Petter Reinholdtsen.
+      http://bugs.debian.org/575031
+
+  144 Gideon Romm	2010-05-11
+      Remove commented-out code.
+
+  143 Gideon Romm	2010-05-11
+      Fix cdrom handling.
+
+  142 Stéphane Graber	2010-02-17 {ltspfs-0.6}
+      version 0.6
+
+  141 Stéphane Graber	2010-02-17
+      Try umounting with -l to avoid some issues
+
+  140 Scott Balneaves	2010-02-17
+      Change owner of dir in /media to user, with group of root
+
+  139 Scott Balneaves	2010-02-17
+      Top level media directory being created mode 750.  Changed to 700
+
+  138 Gideon Romm	2010-02-10
+      Be careful to actually have a pid before executing kill
+
+  137 Gideon Romm	2010-02-10
+      Do not sed -i a file that we are reading in from stdin
+
+  136 Vagrant Cascadian 2010-02-10
+      allow CDs to have an empty filesystem, as they're likely to have
+      a device but no disk inserted. this allows cdpinger to run again.
+
+  135 Vagrant Cascadian 2010-02-10
+      cdpinger: report syslog messages for "disk detected" and "tray
+      open" messages only when the state changes so they are not reported
+      every 3 seconds.
+
+  134 Gideon Romm	2010-02-10
+      Fix MODE setting to include add_disc annd remove_disc
+
+  133 Gideon Romm	2010-02-10
+      Pass DEVICENAME to add_cdrom_device and remove_cdrom_device
+      functions
+
+  132 Gideon Romm	2010-02-10
+      Make sure ltspfsd gets launched
+
+  131 Gideon Romm	2010-02-10
+      Refactor ltspfs_entry and cdpinger code to better handle CDROMs
+
+  130 Gideon Romm	2010-02-10
+      Remove cdpinger pid file when cdrom is removed, since apparently
+      cdpinger will commit suicide on its own upon device removal and
+      we would like cdpinger to start up again upon reinsertion of the
+      cdrom drive.
+
+  129 Gideon Romm	2010-02-09
+      Try to avoid multiple parallel calls to pgrep by writing a pid
+      file to check first. If the pid file exists, it shell should not
+      need to use pgrep in the conditional
+
+  128 Gideon Romm	2010-02-01
+      Make delayed-mounter work for LDM localapps
+
+  127 Scott Balneaves	2010-01-30
+      Added syslogging.
+
+  126 Gideon Romm	2010-01-29
+       Some more optimizations to use shell primitives where possible
+
+  125 Vagrant Cascadian 2010-01-29
+      fix call_cdpinger function to use exact matching so that "cdrom"
+      doesn't match "cdrom1". thanks gadi!
+
+  124 Gideon Romm	2010-01-27
+      Fix up noauth stuff and make local devices work for localapps,
+      rdesktop, and kiosk scripts.
+
+  123 Scott Balneaves	2010-01-27
+      Changed noauth mode: ltspfs now recognizes LTSPFS_NOAUTH env var,
+      and if set, skips auth.  ltspfsd now skips receiving auth packet
+      if noauth set.
+
+  122 Stéphane Graber	2010-01-13 {ltspfs-0.5.14}
+      release ltspfs 0.5.14
+
+  121 Stéphane Graber	2010-01-13
+      Fix cases where the user used for login doesn't match the case of
+      the remote user
+
+  120 Scott Balneaves	2010-01-12
+      Files are now user-owned only
+
+  119 Marc Gariepy	2009-12-15
+      fixing local lowercase username (ldap ltsp-trunk -r 1265)
+
+  118 Vagrant Cascadian 2009-07-17 {ltspfs-0.5.13}
+      release ltspfs 0.5.13
+
+  117 Vagrant Cascadian 2009-07-17
+      drop delayedmounter from xinitrc.d, as udev scripts should be
+      sufficient now.
+
+  116 Vagrant Cascadian 2009-07-06
+      relocate delayed-mounter ldm hooks so they run after the user
+      is added to /etc/passwd, and before the user is removed from
+      /etc/passwd.
+
+  115 Vagrant Cascadian 2009-07-06
+      - always run as root, so mounts appear in /media/root - only run
+      mount for localapps if user's home dir is mounted via sshfs
+
+  114 Vagrant Cascadian 2009-07-06
+      check for ldm-xauth in /var/run, and support newer ldm, with
+      Xauthority in a sub-dir.
+
+  113 Vagrant Cascadian 2009-06-21
+      fix spelling of "Received" in ltspfsd
+
+  112 Stéphane Graber	2009-06-03 {ltspfs-0.5.12}
+      version 0.5.12
+
+  111 Francis Giraldeau 2009-05-27
+      remove ltspfs_fstab entry before unmounting device,
+      to prevent other processes from mounting it.
+      https://bugs.launchpad.net/ubuntu/+source/ltspfsd/+bug/378495
+
+  110 Vagrant Cascadian 2009-04-03 {ltspfs-0.5.11}
+      version 0.5.11
+
+  109 Vagrant Cascadian 2009-04-03
+      simplify code to handle when mountpoint is already mounted
+
+  108 Gideon Romm	2009-03-11
+      Make sure delayed_mounter sets USER=root for local ltspfsmounting
+
+  107 Gideon Romm	2009-03-10
+      Do not remove ltspfs mount on "already mounted" errors, as these
+      errors may occur silently with multiple ltspfsmounters
+
+  106 Stéphane Graber	2009-03-09 {ltspfs-0.5.10}
+      version 0.5.10
+
+  105 Stéphane Graber	2009-03-08
+      Whitespace and include Gadi's patch to ltspfs_entry where udev's
+      environment contains spaces
+
+  104 Vagrant Cascadian 2009-03-06
+      updated copyright/license headers for src/*.c
+
+  103 Stéphane Graber	2009-03-05
+      Avoid exporting a variable that'll contain spaces at least in
+      Ubuntu and make the export and ltspfs to fail
+
+  102 Gideon Romm	2009-02-26
+      Some more local ltspfsmounter fun
+
+  101 Gideon Romm	2009-02-26
+      Add support for local ltspfsmounter mounted by user for local apps.
+
+  100 Stéphane Graber	2009-02-18 {ltspfs-0.5.9}
+      version 0.5.9
+
+   99 Stéphane Graber	2009-02-18
+      Fix indent in ltspfsmounter
+
+   98 Gideon Romm	2009-02-17
+      Do not remove the ltspfs mount on failed local mount if failure
+      is because the mountpoint is already mounted.  Want to make sure
+      that two ltspfsmounters do not inadvertantly cause the ltspfsmount
+      to be removed
+
+   97 Vagrant Cascadian 2009-01-23
+      minor typo: fix comment to match code
+
+   96 Vagrant Cascadian 2009-01-23
+      typo: add missing ;; to case statement when setting utf8 filesystems
+
+   95 Vagrant Cascadian 2009-01-23
+      get USER environment variable only once
+
+   94 Gideon Romm	2009-01-21
+      Explicitly exporting USER=root to make all these scripts happy.
+
+   93 Gideon Romm	2009-01-21
+      Fix the cleanup.
+
+   92 Gideon Romm	2009-01-21
+      Fix the cleanup.
+
+   91 Gideon Romm	2009-01-19
+      set USER=root in environment of ltspfsmounter if not set.
+
+   90 Gideon Romm	2009-01-19
+      And it is all cleanup, not cleanup all.
+
+   89 Gideon Romm	2009-01-19
+      SSH_CONNECTION should be unset
+
+   88 Gideon Romm	2009-01-19
+      ltspfs_fstab is a file not a directory!  Thank, vagrantc
+
+   87 Vagrant Cascadian 2009-01-19
+      add udev rules for floppy drives and updated comments
+
+   86 Vagrant Cascadian 2009-01-19
+      call ltspfs_entry remove without doing a manual basename of the
+      device, ltspfs_entry handles that itself.
+
+   85 Vagrant Cascadian 2009-01-19
+      use a case statement to check if it is a floppy device
+
+   84 Gideon Romm	2009-01-18
+      Do not remove ltspfs mount on failed mount if device is a floppy
+      drive.
+
+   83 Gideon Romm	2009-01-18
+      Change filesystem mount in cdpinger from auto to iso9660.  This,
+      combined with rev78 should fix LP Bug #164508 - Non-Latin Letters
+      in Filenames Appear As Question Marks.
+
+   82 Gideon Romm	2009-01-18
+      Call ltspfs_entry remove if we fail to mount the device, so we
+      don't end up with an ltspfsmount to tmpfs.  LP Bug #307174
+
+   81 Gideon Romm	2009-01-18
+      Handle two devices with same label (such as inserting two
+      identically labeled USB sticks).
+
+   80 Gideon Romm	2009-01-18
+      Some other code need not run if ltspfsmounter is not installed
+      locally.
+
+   79 Gideon Romm	2009-01-18 [merge]
+      PACKAGING: Merge changes to run ltspfsmounter locally for non-LDM
+      sessions. Make note of xinitrc.d directory and scripts for packaging
+
+   78 Gideon Romm	2008-12-20
+      Add LOCALDEV_MOUNT_OPTIONS parameter to adjust the default mount
+      options from local devices.  Also, add default support for utf8
+      (international) character filenames if the local device is vfat,
+      iso9660, or ntfs
+
+   77 Warren Togami	2008-12-11 {ltspfs-0.5.8}
+      version 0.5.8
+
+   76 Warren Togami	2008-12-11
+      Not sure why that is there...
+
+   75 Warren Togami	2008-12-11
+      Error out if autogen.sh fails.
+
+   74 Vagrant Cascadian 2008-12-03
+      ensure that the ltspfs authentication token exists even when
+      ltspfsd hasn't started yet, so that devices plugged in later will
+      still be able to mount.
+
+   73 Vagrant Cascadian 2008-12-03 {ltspfs-0.5.7}
+      version 0.5.7
+
+   72 Vagrant Cascadian 2008-12-03
+      rename LOCALDEV_DENY_INTERNAL_DISK to LOCALDEV_DENY_INTERNAL_DISKS
+
+   71 Gideon Romm	2008-12-03
+      Fix bug in LOCALDEV_DENY
+
+   70 Vagrant Cascadian 2008-11-20 {ltspfs-0.5.6}
+      version 0.5.6
+
+   69 Vagrant Cascadian 2008-11-19
+      explicitly specify "void" for functions that take no arguments.
+      thanks to Petter Reinholdtsen.
+
+   68 Vagrant Cascadian 2008-11-17
+      default to LOCALDEV_DENY_INTERNAL_DISKS=True
+
+   67 Vagrant Cascadian 2008-11-17 [merge]
+      merge LOCALDEV_DENY patches (thanks Gadi!)
+
+   66 Stéphane Graber	2008-10-11 {ltspfs-0.5.5}
+      version 0.5.5
+
+   65 Stéphane Graber	2008-10-10 [merge]
+      Merge Scott's code to fix the segfault in cdpinger
+
+   64 Warren Togami	2008-09-11 {ltspfs-0.5.4}
+      version 0.5.4
+
+   63 Vagrant Cascadian 2008-08-25
+      added manpages for ltspfs_mount and ltspfs_umount
+
+   62 Vagrant Cascadian 2008-08-25
+      added manpage for cdpinger
+
+   61 Vagrant Cascadian 2008-06-26 {ltspfs-0.5.3}
+      version 0.5.3
+
+   60 Vagrant Cascadian 2008-06-25
+      add code to start cdpinger from ltspfs_entry
+
+   59 Vagrant Cascadian 2008-06-25
+      - start ltspfsd if not already running - create ltspfs_token if
+      not present
+
+   58 Vagrant Cascadian 2008-06-25
+      respect LOCALDEV setting: - source ltspfsd.conf - source LTSP
+      configuration (ltsp_config)
+
+   57 Vagrant Cascadian 2008-06-16
+      - handle both floppy and cdroms - only use ID_FS_LABEL_SAFE if
+      not yet set
+
+   56 Vagrant Cascadian 2008-06-16
+      don't mount swap partitions
+
+   55 Warren Togami	2008-04-28 {ltspfs-0.5.2}
+      version 0.5.2
+
+   54 Warren Togami	2008-04-28
+      /media/$username created as 0750 instead of 0755.  This is
+      functionally equivalent because fuse was preventing other users
+      from going in there anyway.  vagrantc + warren analysis: 0700
+      doesn't work because the non-root user still has to access inside.
+      0770 is undesirable because we don't want the non-root user to be
+      able to write arbitrary things in there.	(/media/$username is owned
+      by root and managed by lbmount, while mounts inside that are owned
+      by the user.)  0750 is thus desirable by process of elimination.
+
+   53 Vagrant Cascadian 2008-04-28 [merge]
+      switch *_fstab_entry to ltspfs_entry, called by udev and cdpinger
+
+   52 Vagrant Cascadian 2008-04-19 {ltspfs-0.5.1}
+      version 0.5.1
+
+   51 Vagrant Cascadian 2008-04-19
+      patch from Oliver Grawert to fix
+      local devices with ldm directx enabled
+      http://launchpadlibrarian.net/13544575/udev-scripts-security-regression.dpatch
+
+   50 Warren Togami	2008-03-26
+      Remove empty Changelog and generate it automatically from bzr log.
+
+   49 Warren Togami	2008-03-26 {ltspfs-0.5.0}
+      version 0.5.0
+
+   48 Vagrant Cascadian 2008-03-18
+      ensure that all devices get mounted (not just the first device)
+      - note: not sure why this works, but it does.
+
+   47 Warren Togami	2008-03-13
+      .bzrignore mkdst related stuff
+
+   46 Warren Togami	2008-03-13
+      Remove ltspfs.spec and mkdst wrapper
+
+   45 Warren Togami	2008-03-10
+      Fedora: spec fixes
+
+   44 Warren Togami	2008-03-10
+      Fedora: Include spec fixes suggested by Fedora package review
+
+   43 Vagrant Cascadian 2008-03-02
+      mark kde-desktop-icons executable.
+
+   42 Vagrant Cascadian 2008-03-02
+      when mode is cleanup, don't bother to parse additional arguments
+
+   41 Vagrant Cascadian 2008-03-02
+      only call run_hooks for cleanup once
+
+   40 Vagrant Cascadian 2008-03-02 [merge]
+      add example hook script to add icons on KDE desktops.  - thanks
+      to Klaus Ade Johnstad, http://bugs.debian.org/459369
+
+   39 Vagrant Cascadian 2008-03-02 [merge]
+      only allow hooks with filenames that contain only alphanumeric,
+      hypens or underscores.
+
+   38 Vagrant Cascadian 2008-03-02 [merge]
+      merge patches to implement hook scripts for ltspfsmounter
+
+   37 Vagrant Cascadian 2008-02-26
+      use /sbin/udevadm if present, falling back to udevinfo for backwards
+      compatibility
+
+   36 Warren Togami	2008-01-14
+      Example spec: add necessary build requires
+
+   35 Warren Togami	2008-01-14
+      homepage moved
+
+   34 Warren Togami	2008-01-13
+      Add example RPM spec file
+
+   33 Warren Togami	2008-01-13
+      Do not run anything as an explicit username, especially root.
+      RPM packages build as non-root.
+
+   32 Warren Togami	2008-01-13
+      make release.conf better
+
+   31 Warren Togami	2008-01-13
+      add release.conf required by mkdst
+
+   30 Vagrant Cascadian 2008-01-09 [merge]
+      merge otavio's ldm-hooks branch
+
+   29 Vagrant Cascadian 2008-01-07 [merge]
+      merge patches to use "mount --move" instead of "mount --bind",
+      so that only a single mountpoint appears.
+
+   28 Vagrant Cascadian 2007-12-13 [merge]
+      merge python way to test if /dev/fuse is writeable
+
+   27 Vagrant Cascadian 2007-12-04
+      exit if /dev/fuse is not writeable
+
+   26 Vagrant Cascadian 2007-12-03
+      put cdpinger back in /usr/sbin
+
+   25 Vagrant Cascadian 2007-12-03
+      drop cdpinger from scripts Makefile (now in src Makefile)
+
+   24 Vagrant Cascadian 2007-12-03
+      only import call from subprocess, as other subprocess code is
+      not used.
+
+   23 Vagrant Cascadian 2007-12-03
+      add new mkdst wrapper
+
+   22 Scott Balneaves	2007-11-16
+      Fixed localdev bug
+
+   21 Scott Balneaves	2007-11-15
+      New upstream layout
+
+   20 Scott Balneaves	2007-11-04
+      Makefile fixups
+
+   19 Scott Balneaves	2007-11-04
+      Fixed up makefile
+
+   18 Scott Balneaves	2007-11-04
+      Makefile mods
+
+   17 Scott Balneaves	2007-11-04
+      Added example makefile
+
+   16 Scott Balneaves	2007-11-04
+      Added root-level Makefile
+
+   15 Scott Balneaves	2007-11-04
+      Upstream version work.
+
+   14 Scott Balneaves	2007-11-04
+      Merged in C version of cdpinger
+
+   13 Scott Balneaves	2007-11-03
+      Added C version of cdpinger
+
+   12 Scott Balneaves	2007-09-17
+      fixed some bugs, more exception handling
+
+   11 Scott Balneaves	2007-09-17
+      Man, how did I loose that?
+
+   10 Scott Balneaves	2007-09-02 [merge]
+      Work in ltspfs-nodm now considered prime-time.  Merged
+
+    9 Scott Balneaves	2007-06-14
+      Moved fstab operations to /var/run/ltspfs_fstab, and
+      /tmp/.ltspfs-socket to /var/run/ldm_socket
+
+    8 Scott Balneaves	2007-06-14 [merge]
+      Merged vagrantc's changes
+
+    7 Scott Balneaves	2007-06-14
+      fixed up ltspfs bug where mutex wasn't being released.  Thanks to
+      Veli-Matti Lintu for the fix
+
+    6 Scott Balneaves	2006-09-18
+      Fixed floppy problems.
+
+    5 Scott Balneaves	2006-09-18
+      Bumped to 0.4.1
+
+    4 Scott Balneaves	2006-09-18
+      Fixed several minor pathing problems, plus a null pointer check
+      for getenv(DISPLAY)
+
+    3 Scott Balneaves	2006-09-17
+      Removed install setuid (should be handled by packagers), added
+      authors
+
+    2 Scott Balneaves	2006-09-16
+      Forgot ltspfsd_functions.h in the src/Makefile.am
+
+    1 Scott Balneaves	2006-09-16
+      Initial creation of proper 'Upstream' LtspFS package
+
+Use --include-merged or -n0 to see merged revisions.

@@ -1,0 +1,14 @@
+# udev rules for ltspfs, usually installed into:
+# /etc/udev/rules.d/ or /lib/udev/rules.d (for newer versions of udev)
+
+# legacy floppy drives:
+ACTION=="add", KERNEL=="fd[0-9]", RUN+="ltspfs_entry add %k auto"
+
+# USB floppy drives:
+ACTION=="add", SUBSYSTEM=="block", KERNEL!="fd[0-9]", ENV{ID_TYPE}=="floppy", ATTRS{removable}=="1", RUN+="ltspfs_entry add %k auto"
+
+# other drives:
+ACTION=="add", SUBSYSTEM=="block", ENV{ID_TYPE}!="floppy", RUN+="ltspfs_entry add %k"
+
+# device removals:
+ACTION=="remove", SUBSYSTEM=="block", RUN+="ltspfs_entry remove %k"

@@ -1,0 +1,5 @@
+usr/share/ldm/rc.d/X10-delayed-mounter 
+usr/share/ldm/rc.d/X98-delayed-mounter 
+usr/share/ltsp/xinitrc.d/I05-set-ltspfs_token 
+usr/share/ltspfs/udev/*
+init-ltsp.d/* /usr/share/ltsp/init-ltsp.d/

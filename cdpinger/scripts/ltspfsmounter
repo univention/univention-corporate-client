@@ -1,0 +1,126 @@
+#!/usr/bin/python
+
+import os
+import sys
+from subprocess import call
+import re
+
+hook_dirs=list()
+
+def run_hooks(mode, mountpoint):
+    executed_hooks=list()
+    valid_filename=re.compile('^[a-zA-Z0-9\-_]*$')
+    for dir in hook_dirs:
+        if os.path.isdir(dir):
+            # get a unique list of hook scripts
+            hook_scripts=list(set(os.listdir(dir)))
+            hook_scripts.sort()
+            for script in hook_scripts:
+                # only run the first script of a given name
+                if executed_hooks.count(script) == 0 and valid_filename.match(script):
+                    executed_hooks.append(script)
+                    try:
+                        call([os.path.join(dir, script), mode, mountpoint])
+                    except:
+                        # be very tolerant of failures with hook scripts
+                        pass
+
+def get_var(name):
+    return os.environ.get(name)
+
+def add_ltspfsmount(conn, path, root, dev, mediaroot):
+    hidden_mount = '%s/%s' % (root, dev)
+    lbmount_command = ['lbmount', dev]
+    ltspfs_mount = ['ltspfs', conn+':'+path, root+'/'+dev]
+
+    if not os.access(root, 0):
+        os.mkdir(root)
+    if not os.access(hidden_mount, 0):
+        os.mkdir(hidden_mount)
+
+    env = os.environ.copy()
+
+    try:
+        call(ltspfs_mount, env=env)
+    except OSError, e:
+        print >>sys.stderr, "mount failed:", e
+    try:
+        call(lbmount_command)
+        if os.access(hidden_mount, 0):
+            os.rmdir(hidden_mount)
+        if os.access(root, 0):
+            os.rmdir(root)
+        run_hooks('add', os.path.join(mediaroot, dev))
+    except OSError, e:
+        print >>sys.stderr, "suid mount failed:", e
+
+def remove_ltspfsmount(root, dev):
+    lbumount_command=['lbmount', '--umount', dev]
+    ltspfs_umount=['fusermount', '-uzq', root+'/'+dev]
+
+    try:
+        call(lbumount_command)
+    except OSError, e:
+        print >>sys.stderr, "suid umount failed:", e
+    try:
+        call(ltspfs_umount)
+        run_hooks('remove', os.path.join(root, dev))
+    except OSError, e:
+        print >>sys.stderr, "umount failed:", e
+
+def cleanup(user):
+    known_mounts = open( '/proc/mounts', 'r' ).readlines()
+    for dir in ['/media', '/tmp']:
+        for mount in known_mounts:
+            if mount.startswith('ltspfs') and user in mount:
+                mountpoint=mount.split()[1]
+                device=mountpoint.split('/')[-1]
+                if dir=='/media' and mountpoint.startswith(dir):
+                    call(['lbmount', '--umount', device])
+                elif dir=='/tmp' and mountpoint.startswith(dir):
+                    call(['fusermount', '-uzq', mountpoint])
+                    if os.access(mountpoint, 0):
+                        os.rmdir(mountpoint)
+    run_hooks('cleanup', '')
+    sys.exit(0)
+
+def main():
+    if len(sys.argv) < 3:
+        print 'usage: %s mountpoint add|remove|cleanup' % sys.argv[0]
+        sys.exit(1)
+
+    if not os.access('/dev/fuse', 2):
+        sys.stderr.write('/dev/fuse not writeable\n')
+        sys.exit(1)
+
+    # check if hook dirs are present
+    for dir in ['/etc', '/usr/share', '/usr/lib']:
+        dir=os.path.join(dir, 'ltspfs/mounter.d')
+        if os.path.isdir(dir):
+            hook_dirs.append(dir)
+
+    path = sys.argv[1]
+    command = sys.argv[2]
+    username = get_var('USER')
+    root = "/tmp/.%s-ltspfs" % username
+    mediaroot = "/media/%s" % username
+
+    if not get_var('SSH_CONNECTION'):
+        conn = "127.0.0.1"
+        os.putenv('SSH_CONNECTION', '127.0.0.1')
+    else:
+        conn = get_var('SSH_CONNECTION').split()[0]
+
+    dev = path.split('/')[-1]
+
+    if command=='add':
+        add_ltspfsmount(conn, path, root, dev, mediaroot)
+    elif command=='remove':
+        remove_ltspfsmount(mediaroot, dev)
+    elif command=='cleanup':
+        cleanup(username)
+    else:
+        print 'unknown command'
+
+if __name__ == "__main__":
+    main()

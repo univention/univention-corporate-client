@@ -1,0 +1,29 @@
+#
+# sourced with .
+#
+# Script to automatically add what's in the ltspfs_fstab on login.
+#
+
+if [ -f /var/run/ltspfs_fstab ]; then
+    while read DEV DIR TYPE OPTIONS DUMP PASS; do
+        LTSPFS_MOUNTS="$LTSPFS_MOUNTS $DIR"
+    done < /var/run/ltspfs_fstab
+
+    for DIR in $LTSPFS_MOUNTS ; do
+        SSH_OPTS="-X"
+        unset DISPLAY_INFO
+        case $LDM_DIRECTX in
+            [Tt][Rr][Uu][Ee]|[Yy]|[Yy][Ee][Ss])
+                unset SSH_OPTS
+                DISPLAY_INFO="DISPLAY=${LDMINFO_IPADDR}${DISPLAY}"
+            ;;
+        esac
+
+        ssh $SSH_OPTS -S ${LDM_SOCKET} ${LDM_SERVER} "$DISPLAY_INFO /usr/sbin/ltspfsmounter ${DIR} add"
+
+        if [ -x /usr/sbin/ltspfsmounter ]; then
+            unset SSH_CONNECTION
+            su ${LDM_USERNAME} -c "LTSPFS_NOAUTH=True /usr/sbin/ltspfsmounter ${DIR} add" 
+        fi
+    done
+fi

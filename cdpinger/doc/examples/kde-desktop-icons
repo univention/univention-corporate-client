@@ -1,0 +1,54 @@
+#!/usr/bin/python
+
+# example ltspfs hook to add icons on the KDE Desktop.
+
+# based on a patch by Klaus Ade Johnstad: http://bugs.debian.org/459369
+
+# to use this hook, install this in /etc/ltspfs/mounter.d/ and mark it as
+# executable.
+
+import sys
+import os
+
+mode=sys.argv[1]
+if mode != 'cleanup':
+    mountpoint=sys.argv[2]
+    dev=mountpoint.split('/')[-1]
+
+def get_desktop_file_path(dev):
+    # FIXME: respect XDG settings when Desktop is localized
+    return os.path.expanduser("~/Desktop/ltspfsmounter--%s.desktop" % (dev))
+
+if mode == 'add':
+    desktop_file_s = get_desktop_file_path(dev)
+    if os.path.exists(desktop_file_s):
+        print >>sys.stderr, ".desktop file already exists, skipping"
+        sys.exit(1)
+
+    if dev.startswith('usb'):
+        icon = 'usbpendrive_mount'
+    elif dev.startswith('ata'):
+        icon = 'hdd_mount'
+    elif dev.startswith('floppy'):
+        icon = '3floppy_mount'
+    elif dev.startswith('cdrom'):
+        icon = 'cdrom_mount'
+    else:
+        icon = 'usbpendrive_mount'
+
+    try:
+        desktop_file = open(desktop_file_s, 'w')
+        desktop_file.write('[Desktop Entry]\nEncoding=UTF-8\nName=%s\nIcon=%s\nType=Link\nURL=%s\n' % (dev, icon, mountpoint))
+        desktop_file.close()
+    except IOError, e:
+        print >>sys.stderr, 'unable to create desktop file:', e      
+
+elif mode == 'remove':
+    desktop_file_s = get_desktop_file_path(dev)
+    if os.path.exists(desktop_file_s):
+        os.unlink(desktop_file_s)
+
+elif mode == 'cleanup':
+    import glob
+    for filename in glob.glob(os.path.expanduser('~/Desktop/') + 'ltspfsmounter--*.desktop'):
+        os.unlink(filename)

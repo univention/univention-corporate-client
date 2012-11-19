@@ -1,0 +1,10 @@
+#!/bin/sh
+
+[ -n "$1" ] || {
+    echo "Usage: $0 <mount point>"
+	    exit 1
+	}
+
+grep $1 /var/run/ltspfs_fstab | while read DEV MOUNTPOINT TYPE OPTIONS DUMP PASS; do
+ 	umount ${MOUNTPOINT}
+done
