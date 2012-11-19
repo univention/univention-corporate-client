@@ -1,3 +1,9 @@
+cdpinger (1.1-2+ucs2) unstable; urgency=low
+
+  * Fix install path for buildd (Bug #28294)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 19 Nov 2012 13:43:37 +0100
+
 cdpinger (1.1-2+ucs1) unstable; urgency=low
 
   * Bump version (Bug #28294)
