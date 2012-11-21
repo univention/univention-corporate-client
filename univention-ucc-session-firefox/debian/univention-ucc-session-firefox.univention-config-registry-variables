@@ -1,0 +1,5 @@
+[firefox/startsite]
+Description[de]=Startseite für den Firefox-Browser
+Description[en]=Start site for the Firefox browser
+Type=str
+Categories=system-desktop
