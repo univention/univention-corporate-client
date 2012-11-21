@@ -202,10 +202,10 @@ partition()
 
 	mkdir -p /ucc_tmp
 
-	# Read PT
-	pt="$(/sbin/parted -s ${partition_device} unit MB print)"
-	if echo "$pt" | grep -sq "unrecognised disk label"; then
-		echo "Partition table on ${partition_device} is empty."
+	# Read and set partition table
+	pt="$(/sbin/parted -s ${partition_device} unit MB print | sed -ne 's|Partition Table: ||p')"
+	if [ "$pt" != "gpt" ]; then
+		echo "Partition table on ${partition_device} is not gpt."
 		echo "Creating GPT on ${partition_device}"
 		parted -s "${partition_device}" mklabel GPT
 	fi

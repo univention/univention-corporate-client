@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.1-5) precise; urgency=low
+
+  * Read and set partition table if the partition table is not gpt
+    (Bug #29205)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Wed, 21 Nov 2012 11:57:54 +0100
+
 univention-ucc-initramfs (1.0.1-4) precise; urgency=low
 
   * First support for the local flash in flash update (Bug #28972)
