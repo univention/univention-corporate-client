@@ -259,7 +259,11 @@ partition()
 			fi
 			end_mb="$((partition_start+size))"
 
-			parted -s "${partition_device}" mkpart "$name" "$partition_start" "$end_mb"
+			# Read the partition type
+			type="$(_get_var partition${i}_type)"
+			test -z "$type" && type="primary"
+
+			parted -s "${partition_device}" mkpart "$type" "$partition_start" "$end_mb"
 
 			partition_start="$end_mb"
 
