@@ -528,6 +528,13 @@ ucc_installation()
 		panic "Dropping to a shell!"
 	fi
 
+	# Load keyboard drivers
+	modprobe i8042
+	modprobe atkbd
+
+	# Ensure the console is prepared for the user interaction
+	run_scripts /scripts/panic
+
 	if [ "$continuation_prompt" = "false" ] || [ "$FORCE_PARTITION" = "yes" ]; then
 		if [ -z "$FORCE_PARTITION_TIMEOUT" ]; then
 			FORCE_PARTITION_TIMEOUT=60

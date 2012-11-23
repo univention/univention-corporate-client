@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.2-1) precise; urgency=low
+
+  * Prepare the console for the user interaction (Bug #29327)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 23 Nov 2012 09:11:02 +0100
+
 univention-ucc-initramfs (1.0.1-5) precise; urgency=low
 
   * Read and set partition table if the partition table is not gpt
