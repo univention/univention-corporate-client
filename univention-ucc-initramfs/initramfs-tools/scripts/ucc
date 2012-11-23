@@ -64,6 +64,8 @@
 ##		Managementsystem
 ##	- net_dev=<network device>
 ##		For this interface is dhclient called during the boot (default is eth0)
+##	- verbose=y
+##		Start set -x
 
 ## Helper function to add /dev/ to a device name
 _add_dev()
@@ -426,7 +428,6 @@ _check_and_copy_image ()
 		else
 			echo "INFO: Do not copy the UCC image to local harddsik. The image was not updated."
 		fi
-		sleep 60
 		return 0
 	else
 		return 1
@@ -839,8 +840,13 @@ mountroot()
 		net_dev)
 			net_dev={x#net_dev=}
 			;;
+		verbose)
+			verbose={x#verbose=}
+			;;
 		esac
 	done
+
+	test "$verbose" = "y" && set -x
 
 	# Set defaults
 	test -z "$ROOT" && ROOT="search"
