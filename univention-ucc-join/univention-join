@@ -307,10 +307,18 @@ fi
 
 
 if [ -z "$HNAME" ]; then
+	# Does a ucc account with this MAC address exist?
+	echo -n "Search UCC computer account "
+	HNAME="$(ldapsearch -x -LLL -D "$binddn" -w "$(<$DCPWD)" "(&(objectClass=univentionCorporateClient)(macAddress=$mac_addr))" cn | sed -ne 's|^cn: ||p')"
+	test -n "$HNAME" && echo -e "\033[60Gdone (found: $HNAME)" || echo -e "\033[60Gdone"
+fi
+
+if [ -z "$HNAME" ]; then
 	echo -n "Insert hostname of client [$hostname]: "
 	read HNAME
 	test -z "$HNAME" && HNAME="$hostname"
 fi
+
 ucr set hostname="$HNAME" >>/var/log/univention/join.log 2>&1
 export HNAME
 
@@ -425,6 +433,9 @@ set_kerberos_realm "$DCPWD" "$DCACCOUNT" "$DCNAME" "$REALM"
 cat /etc/ldap/ldap.conf  | sed -e "s|#.*||g" | grep -q TLS_CACERT || echo "TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem" >>/etc/ldap/ldap.conf
 
 touch /var/univention-join/joined
+
+# Clean old join status
+echo >/var/univention-join/status
 
 univention-run-join-scripts -dcaccount "$DCACCOUNT" -dcpwd "$DCPWD"
 

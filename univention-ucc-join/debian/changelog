@@ -1,3 +1,10 @@
+univention-ucc-join (1.1.1-2) unstable; urgency=low
+
+  * Check for existing UCC account and use its hostname (Bug #28327)
+  * Remove the old join status if the system is joined again
+
+ -- Stefan Gohmann <gohmann@univention.de>  Wed, 28 Nov 2012 11:48:18 +0100
+
 univention-ucc-join (1.1.1-1) unstable; urgency=low
 
   * Remove the hostname auto generation (Bug #28327)
