@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.1-1) unstable; urgency=low
+
+  * Remove the hostname auto generation (Bug #28327)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Wed, 28 Nov 2012 10:43:33 +0100
+
 univention-ucc-join (1.1.0-1) unstable; urgency=low
 
   * added univention-mod-ldap-object.py (Bug #22654)

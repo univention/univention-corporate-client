@@ -41,8 +41,8 @@ eval "$(univention-config-registry shell)"
 REMOVE_PWD_FILE=""
 
 display_help() {
-echo "-hostname <name>:        Force a hostname, don't autogenerate"
-echo "-domainname <name>:      Domain name"
+echo "-hostname <name>:        force a hostname"
+echo "-domainname <name>:      force a domain name"
 echo "-dcaccount <account>:    name of DC master account"
 echo "-dcpwd <password file>:  file with DC master password"
 echo "-ldapbase <ldap base>:   LDAP Base DN, e.g. dc=test,dc=local"
@@ -65,14 +65,14 @@ failed_message () {
 download_host_certificate () {
 	echo -n "Download host certificate "
 	HOSTPWD="/etc/machine.secret"
-	HOSTACCOUNT="$HOSTNAME\$"
-	univention-scp $HOSTPWD "-r $HOSTACCOUNT@$DCNAME:/etc/univention/ssl/$HOSTNAME /etc/univention/ssl/" >>/var/log/univention/join.log 2>&1
-	univention-scp $HOSTPWD "-r $HOSTACCOUNT@$DCNAME:/etc/univention/ssl/$HOSTNAME.$DOMAINNAME /etc/univention/ssl/" >>/var/log/univention/join.log 2>&1
-	while [ ! -d "/etc/univention/ssl/$HOSTNAME" ] &&  [ ! -d "/etc/univention/ssl/$HOSTNAME.$DOMAINNAME" ]; do
+	HOSTACCOUNT="$HNAME\$"
+	univention-scp $HOSTPWD "-r $HOSTACCOUNT@$DCNAME:/etc/univention/ssl/$HNAME /etc/univention/ssl/" >>/var/log/univention/join.log 2>&1
+	univention-scp $HOSTPWD "-r $HOSTACCOUNT@$DCNAME:/etc/univention/ssl/$HNAME.$DOMAINNAME /etc/univention/ssl/" >>/var/log/univention/join.log 2>&1
+	while [ ! -d "/etc/univention/ssl/$HNAME" ] &&  [ ! -d "/etc/univention/ssl/$HNAME.$DOMAINNAME" ]; do
 		echo -n "."
 		sleep 20
-		univention-scp $HOSTPWD "-r $HOSTACCOUNT@$DCNAME:/etc/univention/ssl/$HOSTNAME /etc/univention/ssl/" >>/var/log/univention/join.log 2>&1
-		univention-scp $HOSTPWD "-r $HOSTACCOUNT@$DCNAME:/etc/univention/ssl/$HOSTNAME.$DOMAINNAME /etc/univention/ssl/" >>/var/log/univention/join.log 2>&1
+		univention-scp $HOSTPWD "-r $HOSTACCOUNT@$DCNAME:/etc/univention/ssl/$HNAME /etc/univention/ssl/" >>/var/log/univention/join.log 2>&1
+		univention-scp $HOSTPWD "-r $HOSTACCOUNT@$DCNAME:/etc/univention/ssl/$HNAME.$DOMAINNAME /etc/univention/ssl/" >>/var/log/univention/join.log 2>&1
 	done
 	echo -e "\033[60Gdone"
 }
@@ -95,7 +95,7 @@ do
 	case "$1" in
 		"-hostname")
 			shift
-			forced_hostname="$1"
+			HNAME="$1"
 			shift
 			;;
 		"-domainname")
@@ -306,54 +306,19 @@ if [ -n "$IP" ]; then
 fi
 
 
-if  [ "$hostname" =  "$hostname_generated" ]; then
-
-    if [ -n "$forced_hostname" ]; then
-		HOSTNAME="$forced_hostname"
-    else
-		echo "Rejoining system, not generating a new hostname"
-    fi
-
-else
-	if [ -n "$forced_hostname" ]; then
-		HOSTNAME="$forced_hostname"
-		ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
-	fi
-
-    if is_ucr_true 'hostname/manual'; then
-		echo "Rejoining system, not generating a new hostname. If you want to switch this system to a"
-		echo "automatically generated hostname, you need to unset the UCR variable hostname/manual"
-
-    else
-		if [ -z "$hostname_uccprefix" ]; then
-			hostname_uccprefix="ucc-"
-		fi	
-
-		rnd=$((RANDOM % 99999))
-		hostsuffix=`printf "%05d" "$rnd"`
-		HOSTNAME="$hostname_uccprefix$hostsuffix"
-
-		while [ -n "$exists" ]; do
-			# Host already exists, incrementing host suffix plus 1
-			hostsuffix=$((hostsuffix+1))
-			HOSTNAME="$hostname_uccprefix$hostsuffix"
-			exists=`univention-ldapsearch -D "$binddn" -y "$DCPWD" "(&(uid="$HOSTNAME"$)(objectClass=univentionCorporateClient))" | grep  ^dn`
-		done
-
-		if [ -n "$forced_hostname" ]; then
-			HOSTNAME="$forced_hostname"
-		fi
-
-		echo "Initial join of this UCC system, using hostname $HOSTNAME"
-		ucr set hostname="$HOSTNAME" >>/var/log/univention/join.log 2>&1
-    fi
+if [ -z "$HNAME" ]; then
+	echo -n "Insert hostname of client [$hostname]: "
+	read HNAME
+	test -z "$HNAME" && HNAME="$hostname"
 fi
+ucr set hostname="$HNAME" >>/var/log/univention/join.log 2>&1
+export HNAME
 
 
 
 echo -n "Join Computer Account: "
 univention-scp "$DCPWD" "$DCPWD" "$DCACCOUNT@$DCNAME:$DCPWD" >>/var/log/univention/join.log 2>&1
-res=`univention-ssh $DCPWD $DCACCOUNT@$DCNAME /usr/share/univention-join/univention-server-join -role ucc -hostname $HOSTNAME -domainname $DOMAINNAME $ip_cmd $mac_cmd $position_cmd $auth_cmd 2>>/var/log/univention/join.log`
+res=`univention-ssh $DCPWD $DCACCOUNT@$DCNAME /usr/share/univention-join/univention-server-join -role ucc -hostname $HNAME -domainname $DOMAINNAME $ip_cmd $mac_cmd $position_cmd $auth_cmd 2>>/var/log/univention/join.log`
 univention-ssh $DCPWD $DCACCOUNT@$DCNAME "rm $DCPWD" >>/var/log/univention/join.log 2>&1
 res_message=`echo "$res" | sed -n '/^E:/ { s/^E:\s*// p }'`
 if [ -z "$res_message" ]; then
@@ -459,17 +424,6 @@ univention-config-registry set kerberos/kdc="$DCNAME" >>/var/log/univention/join
 set_kerberos_realm "$DCPWD" "$DCACCOUNT" "$DCNAME" "$REALM"
 cat /etc/ldap/ldap.conf  | sed -e "s|#.*||g" | grep -q TLS_CACERT || echo "TLS_CACERT /etc/univention/ssl/ucsCA/CAcert.pem" >>/etc/ldap/ldap.conf
 
-if [ -z "$forced_hostname" ]; then
-	if ! is_ucr_true 'hostname/manual'; then
-		ucr set hostname/generated="$HOSTNAME" >>/var/log/univention/join.log 2>&1
-	fi
-	univention-ucc-manage-persistent ucr add hostname/generated >>/var/log/univention/join.log 2>&1
-else
-	ucr unset hostname/generated >>/var/log/univention/join.log 2>&1
-	ucr set hostname/manual=true >>/var/log/univention/join.log 2>&1
-	univention-ucc-manage-persistent ucr remove hostname/generated >>/var/log/univention/join.log 2>&1
-fi
-
 touch /var/univention-join/joined
 
 univention-run-join-scripts -dcaccount "$DCACCOUNT" -dcpwd "$DCPWD"
@@ -493,19 +447,18 @@ univention-ucc-manage-persistent ucr add kerberos/adminserver >>/var/log/univent
 univention-ucc-manage-persistent ucr add kerberos/kdc >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent ucr add ldap/hostdn >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent ucr add kerberos/realm >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent ucr add hostname/manual >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent ucr add hostname >>/var/log/univention/join.log 2>&1
 
 univention-ucc-manage-persistent file add /etc/univention/ssl/ucsCA/CAcert.pem >>/var/log/univention/join.log 2>&1
 univention-ucc-manage-persistent file add /etc/machine.secret >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME/cert.pem >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME/openssl.cnf >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME/private.key >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME/req.pem >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME.$DOMAINNAME/cert.pem >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME.$DOMAINNAME/openssl.cnf >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME.$DOMAINNAME/private.key >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HOSTNAME.$DOMAINNAME/req.pem >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME/cert.pem >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME/openssl.cnf >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME/private.key >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME/req.pem >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME.$DOMAINNAME/cert.pem >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME.$DOMAINNAME/openssl.cnf >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME.$DOMAINNAME/private.key >>/var/log/univention/join.log 2>&1
+univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME.$DOMAINNAME/req.pem >>/var/log/univention/join.log 2>&1
 
 # Not every UCC system uses join scripts
 if [ -e "/var/univention-join/status" ]; then
