@@ -808,8 +808,12 @@ ucc_rollout ()
 	# Ensure the console is prepared for the user interaction
 	run_scripts /scripts/panic
 
+	echo "Joining the UCC client"
 	if [ ! -e /root/var/univention-join/joined ]; then
 		mount -o move /proc /root/proc
+		# Starting the network and ignore the output, since upstart is not running
+		chroot /root /etc/init.d/networking restart >/dev/null 2>&1
+
 		if ! chroot /root /usr/sbin/univention-join; then
 			mount -o move /root/proc /proc
 			echo "ERROR: Failed to join."

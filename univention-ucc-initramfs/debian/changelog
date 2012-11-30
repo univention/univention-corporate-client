@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.2-5) precise; urgency=low
+
+  * Starting the network before joining (Bug #28327)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 30 Nov 2012 06:46:41 +0100
+
 univention-ucc-initramfs (1.0.2-4) precise; urgency=low
 
   * Update the UCC rollout handling (Bug #28327)
