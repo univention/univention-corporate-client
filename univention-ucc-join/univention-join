@@ -309,7 +309,7 @@ fi
 if [ -z "$HNAME" ]; then
 	# Does a ucc account with this MAC address exist?
 	echo -n "Search UCC computer account "
-	HNAME="$(ldapsearch -x -LLL -D "$binddn" -w "$(<$DCPWD)" "(&(objectClass=univentionCorporateClient)(macAddress=$mac_addr))" cn | sed -ne 's|^cn: ||p')"
+	HNAME="$(ldapsearch -x -LLL -b "$ldap_base" -h "$DCNAME" -p 7389 -D "$binddn" -w "$(<$DCPWD)" "(&(objectClass=univentionCorporateClient)(macAddress=$mac_addr))" cn | ldapsearch-wrapper | ldapsearch-decode64 | sed -ne 's|^cn: ||p')"
 	test -n "$HNAME" && echo -e "\033[60Gdone (found: $HNAME)" || echo -e "\033[60Gdone"
 fi
 
