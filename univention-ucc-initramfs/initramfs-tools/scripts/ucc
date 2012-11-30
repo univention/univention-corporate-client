@@ -801,8 +801,22 @@ ucc_image_ro()
 # Rollout
 ucc_rollout ()
 {
+	# Load keyboard drivers
+	modprobe i8042
+	modprobe atkbd
+
+	# Ensure the console is prepared for the user interaction
+	run_scripts /scripts/panic
+
 	if [ ! -e /root/var/univention-join/joined ]; then
-		chroot /root /usr/sbin/univention-join
+		mount -o move /proc /root/proc
+		if ! chroot /root /usr/sbin/univention-join; then
+			mount -o move /root/proc /proc
+			echo "ERROR: Failed to join."
+			panic "Dropping to a shell!"
+		else
+			mount -o move /root/proc /proc
+		fi
 	fi
 }
 
