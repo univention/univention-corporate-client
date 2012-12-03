@@ -1,6 +1,12 @@
+univention-ucc-initramfs (1.0.2-7) precise; urgency=low
+
+  * Fix build failure (Bug #29448)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 03 Dec 2012 10:21:11 +0100
+
 univention-ucc-initramfs (1.0.2-6) precise; urgency=low
 
-  * Add script set-bootable-flag-on-protective-mbr to scripts
+  * Add script set-bootable-flag-on-protective-mbr to scripts (Bug #29448)
 
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 03 Dec 2012 09:50:44 +0100
 

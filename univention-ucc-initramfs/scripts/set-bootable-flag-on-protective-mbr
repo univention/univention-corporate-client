@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 # 
 # Helper script to the bootable flag for a protective MBR
 #
