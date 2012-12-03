@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.2-8) precise; urgency=low
+
+  * Call set-bootable-flag-on-protective-mbr during the grub
+    installation (Bug #29448)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Mon, 03 Dec 2012 10:37:47 +0100
+
 univention-ucc-initramfs (1.0.2-7) precise; urgency=low
 
   * Fix build failure (Bug #29448)
