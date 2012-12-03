@@ -1,3 +1,4 @@
 initramfs-tools/hooks/ucc /usr/share/initramfs-tools/hooks
 initramfs-tools/scripts/ucc /usr/share/initramfs-tools/scripts
 scripts/generate_upgrade_script /usr/share/univention-ucc-initramfs/scripts/
+scripts/set-bootable-flag-on-protective-mbr /usr/share/univention-ucc-initramfs/scripts/
