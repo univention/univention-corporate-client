@@ -504,6 +504,11 @@ _install_grub ()
 	echo "update-grub >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 	echo "grub-install $device >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 	echo "/usr/share/univention-ucc-initramfs/scripts/set-bootable-flag-on-protective-mbr -p $device 2>&1" >>/root/grub-inst.sh
+
+	if [ -n "$KEYBOARD" ]; then
+		echo "/usr/sbin/univention-config-registry set xorg/keyboard/options/XkbLayout=$KEYBOARD >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
+	fi
+
 	if grep -qs "/boot" /root/etc/fstab; then
 		echo "umount /boot" >>/root/grub-inst.sh
 	fi
@@ -862,6 +867,9 @@ mountroot()
 			;;
 		net_dev)
 			net_dev={x#net_dev=}
+			;;
+		keyboard*)
+			KEYBOARD=${x#keyboard=}
 			;;
 		verbose)
 			verbose={x#verbose=}
