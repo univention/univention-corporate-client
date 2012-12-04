@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.2-10) precise; urgency=low
+
+  * Start dhcpclient in PXE mode too, otherwise the DNS server is not
+    set (Bug #28327)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Tue, 04 Dec 2012 14:20:11 +0100
+
 univention-ucc-initramfs (1.0.2-9) precise; urgency=low
 
   * Copy resolv.conf into chroot (Bug #28327)

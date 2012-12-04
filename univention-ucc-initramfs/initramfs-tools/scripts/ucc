@@ -591,8 +591,6 @@ _start_dhcpclient()
 {
 	local net_dev="$1"
 
-	# Bring up the network if this is not a PXE Boot
-	test -n "$ip" && return
 	echo "INFO: Starting dhcp client"
 
 	ifconfig "$net_dev" up
