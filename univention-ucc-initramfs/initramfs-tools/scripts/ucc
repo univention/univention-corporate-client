@@ -509,6 +509,10 @@ _install_grub ()
 		echo "/usr/sbin/univention-config-registry set xorg/keyboard/options/XkbLayout=$KEYBOARD >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 	fi
 
+	if [ -n "$LOCALE" ]; then
+		echo "/usr/sbin/univention-config-registry set locale/default=$LOCALE >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
+	fi
+
 	if grep -qs "/boot" /root/etc/fstab; then
 		echo "umount /boot" >>/root/grub-inst.sh
 	fi
@@ -870,6 +874,9 @@ mountroot()
 			;;
 		keyboard*)
 			KEYBOARD=${x#keyboard=}
+			;;
+		locale*)
+			LOCALE=${x#locale=}
 			;;
 		verbose)
 			verbose={x#verbose=}
