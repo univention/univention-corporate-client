@@ -1,0 +1,12 @@
+Source: univention-ucc-theme
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper, ucslint
+
+Package: univention-ucc-theme
+Architecture: all
+Description: Theme package for UCC
+ This package ships the desktop background for
+ Univention Corporate Client.
