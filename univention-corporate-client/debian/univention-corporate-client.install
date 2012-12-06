@@ -1,3 +1,4 @@
 univention-ldap-server-available usr/sbin
 univention-ucc-manage-persistent usr/sbin
 univention-ucc-sync-persistent-files usr/sbin
+ucc-base.conf /etc/init
