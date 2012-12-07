@@ -10,7 +10,7 @@ Build-Depends: debhelper,
 Package: univention-lightdm
 Architecture: all
 Depends: ${misc:Depends},
- univention-base-files, shell-univention-lib, lightdm, lightdm-gtk-greeter, univention-policy-tools, gconf2, lxde
+ univention-base-files, shell-univention-lib, lightdm, lightdm-gtk-greeter, univention-policy-tools, gconf2, lxde, univention-ucc-theme
 Recommends: gnome-icon-theme, univention-ucc-session-firefox, univention-ucc-session-rdp
 Description: UCS - LightDM configuration
  This package integrates the LightDM login manager into 

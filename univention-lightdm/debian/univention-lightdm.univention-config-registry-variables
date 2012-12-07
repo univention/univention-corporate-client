@@ -16,3 +16,9 @@ Description[en]=The default session in inactive user logins
 Type=str
 Categories=system-desktop
 
+[lightdm/wallpaper]
+Description[de]=Dieses Hintergrundbild wird in der LightDM-Anmeldemaske angezeigt
+Description[en]=This background picture is displayed in the LightDM login screen
+Type=str
+Categories=system-desktop
+
