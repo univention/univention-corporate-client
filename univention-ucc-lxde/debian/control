@@ -1,0 +1,16 @@
+Source: univention-ucc-lxde
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper,
+ univention-config-dev,
+ ucslint
+
+Package: univention-ucc-lxde
+Architecture: all
+Depends: ${misc:Depends},
+ lxde, univention-ucc-theme
+Description: UCC - LXDE integration
+ This package integrates the LXDE desktop environment into 
+ Univention Corporate Client.

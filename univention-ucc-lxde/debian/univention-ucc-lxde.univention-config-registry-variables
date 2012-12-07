@@ -1,0 +1,6 @@
+[lxde/wallpaper]
+Description[de]=Hintergrundbild für die LXDE-Desktopsitzung
+Description[en]=Background image for the LXDE desktop session
+Type=str
+Categories=system-desktop
+
