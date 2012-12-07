@@ -43,14 +43,13 @@ if __name__ == '__main__':
 
 	try:
 		lo = univention.uldap.getMachineConnection()
-	except:
-		print "Could not establish machine connection"
-
-	if lo:
 		res = lo.search(base=ucr.get('ldap/hostdn'), attr=['univentionCorporateClientBootImage'], unique=True, required=True)
 		bootImage = res[0][1].get('univentionCorporateClientBootImage', [])[0]
 
 		res = lo.search(filter='(&(objectClass=univentionCorporateClientImage)(univentionCorporateClientImageName=%s))' % bootImage, attr=['univentionCorporateClientImageServer'], unique=True)
+
+	except:
+		print "Could not establish machine connection"
 
 	if res:
 		servers = res[0][1].get('univentionCorporateClientImageServer', [])
