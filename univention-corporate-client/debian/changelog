@@ -1,3 +1,9 @@
+univention-corporate-client (1.0-14) unstable; urgency=low
+
+  * Depend on univention-ucc-lxde (Bug #28031)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 10 Dec 2012 16:02:04 +0100
+
 univention-corporate-client (1.0-13) unstable; urgency=low
 
   * Actually commit job file to SVN (Bug #28985)
