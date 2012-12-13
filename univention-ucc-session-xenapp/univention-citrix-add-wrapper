@@ -1,7 +1,8 @@
-#!/bin/sh 
+#!/bin/sh
 #
-# Univention Thin Client session-rdp
-#  postinst script for the debian package
+# Univention Corporate Client
+#
+# Replace wfica client with wrapper
 #
 # Copyright (C) 2012 Univention GmbH
 #
@@ -30,17 +31,12 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-#DEBHELPER#
-
-. /usr/share/univention-lib/all.sh
-
-if [ ! -L /etc/lightdm/session-setup/010_univention-citrix-add-entropy-workaround ]; then
-	ln -s /usr/sbin/univention-citrix-add-entropy-workaround /etc/lightdm/session-setup/010_univention-citrix-add-entropy-workaround
+if [ -e "/opt/Citrix/ICAClient/wfica" ]; then
+	if [ ! -e "/opt/Citrix/ICAClient/wfica.real" ]; then
+		mv /opt/Citrix/ICAClient/wfica /opt/Citrix/ICAClient/wfica.real
+		cp /usr/share/ucc/wfica-wrapper /opt/Citrix/ICAClient/wfica
+		chmod a+x /opt/Citrix/ICAClient/wfica
+	fi
 fi
-
-if [ ! -L /etc/lightdm/session-setup/020_univention-citrix-add-entropy-workaround ]; then
-	ln -s /usr/sbin/univention-citrix-add-wrapper /etc/lightdm/session-setup/020_univention-citrix-add-wrapper
-fi
-
 
 exit 0

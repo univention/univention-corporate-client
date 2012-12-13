@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (1.0.0-2) unstable; urgency=low
+
+  * Add a wrapper around the wfica client. Bug #23010
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 13 Dec 2012 15:50:43 +0100
+
 univention-ucc-session-xenapp (1.0.0-1) unstable; urgency=low
 
   * Initial Release. Bug #23010

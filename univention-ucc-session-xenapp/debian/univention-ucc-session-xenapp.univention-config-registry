@@ -1,0 +1,5 @@
+Type: file
+File: etc/ucc/xenapp-.ini
+
+Type: file
+File: etc/ucc/xenapp-wfclient.ini

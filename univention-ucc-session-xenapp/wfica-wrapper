@@ -1,7 +1,8 @@
-#!/bin/sh 
+#!/bin/sh
+## Univention Corporate Client
 #
-# Univention Thin Client session-rdp
-#  postinst script for the debian package
+# Add a wrapper around wfica so that we can pass additional options to the 
+# XenApp client when started through the browser session
 #
 # Copyright (C) 2012 Univention GmbH
 #
@@ -30,17 +31,6 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-#DEBHELPER#
+shift
 
-. /usr/share/univention-lib/all.sh
-
-if [ ! -L /etc/lightdm/session-setup/010_univention-citrix-add-entropy-workaround ]; then
-	ln -s /usr/sbin/univention-citrix-add-entropy-workaround /etc/lightdm/session-setup/010_univention-citrix-add-entropy-workaround
-fi
-
-if [ ! -L /etc/lightdm/session-setup/020_univention-citrix-add-entropy-workaround ]; then
-	ln -s /usr/sbin/univention-citrix-add-wrapper /etc/lightdm/session-setup/020_univention-citrix-add-wrapper
-fi
-
-
-exit 0
+/opt/Citrix/ICAClient/wfica.real -browserLock "$@" -clientfile /etc/ucc/xenapp-wfclient.ini -protocolfile /etc/ucc/xenapp-module.ini
