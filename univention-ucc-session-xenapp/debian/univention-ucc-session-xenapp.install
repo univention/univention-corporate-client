@@ -4,3 +4,4 @@ configure-website-hint.html /usr/share/ucc
 wfica-wrapper /usr/share/ucc
 install-citrix-receiver-hint.html /usr/share/ucc
 univention-citrix-add-entropy-workaround /usr/sbin
+univention-citrix-add-wrapper /usr/sbin/

@@ -1,5 +1,5 @@
 Type: file
-File: etc/ucc/xenapp-.ini
+File: etc/ucc/xenapp-module.ini
 
 Type: file
 File: etc/ucc/xenapp-wfclient.ini
