@@ -662,9 +662,8 @@ ucc_update()
 					if chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script; then
 						chmod +x /tmp/upgrade_script
 						_umount_image
-						if /tmp/upgrade_script; then
-							_final_root_mount
-						fi
+						/tmp/upgrade_script
+						_final_root_mount
 					fi
 				fi
 			fi
