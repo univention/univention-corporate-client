@@ -1,7 +1,8 @@
-#!/bin/sh 
+#!/bin/sh
 #
-# Univention Thin Client session-rdp
-#  postinst script for the debian package
+# Univention Corporate Client
+#
+# Copy region information to user home
 #
 # Copyright (C) 2012 Univention GmbH
 #
@@ -30,20 +31,9 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-#DEBHELPER#
+# The Citrix Receiver requires some region configuration to setup the
+# client. Copy them during session setup.
 
-. /usr/share/univention-lib/all.sh
-
-if [ ! -L /etc/lightdm/session-setup/010_univention-citrix-add-entropy-workaround ]; then
-	ln -s /usr/sbin/univention-citrix-add-entropy-workaround /etc/lightdm/session-setup/010_univention-citrix-add-entropy-workaround
-fi
-
-if [ ! -L /etc/lightdm/session-setup/020_univention-citrix-add-entropy-workaround ]; then
-	ln -s /usr/sbin/univention-citrix-add-wrapper /etc/lightdm/session-setup/020_univention-citrix-add-wrapper
-fi
-
-if [ ! -L /etc/lightdm/session-setup/030_univention-citrix-copy-region-info ]; then
-	ln -s /usr/sbin/univention-copy-region-info /etc/lightdm/session-setup/030_univention-citrix-copy-region-info
-fi
-
-exit 0
+mkdir -p "$HOME"/.ICAClient
+cp /usr/share/ucc/citrix-region/*  "$HOME"/.ICAClient
+chown -R "$USER" "$HOME"/.ICAClient
