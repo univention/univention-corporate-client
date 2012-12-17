@@ -7,3 +7,6 @@ Variables: lightdm/sessiondefault
 Type: file
 File: etc/lightdm/lightdm-gtk-greeter.conf
 Variables: lightdm/wallpaper
+
+Type: file
+File: etc/pam.d/lightdm

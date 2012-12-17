@@ -1,3 +1,10 @@
+univention-lightdm (1.0-15) unstable; urgency=low
+
+  * Add support to save user password to /tmp/password (needed to prevent
+    duplicated password entry at RDP login) (Bug #28941)
+ 
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 17 Dec 2012 14:33:07 +0100
+
 univention-lightdm (1.0-14.1) unstable; urgency=low
 
   * Make the background image in the login screen configurable (Bug #28411) 
