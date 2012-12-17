@@ -35,5 +35,5 @@
 # client. Copy them during session setup.
 
 mkdir -p "$HOME"/.ICAClient
-cp /usr/share/ucc/citrix-region/*  "$HOME"/.ICAClient
+cp /usr/share/ucc/citrix-conf/*  "$HOME"/.ICAClient
 chown -R "$USER" "$HOME"/.ICAClient

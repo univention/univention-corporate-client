@@ -6,3 +6,4 @@ install-citrix-receiver-hint.html /usr/share/ucc
 univention-citrix-add-entropy-workaround /usr/sbin
 univention-citrix-add-wrapper /usr/sbin/
 univention-copy-region-info /usr/sbin/
+citrix-conf/* /usr/share/ucc/citrix-conf

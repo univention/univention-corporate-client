@@ -38,10 +38,6 @@ if [ ! -L /etc/lightdm/session-setup/010_univention-citrix-add-entropy-workaroun
 	ln -s /usr/sbin/univention-citrix-add-entropy-workaround /etc/lightdm/session-setup/010_univention-citrix-add-entropy-workaround
 fi
 
-if [ ! -L /etc/lightdm/session-setup/020_univention-citrix-add-entropy-workaround ]; then
-	ln -s /usr/sbin/univention-citrix-add-wrapper /etc/lightdm/session-setup/020_univention-citrix-add-wrapper
-fi
-
 if [ ! -L /etc/lightdm/session-setup/030_univention-citrix-copy-region-info ]; then
 	ln -s /usr/sbin/univention-copy-region-info /etc/lightdm/session-setup/030_univention-citrix-copy-region-info
 fi
