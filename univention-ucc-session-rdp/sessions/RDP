@@ -63,7 +63,7 @@ else
 fi
 
 if test -e /tmp/passwd; then
-    PASSWD=`cat /tmp/passwd`
+    PASSWD=`cat /tmp/passwd | base64 --decode`
     params="$params -p $PASSWD"
 fi
 
