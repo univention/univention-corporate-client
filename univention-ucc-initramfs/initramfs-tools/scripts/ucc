@@ -837,6 +837,14 @@ ucc_rollout ()
 	fi
 }
 
+set_boot_variant ()
+{
+	# Reset the boot flag for this client
+	if ! chroot /root /usr/share/univention-ucc-initramfs/scripts/set_boot_variant.sh none; then
+		echo "Failed to reset the boot flag."
+	fi
+}
+
 mountroot()
 {
 	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-top"
@@ -895,6 +903,7 @@ mountroot()
 		echo "Starting UCC installation mode"
 		sleep 1 # Give udevadm one more second
 		ucc_installation
+		set_boot_variant
 	elif [ "$UCC" = "update" ]; then
 		echo "Starting UCC update mode"
 		_start_dhcpclient "$net_dev"
@@ -904,6 +913,7 @@ mountroot()
 		_start_dhcpclient "$net_dev"
 		ucc_update
 		ucc_rollout
+		set_boot_variant
 	elif [ "$UCC" = "local" -o "$UCC" = "none" ]; then
 		echo "Starting UCC local mode"
 		ucc_image_local

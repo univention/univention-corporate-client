@@ -1,6 +1,6 @@
-#!/usr/bin/make -f
+#!/bin/bash -e
 #
-# Copyright 2004-2012 Univention GmbH
+# Copyright 2012 Univention GmbH
 #
 # http://www.univention.de/
 #
@@ -27,13 +27,46 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-override_dh_auto_test:
-	ucslint
-	dh_auto_test
+usage ()
+{
+	echo "$0 <boot variant>"
+	echo "Set boot variant for the local UCC client to given variant."
+	echo "Possible values are:"
+	echo "		- none"
+	echo "		- overlayfs"
+	echo "		- update"
+	echo "		- rollout"
+	echo "		- installation"
+}
 
-override_dh_auto_install:
-	dh_auto_install
-	univention-install-config-registry
+if [ -z "$1" ]; then
+	usage
+	exit 1
+fi
 
-%:
-	dh $@
+
+eval "$(ucr shell)"
+
+boot_variant="$1"
+
+if [ -z "$ldap_hostdn" ] || [ ! -e /etc/machine.secret ]; then
+	echo "Error: The client is not joinined."
+	exit 1
+fi
+
+case "$boot_variant" in
+	none | overlayfs | update | rollout | installation)
+		/usr/share/univention-join/univention-mod-ldap-object.py --binddn="$ldap_hostdn" --bindpwd="$(</etc/machine.secret)" \
+    			--dn "$ldap_hostdn" \
+    			--attribute "univentionCorporateClientBootVariant" \
+    			--value "$boot_variant" \
+				--replace
+		;;
+	*)
+		echo "Unknown parameter: $boot_variant"
+		usage 
+		exit 1
+		;;
+esac
+
+exit 0
