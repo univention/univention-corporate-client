@@ -51,7 +51,7 @@ def failed(msg):
 	sys.exit(1)
 
 
-def modifyObject(binddn, bindpw, dn, attr, value):
+def modifyObject(binddn, bindpw, dn, attr, value, replace):
 
 	server = ucr.get("ldap/master")
 	port = ucr.get("ldap/master/port", "7389")
@@ -86,9 +86,11 @@ def modifyObject(binddn, bindpw, dn, attr, value):
 		if result and len(result) > 0:
 			old = result[0][1].get(attr, [])
 
-		if not value in old:
-			new = old + []
-			new.append(value)
+		if not value in old or replace:
+			if replace:
+				new = [value]
+			else:
+				new = old + [value]
 			ldif = ldap.modlist.modifyModlist({attr:old}, {attr:new})
 
 			try:
@@ -107,7 +109,8 @@ if __name__ == '__main__':
 	parser.add_option("-w", "--bindpwd", dest="bindpw", help="bind password", action="store", type="string")
 	parser.add_option("-d", "--dn", dest="dn", help="dn to modify", action="store", type="string")
 	parser.add_option("-a", "--attribute", dest="attr", help="attribute to modify", action="store", type="string")
-	parser.add_option("-v", "--value", dest="value", help="value to add to attribute", action="store", type="string")
+	parser.add_option("-v", "--value", dest="value", help="value to append to attribute", action="store", type="string")
+	parser.add_option("-r", "--replace", dest="replace", help="replace attribute with the new value", default=False, action="store_true")
 
 	options, args = parser.parse_args()
 
@@ -120,6 +123,7 @@ if __name__ == '__main__':
 		options.bindpw,
 		options.dn,
 		options.attr,
-		options.value)
+		options.value,
+		options.replace)
 
 	sys.exit(0)

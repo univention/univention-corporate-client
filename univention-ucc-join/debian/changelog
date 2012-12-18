@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.1-4) unstable; urgency=low
+
+  * Added a flag for replacing an LDAP attribute (Bug #28327)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Tue, 18 Dec 2012 16:02:01 +0100
+
 univention-ucc-join (1.1.1-3) unstable; urgency=low
 
   * Update the check for the existing UCC account (Bug #28327)
