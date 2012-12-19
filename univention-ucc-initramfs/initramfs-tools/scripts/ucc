@@ -204,6 +204,21 @@ partition()
 
 	mkdir -p /ucc_tmp
 
+	if [ -x /sbin/custom_partition ]; then
+		# Use a custom partiton tool, this script must do the following steps:
+		#	- partition the device given in $1
+		#	- mount the root partition to /ucc_tmp/root
+		#	- write the fstab: /ucc_tmp/fstab
+		# 	- if files should be copied (normally required for /boot), it should be written to /ucc_tmp/copy_files, for example:
+		#		echo "/dev/sda1 ext4 /boot" >>ucc_tmp/copy_files
+		#	- On the root device the file /ucc_root_device must be touched
+		if ! /sbin/custom_partition "$1"; then
+			echo "ERROR: /sbin/custom_partition failed."
+			panic "Dropping to a shell!"
+		fi
+		return
+	fi
+
 	# Read and set partition table
 	pt="$(/sbin/parted -s ${partition_device} unit MB print | sed -ne 's|Partition Table: ||p')"
 	if [ "$pt" != "gpt" ]; then
@@ -857,6 +872,7 @@ mountroot()
 
 	clear
 
+
 	udevadm settle # wait for udev
 
 	for x in $(cat /proc/cmdline); do
@@ -888,10 +904,25 @@ mountroot()
 		verbose)
 			verbose={x#verbose=}
 			;;
+		syslog)
+			syslog={x#syslog=}
+			;;
+		syslogserver)
+			syslogserver={x#syslogserver=}
+			;;
 		esac
 	done
 
 	test "$verbose" = "y" && set -x
+
+	# Send everything to the syslog server
+	if [ "$syslog" = "y" ]; then
+		if [ -z "$syslogserver" ]; then
+			echo "WARNING: syslogserver is not set. Do not start logger."
+		else
+			exec 3>&1 > >(tee -a /dev/fd/3 | logger -n "$syslogserver") 2>&1
+		fi
+	fi
 
 	# Set defaults
 	test -z "$ROOT" && ROOT="search"

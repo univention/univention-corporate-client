@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.3-3) precise; urgency=low
+
+  * Execute /sbin/custom_partition if exists (Bug #29138)
+  * Activate remote logging (Bug #28973)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Wed, 19 Dec 2012 17:22:48 +0100
+
 univention-ucc-initramfs (1.0.3-2) precise; urgency=low
 
   * Reset boot variant after installation or rollout (Bug #28327)

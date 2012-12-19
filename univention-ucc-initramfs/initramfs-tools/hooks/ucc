@@ -63,6 +63,7 @@ copy_exec /bin/bzcat /bin
 copy_exec /usr/bin/rsync /bin
 copy_exec /usr/bin/md5sum /bin
 copy_exec /usr/bin/diff /bin
+copy_exec /usr/bin/logger /bin
 
 # DEBUG
 copy_exec /usr/bin/vi /bin
