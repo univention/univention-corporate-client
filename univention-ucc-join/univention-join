@@ -447,8 +447,8 @@ if [ "$interfaces_eth0_type" != "dhcp" ]; then
 	univention-config-registry commit /etc/resolv.conf >>/var/log/univention/join.log 2>&1
 fi
 
-# Activate ldap in nsswitch
-auth-client-config -t nss -p lac_ldap
+# update local nss information
+univention-ucc-update-nss
 
 ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 
