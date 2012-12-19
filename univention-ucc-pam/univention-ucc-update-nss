@@ -47,15 +47,10 @@ if [ ! -e "/var/univention-join/joined" ]; then
 	exit 0
 fi
 
-# default ldap port
-if [ -z "$ldap_server_port" ]; then
-	ldap_server_port=7389
-fi
-
 # copy file from first available ldap server in ldap_server_name and ldap_server_addition
 addition=$(echo "$ldap_server_addition" | sed -e "s/,/ /g")
 for host in $ldap_server_name $addition; do
-	if /bin/netcat -q0 -w4 $host $ldap_server_port </dev/null >/dev/null 2>&1; then
+	if /bin/netcat -q0 -w4 $host 22 </dev/null >/dev/null 2>&1; then
 
 		for type in group passwd; do
 			src="/var/cache/ucc/$type"
@@ -63,8 +58,8 @@ for host in $ldap_server_name $addition; do
 			if is_ucr_true "ucc/nss/update/hostspecific"; then
 				src="/var/cache/ucc/$hostname.$type"
 			fi
-			echo "trying to update $type from $(hostname)\$@master:$src" >> $logFile
-			univention-scp /etc/machine.secret "$(hostname)$"@master:"$src" "$dest" 2>>$logFile 1>>$logFile
+			echo "trying to update $type from $(hostname)\$@$host:$src" >> $logFile
+			univention-scp /etc/machine.secret "$(hostname)$"@$host:"$src" "$dest" 2>>$logFile 1>>$logFile
 			if [ $? -eq 0 ]; then
 				echo " -> success" >> $logFile
 			else

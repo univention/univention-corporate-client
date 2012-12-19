@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-17) unstable; urgency=low
+
+  * test ssh port in univention-ucc-update-nss (Bug #29190)
+
+ -- Felix Botner <botner@univention.de>  Wed, 19 Dec 2012 17:57:51 +0100
+
 univention-ucc-pam (1.0.0-16) unstable; urgency=low
 
   * added support for nssextrauser (Bug #29190) 
