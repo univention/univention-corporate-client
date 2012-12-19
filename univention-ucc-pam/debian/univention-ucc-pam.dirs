@@ -1,2 +1,3 @@
 /usr/share/pam-configs/
 usr/sbin
+etc/init
