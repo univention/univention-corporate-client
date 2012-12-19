@@ -67,6 +67,14 @@
 ##	- verbose=y
 ##		Start set -x
 
+debug ()
+{
+	if [ "$syslog" = "y" ]; then
+		echo "$1" | logger -n "$syslogserver"
+	fi
+	echo "$1"
+}
+
 ## Helper function to add /dev/ to a device name
 _add_dev()
 {
@@ -186,7 +194,7 @@ _search_device()
 	if [ "$device" = "auto" ]; then
 		device="$(search_device)"
 	elif [ -z "$device" ]; then
-		echo "ERROR: Missing \"device: \" in ucc image configuration."
+		debug "ERROR: Missing \"device: \" in ucc image configuration."
 		return 1
 	# else -> Using pre-defined device
 	fi
@@ -213,7 +221,7 @@ partition()
 		#		echo "/dev/sda1 ext4 /boot" >>ucc_tmp/copy_files
 		#	- On the root device the file /ucc_root_device must be touched
 		if ! /sbin/custom_partition "$1"; then
-			echo "ERROR: /sbin/custom_partition failed."
+			debug "ERROR: /sbin/custom_partition failed."
 			panic "Dropping to a shell!"
 		fi
 		return
@@ -222,15 +230,15 @@ partition()
 	# Read and set partition table
 	pt="$(/sbin/parted -s ${partition_device} unit MB print | sed -ne 's|Partition Table: ||p')"
 	if [ "$pt" != "gpt" ]; then
-		echo "Partition table on ${partition_device} is not gpt."
-		echo "Creating GPT on ${partition_device}"
+		debug "Partition table on ${partition_device} is not gpt."
+		debug "Creating GPT on ${partition_device}"
 		parted -s "${partition_device}" mklabel GPT
 	fi
 		
 	if [ -n "$remove_partitions" ]; then
 		for rp in $remove_partitions; do
 			if [ "$rp" = "auto" ]; then
-				echo "INFO: delete partition: auto determination"
+				debug "INFO: delete partition: auto determination"
 				# TODO
 				d_name="$(echo $partition_device | sed -e 's|/dev/||')"
 				for partition_path in $(ls -d /sys/block/${d_name}/${d_name}* 2>/dev/null); do
@@ -241,15 +249,15 @@ partition()
 			else
 				rp="$(_add_dev $rp)"
 				if echo "$rp" | grep -sq "^${partition_device}"; then
-					echo "INFO: delete partition: $rp"
+					debug "INFO: delete partition: $rp"
 					number=$(echo $rp | sed -ne "s|^${partition_device}||p")
 					if [ -n "$number" ]; then
-						echo "INFO: delete partition: call parted -s ${partition_device} rm $number"
+						debug "INFO: delete partition: call parted -s ${partition_device} rm $number"
 						parted -s "${partition_device}" rm "$number"
 						
 					fi
 				else
-					echo "INFO: delete partition: ignore $rp"
+					debug "INFO: delete partition: ignore $rp"
 				fi
 			fi
 		done
@@ -287,7 +295,7 @@ partition()
 			partition_fs="$(_get_var partition${i}_fs)"
 			if [ -n "$partition_fs" ]; then
 				if [ -e "/sbin/mkfs.$partition_fs" ]; then
-					echo "Creating filesystem on ${partition_device}${count}"
+					debug "Creating filesystem on ${partition_device}${count}"
 					eval "/sbin/mkfs.$partition_fs" "${partition_device}${count}" > /dev/null 2>&1
 				elif [ "$partition_fs" = "swap" ]; then
 					/sbin/mkswap "${partition_device}${count}" > /dev/null 2>&1
@@ -344,7 +352,7 @@ partition()
 ## of a network boot, the network will be activated and the NFS root is mounted
 _mount_local_boot_device ()
 {
-	echo "INFO: Mount local boot device"
+	debug "INFO: Mount local boot device"
 	mkdir -p /ucc_tmp/boot_medium
 
 	if [ -n "$nfsroot" ]; then
@@ -370,7 +378,7 @@ _mount_local_boot_device ()
 		fi
 		if mount $mount_option /dev/$device /ucc_tmp/boot_medium; then
 
-			echo "Found UCC device: $device"
+			debug "Found UCC device: $device"
 
 			if [ -n "$IMAGE" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
 				return 0
@@ -387,7 +395,7 @@ _mount_local_boot_device ()
 
 _sync_to_persistent ()
 {
-	echo "INFO: Sync files to persistent storage"
+	debug "INFO: Sync files to persistent storage"
 	local img="$1"
 	mount -o loop "$img" /root/
 	mkdir -p /root/ucc_root
@@ -400,7 +408,7 @@ _sync_to_persistent ()
 
 _sync_from_persistent ()
 {
-	echo "INFO: Sync files from persistent storage"
+	debug "INFO: Sync files from persistent storage"
 	local img="$1"
 	mount -o loop "$img" /root/
 	mount -o move /ucc_tmp/root /root/ucc_root
@@ -431,7 +439,7 @@ _check_and_copy_image ()
 			fi
 
 			# A local images does not exist
-			echo "INFO: Copy UCC image to local harddsik: "
+			debug "INFO: Copy UCC image to local harddsik: "
 			# TODO: check return value
 			rsync --progress "/ucc_tmp/boot_medium/${img}" /ucc_tmp/root
 			echo "${img}" >/ucc_tmp/root/local_image
@@ -441,7 +449,7 @@ _check_and_copy_image ()
 				rm "/ucc_tmp/root/ucc_sync_back_from_persistent"
 			fi
 		else
-			echo "INFO: Do not copy the UCC image to local harddsik. The image was not updated."
+			debug "INFO: Do not copy the UCC image to local harddsik. The image was not updated."
 		fi
 		return 0
 	else
@@ -470,7 +478,7 @@ _final_root_mount ()
 {
 	if [ -e "/ucc_tmp/root/local_image" ]; then
 		if ! _mount_image; then
-				echo "ERROR: failed to mount /ucc_tmp/root/${local_image} to /root"
+				debug "ERROR: failed to mount /ucc_tmp/root/${local_image} to /root"
 				panic "Dropping to a shell!"
 		fi
 
@@ -485,11 +493,11 @@ _final_root_mount ()
 ## Copy the UCC image to the local disk
 _update_local_image ()
 {
-	echo "INFO: Update/install local image"
+	debug "INFO: Update/install local image"
 	local device
 
 	mkdir -p /ucc_tmp/boot_medium
-	echo "IMAGE: $IMAGE"
+	debug "IMAGE: $IMAGE"
 
 	if _mount_local_boot_device; then
 		_check_and_copy_image "${IMAGE}"
@@ -504,7 +512,7 @@ _update_local_image ()
 ## compatible with busybox
 _install_grub ()
 {
-	echo "INFO: Install grub boot loader"
+	debug "INFO: Install grub boot loader"
 
 	local device="$1"
 
@@ -554,7 +562,7 @@ ucc_installation()
 
 	partition_device="$(_search_device ${device})"
 	if [ $? != 0 ]; then
-		echo "ERROR: Failed to search device."
+		debug "ERROR: Failed to search device."
 		panic "Dropping to a shell!"
 	fi
 
@@ -569,14 +577,14 @@ ucc_installation()
 		if [ -z "$FORCE_PARTITION_TIMEOUT" ]; then
 			FORCE_PARTITION_TIMEOUT=60
 		fi
-		echo "Starting partitioning in $FORCE_PARTITION_TIMEOUT seconds. Press CTRL-C to abort."
+		debug "Starting partitioning in $FORCE_PARTITION_TIMEOUT seconds. Press CTRL-C to abort."
 		sleep $FORCE_PARTITION_TIMEOUT
 		partition "$partition_device"
 	else
 		echo -e "$continuation_message" | sed -e "s|@PARTITION_DEVICE@|$partition_device|g"
 
 		if [ -z "$continuation_dialog" -o -z "$continuation_dialog_no" -o -z "$continuation_dialog_yes" -o -z "$continuation_dialog_error" ]; then
-			echo "ERROR: continuation_dialog variables are not set."
+			debug "ERROR: continuation_dialog variables are not set."
 			panic "Dropping to a shell!"
 		fi
 
@@ -615,7 +623,7 @@ _start_dhcpclient()
 {
 	local net_dev="$1"
 
-	echo "INFO: Starting dhcp client"
+	debug "INFO: Starting dhcp client"
 
 	ifconfig "$net_dev" up
 	udhcpc -s /etc/udhcpc/default.script -i "$net_dev" -b
@@ -650,7 +658,7 @@ ucc_update()
 	# should be updated, this system must be installed
 	if [ "${ROOT}" = "search" -o "${ROOT}" = "/dev/nfs" ]; then
 		if ! _mount_local_root_device; then
-			echo "A local root device has not been found. Switch to the installation mode!"
+			debug "A local root device has not been found. Switch to the installation mode!"
 			ucc_installation
 			return
 		fi
@@ -691,7 +699,7 @@ ucc_update()
 _mount_local_root_device()
 {
 	local device
-	echo "INFO: Mount local root device"
+	debug "INFO: Mount local root device"
 
 	umount /ucc_tmp/root
 
@@ -735,7 +743,7 @@ _mount_local_root_device()
 
 			if [ -e "/ucc_tmp/root/ucc_root_device" ]; then
 				# This is the root device
-				echo "Found a local ucc root device: /dev/$device"
+				debug "Found a local ucc root device: /dev/$device"
 				break
 			else
 				umount /ucc_tmp/root
@@ -755,7 +763,7 @@ ucc_image_local()
 
 	if [ "${ROOT}" = "search" -o "${ROOT}" = "/dev/nfs" ]; then
 		if ! _mount_local_root_device; then
-			echo "ERROR: local root device was not found. Try kernel commandline argument root=</dev/...>"
+			debug "ERROR: local root device was not found. Try kernel commandline argument root=</dev/...>"
 			panic "Dropping to a shell!"
 		fi
 	else
@@ -773,7 +781,7 @@ ucc_image_local()
 	fi
 
 	if ! mount | grep -qs " on /root "; then
-		echo "ERROR: An UCC image was not found!"
+		debug "ERROR: An UCC image was not found!"
 		panic "Dropping to a shell!"
 	fi
 }
@@ -799,7 +807,7 @@ ucc_image_ro()
 		fi
 
 		if ! mount | grep -qs " on /ucc_tmp/root-ro "; then
-			echo "ERROR: An UCC image was not found!"
+			debug "ERROR: An UCC image was not found!"
 			panic "Dropping to a shell!"
 		fi
 			
@@ -814,7 +822,7 @@ ucc_image_ro()
 		mount -o move /ucc_tmp/root-ro /root/root-ro
 		mount -o move /ucc_tmp/boot_medium /root/root-boot_medium
 	else
-		echo "ERROR: A local boot device was not found."
+		debug "ERROR: A local boot device was not found."
 		panic "Dropping to a shell!"
 	fi
 	
@@ -830,7 +838,7 @@ ucc_rollout ()
 	# Ensure the console is prepared for the user interaction
 	run_scripts /scripts/panic
 
-	echo "Joining the UCC client"
+	debug "Joining the UCC client"
 	if [ ! -e /root/var/univention-join/joined ]; then
 		mount -o move /proc /root/proc
 		# Copy resolv.conf into chroot. If the resolv.conf does
@@ -844,7 +852,7 @@ ucc_rollout ()
 
 		if ! chroot /root /usr/sbin/univention-join; then
 			mount -o move /root/proc /proc
-			echo "ERROR: Failed to join."
+			debug "ERROR: Failed to join."
 			panic "Dropping to a shell!"
 		else
 			mount -o move /root/proc /proc
@@ -856,7 +864,7 @@ set_boot_variant ()
 {
 	# Reset the boot flag for this client
 	if ! chroot /root /usr/share/univention-ucc-initramfs/scripts/set_boot_variant.sh none; then
-		echo "Failed to reset the boot flag."
+		debug "Failed to reset the boot flag."
 	fi
 }
 
@@ -918,9 +926,10 @@ mountroot()
 	# Send everything to the syslog server
 	if [ "$syslog" = "y" ]; then
 		if [ -z "$syslogserver" ]; then
-			echo "WARNING: syslogserver is not set. Do not start logger."
-		else
-			exec 3>&1 > >(tee -a /dev/fd/3 | logger -n "$syslogserver") 2>&1
+			debug "WARNING: syslogserver is not set. Do not start logger."
+		#Disable the global redirect since it does not work in the default shell
+		#else
+		#	exec 3>&1 > >(tee -a /dev/fd/3 | logger -n "$syslogserver") 2>&1
 		fi
 	fi
 
@@ -931,34 +940,34 @@ mountroot()
 	export IMAGE SHARE FORCE_PARTITION FORCE_PARTITION_TIMEOUT
 
 	if [ "$UCC" = "installation" ]; then 
-		echo "Starting UCC installation mode"
+		debug "Starting UCC installation mode"
 		sleep 1 # Give udevadm one more second
 		ucc_installation
 		set_boot_variant
 	elif [ "$UCC" = "update" ]; then
-		echo "Starting UCC update mode"
+		debug "Starting UCC update mode"
 		_start_dhcpclient "$net_dev"
 		ucc_update
 	elif [ "$UCC" = "rollout" ]; then
-		echo "Starting UCC rollout mode"
+		debug "Starting UCC rollout mode"
 		_start_dhcpclient "$net_dev"
 		ucc_update
 		ucc_rollout
 		set_boot_variant
 	elif [ "$UCC" = "local" -o "$UCC" = "none" ]; then
-		echo "Starting UCC local mode"
+		debug "Starting UCC local mode"
 		ucc_image_local
 	elif [ "$UCC" = "overlayfs" ]; then
-		echo "Starting UCC overlayfs mode"
+		debug "Starting UCC overlayfs mode"
 		ucc_image_ro overlayfs
 	elif [ "$UCC" = "aufs" ]; then
-		echo "Starting UCC aufs mode"
+		debug "Starting UCC aufs mode"
 		ucc_image_ro aufs
 	elif [ "$UCC" = "shell" -o "$UCC" = "debug" ]; then
-		echo "Starting UCC shell"
+		debug "Starting UCC shell"
 		panic "Dropping to a shell!"
 	else
-		echo "Use local as fallback mode"
+		debug "Use local as fallback mode"
 		ucc_image_local
 	fi
 

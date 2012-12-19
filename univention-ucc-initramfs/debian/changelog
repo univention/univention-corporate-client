@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.3-4) precise; urgency=low
+
+  * Disable global redirection since it does not work in the busybox
+    shell (Bug #28973)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Wed, 19 Dec 2012 18:09:55 +0100
+
 univention-ucc-initramfs (1.0.3-3) precise; urgency=low
 
   * Execute /sbin/custom_partition if exists (Bug #29138)
