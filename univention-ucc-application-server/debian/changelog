@@ -1,3 +1,9 @@
+univention-ucc-application-server (1.0.0-6) unstable; urgency=low
+
+  * activate nss ldap for application server (Bug #29190)
+
+ -- Felix Botner <botner@univention.de>  Wed, 19 Dec 2012 15:30:28 +0100
+
 univention-ucc-application-server (1.0.0-5) unstable; urgency=low
 
   * added join script (Bug #22654) 
