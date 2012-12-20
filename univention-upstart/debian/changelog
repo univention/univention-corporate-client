@@ -1,3 +1,9 @@
+univention-upstart (1.0-4) unstable; urgency=low
+
+  * Manage KDM autostart (Bug #28964)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 20 Dec 2012 15:28:37 +0100
+
 univention-upstart (1.0-3) unstable; urgency=low
 
   * allow LightDM deactivation via UCRV lightdm/autostart (Bug #29095)

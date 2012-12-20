@@ -5,3 +5,7 @@ Variables: avahi/autostart
 Type: file
 File: etc/init/lightdm.conf
 Variables: lightdm/autostart
+
+Type: file
+File: etc/init/kdm.conf
+Variables: kdm/autostart
