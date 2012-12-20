@@ -34,6 +34,8 @@
 
 #DEBHELPER#
 
+univention-config-registry set sshd/xforwarding=yes
+
 call_joinscript 50univention-ucc-application-server.inst
 
 exit 0
