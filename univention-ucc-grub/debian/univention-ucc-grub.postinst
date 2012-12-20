@@ -38,7 +38,7 @@ ucr set	grub/hidden/timeout?"0" \
 		grub/timeout?"10" \
 		grub/append?"quiet splash"
 
-# By default the image should be updated
-ucr set	boot/ucc?"update"
+# By default the image should do notthing
+ucr set	boot/ucc?"none"
 
 exit 0
