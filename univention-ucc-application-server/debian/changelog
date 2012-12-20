@@ -1,3 +1,9 @@
+univention-ucc-application-server (1.0.0-8) unstable; urgency=low
+
+  * added cron jon for nss data update (Bug #29190) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 20 Dec 2012 16:25:46 +0100
+
 univention-ucc-application-server (1.0.0-7) unstable; urgency=low
 
   * deactivate nss ldap for application server (Bug #29190) 

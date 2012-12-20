@@ -1,0 +1,12 @@
+[ucc/nss/update]
+Description[de]=Aktiviert/Deaktiviert die Benutzerdaten-Aktualisierung über cron (default: true)
+Description[en]=Enables/Disables the user data update via cron (default: true)
+Type=bool
+Categories=ucc
+
+[ucc/nss/update/interval]
+Description[de]=Cron Aktualisierungs-Intervall (default: "*/5 * * * *" - alle 5 Minuten)
+Description[en]=Cron update interval (default: "*/5 * * * *" - every 5 minutes)
+Type=str
+Categories=ucc
+

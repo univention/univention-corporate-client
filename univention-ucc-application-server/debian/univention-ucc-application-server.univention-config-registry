@@ -1,0 +1,4 @@
+Type: file
+File: etc/cron.d/univention-ucc-update-nss
+Variables: ucc/nss/update
+Variables: ucc/nss/update/interval
