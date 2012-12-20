@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.3-7) precise; urgency=low
+
+  * Make set_boot_variant.sh executable (Bug #28327)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Thu, 20 Dec 2012 13:32:45 +0100
+
 univention-ucc-initramfs (1.0.3-6) precise; urgency=low
 
   * Logging cleanup (Bug #28973)
