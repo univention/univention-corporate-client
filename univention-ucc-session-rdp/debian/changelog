@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.1-12) unstable; urgency=low
+
+  * Read hardware redirection policy in RDP session script (Bug #28322)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 20 Dec 2012 12:18:33 +0100
+
 univention-ucc-session-rdp (1.0.1-11) unstable; urgency=low
 
   * base64-decode password from /tmp/passwd (Bug #28941)

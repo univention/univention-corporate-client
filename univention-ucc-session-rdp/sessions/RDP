@@ -80,10 +80,6 @@ else
  	params="$params --plugin rdpsnd"
 fi
 
-if is_ucr_true 'rdp/redirectdisk'; then
-    params="$params --plugin rdpdr --data disk:local-drives:/run/drives --"
-fi
-
 if [ -n "$rdp_user" ]; then
     params="$params -u $rdp_user"
 else
@@ -126,6 +122,17 @@ fi
 
 fi
 
+
+if is_ucr_true 'rdp/redirectdisk'; then
+    params="$params --plugin rdpdr --data disk:local-drives:/run/drives --"
+else
+	policy_enable_storage=`grep -A 1 univentionCorporateClientComputerLocalStorage= /tmp/"$hostname"-policy.txt  | grep univentionCorporateClientComputerLocalStorage= | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
+
+	if [ $policy_enable_storage == '"1"' ]; then
+		params="$params --plugin rdpdr --data disk:local-drives:/run/drives --"
+	fi
+fi
+	
 if [ -n "$rdp_additionaloptions" ]; then
        params="$params $rdp_additionaloptions"
 fi
