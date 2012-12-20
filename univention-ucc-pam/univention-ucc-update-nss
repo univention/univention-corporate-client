@@ -34,11 +34,13 @@
 
 eval "$(univention-config-registry shell)"
 
-logFile="/var/log/univention/nss-update.log"
-
-# only if we do not use nss-ldap
-if is_ucr_true "nsswitch/ldap"; then
-	exit 0
+# if USERNAME is set and known in passwd, we don't 
+# need to update the passwd/group information
+if [ -n "$USERNAME" ]; then
+	if [ "$USERNAME" = "root" ]; then
+		exit 0
+	fi
+	getent passwd "$USERNAME" && exit 0
 fi
 
 # works only for join computers
@@ -49,6 +51,7 @@ fi
 
 # copy file from first available ldap server in ldap_server_name and ldap_server_addition
 addition=$(echo "$ldap_server_addition" | sed -e "s/,/ /g")
+logFile="/var/log/univention/nss-update.log"
 for host in $ldap_server_name $addition; do
 	if /bin/netcat -q0 -w4 $host 22 </dev/null >/dev/null 2>&1; then
 
@@ -58,8 +61,8 @@ for host in $ldap_server_name $addition; do
 			if is_ucr_true "ucc/nss/update/hostspecific"; then
 				src="/var/cache/ucc/$hostname.$type"
 			fi
-			echo "$(date) trying to update $type from $(hostname)\$@$host:$src" >> $logFile
-			univention-scp /etc/machine.secret "$(hostname)$"@$host:"$src" "$dest" 2>>$logFile 1>>$logFile
+			echo "$(date) trying to update $type from $hostname\$@$hostname.$domainname:$src" >> $logFile
+			univention-scp /etc/machine.secret "$hostname"\$\@"$host:$src" "$dest" 2>>$logFile 1>>$logFile
 			if [ $? -eq 0 ]; then
 				echo "$(date) -> success" >> $logFile
 			else
