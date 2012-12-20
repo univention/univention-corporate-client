@@ -63,7 +63,14 @@ copy_exec /bin/bzcat /bin
 copy_exec /usr/bin/rsync /bin
 copy_exec /usr/bin/md5sum /bin
 copy_exec /usr/bin/diff /bin
+
+# Logging
 copy_exec /usr/bin/logger /bin
+copy_exec /usr/sbin/rsyslogd /sbin
+mkdir -p "${DESTDIR}/etc/"
+cp /etc/rsyslog.conf "${DESTDIR}/etc/"
+mkdir -p "${DESTDIR}/usr/lib/"
+cp -pr /usr/lib/rsyslog "${DESTDIR}/usr/lib/"
 
 # DEBUG
 copy_exec /usr/bin/vi /bin
