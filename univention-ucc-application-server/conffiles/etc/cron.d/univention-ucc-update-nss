@@ -4,6 +4,6 @@ PATH=/usr/sbin:/usr/bin:/sbin:/bin
 
 @!@
 if configRegistry.is_true('ucc/nss/update', True):
-    print "%s   root   /usr/sbin/univention-ucc-update-nss" % configRegistry.get('ucc/nss/update/interval', '5 * * * *')
+    print "%s   root   /usr/sbin/univention-ucc-update-nss" % configRegistry.get('ucc/nss/update/interval', '*/5 * * * *')
 @!@
 
