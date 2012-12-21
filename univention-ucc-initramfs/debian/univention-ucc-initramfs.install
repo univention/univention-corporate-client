@@ -3,3 +3,5 @@ initramfs-tools/scripts/ucc /usr/share/initramfs-tools/scripts
 scripts/generate_upgrade_script /usr/share/univention-ucc-initramfs/scripts/
 scripts/set-bootable-flag-on-protective-mbr /usr/share/univention-ucc-initramfs/scripts/
 scripts/set_boot_variant.sh /usr/share/univention-ucc-initramfs/scripts/
+51univention-ucc-initramfs.inst usr/lib/univention-install/
+
