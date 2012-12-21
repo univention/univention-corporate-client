@@ -3,3 +3,5 @@ check_join_status.sh /usr/sbin
 univention-run-join-scripts usr/sbin
 joinscripthelper.lib usr/share/univention-join/
 univention-mod-ldap-object.py usr/share/univention-join/
+univention-create-keytab usr/share/univention-join/
+45univention-join.inst usr/lib/univention-install/

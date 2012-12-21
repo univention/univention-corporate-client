@@ -1,0 +1,63 @@
+#! /bin/sh
+#
+# UCC join
+#  join script
+#
+# Copyright 2012 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# The source code of this program is made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this program provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use this program under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+
+VERSION=1
+
+eval "$(ucr shell)"
+
+set -x
+
+. /usr/share/univention-join/joinscripthelper.lib  || exit 1
+
+joinscript_init
+
+## parse binddn and bindpwd from command line arguments into shell variables
+eval $(echo "$@" | sed -n 's/.*--binddn \(.*\) --bindpwd \(.*\).*/binddn="\1"\nbindpwd="\2"/p')
+
+# Read kvno from LDAP entry
+kvno="$(ldapsearch -x -D "$binddn" -w "$bindpwd" "(&(objectClass=univentionCorporateClient)(cn=$hostname))" krb5KeyVersionNumber | sed -ne 's|krb5KeyVersionNumber: ||')"
+test -z "$kvno" && kvno=1
+
+unset binddn bindpwd
+
+# Backup old keytab
+mv /etc/krb5.keytab "/etc/krb5.keytab.old_$(date +%F-%S%M%S)"
+
+# Dump keytab
+/usr/share/univention-join/univention-create-keytab --keytab="/etc/krb5.keytab" \
+	--principal="host/$hostname.$domainname" --alias="host/$hostname.$domainname" \
+	--kvno=$kvno --password="$(cat /etc/machine.secret)" || die
+
+
+joinscript_save_current_version
+
+exit 0

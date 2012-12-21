@@ -1,3 +1,10 @@
+univention-ucc-join (1.1.2-2) unstable; urgency=low
+
+  * Create krb5.keytab while joining UCC. This makes it possible to
+    offer kerberos services (Bug #29096)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 21 Dec 2012 07:28:30 +0100
+
 univention-ucc-join (1.1.2-1) unstable; urgency=low
 
   * udpate nss informations during join (Bug #29190)
