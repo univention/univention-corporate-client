@@ -10,3 +10,6 @@ Variables: lightdm/wallpaper
 
 Type: file
 File: etc/pam.d/lightdm
+
+Type: file
+File: etc/X11/default-display-manager

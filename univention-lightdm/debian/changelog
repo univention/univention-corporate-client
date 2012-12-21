@@ -1,3 +1,10 @@
+univention-lightdm (1.0-16) unstable; urgency=low
+
+  * Ship /etc/X11/default-display-manager as a UCR template to enforce that LightDM
+    is started (Bug #28964)	 
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Dec 2012 09:47:11 +0100
+
 univention-lightdm (1.0-15) unstable; urgency=low
 
   * Add support to save user password to /tmp/password (needed to prevent
