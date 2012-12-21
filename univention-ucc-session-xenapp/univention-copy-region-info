@@ -34,7 +34,7 @@
 # The Citrix Receiver requires some region configuration to setup the
 # client. Copy them during session setup.
 
-if [ -e "$HOME/.ICAClient" ]; then
+if [ ! -e "$HOME/.ICAClient" ]; then
 	mkdir -p "$HOME"/.ICAClient
 	cp /usr/share/ucc/citrix-conf/*  "$HOME"/.ICAClient
 	chown -R "$USER" "$HOME" # Bug 29879

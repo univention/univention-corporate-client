@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (1.0.0-5) unstable; urgency=low
+
+  * Fix condition (Bug #28301)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Dec 2012 14:17:07 +0100
+
 univention-ucc-session-xenapp (1.0.0-4) unstable; urgency=low
 
   * Fix permissions of temporary dir (Bug #28301)
