@@ -1,3 +1,9 @@
+univention-ucc-remote-mount (1.0.0-3) unstable; urgency=low
+
+  * Fix removal of cdpinger-triggered devices (Bug #28294)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 02 Jan 2013 10:22:48 +0100
+
 univention-ucc-remote-mount (1.0.0-2) unstable; urgency=low
 
   * Depend on and integrate cdpinger (Bug #28294)

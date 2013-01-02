@@ -32,7 +32,7 @@ echo "univention-ucc-remote-mount: remove_fstab_entry called, options: $1 $2 $3"
 
 devicename=$(basename $1)
 
-grep /dev/$deviceame1 /proc/mounts | while read DEV MOUNTPOINT REST; do
+grep /dev/$devicename /proc/mounts | while read DEV MOUNTPOINT REST; do
 	umount -l ${DEV} 2>&1 >/dev/null # might fail for cdrom devices
 	umount ${MOUNTPOINT} 2>&1 >/dev/null
 	rmdir ${MOUNTPOINT}
