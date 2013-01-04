@@ -66,11 +66,24 @@ done
 
 # start session
 if [ -n "$sessionHost" ]; then
-	export SESSION_HOST="$sessionHost"
-	export FIFOFILE=/tmp/univention-client.sock.$USER
-	export SESSION_RSH=ssh
-	export SESSION_RSH_ARGS='-X -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o BatchMode=yes'
-	univention-session-client -p /usr/share/univention-ucc-session-ucc-remote/UCC-remote.Session  -f $FIFOFILE
+
+	# obsolete univention-session stuff
+	#export SESSION_HOST="$sessionHost"
+	#export FIFOFILE=/tmp/univention-client.sock.$USER
+	#export SESSION_RSH=ssh
+	#export SESSION_RSH_ARGS='-X -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o BatchMode=yes'
+	#univention-session-client -p /usr/share/univention-ucc-session-ucc-remote/UCC-remote.Session  -f $FIFOFILE
+	
+	sshOptions="-X -o StrictHostKeyChecking=no -o BatchMode=yes"
+	sshOptions="$sshOptions -o ServerAliveInterval=$ucc_session_remote_session_timeout"
+	sshOptions="$sshOptions -o ConnectTimeout=$ucc_session_remote_connection_timeout"
+	
+	ssh $sshOptions $sessionHost $ucc_session_remote_command
+	if [ ! $? -eq 0 ]; then
+		xmessage "Could not contact terminal server ($sessionHost) or run session script ($ucc_session_remote_command)"
+	fi
+else
+	xmessage "Could not find a usable terminal server, check uccTerminalServer Policy"
 fi
 
 exit 0

@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (1.0.0-7) unstable; urgency=low
+
+  * replaced univention-session with ssh (Bug #29105) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 04 Jan 2013 13:41:19 +0100
+
 univention-ucc-session-ucc (1.0.0-6) unstable; urgency=low
 
   * added xauth in ucc remote package (Bug #29109)
