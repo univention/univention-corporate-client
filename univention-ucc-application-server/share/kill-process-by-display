@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 #
-# UCC application server
-#  postinst file
+# Univention Client Login
+#  helper script
 #
-# Copyright 2012 Univention GmbH
+# Copyright (C) 2001-2012 Univention GmbH
 #
 # http://www.univention.de/
 #
@@ -30,15 +30,31 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-. /usr/share/univention-lib/all.sh
+# ONLY SOURCE THIS FILE (otherwhise $$ and $PPID are wrong)
 
-#DEBHELPER#
-
-univention-config-registry set \
-	sshd/clientAliveInterval?100 \
-	sshd/xforwarding=yes
-
-call_joinscript 50univention-ucc-application-server.inst
-
-exit 0
-
+# kill all remaining processes, which have the display set to the dead machine
+for i in `find /proc -mindepth 1 -maxdepth 1 -user $USER`; do
+	PID=${i/*\//};
+	if [ -r $i/cmdline ]; then
+	    CMD=`cat $i/cmdline`;
+	else
+	    CMD="";
+	fi;
+	if [ -r $i/environ ]; then
+		PDISPLAY=`(cat $i/environ) | tr "\000" "\n" | \
+		    grep "^DISPLAY="`
+		PDISPLAY=${PDISPLAY/*DISPLAY=/}
+		echo might kill $PID $PDISPLAY "("$CMD")" 1>&2;
+		# we must not kill our self nor our parent
+		if [ "$PDISPLAY" != "$DISPLAY" ]; then continue; fi;
+		if [ $PID -eq $$ ]; then continue; fi;
+		if [ $PID -eq $PPID ]; then continue; fi;
+		echo killing $PID $PDISPLAY "("$CMD")" 1>&2;
+		kill -TERM $PID;
+		sleep 1;
+		if [ -e $i/environ ]; then
+			echo "trying harder" 1>&2;
+			kill -KILL $PID;
+		fi;
+	fi;
+done;

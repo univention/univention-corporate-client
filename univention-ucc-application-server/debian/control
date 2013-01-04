@@ -12,7 +12,8 @@ Architecture: all
 Depends: ${misc:Depends},
  openssh-server,
  univention-session-server,
- univention-join
+ univention-join,
+ gstreamer0.10-pulseaudio
 Description: UCC - application (terminal) server
  This package contains the configuration for a ucc
  application server.

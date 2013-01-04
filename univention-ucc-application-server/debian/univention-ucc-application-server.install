@@ -1,2 +1,4 @@
 univention-showload usr/bin/
 50univention-ucc-application-server.inst usr/lib/univention-install/
+KDE usr/share/univention-ucc-application-server/
+kill-process-by-display usr/share/univention-ucc-application-server/

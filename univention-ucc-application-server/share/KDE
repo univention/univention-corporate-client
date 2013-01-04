@@ -1,9 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 #
-# UCC application server
-#  postinst file
+# UCC TS KDE start script
 #
-# Copyright 2012 Univention GmbH
+# Copyright (C) 2013 Univention GmbH
 #
 # http://www.univention.de/
 #
@@ -30,15 +29,36 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-. /usr/share/univention-lib/all.sh
+eval "$(/usr/sbin/ucr shell)"
 
-#DEBHELPER#
+# login script
+if [ -n "$client_login_script" ]; then
+    if [ -x "$client_login_script" ]; then
+    	echo "Running $client_login_script as user $USER" | logger
+        . "$client_login_script"
+    fi
+fi
 
-univention-config-registry set \
-	sshd/clientAliveInterval?100 \
-	sshd/xforwarding=yes
 
-call_joinscript 50univention-ucc-application-server.inst
+# kde
+echo "start remote kde session for user $USER" | logger
+startkde
+
+# logout/terminate
+echo "terminate remote kde session for user $USER" | logger
+qdbus org.freedesktop.Akonadi.Control /ControlManager shutdown
+qdbus org.kde.kuiserver /MainApplication quit
+kdeinit4_shutdown
+if ! test -z "$DISPLAY"; then
+	. /usr/share/univention-ucc-application-server/kill-process-by-display
+fi
+
+# logout script
+if [ -n "$client_logout_script" ]; then
+	if [ -x "$client_logout_script" ]; then
+		echo "Running $client_logout_script as user $USER" | logger
+		. "$client_logout_script"
+	fi
+fi
 
 exit 0
-
