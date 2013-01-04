@@ -480,7 +480,7 @@ _mount_image ()
 
 _umount_image ()
 {
-	umount /root
+	umount -d /root
 	return $?
 }
 
@@ -915,22 +915,9 @@ stop_remote_logging ()
 	test -e /var/run/rsyslogd.pid && kill "$(cat /var/run/rsyslogd.pid)"
 }
 
-
-mountroot()
+check_parameter ()
 {
-	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-top"
-	run_scripts /scripts/local-top
-	[ "$quiet" != "y" ] && log_end_msg
-
-	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-premount"
-	run_scripts /scripts/local-premount
-	[ "$quiet" != "y" ] && log_end_msg
-
-	clear
-
-	udevadm settle # wait for udev
-
-	for x in $(cat /proc/cmdline); do
+	for x in $(cat $1); do
 		case $x in
 		ucc=*)
 			UCC=${x#ucc=}
@@ -967,6 +954,23 @@ mountroot()
 			;;
 		esac
 	done
+}
+
+mountroot()
+{
+	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-top"
+	run_scripts /scripts/local-top
+	[ "$quiet" != "y" ] && log_end_msg
+
+	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-premount"
+	run_scripts /scripts/local-premount
+	[ "$quiet" != "y" ] && log_end_msg
+
+	clear
+
+	udevadm settle # wait for udev
+
+	check_parameter /proc/cmdline
 
 	test "$verbose" = "y" && set -x
 
@@ -980,14 +984,35 @@ mountroot()
 
 	remote_logging
 
+	# Check if the LDAP settings override the local boot settings
+	if [ "${ROOT}" != "search" -a "${ROOT}" != "/dev/nfs" ]; then
+		mkdir -p /ucc_tmp/root
+		mount ${ROOT} /ucc_tmp/root
+		if _mount_image; then
+			if [ -e /root/var/univention-join/joined ]; then
+				if chroot /root /usr/share/univention-ucc-initramfs/scripts/get_boot_parameter >/tmp/boot_parameter; then
+					notice "Read and set LDAP boot parameter"
+					debug "LDAP boot parameter: $(cat /tmp/boot_parameter)"
+					check_parameter /tmp/boot_parameter
+				fi
+			fi
+			_umount_image
+		fi
+		umount /ucc_tmp/root
+
+		# Restart remote logging, the values may have been changed
+		# TODO: check if the restart is really necessary
+		stop_remote_logging
+		remote_logging
+	fi
+
+
 	if [ "$UCC" = "installation" ]; then 
 		notice "Starting UCC installation mode"
 		sleep 1 # Give udevadm one more second
 		ucc_installation
-		set_boot_variant
 	elif [ "$UCC" = "update" ]; then
 		notice "Starting UCC update mode"
-		#_start_dhcpclient "$net_dev"
 		ucc_update
 	elif [ "$UCC" = "rollout" ]; then
 		notice "Starting UCC rollout mode"
