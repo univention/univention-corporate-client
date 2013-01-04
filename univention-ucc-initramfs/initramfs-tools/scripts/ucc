@@ -439,7 +439,7 @@ _sync_to_persistent ()
 	chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-persistent >/tmp/ucclog 2>&1
 	notice "$(cat /tmp/ucclog)"
 	mount -o move /root/ucc_root /ucc_tmp/root
-	umount /root
+	umount -d /root
 	
 	_verbose_break
 }
@@ -454,7 +454,7 @@ _sync_from_persistent ()
 	chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-ucc >/tmp/ucclog 2>&1
 	notice "$(cat /tmp/ucclog)"
 	mount -o move /root/ucc_root /ucc_tmp/root
-	umount /root
+	umount -d /root
 
 	_verbose_break
 }
@@ -487,8 +487,7 @@ _check_and_copy_image ()
 			echo "${img}" >/ucc_tmp/root/local_image
 			cp "/ucc_tmp/boot_medium/${img}.md5" /ucc_tmp/root/local_image.md5
 			if [ -e "/ucc_tmp/root/ucc_sync_back_from_persistent" ]; then
-				_sync_from_persistent "/ucc_tmp/root/${img}" >/tmp/ucclog 2>&1
-				debug "$(cat /tmp/ucclog)"
+				_sync_from_persistent "/ucc_tmp/root/${img}"
 				rm "/ucc_tmp/root/ucc_sync_back_from_persistent"
 			fi
 		else
@@ -764,7 +763,7 @@ _mount_local_root_device()
 	local device
 	notice "INFO: Mount local root device"
 
-	umount /ucc_tmp/root >/dev/null 2>&1
+	umount -d /ucc_tmp/root >/dev/null 2>&1
 
 	cat /proc/partitions | grep -v ^major | awk '{print $1" "$2" "$4}' | while read major minor device; do
 		ID_FS_TYPE=""
@@ -809,7 +808,7 @@ _mount_local_root_device()
 				notice "Found a local ucc root device: /dev/$device"
 				break
 			else
-				umount /ucc_tmp/root >/dev/null 2>&1
+				umount -d /ucc_tmp/root >/dev/null 2>&1
 			fi
 
 		fi

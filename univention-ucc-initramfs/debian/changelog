@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.3-14) precise; urgency=low
+
+  * Use umount -d to release loop devices (Bug #28972)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Sat, 05 Jan 2013 00:41:55 +0100
+
 univention-ucc-initramfs (1.0.3-13) precise; urgency=low
 
   * Ensure /root/ucc_root exists before moving /ucc_tmp/root to it
