@@ -1,3 +1,11 @@
+univention-ucc-initramfs (1.0.3-12) precise; urgency=low
+
+  * Start upgrade_script in verbose mode with sh -x (Bug #28973)
+  * Added a simple function _verbose_break to ask if a shell should be
+    started, this allows also to scroll the verbose output (Bug #28973)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 04 Jan 2013 20:27:20 +0100
+
 univention-ucc-initramfs (1.0.3-11) precise; urgency=low
 
   * Try to read the boot flags from LDAP during the boot (Bug #28972)

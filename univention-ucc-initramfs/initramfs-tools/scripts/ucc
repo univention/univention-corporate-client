@@ -85,6 +85,26 @@ debug ()
 	fi
 }
 
+_verbose_break ()
+{
+	if test "$verbose" = "y"; then
+		set +x
+		echo "Pause. Press return to continue the boot process. Insert shell to start a debug shell: "
+		read shell
+		if [ "$shell" = "shell" ]; then
+			# Load keyboard drivers
+			modprobe i8042
+			modprobe atkbd
+
+			# Ensure the console is prepared for the user interaction
+			run_scripts /scripts/panic
+			echo "Dropping to a shell. Insert exit to coninue."
+			/bin/sh -i </dev/console >/dev/console 2>&1
+		fi
+		set -x
+	fi
+}
+
 ## Helper function to add /dev/ to a device name
 _add_dev()
 {
@@ -152,6 +172,8 @@ search_device()
 		echo $device
 		break	# Use the first device
 	done
+
+	_verbose_break
 }
 
 ## Writes the fastab in the new installed system
@@ -194,6 +216,7 @@ _copy_files()
 			umount "${BASE}/${mp}"
 		done
 	fi
+	_verbose_break
 }
 
 ## wrapper for the device search
@@ -211,6 +234,7 @@ _search_device()
 
 	echo "$(_add_dev $device)"
 
+	_verbose_break
 	return 0
 }
 
@@ -234,6 +258,7 @@ partition()
 			notice "ERROR: /sbin/custom_partition failed."
 			panic "Dropping to a shell!"
 		fi
+		_verbose_break
 		return
 	fi
 
@@ -273,6 +298,7 @@ partition()
 		done
 	fi
 
+	_verbose_break
 	disk_size=$(/sbin/parted -s "${partition_device}" unit MB print | sed -ne "s|^Disk ${partition_device}: ||;s|MB$||p")
 	# Check 1024 partitons
 	if [ -z "$partition_start" ]; then
@@ -352,6 +378,7 @@ partition()
 				echo "${partition_device}${count} $partition_fs $mountpoint" >>ucc_tmp/copy_files
 			fi
 			count=$((count+1))
+			_verbose_break
 		fi
 		i=$((i+1))
 	done
@@ -388,6 +415,7 @@ _mount_local_boot_device ()
 			notice "Found UCC device: $device"
 
 			if [ -n "$IMAGE" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
+				_verbose_break
 				return 0
 			else
 				umount /ucc_tmp/boot_medium
@@ -395,6 +423,7 @@ _mount_local_boot_device ()
 		fi
 	done
 
+	_verbose_break
 	# Not found
 	return 1
 }
@@ -412,6 +441,7 @@ _sync_to_persistent ()
 	mount -o move /root/ucc_root /ucc_tmp/root
 	umount /root
 	
+	_verbose_break
 }
 
 _sync_from_persistent ()
@@ -424,6 +454,8 @@ _sync_from_persistent ()
 	notice "$(cat /tmp/ucclog)"
 	mount -o move /root/ucc_root /ucc_tmp/root
 	umount /root
+
+	_verbose_break
 }
 
 # Helper function to copy the image from /ucc_tmp/boot_medium/$1 to /ucc_tmp/root/
@@ -461,8 +493,10 @@ _check_and_copy_image ()
 		else
 			notice "INFO: Do not copy the UCC image to local harddsik. The image was not updated."
 		fi
+		_verbose_break
 		return 0
 	else
+		_verbose_break
 		return 1
 	fi
 }
@@ -472,9 +506,11 @@ _mount_image ()
 	if [ -e "/ucc_tmp/root/local_image" ]; then
 		local_image="$(cat /ucc_tmp/root/local_image)"
 		if mount -o loop "/ucc_tmp/root/${local_image}" /root/; then
+			_verbose_break
 			return 0
 		fi
 	fi
+	_verbose_break
 	return 1
 }
 
@@ -495,8 +531,11 @@ _final_root_mount ()
 		mkdir -p /root/ucc_root
 		mount -o move /ucc_tmp/root /root/ucc_root
 
+		_verbose_break
 		return 0
 	fi
+
+	_verbose_break
 	return 1
 }
 
@@ -558,7 +597,8 @@ _install_grub ()
 	for d in dev sys proc; do
 		mount -o move /root/${d} /${d}
 	done
-		
+
+	_verbose_break
 }
 
 ## Ask if the partiton should be done and start the post installation
@@ -702,7 +742,11 @@ ucc_update()
 					if chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script; then
 						chmod +x /tmp/upgrade_script
 						_umount_image
-						/tmp/upgrade_script 2>&1 | tee /tmp/ucclog
+						if test "$verbose" = "y"; then
+							sh -x /tmp/upgrade_script 2>&1 | tee /tmp/ucclog
+						else
+							/tmp/upgrade_script 2>&1 | tee /tmp/ucclog
+						fi
 						debug "$(cat /tmp/ucclog)"
 						_final_root_mount
 					fi
@@ -1000,12 +1044,15 @@ mountroot()
 		fi
 		umount /ucc_tmp/root
 
+		test "$verbose" = "y" && set -x
+
 		# Restart remote logging, the values may have been changed
 		# TODO: check if the restart is really necessary
 		stop_remote_logging
 		remote_logging
 	fi
 
+	_verbose_break
 
 	if [ "$UCC" = "installation" ]; then 
 		notice "Starting UCC installation mode"
@@ -1035,6 +1082,8 @@ mountroot()
 		notice "Use local as fallback mode"
 		ucc_image_local
 	fi
+
+	_verbose_break
 
 	stop_remote_logging
 
