@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.3-13) precise; urgency=low
+
+  * Ensure /root/ucc_root exists before moving /ucc_tmp/root to it
+    (Bug #28972)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 04 Jan 2013 23:02:47 +0100
+
 univention-ucc-initramfs (1.0.3-12) precise; urgency=low
 
   * Start upgrade_script in verbose mode with sh -x (Bug #28973)

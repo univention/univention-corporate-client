@@ -449,6 +449,7 @@ _sync_from_persistent ()
 	notice "INFO: Sync files from persistent storage"
 	local img="$1"
 	mount -o loop "$img" /root/
+	mkdir -p /root/ucc_root
 	mount -o move /ucc_tmp/root /root/ucc_root
 	chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-ucc >/tmp/ucclog 2>&1
 	notice "$(cat /tmp/ucclog)"
@@ -834,11 +835,13 @@ ucc_image_local()
 
 	if [ -n "${IMAGE}" -a -e "/ucc_tmp/root/${IMAGE}" ]; then
 		mount -o loop "/ucc_tmp/root/${IMAGE}" /root/
+		mkdir -p /root/ucc_root
 		mount -o move /ucc_tmp/root /root/ucc_root
 	elif [ -e "/ucc_tmp/root/local_image" ]; then
 		# Use the local image if no image was given via /proc/cmdline
 		local_image="$(cat /ucc_tmp/root/local_image)"
 		mount -o loop "/ucc_tmp/root/$local_image" /root/
+		mkdir -p /root/ucc_root
 		mount -o move /ucc_tmp/root /root/ucc_root
 	fi
 
@@ -1044,7 +1047,7 @@ mountroot()
 		fi
 		umount /ucc_tmp/root
 
-		test "$verbose" = "y" && set -x
+		test "$verbose" = "y" && set -x || set +x
 
 		# Restart remote logging, the values may have been changed
 		# TODO: check if the restart is really necessary

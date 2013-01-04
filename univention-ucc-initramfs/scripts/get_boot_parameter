@@ -47,10 +47,10 @@ if __name__ == '__main__':
 	try:
 		lo = univention.uldap.getMachineConnection(ldap_master=False)
 		res = lo.search(base=ucr.get('ldap/hostdn'), attr=['univentionCorporateClientBootVariant', 'univentionCorporateClientBootParameter'], unique=True, required=True)
-		variant = res[0][1].get('univentionCorporateClientBootVariant', [])[0]
+		variant = res[0][1].get('univentionCorporateClientBootVariant', [None])[0]
 		if variant:
 			cmdline += 'ucc=%s ' % variant
-		parameter = res[0][1].get('univentionCorporateClientBootParameter', [])[0]
+		parameter = res[0][1].get('univentionCorporateClientBootParameter', [None])[0]
 		if parameter:
 			cmdline += ' %s' % parameter
 	except:
