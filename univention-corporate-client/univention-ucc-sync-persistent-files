@@ -31,7 +31,8 @@
 # <http://www.gnu.org/licenses/>.
 
 import os, shutil, subprocess, sys
-from univention.config_registry import ConfigRegistry
+import string
+import univention.config_registry
 from optparse import OptionParser
 
 p = OptionParser()
@@ -48,7 +49,7 @@ if not opt.sync_to_persistent and not opt.sync_to_ucc:
 	print "You need to specify either --sync-to-persistent or --sync-to-ucc"
 	sys.exit(1)
 
-configRegistry = ConfigRegistry()
+configRegistry = univention.config_registry.ConfigRegistry()
 configRegistry.load()
 
 if opt.sync_to_persistent:
@@ -100,10 +101,11 @@ if opt.sync_to_ucc:
 			print "Could not open /ucc_root/persistent-ucr.conf, exiting"
 			sys.exit(1)
 			
-		for i in f.readlines():
-			vname = i.split(":")[0]
-			vvalue = i.split(":")[1]
-			subprocess.call("/usr/sbin/univention-config-registry set " + vname + "=" + vvalue, shell=True) 
+		vv = []
+		for v in f.readlines():
+			vv.append(string.replace(v, ':', '=', 1))
+		if vv:
+			univention.config_registry.handler_set( vv )
 	else:
 		print "Storage directory for persistent Univention Configuration Registry configuration not found"
 

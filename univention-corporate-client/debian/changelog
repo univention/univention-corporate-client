@@ -1,3 +1,9 @@
+univention-corporate-client (1.0-18) unstable; urgency=low
+
+  * Don't use subprocess for ucr set (Bug #29933)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Sat, 05 Jan 2013 00:07:01 +0100
+
 univention-corporate-client (1.0-17) unstable; urgency=low
 
   * Added ucc/persistent/files and ucc/persistent/ucr to the persistent
