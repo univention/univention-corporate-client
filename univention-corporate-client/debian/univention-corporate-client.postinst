@@ -33,4 +33,10 @@
 
 univention-config-registry set server/role=ucc
 
+for var in ucc/persistent/files \
+			ucc/persistent/ucr
+do
+	univention-ucc-manage-persistent ucr add "$var"
+done
+
 exit 0

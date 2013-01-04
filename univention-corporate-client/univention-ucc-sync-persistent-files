@@ -107,17 +107,3 @@ if opt.sync_to_ucc:
 	else:
 		print "Storage directory for persistent Univention Configuration Registry configuration not found"
 
-	if configRegistry.has_key("ucc/persistent/files"):
-
-		if os.path.exists("/ucc_root/persistent-files.SAVE"):
-			shutil.rmtree("/ucc_root/persistent-files.SAVE", True)
-
-		if os.path.exists("/ucc_root/persistent-files"):
-			os.renames("/ucc_root/persistent-files", "/ucc_root/persistent-files.SAVE")
-			os.makedirs("/ucc_root/persistent-files")
-
-		for i in configRegistry["ucc/persistent/files"].split(";"):
-			if os.path.exists(i):
-				shutil.copy(i, "/ucc_root/persistent-files/")
-				print "Copying", i, " from persistent storage partition to UCC system"
-
