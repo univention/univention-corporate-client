@@ -52,6 +52,31 @@ if not opt.sync_to_persistent and not opt.sync_to_ucc:
 configRegistry = univention.config_registry.ConfigRegistry()
 configRegistry.load()
 
+# Helper function to copy all meta data of a file or directory
+def copy_permissions(src, dest):
+	print 'Copy permissions from %s to %s' % (src, dest)
+	s_stat = os.stat(src)
+	os.chown(dest, s_stat.st_uid, s_stat.st_gid)
+	shutil.copymode(src,dest)
+	shutil.copystat(src,dest)
+	d_stat = os.stat(dest)
+
+# Helper function to copy the files and directory 
+def copy_to_persistent_storage(src):
+	l_src = string.split(src,'/')
+	# Ignore first empty entry
+	if l_src[0] == '':
+		l_src=l_src[1:]
+	for j in range(0,len(l_src)):
+		s=os.path.join('/', string.join(l_src[0:j+1], '/'))
+		d=os.path.join('/ucc_root/persistent-files',string.join(l_src[0:j+1], '/'))
+		if os.path.isdir(s):
+			if not os.path.exists(d):
+				os.makedirs(d)
+		else:
+			shutil.copy(s,d)
+		copy_permissions(s,d)
+	
 if opt.sync_to_persistent:
 	if configRegistry.has_key("ucc/persistent/files"):
 
@@ -66,12 +91,8 @@ if opt.sync_to_persistent:
 
 		for i in configRegistry["ucc/persistent/files"].split(";"):
 			if os.path.exists(i):
-				try:
-					os.makedirs("/ucc_root/persistent-files" + os.path.dirname(i))
-				except:
-					pass
-				shutil.copy(i, "/ucc_root/persistent-files" + i)
 				print "Copying", i, " to persistent storage partition"
+				copy_to_persistent_storage(i)
 
 	if configRegistry.has_key("ucc/persistent/ucr"):
 		try:
@@ -87,10 +108,19 @@ if opt.sync_to_persistent:
 if opt.sync_to_ucc:
 	if os.path.exists("/ucc_root/persistent-files"):
 		for (path, dirs, files) in os.walk("/ucc_root/persistent-files"):
+			for d in dirs:
+				r_path = string.replace(path, '/ucc_root/persistent-files', '/', 1)
+				dest = os.path.join(r_path, d)
+				if not os.path.exists(dest):
+					os.makedirs(dest)
+				src=os.path.join(path, d)
+				copy_permissions(src, dest)
 			for i in files:
-				file = path + "/" + i
-				print "Copying", file, "to UCC system" 
-				shutil.copy(file, file.replace("/ucc_root/persistent-files", ""))
+				src = os.path.join(path, i)
+				dest = string.replace(src, '/ucc_root/persistent-files', '', 1)
+				print "Copying", dest, "to UCC system" 
+				shutil.copy(src, dest)
+				copy_permissions(src, dest)
 	else:
 		print "Storage directory for persistent files not found"
 

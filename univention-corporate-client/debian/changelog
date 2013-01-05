@@ -1,3 +1,10 @@
+univention-corporate-client (1.0-19) unstable; urgency=low
+
+  * univention-ucc-sync-persistent-files: copy directory
+    structure and honor permissions (Bug #29936, Bug #29934)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Sat, 05 Jan 2013 21:08:13 +0100
+
 univention-corporate-client (1.0-18) unstable; urgency=low
 
   * Don't use subprocess for ucr set (Bug #29933)
