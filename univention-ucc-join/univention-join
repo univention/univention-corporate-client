@@ -452,24 +452,35 @@ univention-ucc-update-nss
 
 ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 
-univention-ucc-manage-persistent ucr add ldap/server/name >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent ucr add ldap/master >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent ucr add kerberos/adminserver >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent ucr add kerberos/kdc >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent ucr add ldap/hostdn >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent ucr add kerberos/realm >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent ucr add hostname >>/var/log/univention/join.log 2>&1
+for var in ldap/server/name \
+	ldap/master \
+	kerberos/adminserver \
+	kerberos/kdc \
+	ldap/hostdn \
+	kerberos/realm \
+	hostname \
+	domainname \
+	lightdm/autologin
+do
+	univention-ucc-manage-persistent ucr add "$var" >>/var/log/univention/join.log 2>&1
+done
 
-univention-ucc-manage-persistent file add /etc/univention/ssl/ucsCA/CAcert.pem >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/machine.secret >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME/cert.pem >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME/openssl.cnf >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME/private.key >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME/req.pem >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME.$DOMAINNAME/cert.pem >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME.$DOMAINNAME/openssl.cnf >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME.$DOMAINNAME/private.key >>/var/log/univention/join.log 2>&1
-univention-ucc-manage-persistent file add /etc/univention/ssl/$HNAME.$DOMAINNAME/req.pem >>/var/log/univention/join.log 2>&1
+for f in /etc/univention/ssl/ucsCA/CAcert.pem \
+	/etc/machine.secret \
+	/var/lib/extrausers/group \
+	/var/lib/extrausers/passwd \
+	/etch/krb5.keytab \
+	/etc/univention/ssl/$HNAME/cert.pem \
+	/etc/univention/ssl/$HNAME/openssl.cnf \
+	/etc/univention/ssl/$HNAME/private.key \
+	/etc/univention/ssl/$HNAME/req.pem \
+	/etc/univention/ssl/$HNAME.$DOMAINNAME/cert.pem \
+	/etc/univention/ssl/$HNAME.$DOMAINNAME/openssl.cnf \
+	/etc/univention/ssl/$HNAME.$DOMAINNAME/private.key \
+	/etc/univention/ssl/$HNAME.$DOMAINNAME/req.pem
+do
+	univention-ucc-manage-persistent file add "$f" >>/var/log/univention/join.log 2>&1
+done
 
 # Not every UCC system uses join scripts
 if [ -e "/var/univention-join/status" ]; then
