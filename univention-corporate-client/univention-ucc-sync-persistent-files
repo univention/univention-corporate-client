@@ -54,7 +54,6 @@ configRegistry.load()
 
 # Helper function to copy all meta data of a file or directory
 def copy_permissions(src, dest):
-	print 'Copy permissions from %s to %s' % (src, dest)
 	s_stat = os.stat(src)
 	os.chown(dest, s_stat.st_uid, s_stat.st_gid)
 	shutil.copymode(src,dest)

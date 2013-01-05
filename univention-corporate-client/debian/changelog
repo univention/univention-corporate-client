@@ -1,3 +1,10 @@
+univention-corporate-client (1.0-20) unstable; urgency=low
+
+  * univention-ucc-sync-persistent-files: removed debug statement
+    (Bug #29936)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Sat, 05 Jan 2013 21:28:24 +0100
+
 univention-corporate-client (1.0-19) unstable; urgency=low
 
   * univention-ucc-sync-persistent-files: copy directory
