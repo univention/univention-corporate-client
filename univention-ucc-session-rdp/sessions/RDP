@@ -64,7 +64,7 @@ fi
 
 if test -e /tmp/passwd; then
     PASSWD=`cat /tmp/passwd | base64 --decode`
-    params="$params -p $PASSWD"
+    params="$params -p \"$PASSWD\""
 fi
 
 if [ -n "$rdp_keyboard" ]; then
@@ -112,7 +112,7 @@ fi
 if [ -n "$rdp_domainname" ]; then
     params="$params -d $rdp_domainname"
 else
-    policy_windows_domain=`grep -A 1 univentionCorporateClientUserWindowsDomain /tmp/"$USER"-policy.txt  | grep univentionCorporateClientUserWindowsDomain | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
+    policy_windows_domain=`grep -A 1 univentionCorporateClientUserWindowsDomain /var/cache/ucc/user-policy-"$USER".txt  | grep univentionCorporateClientUserWindowsDomain | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
 
 if [ -z "$policy_windows_domain" ]; then
 	echo "Use a local workstation login and not a domain login"
@@ -126,7 +126,7 @@ fi
 if is_ucr_true 'rdp/redirectdisk'; then
     params="$params --plugin rdpdr --data disk:local-drives:/run/drives --"
 else
-	policy_enable_storage=`grep -A 1 univentionCorporateClientComputerLocalStorage= /tmp/"$hostname"-policy.txt  | grep univentionCorporateClientComputerLocalStorage= | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
+	policy_enable_storage=`grep -A 1 univentionCorporateClientComputerLocalStorage= /var/cache/ucc/client-policy-"$(hostname)".txt  | grep univentionCorporateClientComputerLocalStorage= | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
 
 	if [ $policy_enable_storage == '"1"' ]; then
 		params="$params --plugin rdpdr --data disk:local-drives:/run/drives --"
@@ -137,7 +137,7 @@ if [ -n "$rdp_additionaloptions" ]; then
        params="$params $rdp_additionaloptions"
 fi
 
-policy_windows_ts=`grep -A 1 univentionCorporateClientUserWindowsTerminalserver /tmp/"$USER"-policy.txt  | grep univentionCorporateClientUserWindowsTerminalserver | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
+policy_windows_ts=`grep -A 1 univentionCorporateClientUserWindowsTerminalserver /var/cache/ucc/user-policy-"$USER".txt  | grep univentionCorporateClientUserWindowsTerminalserver | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
 
 server=""
 if [ -n "$policy_windows_ts" ]; then

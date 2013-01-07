@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.1-13) unstable; urgency=low
+
+  * Adapt to new policy path (Bug #29949)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 07 Jan 2013 14:38:57 +0100
+
 univention-ucc-session-rdp (1.0.1-12) unstable; urgency=low
 
   * Read hardware redirection policy in RDP session script (Bug #28322)
