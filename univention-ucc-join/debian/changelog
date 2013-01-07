@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.3-2) unstable; urgency=low
+
+  * added ldap/base to persistent ucr (Bug #29911)
+
+ -- Felix Botner <botner@univention.de>  Mon, 07 Jan 2013 11:08:22 +0100
+
 univention-ucc-join (1.1.3-1) unstable; urgency=low
 
   * added fstab and /var/univention-join/joined to

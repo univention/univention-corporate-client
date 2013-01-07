@@ -454,6 +454,7 @@ ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 
 for var in ldap/server/name \
 	ldap/master \
+	ldap/base \
 	kerberos/adminserver \
 	kerberos/kdc \
 	ldap/hostdn \
