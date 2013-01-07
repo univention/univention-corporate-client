@@ -1,7 +1,7 @@
 univention-lightdm (1.0-17) unstable; urgency=low
 
   * Rename univention-ucc-fetch-user-policies to univention-ucc-fetch-policies
-  * Move policies to /var/cache (Bug #29949)
+  * Move policies to /var/cache/ucc (Bug #29949)
 	
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 07 Jan 2013 14:19:19 +0100
 
