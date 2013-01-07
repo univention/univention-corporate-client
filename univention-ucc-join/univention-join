@@ -477,7 +477,8 @@ for f in /etc/univention/ssl/ucsCA/CAcert.pem \
 	/etc/univention/ssl/$HNAME.$DOMAINNAME/cert.pem \
 	/etc/univention/ssl/$HNAME.$DOMAINNAME/openssl.cnf \
 	/etc/univention/ssl/$HNAME.$DOMAINNAME/private.key \
-	/etc/univention/ssl/$HNAME.$DOMAINNAME/req.pem
+	/etc/univention/ssl/$HNAME.$DOMAINNAME/req.pem \
+	/etc/fstab \
 do
 	univention-ucc-manage-persistent file add "$f" >>/var/log/univention/join.log 2>&1
 done
@@ -485,6 +486,7 @@ done
 # Not every UCC system uses join scripts
 if [ -e "/var/univention-join/status" ]; then
 	univention-ucc-manage-persistent file add /var/univention-join/status >>/var/log/univention/join.log 2>&1
+	univention-ucc-manage-persistent file add /var/univention-join/joined >>/var/log/univention/join.log 2>&1
 fi
 
 if [ -x /etc/init.d/nscd ]; then
