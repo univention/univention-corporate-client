@@ -6,3 +6,4 @@ etc/lightdm/greeter-setup
 etc/lightdm/session-setup
 etc/lightdm/session-cleanup
 usr/share/univention-lightdm
+var/cache/ucc

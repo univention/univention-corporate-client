@@ -45,9 +45,9 @@ for host in $ldap_server_name $addition; do
 	if /bin/netcat -q0 -w4 $host $ldap_server_port </dev/null >/dev/null 2>&1; then
 		user_dn="$(ucs_convertUID2DN "$USER")"
 		univention-policy-result -s -h "$host" -D "$ldap_hostdn" \
-			-y /etc/machine.secret "$user_dn" > /tmp/"$USER"-policy.txt
+			-y /etc/machine.secret "$user_dn" > /var/cache/ucc/user-policy-"$USER".txt
 		univention-policy-result -s -h "$host" -D "$ldap_hostdn" \
-			-y /etc/machine.secret "$ldap_hostdn" > /tmp/"$(hostname)"-policy.txt
+			-y /etc/machine.secret "$ldap_hostdn" > /var/cache/ucc/client-policy-"$(hostname)".txt
 	fi
 done
 
