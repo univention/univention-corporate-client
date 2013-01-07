@@ -36,14 +36,14 @@ fi
 
 eval "$(/usr/sbin/ucr shell)"
 
-if [ -e "/tmp/$USER-policy.txt" ]; then
-	. "/tmp/$USER-policy.txt"
+if [ -e "/var/cache/ucc/user-policy-"$USER".txt" ]; then
+	. "/var/cache/ucc/user-policy-"$USER".txt"
 fi
 
 # check user policy for terminal server
-if [ -e "/tmp/$USER-policy.txt" ]; then
+if [ -e "/var/cache/ucc/user-policy-"$USER".txt" ]; then
 	usrPolAttr="univentionCorporateClientUserUccTerminalserver"
-	servers=$(cat "/tmp/$USER-policy.txt" | grep "$usrPolAttr" | awk -F "$usrPolAttr=" '{print $2}' | sed 's/"//g')
+	servers=$(cat "/var/cache/ucc/user-policy-"$USER".txt" | grep "$usrPolAttr" | awk -F "$usrPolAttr=" '{print $2}' | sed 's/"//g')
 fi
 
 # overwrite user policy for terminal server if ucr policy to host is present
