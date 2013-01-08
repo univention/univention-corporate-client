@@ -55,6 +55,7 @@ logFile="/var/log/univention/nss-update.log"
 for host in $ldap_server_name $addition; do
 	if /bin/netcat -q0 -w4 $host 22 </dev/null >/dev/null 2>&1; then
 
+		success="true"
 		for type in group passwd; do
 			src="/var/cache/ucc/$type"
 			dest="/var/lib/extrausers/"
@@ -67,8 +68,13 @@ for host in $ldap_server_name $addition; do
 				echo "$(date) -> success" >> $logFile
 			else
 				echo "$(date) -> failed" >> $logFile
+				success="failed"
 			fi
 		done
+
+		if [ "true" = "$success" ]; then
+			break
+		fi
 	fi
 done
 
