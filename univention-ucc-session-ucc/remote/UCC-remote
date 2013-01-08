@@ -31,7 +31,13 @@
 
 # force user session
 if [ -e /usr/share/univention-lightdm/force-user-session ]; then
-	. /usr/share/univention-lightdm/force-user-session
+    if [ -n "$1" ]; then
+		if ["$1" = "skipforce" ]; then
+			echo "Session already forced"
+		fi
+    else
+		. /usr/share/univention-lightdm/force-user-session
+    fi
 fi
 
 eval "$(/usr/sbin/ucr shell)"

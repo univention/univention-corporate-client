@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (1.0.0-9) unstable; urgency=low
+
+  * Fix session force (Bug #28322)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 08 Jan 2013 14:07:01 +0100
+
 univention-ucc-session-ucc (1.0.0-8.1) unstable; urgency=low
 
   * Adapt to new storage path for cached policies (Bug #29949)
