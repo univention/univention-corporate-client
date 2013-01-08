@@ -1,3 +1,9 @@
+univention-ucc-session-firefox (1.0.1-5) unstable; urgency=low
+
+  * Fix session force
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 08 Jan 2013 14:03:15 +0100
+
 univention-ucc-session-firefox (1.0.1-4) unstable; urgency=low
 
   * Add UCR variable description (Bug #24091)
