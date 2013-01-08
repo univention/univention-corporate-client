@@ -33,8 +33,4 @@
 
 eval "$(univention-config-registry shell)"
 
-if [ ! -L /etc/lightdm/session-setup/010_univention-ucc-fetch-policies ]; then
-	ln -s /usr/sbin/univention-ucc-fetch-policies /etc/lightdm/session-setup/010_univention-ucc-fetch-policies
-fi
-
 exit 0

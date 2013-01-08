@@ -1,3 +1,10 @@
+univention-lightdm (1.0-19) unstable; urgency=low
+
+  * run univention-ucc-fetch-policies in pam stack and create
+    ucc.environment (Bug #29941)
+
+ -- Felix Botner <botner@univention.de>  Tue, 08 Jan 2013 09:33:54 +0100
+
 univention-lightdm (1.0-18) unstable; urgency=low
 
   * Fix install paths (Bug #29949)
@@ -8,7 +15,7 @@ univention-lightdm (1.0-17) unstable; urgency=low
 
   * Rename univention-ucc-fetch-user-policies to univention-ucc-fetch-policies
   * Move policies to /var/cache/ucc (Bug #29949)
-	
+
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 07 Jan 2013 14:19:19 +0100
 
 univention-lightdm (1.0-16) unstable; urgency=low

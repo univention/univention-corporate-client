@@ -1,7 +1,7 @@
 #!/bin/bash 
 # Univention Corporate Client
 #
-# Copyright 2012 Univention GmbH
+# Copyright 2013 Univention GmbH
 #
 # http://www.univention.de/
 #
@@ -31,6 +31,13 @@
 # This script is during during session startup with root privileges to retrieve
 # the LDAP policies for the user logging in
 
+hex_decode() {
+	hex="$1"
+	for((i=0;i<${#hex};i+=2)); do
+		printf "\x${hex:i:2}"
+	done
+}
+
 . /usr/share/univention-lib/ldap.sh
 
 eval "$(/usr/sbin/univention-config-registry shell)"
@@ -40,6 +47,7 @@ if [ -z "$ldap_hostdn" ]; then
     exit 0
 fi
 
+# get user and client policies
 addition=$(echo "$ldap_server_addition" | sed -e "s/,/ /g")
 for host in $ldap_server_name $addition; do
 	if /bin/netcat -q0 -w4 $host $ldap_server_port </dev/null >/dev/null 2>&1; then
@@ -48,7 +56,26 @@ for host in $ldap_server_name $addition; do
 			-y /etc/machine.secret "$user_dn" > /var/cache/ucc/user-policy-"$USER".txt
 		univention-policy-result -s -h "$host" -D "$ldap_hostdn" \
 			-y /etc/machine.secret "$ldap_hostdn" > /var/cache/ucc/client-policy-"$(hostname)".txt
+		break
 	fi
 done
+
+
+# create environment file
+if [ -e "$HOME/.ucc-environment" ]; then
+	rm $HOME/.ucc-environment
+fi
+if [ -e "/var/cache/ucc/user-policy-$USER.txt" ]; then
+	cat "/var/cache/ucc/user-policy-$USER.txt" | while read line; do
+		var="${line%%=*}"
+		val="${line#*=}"
+		hex="${var#univentionCorporateClientDesktopEnv_entry_hex_}"
+		if [ ! "$hex" = "$var" ]; then
+			envVar="$(hex_decode $hex)"
+			echo "$envVar=$val" >> "$HOME/.ucc-environment"
+			chown "$USER" "$HOME/.ucc-environment"
+		fi
+	done
+fi
 
 exit 0
