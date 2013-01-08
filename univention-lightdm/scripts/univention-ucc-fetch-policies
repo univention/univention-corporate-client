@@ -56,6 +56,24 @@ for host in $ldap_server_name $addition; do
 			-y /etc/machine.secret "$user_dn" > /var/cache/ucc/user-policy-"$USER".txt
 		univention-policy-result -s -h "$host" -D "$ldap_hostdn" \
 			-y /etc/machine.secret "$ldap_hostdn" > /var/cache/ucc/client-policy-"$(hostname)".txt
+
+		policy_user_session=`grep -A 1 univentionCorporateClientUserSession /var/cache/ucc/user-policy-"$USER".txt  | grep univentionCorporateClientUserSession | awk -F "=\
+" '{print $0}'           | sed -e 's/^[[:space:]]*//' | sed -e 's/univentionCorporateClientUserSession=\"//' | awk -F "," {'print $1'}    `
+
+		if [ -n "$policy_user_session" ]; then
+			session_file=`univention-ldapsearch "$policy_user_session" univentionCorporateClientSessionScript | grep  "^univentionCorporateClientSessionScript\:" | awk -F ":" '{print $2}' | sed -e 's/^[[:space:]]*//'`
+		fi
+
+		if [ -n "$session_file" ]; then
+			echo "$session_file" > /var/cache/ucc/fixed-session-"$USER".txt
+			params="$params -k $rdp_keyboard"
+		else # No session is fixed any longer, so remove eventual left over policies files
+			if [ -e /var/cache/ucc/fixed-session-"$USER".txt ]; then
+				rm -rf /var/cache/ucc/fixed-session-"$USER".txt
+			fi
+
+		fi
+
 		break
 	fi
 done
