@@ -112,7 +112,7 @@ fi
 if [ -n "$rdp_domainname" ]; then
     params="$params -d $rdp_domainname"
 else
-    policy_windows_domain=`grep -A 1 univentionCorporateClientUserWindowsDomain /var/cache/ucc/user-policy-"$USER".txt  | grep univentionCorporateClientUserWindowsDomain | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
+    policy_windows_domain=`grep -A 1 univentionCorporateClientUserWindowsDomain /var/cache/ucc/user-policy-"$USER".txt  | grep univentionCorporateClientUserWindowsDomain | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//;s/^\"//;s/\"$//' `
 
 if [ -z "$policy_windows_domain" ]; then
 	echo "Use a local workstation login and not a domain login"

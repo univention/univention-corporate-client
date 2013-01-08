@@ -1,3 +1,10 @@
+univention-ucc-session-rdp (1.0.1-14) unstable; urgency=low
+
+  * remove preceding/trailing double quotes from windows domain when
+    reading from policy (Bug #20301)
+
+ -- Lukas Walter <walter@univention.de>  Tue, 08 Jan 2013 12:24:33 +0100
+
 univention-ucc-session-rdp (1.0.1-13) unstable; urgency=low
 
   * Adapt to new policy path (Bug #29949)
