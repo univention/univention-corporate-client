@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.1-15) unstable; urgency=low
+
+  * Fix session forcing (Bug #28322)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 08 Jan 2013 14:01:14 +0100
+
 univention-ucc-session-rdp (1.0.1-14) unstable; urgency=low
 
   * remove preceding/trailing double quotes from windows domain when
