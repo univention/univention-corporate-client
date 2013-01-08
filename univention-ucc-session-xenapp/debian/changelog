@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (1.0.0-6) unstable; urgency=low
+
+  * Fix session force (Bug #28322)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 08 Jan 2013 14:05:16 +0100
+
 univention-ucc-session-xenapp (1.0.0-5) unstable; urgency=low
 
   * Fix condition (Bug #28301)
