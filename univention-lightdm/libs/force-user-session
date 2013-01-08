@@ -29,14 +29,11 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-if [ -e "/tmp/$USER-policy.txt" ]; then
-	. "/tmp/$USER-policy.txt"
-	if [ -n "$univentionCorporateClientUserSession" ]; then
-		if [ "$univentionCorporateClientUserSession" != "$(basename $0)" ]; then
-			if [ -x "/usr/share/xsessions/$univentionCorporateClientUserSession" ]; then
-				exec "/usr/share/xsessions/$univentionCorporateClientUserSession"
-			fi
-		fi
+if [ -e /var/cache/ucc/fixed-session-"$USER".txt ]; then
+	session=`cat /var/cache/ucc/fixed-session-"$USER".txt`
+	if [ -x "/usr/share/xsessions/$session" ]; then
+		/usr/share/xsessions/$session skipforce
+		exit
 	fi
 fi
 

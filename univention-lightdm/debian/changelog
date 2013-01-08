@@ -1,3 +1,10 @@
+univention-lightdm (1.0-20.1) unstable; urgency=low
+
+  * Adapt forced sessions to new session selection (Bug #28322)
+  * Also fix endless  invocation loops	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 08 Jan 2013 13:58:12 +0100
+
 univention-lightdm (1.0-20) unstable; urgency=low
 
   * fixed univention-ucc-fetch-policies (Bug #29941) 
