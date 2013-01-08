@@ -72,7 +72,7 @@ if [ -e "/var/cache/ucc/user-policy-$USER.txt" ]; then
 		hex="${var#univentionCorporateClientDesktopEnv_entry_hex_}"
 		if [ ! "$hex" = "$var" ]; then
 			envVar="$(hex_decode $hex)"
-			echo "$envVar=$val" >> "$HOME/.ucc-environment"
+			echo "$envVar DEFAULT=$val" >> "$HOME/.ucc-environment"
 			chown "$USER" "$HOME/.ucc-environment"
 		fi
 	done

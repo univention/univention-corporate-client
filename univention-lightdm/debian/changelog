@@ -1,3 +1,9 @@
+univention-lightdm (1.0-20) unstable; urgency=low
+
+  * fixed univention-ucc-fetch-policies (Bug #29941) 
+
+ -- Felix Botner <botner@univention.de>  Tue, 08 Jan 2013 10:33:20 +0100
+
 univention-lightdm (1.0-19) unstable; urgency=low
 
   * run univention-ucc-fetch-policies in pam stack and create
