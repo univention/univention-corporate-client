@@ -42,8 +42,8 @@ fi
 
 eval "$(/usr/sbin/ucr shell)"
 
-if [ -e "/var/cache/ucc/user-policy-"$USER".txt" ]; then
-	. "/var/cache/ucc/user-policy-"$USER".txt"
+if [ -e "/var/cache/ucc/client-policy-$(hostname).txt" ]; then
+	. "/var/cache/ucc/client-policy-$(hostname).txt"
 fi
 
 # check user policy for terminal server
@@ -80,9 +80,14 @@ if [ -n "$sessionHost" ]; then
 	#export SESSION_RSH_ARGS='-X -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o BatchMode=yes'
 	#univention-session-client -p /usr/share/univention-ucc-session-ucc-remote/UCC-remote.Session  -f $FIFOFILE
 	
-	sshOptions="-X -o StrictHostKeyChecking=no -o BatchMode=yes"
+	scpOptions="-o ConnectTimeout=3 -o StrictHostKeyChecking=no -o BatchMode=yes"
+	sshOptions="-X -o StrictHostKeyChecking=no -o BatchMode=yes -o GSSAPIDelegateCredentials=yes"
 	sshOptions="$sshOptions -o ServerAliveInterval=$ucc_session_remote_session_timeout"
 	sshOptions="$sshOptions -o ConnectTimeout=$ucc_session_remote_connection_timeout"
+
+	if [ -e "$HOME/.ucc-environment" ]; then
+		scp $scpOptions "$HOME/.ucc-environment" "$sessionHost:~"
+	fi
 	
 	ssh $sshOptions $sessionHost $ucc_session_remote_command
 	if [ ! $? -eq 0 ]; then
