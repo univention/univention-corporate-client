@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.3-17) precise; urgency=low
+
+  * univention-ucc-boot-option: ignore parameter if empty (Bug #29912)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Wed, 09 Jan 2013 10:12:35 +0100
+
 univention-ucc-initramfs (1.0.3-16) precise; urgency=low
 
   * Fixed two minor issues from last commit (Bug #29912)

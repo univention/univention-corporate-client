@@ -86,6 +86,8 @@ if __name__ == '__main__':
 		else:
 			if parameter:
 				for param in parameter:
+					if not param:
+						continue
 					for p in param.split(' '):
 						if p.startswith('%s=' % opt.option):
 							cmdline = string.replace(p, '%s=' % opt.option, '', 1)
