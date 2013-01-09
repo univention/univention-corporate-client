@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.3-18) precise; urgency=low
+
+  * Check if the values are empty while adding the first boot option via
+    univention-ucc-boot-option (Bug #29912)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Wed, 09 Jan 2013 10:59:53 +0100
+
 univention-ucc-initramfs (1.0.3-17) precise; urgency=low
 
   * univention-ucc-boot-option: ignore parameter if empty (Bug #29912)

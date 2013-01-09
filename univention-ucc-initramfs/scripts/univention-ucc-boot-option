@@ -96,6 +96,8 @@ if __name__ == '__main__':
 		# Write options
 		found = False
 		parameter2 = copy.deepcopy(parameter)
+		if parameter2 == [None]:
+			parameter2 = []
 		for param in parameter2:
 			if string.find(param, '%s=' % opt.option) > -1:
 				found = True
