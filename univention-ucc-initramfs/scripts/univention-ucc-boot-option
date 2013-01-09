@@ -1,0 +1,112 @@
+#!/usr/bin/python2.7
+#
+# Univention Corporate Client
+#  helper script: reads and sets boot flags for the UCC client
+#
+# Copyright 2012 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# The source code of this program is made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this program provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use this program under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+
+import copy
+import re
+import socket
+import string
+import sys
+import univention.uldap
+import univention.config_registry
+from optparse import OptionParser
+
+if __name__ == '__main__':
+	servers = []
+
+	p = OptionParser()
+	p.add_option("--read", action="store_true", dest="read", default=False, help="Read boot options")
+	p.add_option("--write", action="store_true", dest="write", default=False, help="Write boot options")
+	p.add_option("--option", action="store", dest="option", default=False, help="Read or write this boot option")
+	p.add_option("--value", action="store", dest="value", default=False, help="Read ir write this value to the given option")
+	p.add_option("--delete", action="store_true", dest="delete", default=False, help="Delete the given option from the boot values")
+	opt, args = p.parse_args()
+
+	if not opt.read and not opt.write:
+		print 'You need to specify either --read or --write'
+		sys.exit(1)
+	elif opt.write and not opt.option:
+		print 'You need to specify --option in write mode'
+		sys.exit(1)
+
+
+	ucr = univention.config_registry.ConfigRegistry()
+	ucr.load()
+
+	# Build the LDAP connection
+	try:
+		lo = univention.uldap.getMachineConnection(ldap_master=False)
+	except:
+		print "Could not establish machine connection"
+		sys.exit(1)
+
+	lo = univention.uldap.getMachineConnection(ldap_master=False)
+	res = lo.search(base=ucr.get('ldap/hostdn'), attr=['univentionCorporateClientBootVariant', 'univentionCorporateClientBootParameter'], unique=True, required=True)
+	variant = res[0][1].get('univentionCorporateClientBootVariant', [None])[0]
+	parameter = res[0][1].get('univentionCorporateClientBootParameter', [None])
+
+	if opt.read:
+		# Read options
+		res = None
+		cmdline = ''
+		servers = []
+		if not opt.option:
+			if variant:
+				cmdline += 'ucc=%s ' % variant
+			if parameter:
+				for param in parameter:
+					cmdline += ' %s' % param
+		else:
+			for param in parameter:
+				for p in param.split(' '):
+					if p.startswith('%s=' % opt.option):
+						cmdline = string.replace(p, '%s=' % opt.option, '', 1)
+		print cmdline
+	else:
+		# Write options
+		found = False
+		parameter2 = copy.deepcopy(parameter)
+		for param in parameter2:
+			if string.find(param, '%s=' % opt.option) > -1:
+				found = True
+				if opt.delete:
+					value = re.sub('%s=[^ ]*' % opt.option, '', param)
+					# replace double spaces
+					value = re.sub('  ', ' ', value)
+					value = re.sub('^ ', '', value)
+				else:
+					value = re.sub('%s=[^ ]*' % opt.option, '%s=%s' % (opt.option, opt.value), param)
+				lo.modify(ucr.get('ldap/hostdn'), [('univentionCorporateClientBootParameter', param, value)])
+		if not found:
+			parameter2.append('%s=%s' % (opt.option, opt.value))
+			lo.modify(ucr.get('ldap/hostdn'), [('univentionCorporateClientBootParameter', parameter, parameter2 )])
+	sys.exit(0)
+

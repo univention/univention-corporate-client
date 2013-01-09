@@ -1,7 +1,4 @@
-#!/usr/bin/python2.7
-#
-# Univention Corporate Client
-#  helper script: reads the boot flags for the UCC client
+#!/bin/bash -e
 #
 # Copyright 2012 Univention GmbH
 #
@@ -30,34 +27,13 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-import socket
-import sys
-import univention.uldap
-import univention.config_registry
+eval "$(ucr shell ucc/boot/mount)"
 
-if __name__ == '__main__':
-	servers = []
+option="$(/usr/sbin/univention-ucc-boot-option --read --option mount)"
 
-	ucr = univention.config_registry.ConfigRegistry()
-	ucr.load()
+test -z "$option" && option="$ucc_boot_mount"
+test -z "$option" && option="rw"
 
-	res = None
-	cmdline = ''
-	servers = []
-	try:
-		lo = univention.uldap.getMachineConnection(ldap_master=False)
-		res = lo.search(base=ucr.get('ldap/hostdn'), attr=['univentionCorporateClientBootVariant', 'univentionCorporateClientBootParameter'], unique=True, required=True)
-		variant = res[0][1].get('univentionCorporateClientBootVariant', [None])[0]
-		if variant:
-			cmdline += 'ucc=%s ' % variant
-		parameter = res[0][1].get('univentionCorporateClientBootParameter', [None])[0]
-		if parameter:
-			cmdline += ' %s' % parameter
-	except:
-		print "Could not establish machine connection"
-		sys.exit(1)
+echo "$option"
 
-	print cmdline
-	sys.exit(0)
-
-
+exit 0

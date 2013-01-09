@@ -1,3 +1,11 @@
+univention-ucc-initramfs (1.0.3-15) precise; urgency=low
+
+  * Fixed typo: s/harddsik/harddisk/ (Bug #28972)
+  * Removed aufs
+  * Added support for an read only boot of an thin client (Bug #29912)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Tue, 08 Jan 2013 07:21:15 +0100
+
 univention-ucc-initramfs (1.0.3-14) precise; urgency=low
 
   * Use umount -d to release loop devices (Bug #28972)

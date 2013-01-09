@@ -41,6 +41,9 @@ joinscript_init
 # Reset the boot flag
 /usr/share/univention-ucc-initramfs/scripts/set_boot_variant.sh none
 
+# Remove boot option from additional boot parameters
+/usr/sbin/univention-ucc-boot-option --write --option mount --delete
+
 joinscript_save_current_version
 
 exit 0

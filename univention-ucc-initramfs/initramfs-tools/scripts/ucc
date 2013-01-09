@@ -43,9 +43,6 @@
 ##  - overlayfs
 ##		This uses the image on the boot device as read only master image and
 ##		use	an overlay module.
-##  - aufs
-##		This uses the image on the boot device as read only master image and
-##		use	an aufs module.
 ##  - shell or debug
 ##		Use this to get a shell and start debugging
 ##		
@@ -122,7 +119,7 @@ _get_var()
 }
 
 
-## search_devices tries to search the harddsik
+## search_devices tries to search the harddisk
 search_device()
 {
 	local device
@@ -238,7 +235,7 @@ _search_device()
 	return 0
 }
 
-## Partition the harddsik
+## Partition the harddisk
 partition()
 {
 
@@ -481,7 +478,7 @@ _check_and_copy_image ()
 			fi
 
 			# A local images does not exist
-			notice "INFO: Copy UCC image to local harddsik: "
+			notice "INFO: Copy UCC image to local harddisk: "
 			# TODO: check return value
 			rsync --progress "/ucc_tmp/boot_medium/${img}" /ucc_tmp/root
 			echo "${img}" >/ucc_tmp/root/local_image
@@ -491,7 +488,7 @@ _check_and_copy_image ()
 				rm "/ucc_tmp/root/ucc_sync_back_from_persistent"
 			fi
 		else
-			notice "INFO: Do not copy the UCC image to local harddsik. The image was not updated."
+			notice "INFO: Do not copy the UCC image to local harddisk. The image was not updated."
 		fi
 		_verbose_break
 		return 0
@@ -503,12 +500,52 @@ _check_and_copy_image ()
 
 _mount_image ()
 {
-	if [ -e "/ucc_tmp/root/local_image" ]; then
+	image_mount=rw
+	if [ "$1" = "ro" ]; then
+		image_mount=ro
+		modprobe overlayfs
+
+		mkdir -p /ucc_tmp/root-ro
+		mkdir -p /ucc_tmp/root-rw
+	fi
+
+	if [ -n "${IMAGE}" -a -e "/ucc_tmp/root/${IMAGE}" ]; then
+		# Image was given as image= via /proc/cmdline
+		local_image="${IMAGE}"
+	elif [ -e "/ucc_tmp/root/local_image" ]; then
+		# Use the local image if no image was given via /proc/cmdline
 		local_image="$(cat /ucc_tmp/root/local_image)"
-		if mount -o loop "/ucc_tmp/root/${local_image}" /root/; then
+	else
+		notice "Error: The UCC image was not found."
+		panic "Dropping to a shell!"
+		return 1
+	fi
+
+	if [ "$image_mount" = "rw" ]; then
+		if ! mount -o loop "/ucc_tmp/root/${local_image}" /root/; then
 			_verbose_break
-			return 0
+			return 1
 		fi
+		mkdir -p /root/ucc_root
+		mount -o move /ucc_tmp/root /root/ucc_root
+		return 0
+	else
+		mount -t tmpfs tmpfs-root /ucc_tmp/root-rw
+
+		if ! mount -o loop,ro,noload "/ucc_tmp/root/${local_image}" /ucc_tmp/root-ro; then
+			notice "ERROR: failed to mount /ucc_tmp/root/${local_image}"
+			panic "Dropping to a shell!"
+		fi
+		if ! mount -t overlayfs -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/root-rw overlayfs-root /root/; then
+			notice "ERROR: failed to initialize overlayfs"
+			panic "Dropping to a shell!"
+		fi
+		mkdir -p /root/root-ro /root/root-rw /root/ucc_root
+		mount -o move /ucc_tmp/root-rw /root/root-rw
+		mount -o move /ucc_tmp/root-ro /root/root-ro
+		mount -o move /ucc_tmp/root /root/ucc_root
+		_verbose_break
+		return 0
 	fi
 	_verbose_break
 	return 1
@@ -516,27 +553,18 @@ _mount_image ()
 
 _umount_image ()
 {
-	umount -d /root
-	return $?
-}
-
-_final_root_mount ()
-{
-	if [ -e "/ucc_tmp/root/local_image" ]; then
-		if ! _mount_image; then
-				notice "ERROR: failed to mount /ucc_tmp/root/${local_image} to /root"
-				panic "Dropping to a shell!"
-		fi
-
-		mkdir -p /root/ucc_root
-		mount -o move /ucc_tmp/root /root/ucc_root
-
-		_verbose_break
-		return 0
+	if mount | grep -qs " on /root/root-rw "; then
+			mount -o move /root/ucc_root /ucc_tmp/root
+			mount -o move /root/root-ro /ucc_tmp/root-ro
+			mount -o move /root/root-rw /ucc_tmp/root-rw
+			umount -d /root
+			umount -d /ucc_tmp/root-ro
+			umount -d /ucc_tmp/root-rw
+	else
+		mount -o move /root/ucc_root /ucc_tmp/root
+		umount -d /root
+		return $?
 	fi
-
-	_verbose_break
-	return 1
 }
 
 ## Copy the UCC image to the local disk
@@ -553,7 +581,7 @@ _update_local_image ()
 		umount /ucc_tmp/boot_medium
 	fi
 
-	_final_root_mount
+	_mount_image
 }
 
 ## Install grub in the chroot. This is much easier than
@@ -724,34 +752,33 @@ ucc_update()
 
 	else
 		# In this case we boot from local boot menu
-		# TODO: 
 		# 		mount the local root device
 		#		bring up the local network with the configuration from the root device
 		#		chroot into the local boot device
 		#		search for images updates
 		mount ${ROOT} /ucc_tmp/root
 
-		if _mount_image; then
-			if [ ! -e /root/var/univention-join/joined ]; then
-				# The system is not joined. An image upgrade 
-				# is not possible. So dive into the image and boot
-				_umount_image
-				_final_root_mount
-			else
-				if _start_network; then
-					if chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script; then
-						chmod +x /tmp/upgrade_script
-						_umount_image
-						if test "$verbose" = "y"; then
-							sh -x /tmp/upgrade_script 2>&1 | tee /tmp/ucclog
-						else
-							/tmp/upgrade_script 2>&1 | tee /tmp/ucclog
-						fi
-						debug "$(cat /tmp/ucclog)"
-						_final_root_mount
+		if ! _mount_image; then
+			notice "ERROR: failed to mount the local image"
+			panic "Dropping to a shell!"
+		fi
+		if [ -e /root/var/univention-join/joined ]; then
+			# The system is joined. An image upgrade 
+			# is possible. So dive into the image and boot
+			if _start_network; then
+				if chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script; then
+					chmod +x /tmp/upgrade_script
+					_umount_image
+					if test "$verbose" = "y"; then
+						sh -x /tmp/upgrade_script 2>&1 | tee /tmp/ucclog
+					else
+						/tmp/upgrade_script 2>&1 | tee /tmp/ucclog
 					fi
+					debug "$(cat /tmp/ucclog)"
+					_mount_image
 				fi
 			fi
+			_verbose_break
 		fi
 	fi
 
@@ -832,17 +859,7 @@ ucc_image_local()
 		mount ${ROOT} /ucc_tmp/root
 	fi
 
-	if [ -n "${IMAGE}" -a -e "/ucc_tmp/root/${IMAGE}" ]; then
-		mount -o loop "/ucc_tmp/root/${IMAGE}" /root/
-		mkdir -p /root/ucc_root
-		mount -o move /ucc_tmp/root /root/ucc_root
-	elif [ -e "/ucc_tmp/root/local_image" ]; then
-		# Use the local image if no image was given via /proc/cmdline
-		local_image="$(cat /ucc_tmp/root/local_image)"
-		mount -o loop "/ucc_tmp/root/$local_image" /root/
-		mkdir -p /root/ucc_root
-		mount -o move /ucc_tmp/root /root/ucc_root
-	fi
+	_mount_image
 
 	if ! mount | grep -qs " on /root "; then
 		notice "ERROR: An UCC image was not found!"
@@ -854,11 +871,9 @@ ucc_image_ro()
 {
 	local device
 
-	mode="$1" # overlayfs or aufs
-
 	if _mount_local_boot_device; then
 
-		modprobe "$mode"
+		modprobe "overlayfs"
 
 		mkdir -p /ucc_tmp/root-ro
 		mkdir -p /ucc_tmp/root-rw
@@ -875,11 +890,7 @@ ucc_image_ro()
 			panic "Dropping to a shell!"
 		fi
 			
-		if [ "$mode" = "aufs" ]; then
-			mount -t aufs -o dirs=/ucc_tmp/root-rw:/ucc_tmp/root-ro=ro aufs /root
-		else
-			mount -t overlayfs -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/root-rw overlayfs-root /root/
-		fi
+		mount -t overlayfs -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/root-rw overlayfs-root /root/
 
 		mkdir -p /root/root-rw /root/root-ro /root/root-boot_medium
 		mount -o move /ucc_tmp/root-rw /root/root-rw
@@ -936,6 +947,13 @@ set_boot_variant ()
 		notice "Failed to reset the boot flag. This is normal if the UCC client has not joined yet."
 		debug "$(cat /tmp/ucclog)"
 	fi
+}
+
+get_boot_mount_option ()
+{
+	# Read  the boot mount option ro or rw from mounted image
+	chroot /root /usr/share/univention-ucc-initramfs/scripts/get_boot_mount_option.sh
+	return 0	
 }
 
 remote_logging ()
@@ -1036,7 +1054,7 @@ mountroot()
 		mount ${ROOT} /ucc_tmp/root
 		if _mount_image; then
 			if [ -e /root/var/univention-join/joined ]; then
-				if chroot /root /usr/share/univention-ucc-initramfs/scripts/get_boot_parameter >/tmp/boot_parameter; then
+				if chroot /root /usr/sbin/univention-ucc-boot-option --read >/tmp/boot_parameter; then
 					notice "Read and set LDAP boot parameter"
 					debug "LDAP boot parameter: $(cat /tmp/boot_parameter)"
 					check_parameter /tmp/boot_parameter
@@ -1073,16 +1091,27 @@ mountroot()
 		ucc_image_local
 	elif [ "$UCC" = "overlayfs" ]; then
 		notice "Starting UCC overlayfs mode"
-		ucc_image_ro overlayfs
-	elif [ "$UCC" = "aufs" ]; then
-		notice "Starting UCC aufs mode"
-		ucc_image_ro aufs
+		ucc_image_ro
 	elif [ "$UCC" = "shell" -o "$UCC" = "debug" ]; then
 		notice "Starting UCC shell"
 		panic "Dropping to a shell!"
 	else
 		notice "Use local as fallback mode"
 		ucc_image_local
+	fi
+
+	# mount the image ro if requested
+	mount_option="$(get_boot_mount_option)"
+	if [ -n "$mount_option" ]; then
+		if mount | grep -q "on /root-ro"; then
+			if [ "$mount_option" = "rw" ]; then
+				_umount_image
+				_mount_image rw
+			fi
+		elif [ "$mount_option" = "ro" ]; then
+			_umount_image
+			_mount_image ro
+		fi
 	fi
 
 	_verbose_break
