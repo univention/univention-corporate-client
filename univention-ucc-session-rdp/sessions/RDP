@@ -43,8 +43,8 @@ fi
 . /usr/share/univention-lib/all.sh
 
 function cleanup_and_exit {
-    if test -e /tmp/passwd; then
-	rm -rf /tmp/passwd
+    if test -e /tmp/password-store-$USER; then
+	rm -rf /tmp/password-store-$USER
     fi
     exit
 }
@@ -67,8 +67,8 @@ else
     params="$params --no-tls"
 fi
 
-if test -e /tmp/passwd; then
-    PASSWD=`cat /tmp/passwd | base64 --decode`
+if test -e /tmp/password-store-$USER; then
+    PASSWD=`cat /tmp/password-store-$USER | base64 --decode`
     params="$params -p \"$PASSWD\""
 fi
 

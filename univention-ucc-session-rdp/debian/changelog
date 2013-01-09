@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.1-16) unstable; urgency=low
+
+  * Adapt to new password store path (Bug #28941)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 09 Jan 2013 15:31:04 +0100
+
 univention-ucc-session-rdp (1.0.1-15) unstable; urgency=low
 
   * Fix session forcing (Bug #28322)
