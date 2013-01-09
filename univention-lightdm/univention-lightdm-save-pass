@@ -33,8 +33,8 @@
 
 set -e
 
-rm -f /tmp/passwd
-touch /tmp/passwd
-chmod 0666 /tmp/passwd
+rm -f /tmp/password-store-$USER
+touch /tmp/password-store-$USER
+chmod 0600 /tmp/password-store-$USER
 
-echo $PASSWD | base64 >> /tmp/passwd
+echo $PASSWD | base64 >> /tmp/password-store-$USER
