@@ -1,0 +1,10 @@
+[Desktop Entry]
+Exec=/opt/aa
+X-DBUS-StartupType=wait
+Name=UCC client bookmark
+Name[da]=Plasma Desktop Workspace
+Type=Application
+X-KDE-StartupNotify=false
+OnlyShowIn=KDE;
+X-KDE-autostart-phase=1
+

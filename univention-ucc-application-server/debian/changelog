@@ -1,3 +1,9 @@
+univention-ucc-application-server (1.0.0-13) unstable; urgency=low
+
+  * create kde bookmark to remote storage dir (Bug #28295) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 09 Jan 2013 10:49:35 +0100
+
 univention-ucc-application-server (1.0.0-12) unstable; urgency=low
 
   * fixed install file (Bug #29105) 

@@ -40,5 +40,7 @@ univention-config-registry set \
 
 call_joinscript 50univention-ucc-application-server.inst
 
-exit 0
+service ssh reload
+service dbus reload
 
+exit 0

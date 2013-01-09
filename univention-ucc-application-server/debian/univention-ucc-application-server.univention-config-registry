@@ -2,3 +2,6 @@ Type: file
 File: etc/cron.d/univention-ucc-update-nss
 Variables: ucc/nss/update
 Variables: ucc/nss/update/interval
+
+Type: file
+File: etc/dbus-1/system.d/com.redhat.NewPrinterNotification.conf

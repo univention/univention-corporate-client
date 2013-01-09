@@ -1,3 +1,4 @@
 usr/bin
 usr/lib/univention-install
 usr/share/univention-ucc-application-server
+usr/share/autostart
