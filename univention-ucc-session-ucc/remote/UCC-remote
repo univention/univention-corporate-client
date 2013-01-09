@@ -41,6 +41,7 @@ if [ -e /usr/share/univention-lightdm/force-user-session ]; then
 fi
 
 eval "$(/usr/sbin/ucr shell)"
+. /usr/share/univention-lib/all.sh
 
 if [ -e "/var/cache/ucc/client-policy-$(hostname).txt" ]; then
 	. "/var/cache/ucc/client-policy-$(hostname).txt"
@@ -84,15 +85,37 @@ if [ -n "$sessionHost" ]; then
 	sshOptions="-X -o StrictHostKeyChecking=no -o BatchMode=yes -o GSSAPIDelegateCredentials=yes"
 	sshOptions="$sshOptions -o ServerAliveInterval=$ucc_session_remote_session_timeout"
 	sshOptions="$sshOptions -o ConnectTimeout=$ucc_session_remote_connection_timeout"
+	sessionOptions=""
 
+	# copy env file to terminal server
 	if [ -e "$HOME/.ucc-environment" ]; then
 		scp $scpOptions "$HOME/.ucc-environment" "$sessionHost:~"
 	fi
+
+	# start pulseaudio and copy session cookie to terminal server
+	if is_ucr_true 'ucc/session/remote/disable-sound'; then
+		echo "Deactivating sound output"
+	else
+		killall -9 pulseaudio
+		rm -f "$HOME/.pulse-cookie"
+		pulseConfig=/tmp/${USER}-pulse.pa
+		echo "#!/usr/bin/pulseaudio -nF" > $pulseConfig
+		echo "load-module module-native-protocol-tcp" >> $pulseConfig
+		echo "load-module module-alsa-sink device=hw:0" >> $pulseConfig
+		echo "load-module module-alsa-source device=hw:0" >> $pulseConfig	
+		pulseaudio -D --resample-method=auto --high-priority=1 -nF $pulseConfig
+		if [ -e "$HOME/.pulse-cookie" ]; then
+			scp $scpOptions "$HOME/.pulse-cookie" "$sessionHost:~"
+			sessionOptions="$sessionOptions -sound"
+		fi
+	fi
 	
-	ssh $sshOptions $sessionHost $ucc_session_remote_command
+	# start session
+	ssh $sshOptions $sessionHost $ucc_session_remote_command $sessionOptions
 	if [ ! $? -eq 0 ]; then
 		xmessage "Could not contact terminal server ($sessionHost) or run session script ($ucc_session_remote_command)"
 	fi
+	killall -9 pulseaudio
 else
 	xmessage "Could not find a usable terminal server, check uccTerminalServer Policy"
 fi
