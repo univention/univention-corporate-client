@@ -35,6 +35,7 @@ set -e
 
 rm -f /tmp/password-store-$USER
 touch /tmp/password-store-$USER
+chown $USER /tmp/password-store-$USER
 chmod 0600 /tmp/password-store-$USER
 
 echo $PASSWD | base64 >> /tmp/password-store-$USER
