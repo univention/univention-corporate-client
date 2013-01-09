@@ -64,11 +64,10 @@ if __name__ == '__main__':
 	# Build the LDAP connection
 	try:
 		lo = univention.uldap.getMachineConnection(ldap_master=False)
-	except:
-		print "Could not establish machine connection"
+	except e:
+		print "Could not establish machine connection."
 		sys.exit(1)
 
-	lo = univention.uldap.getMachineConnection(ldap_master=False)
 	res = lo.search(base=ucr.get('ldap/hostdn'), attr=['univentionCorporateClientBootVariant', 'univentionCorporateClientBootParameter'], unique=True, required=True)
 	variant = res[0][1].get('univentionCorporateClientBootVariant', [None])[0]
 	parameter = res[0][1].get('univentionCorporateClientBootParameter', [None])
@@ -85,10 +84,11 @@ if __name__ == '__main__':
 				for param in parameter:
 					cmdline += ' %s' % param
 		else:
-			for param in parameter:
-				for p in param.split(' '):
-					if p.startswith('%s=' % opt.option):
-						cmdline = string.replace(p, '%s=' % opt.option, '', 1)
+			if parameter:
+				for param in parameter:
+					for p in param.split(' '):
+						if p.startswith('%s=' % opt.option):
+							cmdline = string.replace(p, '%s=' % opt.option, '', 1)
 		print cmdline
 	else:
 		# Write options
