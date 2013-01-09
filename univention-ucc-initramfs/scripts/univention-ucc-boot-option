@@ -64,7 +64,7 @@ if __name__ == '__main__':
 	# Build the LDAP connection
 	try:
 		lo = univention.uldap.getMachineConnection(ldap_master=False)
-	except e:
+	except:
 		print "Could not establish machine connection."
 		sys.exit(1)
 
