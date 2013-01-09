@@ -940,15 +940,6 @@ ucc_rollout ()
 	fi
 }
 
-set_boot_variant ()
-{
-	# Reset the boot flag for this client
-	if ! chroot /root /usr/share/univention-ucc-initramfs/scripts/set_boot_variant.sh none >/tmp/ucclog 2>&1; then
-		notice "Failed to reset the boot flag. This is normal if the UCC client has not joined yet."
-		debug "$(cat /tmp/ucclog)"
-	fi
-}
-
 get_boot_mount_option ()
 {
 	# Read  the boot mount option ro or rw from mounted image
@@ -1085,7 +1076,6 @@ mountroot()
 		notice "Starting UCC rollout mode"
 		ucc_update
 		ucc_rollout
-		set_boot_variant
 	elif [ "$UCC" = "local" -o "$UCC" = "none" ]; then
 		notice "Starting UCC local mode"
 		ucc_image_local

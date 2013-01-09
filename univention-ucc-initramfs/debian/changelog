@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.3-19) precise; urgency=low
+
+  * Removed set_boot_variant from initrd (Bug #29955)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Wed, 09 Jan 2013 11:59:02 +0100
+
 univention-ucc-initramfs (1.0.3-18) precise; urgency=low
 
   * Check if the values are empty while adding the first boot option via
