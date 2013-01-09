@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 #
 # UCC kde bookamrk
 #  create kde bookmark to client (fish) for remote sessions
