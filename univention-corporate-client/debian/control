@@ -19,7 +19,8 @@ Depends: univention-config,
  univention-directory-policy,
  univention-ucc-remote-mount,
  univention-lightdm,
- univention-ucc-lxde
+ univention-ucc-lxde,
+ alsa-utils
 Description: Metapackage for Univention Corporate Client
  This package defines dependencies on the various packages
  needed on a Univention Corporate Client system.
