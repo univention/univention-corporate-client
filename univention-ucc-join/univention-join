@@ -47,6 +47,7 @@ echo "-dcaccount <account>:    name of DC master account"
 echo "-dcpwd <password file>:  file with DC master password"
 echo "-ldapbase <ldap base>:   LDAP Base DN, e.g. dc=test,dc=local"
 echo "-realm <kerberos realm>: Kerberos realm, e.g. TEST.LOCAL"
+echo "-force:                  force the join on a read only image"
 
 }
 
@@ -90,6 +91,8 @@ check_ldap_tls_connection () {
 	echo -e "\033[60Gdone"
 }
 
+FORCE=n
+
 while [ $# -gt 0 ]
 do
 	case "$1" in
@@ -123,12 +126,29 @@ do
 			REALM="$1"
 			shift
 			;;
+		"-force")
+			shift
+			FORCE=y
+			;;
 		*)
 			display_help
 			exit 1
 			;;
 	esac
 done
+
+if LC_ALL=C mount | grep -q "on /root-ro" && test "$FORCE" = "n"; then
+	cat <<__HERE__
+The UCC system can't join while the system is configured read only. 
+
+To get a read write system, run the following command and reboot this system:
+	/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+
+Use -force to ignore this error.
+
+__HERE__
+	exit 1
+fi
 
 if [ -x /etc/init.d/nscd ]; then
 	echo -n "Stopping NSCD: "
