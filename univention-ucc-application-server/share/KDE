@@ -31,6 +31,20 @@
 
 eval "$(/usr/sbin/ucr shell)"
 
+sound="false"
+while [ $# -gt 0 ]; do
+	case $1 in
+		-sound)
+			sound="true"
+			shift 1
+			;;
+		*)
+			echo "unknown Parameter: $1"
+			exit 1
+			;;
+	esac
+done
+
 # login script
 if [ -n "$client_login_script" ]; then
     if [ -x "$client_login_script" ]; then
@@ -39,6 +53,19 @@ if [ -n "$client_login_script" ]; then
     fi
 fi
 
+# configure pulseaudio/alsa
+default=/usr/share/alsa/alsa.conf
+stype=pulse
+if [ -e "$default" -a "true" = "$sound" ]; then
+	config="/tmp/$USER-tc-alsa.conf"
+	cp $default $config
+	echo "pcm.!default { type $stype }" >> $config
+	echo "ctl.!default { type $stype }" >> $config
+	echo "pcm.pulse { type $stype }" >> $config
+	echo "ctl.pulse { type $stype }" >> $config
+	export ALSA_CONFIG_PATH="$config"
+	export PULSE_SERVER="$(echo $SSH_CLIENT | awk  '{print $1}')"
+fi
 
 # kde
 echo "start remote kde session for user $USER" | logger
@@ -48,7 +75,7 @@ startkde
 echo "terminate remote kde session for user $USER" | logger
 qdbus org.freedesktop.Akonadi.Control /ControlManager shutdown
 qdbus org.kde.kuiserver /MainApplication quit
-kdeinit4_shutdown
+qdbus org.kde.NepomukServer /nepomukserver quit
 if ! test -z "$DISPLAY"; then
 	. /usr/share/univention-ucc-application-server/kill-process-by-display
 fi

@@ -1,3 +1,9 @@
+univention-ucc-application-server (1.0.0-16) unstable; urgency=low
+
+  * sound support for ucc terminal server session (Bug #28313) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 09 Jan 2013 15:23:29 +0100
+
 univention-ucc-application-server (1.0.0-15) unstable; urgency=low
 
   * fixed autostart/univention-ucc-kde-remote-device-bookmark.desktop (Bug #28295) 
