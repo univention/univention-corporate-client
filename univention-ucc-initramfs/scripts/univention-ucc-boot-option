@@ -109,7 +109,7 @@ if __name__ == '__main__':
 				else:
 					value = re.sub('%s=[^ ]*' % opt.option, '%s=%s' % (opt.option, opt.value), param)
 				lo.modify(ucr.get('ldap/hostdn'), [('univentionCorporateClientBootParameter', param, value)])
-		if not found:
+		if not found and not opt.delete:
 			parameter2.append('%s=%s' % (opt.option, opt.value))
 			lo.modify(ucr.get('ldap/hostdn'), [('univentionCorporateClientBootParameter', parameter, parameter2 )])
 	sys.exit(0)
