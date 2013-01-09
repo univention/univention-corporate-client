@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.2) unstable; urgency=low
+
+  * set ucr variables for ucc version and releasename (Bug #28091)
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 09 Jan 2013 13:26:33 +0100
+
 univention-corporate-client (1.0.1-1) unstable; urgency=low
 
   * added dependency to alsa-utils (Bug #28313) 

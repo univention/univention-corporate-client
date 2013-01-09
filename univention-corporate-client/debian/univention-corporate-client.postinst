@@ -39,4 +39,7 @@ do
 	univention-ucc-manage-persistent ucr add "$var"
 done
 
+univention-config-registry set version/version=1.0
+univention-config-registry set version/releasename=Weser
+
 exit 0
