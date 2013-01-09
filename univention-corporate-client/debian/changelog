@@ -1,3 +1,13 @@
+univention-corporate-client (1.0.3) unstable; urgency=low
+
+  * replaced the configuration file /etc/xdg/openbox/rc.xml by an
+    UCR template in order to make openbox start firefox in fullscreen
+  * depend on univention-config-registry
+  * call univention-install-config-registry in debian/rules
+  (Bug #28977)
+
+ -- Lukas Walter <walter@univention.de>  Wed, 09 Jan 2013 15:37:59 +0100
+
 univention-corporate-client (1.0.2) unstable; urgency=low
 
   * set ucr variables for ucc version and releasename (Bug #28091)
