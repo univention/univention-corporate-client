@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=/opt/aa
+Exec=/usr/share/univention-ucc-application-server/univention-ucc-kde-remote-device-bookmark
 X-DBUS-StartupType=wait
 Name=UCC client bookmark
 Name[da]=Plasma Desktop Workspace
