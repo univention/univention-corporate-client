@@ -1,3 +1,9 @@
+univention-lightdm (1.0-20.2) unstable; urgency=low
+
+  * divert certain unsolicited xsessions (Bug #29574)
+
+ -- Lukas Walter <walter@univention.de>  Wed, 09 Jan 2013 12:24:50 +0100
+
 univention-lightdm (1.0-20.1) unstable; urgency=low
 
   * Adapt forced sessions to new session selection (Bug #28322)

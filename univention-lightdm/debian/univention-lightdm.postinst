@@ -33,4 +33,10 @@
 
 eval "$(univention-config-registry shell)"
 
+mkdir -p /var/univention-lightdm/xsessions
+for XSESSION in "openbox.desktop" "openbox-gnome.desktop" "openbox-kde.desktop" "kde-plasma.desktop"
+do
+	dpkg-divert --add --rename --divert /var/univention-lightdm/xsessions/$XSESSION /usr/share/xsessions/$XSESSION
+done
+
 exit 0
