@@ -1,3 +1,15 @@
+univention-ucc-session-rdp (1.0.2) unstable; urgency=low
+
+  * new ucr variables for xfreerdp (Bug #28986):
+   - rdp/ignorecertificate to now ask for console based cert approval (Bug #28887)
+   - rdp/geometry to set a desired resolution (Bug #28986)
+   - rdp/clienthostname to manually set a hostname (Bug #28986)
+  * default values for rdp/ignorecertificate and rdp/checknla is true to 
+    enable out-of-the-box w2k8 connections
+  * rewrote RDP sessionscript to allow spaces in user and password parameters (Bug #22772)
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 10 Jan 2013 15:31:24 +0100
+
 univention-ucc-session-rdp (1.0.1-16) unstable; urgency=low
 
   * Adapt to new password store path (Bug #28941)
