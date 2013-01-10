@@ -51,42 +51,54 @@ function cleanup_and_exit {
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
-params="-f"
+params=(-f)
 
 if is_ucr_true 'rdp/checknla'; then
     echo "By default NLA validation is enabled"
 else
     echo "Disabling NLA validation"
-    params="$params --no-nla"
+    params+=(--no-nla)
 fi
 
 if is_ucr_true 'rdp/checktls'; then
     echo "By default TLS validation is enabled"
 else
     echo "Disabling TLS validation"
-    params="$params --no-tls"
+    params+=(--no-tls)
+fi
+
+if is_ucr_true 'rdp/ignorecertificate'; then
+	params+=(--ignore-certificate)
 fi
 
 if test -e /tmp/password-store-$USER; then
     PASSWD=`cat /tmp/password-store-$USER | base64 --decode`
-    params="$params -p \"$PASSWD\""
+    params+=(-p "$PASSWD")
 fi
 
 if [ -n "$rdp_keyboard" ]; then
-    params="$params -k $rdp_keyboard"
+    params+=(-k "$rdp_keyboard")
 else
     rdpKeyboard=`univention-keyboardmapping --xtofreerdp $xorg_keyboard_options_XkbLayout`
-    params="$params -k $rdpKeyboard"
+    params+=(-k "$rdpKeyboard")
 fi
 
 if is_ucr_true 'rdp/disable-sound'; then
 	echo "Deactivating sound output"
 else
- 	params="$params --plugin rdpsnd"
+ 	params+=(--plugin rdpsnd)
+fi
+
+if [ -n "$rdp_geometry" ]; then
+    params+=(-g "$rdp_geometry")
+fi
+
+if [ -n "$rdp_clienthostname" ]; then
+    params+=(-n "$rdp_clienthostname")
 fi
 
 if [ -n "$rdp_user" ]; then
-    params="$params -u $rdp_user"
+    params+=(-u "$rdp_user")
 else
 
 if [[ $USER == guest-* ]]; then
@@ -110,36 +122,36 @@ Desktop Client from the start menu.
 	xmessage -file "$messageFile"
 	/usr/bin/startlxde
 else
-    params="$params -u $USER"
+    params+=(-u "$USER")
 	fi
 fi
 
 if [ -n "$rdp_domainname" ]; then
-    params="$params -d $rdp_domainname"
+    params+=(-d "$rdp_domainname")
 else
     policy_windows_domain=`grep -A 1 univentionCorporateClientUserWindowsDomain /var/cache/ucc/user-policy-"$USER".txt  | grep univentionCorporateClientUserWindowsDomain | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//;s/^\"//;s/\"$//' `
 
 if [ -z "$policy_windows_domain" ]; then
 	echo "Use a local workstation login and not a domain login"
 else
-	params="$params -d $policy_windows_domain"
+	params+=(-d "$policy_windows_domain")
 fi	
 
 fi
 
 
 if is_ucr_true 'rdp/redirectdisk'; then
-    params="$params --plugin rdpdr --data disk:local-drives:/run/drives --"
+    params+=(--plugin rdpdr --data disk:local-drives:/run/drives --)
 else
 	policy_enable_storage=`grep -A 1 univentionCorporateClientComputerLocalStorage= /var/cache/ucc/client-policy-"$(hostname)".txt  | grep univentionCorporateClientComputerLocalStorage= | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
 
 	if [ $policy_enable_storage == '"1"' ]; then
-		params="$params --plugin rdpdr --data disk:local-drives:/run/drives --"
+		params+=(--plugin rdpdr --data disk:local-drives:/run/drives --)
 	fi
 fi
 	
 if [ -n "$rdp_additionaloptions" ]; then
-       params="$params $rdp_additionaloptions"
+       params+=("$rdp_additionaloptions")
 fi
 
 policy_windows_ts=`grep -A 1 univentionCorporateClientUserWindowsTerminalserver /var/cache/ucc/user-policy-"$USER".txt  | grep univentionCorporateClientUserWindowsTerminalserver | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
@@ -172,7 +184,7 @@ the start menu.
 	/usr/bin/startlxde
 fi
 
-/usr/bin/xfreerdp $params $server
+/usr/bin/xfreerdp "${params[@]}" $server
 ret=$?
 
 if [ $ret == 131 ]; then

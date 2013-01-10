@@ -49,8 +49,23 @@ Categories=system-desktop
 [rdp/additionaloptions]
 Description[de]=Diese Variable kann genutzt werden, um zusätzliche Optionen an freerdp zu übergeben
 Description[en]=This variable can be used to pass additional options to freerdp
-Type=bool
+Type=str
 Categories=system-desktop
 
+[rdp/geometry]
+Description[de]=Die zu verwendende Auflösung. Kann im Format [Breite]x[Höhe] in Pixeln oder als Prozent des gesamten Bildschirms [80%] angegeben werden
+Description[en]=Desktop geometry to be used. Useable formats are [width]x[height] in pixels or percentage of the whole screen [80%]
+Type=str
+Categories=system-desktop
 
+[rdp/clienthostname]
+Description[de]=Der hostname des Clients. Wird normalerweise automatisch ermittelt
+Description[en]=Client hostname. Normally this is obtained automatically
+Type=str
+Categories=system-desktop
 
+[rdp/ignorecertificate]
+Description[de]=Bei aktivierter Variable wird das Zertifikat des Terminalservers nicht beachtet und muss nicht bestätigt werden
+Description[en]=If this variable is activated the server certificate is ignored and does not have to be approved
+Type=bool
+Categories=system-desktop
