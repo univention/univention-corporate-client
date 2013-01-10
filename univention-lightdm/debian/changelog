@@ -1,3 +1,9 @@
+univention-lightdm (1.0.1-1) unstable; urgency=low
+
+  * added scripts/040_univention-ucc-mount-permissions (Bug #29966) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 10 Jan 2013 17:16:30 +0100
+
 univention-lightdm (1.0-23) unstable; urgency=low
 
   * Fix install path (Bug #28315)
