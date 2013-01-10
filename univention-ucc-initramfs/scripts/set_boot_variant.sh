@@ -30,13 +30,11 @@
 usage ()
 {
 	echo "$0 <boot variant>"
-	echo "Set boot variant for the local UCC client to given variant."
+	echo "Set boot variant for the local UCC client to given variant and remove the repartition flag."
 	echo "Possible values are:"
 	echo "		- none"
 	echo "		- overlayfs"
-	echo "		- update"
 	echo "		- rollout"
-	echo "		- installation"
 }
 
 if [ -z "$1" ]; then
@@ -55,11 +53,17 @@ if [ -z "$ldap_hostdn" ] || [ ! -e /etc/machine.secret ]; then
 fi
 
 case "$boot_variant" in
-	none | overlayfs | update | rollout | installation)
+	none | overlayfs | rollout )
 		/usr/share/univention-join/univention-mod-ldap-object.py --binddn="$ldap_hostdn" --bindpwd="$(</etc/machine.secret)" \
     			--dn "$ldap_hostdn" \
     			--attribute "univentionCorporateClientBootVariant" \
     			--value "$boot_variant" \
+				--replace
+
+		/usr/share/univention-join/univention-mod-ldap-object.py --binddn="$ldap_hostdn" --bindpwd="$(</etc/machine.secret)" \
+    			--dn "$ldap_hostdn" \
+    			--attribute "univentionCorporateClientBootRepartitioning" \
+    			--value "FALSE" \
 				--replace
 		;;
 	*)

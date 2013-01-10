@@ -68,8 +68,10 @@ if __name__ == '__main__':
 		print "Could not establish machine connection."
 		sys.exit(1)
 
-	res = lo.search(base=ucr.get('ldap/hostdn'), attr=['univentionCorporateClientBootVariant', 'univentionCorporateClientBootParameter'], unique=True, required=True)
+	res = lo.search(base=ucr.get('ldap/hostdn'), attr=['univentionCorporateClientBootVariant', 'univentionCorporateClientBootImage', 'univentionCorporateClientBootParameter', 'univentionCorporateClientBootRepartitioning'], unique=True, required=True)
 	variant = res[0][1].get('univentionCorporateClientBootVariant', [None])[0]
+	image = res[0][1].get('univentionCorporateClientBootImage', [None])[0]
+	repartition = res[0][1].get('univentionCorporateClientBootRepartitioning', [False])[0]
 	parameter = res[0][1].get('univentionCorporateClientBootParameter', [None])
 
 	if opt.read:
@@ -80,9 +82,14 @@ if __name__ == '__main__':
 		if not opt.option:
 			if variant:
 				cmdline += 'ucc=%s ' % variant
+			if image:
+				cmdline += ' image=%s' % image
+			if repartition == 'TRUE':
+				cmdline += ' repartition=y'
 			if parameter:
 				for param in parameter:
-					cmdline += ' %s' % param
+					if param:
+						cmdline += ' %s' % param
 		else:
 			if parameter:
 				for param in parameter:

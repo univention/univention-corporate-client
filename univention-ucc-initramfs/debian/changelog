@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.4-1) precise; urgency=low
+
+  * Added repartitioning option (Bug #29564)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Thu, 10 Jan 2013 16:02:30 +0100
+
 univention-ucc-initramfs (1.0.3-20) precise; urgency=low
 
   * univention-ucc-boot-option: don't set the option to False if it
