@@ -1,3 +1,9 @@
+univention-lightdm (1.0-23) unstable; urgency=low
+
+  * Fix install path (Bug #28315)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 10 Jan 2013 17:15:14 +0100
+
 univention-lightdm (1.0-22) unstable; urgency=low
 
   * Support multi monitor setups (Bug #28315)

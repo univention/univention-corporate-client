@@ -5,5 +5,5 @@ univention-run-lightdm-session-cleanup /usr/bin
 univention-run-lightdm-session-setup /usr/bin
 libs/force-user-session usr/share/univention-lightdm/
 univention-lightdm-save-pass /usr/bin
-univention-ucc-setup-multimonitor /usr/sbin
+scripts/univention-ucc-setup-multimonitor /usr/sbin
 
