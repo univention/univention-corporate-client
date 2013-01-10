@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.4) unstable; urgency=low
+
+  * version bump (Bug #28977)
+
+ -- Lukas Walter <walter@univention.de>  Thu, 10 Jan 2013 11:27:07 +0100
+
 univention-corporate-client (1.0.3) unstable; urgency=low
 
   * replaced the configuration file /etc/xdg/openbox/rc.xml by an
