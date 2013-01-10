@@ -1,3 +1,10 @@
+univention-corporate-client (1.0.5) unstable; urgency=low
+
+  * Add a shell library to easily parse cached user and host policies
+    (Needed for Bug #28315)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 10 Jan 2013 15:54:20 +0100
+
 univention-corporate-client (1.0.4) unstable; urgency=low
 
   * version bump (Bug #28977)
