@@ -39,4 +39,8 @@ do
 	dpkg-divert --add --rename --divert /var/univention-lightdm/xsessions/$XSESSION /usr/share/xsessions/$XSESSION
 done
 
+if [ ! -L /etc/lightdm/display-setup/010_univention-ucc-setup-multimonitor ]; then
+	ln -s /usr/sbin/univention-ucc-setup-multimonitor /etc/lightdm/display-setup/010_univention-ucc-setup-multimonitor
+fi
+
 exit 0
