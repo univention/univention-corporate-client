@@ -48,9 +48,9 @@ if [ -e "/var/cache/ucc/client-policy-$(hostname).txt" ]; then
 fi
 
 # check user policy for terminal server
-if [ -e "/var/cache/ucc/user-policy-"$USER".txt" ]; then
+if [ -e "/var/cache/ucc/user-policy-$USER.txt" ]; then
 	usrPolAttr="univentionCorporateClientUserUccTerminalserver"
-	servers=$(cat "/var/cache/ucc/user-policy-"$USER".txt" | grep "$usrPolAttr" | awk -F "$usrPolAttr=" '{print $2}' | sed 's/"//g')
+	servers=$(cat "/var/cache/ucc/user-policy-$USER.txt" | grep "$usrPolAttr" | awk -F "$usrPolAttr=" '{print $2}' | sed 's/"//g')
 fi
 
 # overwrite user policy for terminal server if ucr policy to host is present
@@ -98,7 +98,7 @@ if [ -n "$sessionHost" ]; then
 	else
 		killall -9 pulseaudio
 		rm -f "$HOME/.pulse-cookie"
-		pulseConfig=/tmp/${USER}-pulse.pa
+		pulseConfig="/tmp/${USER}-pulse.pa"
 		echo "#!/usr/bin/pulseaudio -nF" > $pulseConfig
 		echo "load-module module-native-protocol-tcp" >> $pulseConfig
 		echo "load-module module-alsa-sink device=hw:0" >> $pulseConfig
