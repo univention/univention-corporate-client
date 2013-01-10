@@ -1,0 +1,89 @@
+#!/bin/bash 
+# Univention Corporate Client
+#
+# Copyright 2013 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# The source code of this program is made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this program provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use this program under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+
+# This scripts configures multi-monitor settings for UCC clients
+
+. /usr/share/univention-lib/ldap.sh
+. /usr/share/univention-lib/ucc.sh
+
+eval "$(/usr/sbin/univention-config-registry shell)"
+
+position=`get_host_policy_var univentionCorporateClientDisplayPosition` 
+
+if [ -n "$position" ]; then   # Multi monitor configuration has been activated
+
+	pname=`get_host_policy_var univentionCorporateClientPrimaryDisplayName`
+	sname=`get_host_policy_var univentionCorporateClientSecondaryDisplayName`
+
+	# If the device names haven't been specified in the policy we fall back to
+	# automatic detection.
+	if [ -z "$pname" -o -z "$sname" ]; then 
+		pname=$(LC_ALL=C xrandr | sed -n 's| connected.*||p' | sort | head -n1)
+		sname=$(LC_ALL=C xrandr | sed -n 's| connected.*||p' | sort | head -n2 | tail -n1)
+		logger "The display settings for $hostname were queried automatically, if you want to set them through a policy use the display names $pname and $sname"
+	fi
+
+	pres=`get_host_policy_var univentionCorporateClientPrimaryDisplayResolution` 
+	sres=`get_host_policy_var univentionCorporateClientSecondaryDisplayResolution`
+
+	# If the resolutions haven't been specified in the policy we fall back to
+	# automatic detection.
+	if [ -z "$pres" ]; then 
+		mode_primary="--auto"
+	else
+		mode_primary="--mode $pres"
+	fi
+
+	if [ -z "$sres" ]; then 
+		mode_secondary="--auto"
+	else
+		mode_secondary="--mode $sres"
+	fi
+
+	if [ "$position" = "right" ]; then
+		xrandr --output $sname --off
+		xrandr --output $pname $mode_primary --output $sname $mode_secondary --right-of $pname
+	elif [ "$position" = "below" ]; then
+		xrandr --output $sname --off
+		xrandr --output $pname $mode_primary --output $sname $mode_secondary --below $pname
+	elif [ "$position" = "above" ]; then
+		xrandr --output $sname --off
+		xrandr --output $pname $mode_primary --output $sname $mode_secondary --above $pname
+	elif [ "$position" = "left" ]; then
+		xrandr --output $sname --off 
+		echo xrandr --output $sname --off > /tmp/foo2
+		xrandr --output $pname $mode_primary --output $sname $mode_secondary --left-of $pname
+		echo xrandr --output $pname $mode_primary --output $sname $mode_secondary --left-of $pname > /tmp/foo3
+	else
+		logger "Dualhead setup: Unknown position setting xorg/display/relative-position: $position."
+	fi
+fi
+
+exit 0
