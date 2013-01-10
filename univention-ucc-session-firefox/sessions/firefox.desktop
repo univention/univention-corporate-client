@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Firefox
+Name=Web browser (Firefox)
+Name[de]=Webbrowser (Firefox)
 Comment=Firefox browser session
 Comment[de]=Firefox Browser-Sitzung
 Exec=/usr/share/xsessions/firefox
