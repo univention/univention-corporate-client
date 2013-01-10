@@ -35,6 +35,13 @@
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
+if [ -n "$ucc/displayscript" ]; then
+	if [ -x "$ucc/displayscript" ]; then
+		exec "$ucc/displayscript"
+		exit 0
+	fi
+fi
+
 position=`get_host_policy_var univentionCorporateClientDisplayPosition` 
 
 if [ -n "$position" ]; then   # Multi monitor configuration has been activated
