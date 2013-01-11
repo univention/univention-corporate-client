@@ -1,3 +1,9 @@
+univention-lightdm (1.0.1-2) unstable; urgency=low
+
+  * Bump version (Bug #28315)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 11 Jan 2013 10:05:38 +0100
+
 univention-lightdm (1.0.1-1.1) unstable; urgency=low
 
   * Add x11-xserver-utils, needed for xrandr (Bug #28315)
