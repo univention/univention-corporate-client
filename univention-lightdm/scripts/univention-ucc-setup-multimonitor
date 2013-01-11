@@ -35,9 +35,9 @@
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
-if [ -n "$ucc/displayscript" ]; then
-	if [ -x "$ucc/displayscript" ]; then
-		exec "$ucc/displayscript"
+if [ -n "$ucc_displayscript" ]; then
+	if [ -x "$ucc_displayscript" ]; then
+		exec "$ucc_displayscript"
 		exit 0
 	fi
 fi

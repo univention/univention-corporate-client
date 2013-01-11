@@ -1,3 +1,9 @@
+univention-lightdm (1.0.1-3) unstable; urgency=low
+
+  * Fix ucc/displayscript (Bug #28315)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 11 Jan 2013 11:43:07 +0100
+
 univention-lightdm (1.0.1-2) unstable; urgency=low
 
   * Bump version (Bug #28315)
