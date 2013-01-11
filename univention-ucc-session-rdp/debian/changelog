@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.0.2-1) unstable; urgency=low
+
+  * Improve error message in case of connection errors to the terminal server  Bug #22977
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 11 Jan 2013 12:04:55 +0100
+
 univention-ucc-session-rdp (1.0.2) unstable; urgency=low
 
   * new ucr variables for xfreerdp (Bug #28986):
