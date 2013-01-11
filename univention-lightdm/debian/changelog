@@ -1,3 +1,9 @@
+univention-lightdm (1.0.1-1.1) unstable; urgency=low
+
+  * Add x11-xserver-utils, needed for xrandr (Bug #28315)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 11 Jan 2013 09:22:35 +0100
+
 univention-lightdm (1.0.1-1) unstable; urgency=low
 
   * added scripts/040_univention-ucc-mount-permissions (Bug #29966) 
