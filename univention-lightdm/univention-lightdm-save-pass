@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 #
 # UCC
 #  helper script to dump password information into /tmp
@@ -33,9 +33,11 @@
 
 set -e
 
-rm -f /tmp/password-store-$USER
-touch /tmp/password-store-$USER
-chown $USER /tmp/password-store-$USER
-chmod 0600 /tmp/password-store-$USER
+userfile=(/tmp/password-store-"$USER")
 
-echo $PASSWD | base64 >> /tmp/password-store-$USER
+rm -f "${userfile[@]}"
+touch "${userfile[@]}"
+chown "$USER" "${userfile[@]}" 
+chmod 0600 "${userfile[@]}"
+
+echo "$PASSWD" | base64 >> "${userfile[@]}" 
