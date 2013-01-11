@@ -85,9 +85,7 @@ if [ -n "$position" ]; then   # Multi monitor configuration has been activated
 		xrandr --output $pname $mode_primary --output $sname $mode_secondary --above $pname
 	elif [ "$position" = "left" ]; then
 		xrandr --output $sname --off 
-		echo xrandr --output $sname --off > /tmp/foo2
 		xrandr --output $pname $mode_primary --output $sname $mode_secondary --left-of $pname
-		echo xrandr --output $pname $mode_primary --output $sname $mode_secondary --left-of $pname > /tmp/foo3
 	else
 		logger "Dualhead setup: Unknown position setting xorg/display/relative-position: $position."
 	fi
