@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.4-4) precise; urgency=low
+
+  * Only consider existing images in the space calculation
+    (Bug #28974)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 11 Jan 2013 21:49:46 +0100
+
 univention-ucc-initramfs (1.0.4-3) precise; urgency=low
 
   * Don't execute a debug shell by default (Bug #30002)

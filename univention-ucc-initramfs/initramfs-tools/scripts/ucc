@@ -517,7 +517,11 @@ __get_freespace_of_mp ()
 }
 __get_size_of_file ()
 {
-	ls -l "$1" | awk '{print $3}'
+	if [ -e "$1" ]; then
+		ls -l "$1" | awk '{print $3}'
+	else
+		echo "0"
+	fi
 }
 
 _check_free_space ()
@@ -532,8 +536,6 @@ _check_free_space ()
 	local remote_image_size="$(__get_size_of_file /ucc_tmp/boot_medium/$img)"
 
 	test -z root_space && root_space=0 || root_space=$((root_space*1024))
-	test -z local_image_size && local_image_size=0
-	test -z remote_image_size && remote_image_size=0
 
 	notice "The size of the local image and the free space: $((local_image_size+root_space))"
 	notice "The size of the remote image and the buffer   : $((remote_image_size+buffer))"
@@ -799,7 +801,7 @@ ucc_installation()
 		fi
 
 		while true; do
-			echo -ne "$continuation_dialog"
+			echo -ne "$continuation_dialog "
 			read answer
 			
 			if [ "$answer" = "$continuation_dialog_no" ]; then
