@@ -529,10 +529,13 @@ _check_free_space ()
 	local root_space=$(__get_freespace_of_mp /ucc_tmp/root)
 	# 50 MB buffer
 	local buffer=52428800
+	local local_image_size=0
 
-	local img_file="$(cat /ucc_tmp/root/local_image)"
-	local local_img="/ucc_tmp/root/${img_file}"
-	local local_image_size="$(__get_size_of_file $local_img)"
+	if [ -e /ucc_tmp/root/local_image ]; then
+		local img_file="$(cat /ucc_tmp/root/local_image)"
+		local local_img="/ucc_tmp/root/${img_file}"
+		local_image_size="$(__get_size_of_file $local_img)"
+	fi
 	local remote_image_size="$(__get_size_of_file /ucc_tmp/boot_medium/$img)"
 
 	test -z root_space && root_space=0 || root_space=$((root_space*1024))
