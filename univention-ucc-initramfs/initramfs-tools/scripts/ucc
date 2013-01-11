@@ -200,15 +200,16 @@ _copy_files()
 {
 	local device
 
-	if [ -e "/ucc_tmp/copy_files" ]; then
+	if [ -e "/root/ucc_root/copy_files" ]; then
 		BASE="/ucc_tmp/copy_files.d"
 		mkdir -p "${BASE}"
 
-		cat /ucc_tmp/copy_files | while read device fs mp; do
+		cat /root/ucc_root/copy_files | while read device fs mp; do
 			mkdir -p "${BASE}/${mp}"
 			mount -t "${fs}" "$device" "${BASE}/${mp}"
 			if [ -d "/root${mp}" ]; then
-				cp -a "/root/${mp}" "${BASE}/${mp%/*}/"
+				# Don't use --delete
+				rsync -a "/root/${mp}" "${BASE}/${mp%/*}"
 			fi
 			umount "${BASE}/${mp}"
 		done
@@ -372,7 +373,7 @@ partition()
 			fi
 			copy_files="$(_get_var partition${i}_copy_files)"
 			if [ "$copy_files" = "true" ]; then
-				echo "${partition_device}${count} $partition_fs $mountpoint" >>ucc_tmp/copy_files
+				echo "${partition_device}${count} $partition_fs $mountpoint" >>/ucc_tmp/copy_files
 			fi
 			count=$((count+1))
 			_verbose_break
@@ -380,6 +381,7 @@ partition()
 		i=$((i+1))
 	done
 
+	test -e /ucc_tmp/copy_files && cp /ucc_tmp/copy_files /ucc_tmp/root/
 }
 
 ## Search and mount the local boot device such as CDROM or USB stick. In case
@@ -433,8 +435,13 @@ _sync_to_persistent ()
 	mount -o loop "$img" /root/
 	mkdir -p /root/ucc_root
 	mount -o move /ucc_tmp/root /root/ucc_root
-	chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-persistent >/tmp/ucclog 2>&1
-	notice "$(cat /tmp/ucclog)"
+	if ! chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-persistent >/tmp/ucclog 2>&1; then
+		notice "$(cat /tmp/ucclog)"
+		noitce "ERROR: Failed to sync files to persistent storage"
+		panic "Dropping to a shell!"
+	else
+		debug "$(cat /tmp/ucclog)"
+	fi
 	mount -o move /root/ucc_root /ucc_tmp/root
 	umount -d /root
 	
@@ -448,8 +455,13 @@ _sync_from_persistent ()
 	mount -o loop "$img" /root/
 	mkdir -p /root/ucc_root
 	mount -o move /ucc_tmp/root /root/ucc_root
-	chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-ucc >/tmp/ucclog 2>&1
-	notice "$(cat /tmp/ucclog)"
+	if ! chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-ucc >/tmp/ucclog 2>&1; then
+		notice "$(cat /tmp/ucclog)"
+		noitce "ERROR: Failed to sync files from persistent storage"
+		panic "Dropping to a shell!"
+	else
+		debug "$(cat /tmp/ucclog)"
+	fi
 	mount -o move /root/ucc_root /ucc_tmp/root
 	umount -d /root
 
@@ -635,6 +647,37 @@ _install_grub ()
 	_verbose_break
 }
 
+_update_grub ()
+{
+	notice "Update grub boot loader"
+
+	for d in dev sys proc; do
+		mount -o move /${d} /root/${d}
+	done
+
+	echo "#!bin/sh" >>/root/grub-update.sh
+	if grep -qs "/boot" /root/etc/fstab; then
+		echo "mount /boot" >>/root/grub-update.sh
+	fi
+	echo "update-grub >>/var/log/ucc-installation.log 2>&1" >>/root/grub-update.sh
+	echo "/usr/share/univention-ucc-initramfs/scripts/set-bootable-flag-on-protective-mbr -p $device 2>&1" >>/root/grub-update.sh
+
+	if grep -qs "/boot" /root/etc/fstab; then
+		echo "umount /boot" >>/root/grub-update.sh
+	fi
+
+	chmod +x /root/grub-update.sh
+	chroot root ./grub-update.sh >/tmp/ucclog 2>&1
+	debug "$(cat /tmp/ucclog)"
+	rm /root/grub-update.sh
+
+	for d in dev sys proc; do
+		mount -o move /root/${d} /${d}
+	done
+
+	_verbose_break
+}
+
 ## Ask if the partiton should be done and start the post installation
 ## configuration
 ucc_installation()
@@ -693,7 +736,7 @@ ucc_installation()
 	# Search image
 	ucc_update
 	# _update_local_image
-	
+
 	# Write fstab
 	_write_fstab
 
@@ -1102,6 +1145,10 @@ mountroot()
 	elif [ "$UCC" = "rollout" ]; then
 		notice "Starting UCC rollout mode"
 		ucc_update
+		# Copy files from image to local partitions
+		_copy_files
+		# The kernel might be upgraded during the image update
+		_update_grub
 		ucc_rollout
 	elif [ "$UCC" = "overlayfs" ]; then
 		notice "Starting UCC overlayfs mode"

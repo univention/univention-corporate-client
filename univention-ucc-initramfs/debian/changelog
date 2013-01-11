@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.4-2) precise; urgency=low
+
+  * Consider copy_files while updating the image, for example 
+    for /boot (Bug #29972)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Fri, 11 Jan 2013 08:09:52 +0100
+
 univention-ucc-initramfs (1.0.4-1) precise; urgency=low
 
   * Added repartitioning option (Bug #29564)
