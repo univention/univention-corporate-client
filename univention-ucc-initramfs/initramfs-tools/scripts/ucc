@@ -82,6 +82,40 @@ debug ()
 	fi
 }
 
+failure ()
+{
+	. /scripts/functions
+
+	# Load keyboard drivers
+	modprobe i8042
+	modprobe atkbd
+
+	# Ensure the console is prepared for the user interaction
+	run_scripts /scripts/panic
+	test -n "$1" && echo "$1"
+
+	if [ -e /tmp/boot_parameter ]; then
+		if grep -qs "debugshell=y" /tmp/boot_parameter; then
+			debugshell=y
+		fi
+	elif grep -qs "debugshell=y" /proc/cmdline; then
+		debugshell=y
+	fi
+
+	if [ "$debugshell" = y ]; then
+		PS1='(initramfs) ' /bin/sh -i </dev/console >/dev/console 2>&1
+	else
+		echo
+		echo
+		echo "The boot failed. Please contact your system administrator."
+		echo "Add debugshell=y to the boot parameters to get a debug shell."
+		echo
+		echo "Press any key to reboot!"
+		read -n1
+	fi
+	reboot
+}
+
 _verbose_break ()
 {
 	if test "$verbose" = "y"; then
@@ -89,6 +123,7 @@ _verbose_break ()
 		echo "Pause. Press return to continue the boot process. Insert shell to start a debug shell: "
 		read shell
 		if [ "$shell" = "shell" ]; then
+			. /scripts/functions
 			# Load keyboard drivers
 			modprobe i8042
 			modprobe atkbd
@@ -254,7 +289,7 @@ partition()
 		#	- On the root device the file /ucc_root_device must be touched
 		if ! /sbin/custom_partition "$1"; then
 			notice "ERROR: /sbin/custom_partition failed."
-			panic "Dropping to a shell!"
+			failure
 		fi
 		_verbose_break
 		return
@@ -438,7 +473,7 @@ _sync_to_persistent ()
 	if ! chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-persistent >/tmp/ucclog 2>&1; then
 		notice "$(cat /tmp/ucclog)"
 		noitce "ERROR: Failed to sync files to persistent storage"
-		panic "Dropping to a shell!"
+		failure
 	else
 		debug "$(cat /tmp/ucclog)"
 	fi
@@ -458,7 +493,7 @@ _sync_from_persistent ()
 	if ! chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-ucc >/tmp/ucclog 2>&1; then
 		notice "$(cat /tmp/ucclog)"
 		noitce "ERROR: Failed to sync files from persistent storage"
-		panic "Dropping to a shell!"
+		failure
 	else
 		debug "$(cat /tmp/ucclog)"
 	fi
@@ -466,6 +501,48 @@ _sync_from_persistent ()
 	umount -d /root
 
 	_verbose_break
+}
+
+__get_freespace_of_mp ()
+{
+	df_line=$(df $1 | tail -1)
+	# the busybox df tool splits the line into two lines if the source path is too long
+	first_element=$(echo $df_line | awk '{print $1}')
+	if echo $first_element | grep -qs '/'; then
+		echo $df_line | awk '{print $4}'
+	else
+		echo $df_line | awk '{print $3}'
+	fi
+	
+}
+__get_size_of_file ()
+{
+	ls -l "$1" | awk '{print $3}'
+}
+
+_check_free_space ()
+{
+	local root_space=$(__get_freespace_of_mp /ucc_tmp/root)
+	# 50 MB buffer
+	local buffer=52428800
+
+	local img_file="$(cat /ucc_tmp/root/local_image)"
+	local local_img="/ucc_tmp/root/${img_file}"
+	local local_image_size="$(__get_size_of_file $local_img)"
+	local remote_image_size="$(__get_size_of_file /ucc_tmp/boot_medium/$img)"
+
+	test -z root_space && root_space=0 || root_space=$((root_space*1024))
+	test -z local_image_size && local_image_size=0
+	test -z remote_image_size && remote_image_size=0
+
+	notice "The size of the local image and the free space: $((local_image_size+root_space))"
+	notice "The size of the remote image and the buffer   : $((remote_image_size+buffer))"
+
+	if [ $((local_image_size+root_space)) -gt $((remote_image_size+buffer)) ]; then
+		return 0
+	else
+		return 1
+	fi
 }
 
 # Helper function to copy the image from /ucc_tmp/boot_medium/$1 to /ucc_tmp/root/
@@ -484,16 +561,19 @@ _check_and_copy_image ()
 				fi
 			fi
 
-			# Move the image to the new name
-			if [ -n "$old_image" -a -e "/ucc_tmp/root/$old_image" ]; then
-				mv "/ucc_tmp/root/$old_image" "/ucc_tmp/root/${img}"
+			if ! _check_free_space; then
+				notice "ERROR: Not enough filesystem space available"
+				failure
 			fi
 
+			rm "/ucc_tmp/root/$old_image"
+
 			# A local images does not exist
+			_verbose_break
 			notice "Copy UCC image to local harddisk: "
 			if ! rsync --progress "/ucc_tmp/boot_medium/${img}" /ucc_tmp/root; then
 				notice "ERROR: Failed to copy ${img}"
-				panic "Dropping to a shell!"
+				return 1
 			fi
 			_verbose_break
 			echo "${img}" >/ucc_tmp/root/local_image
@@ -532,7 +612,7 @@ _mount_image ()
 		local_image="$(cat /ucc_tmp/root/local_image)"
 	else
 		notice "Error: The UCC image was not found."
-		panic "Dropping to a shell!"
+		failure
 		return 1
 	fi
 
@@ -549,11 +629,11 @@ _mount_image ()
 
 		if ! mount -o loop,ro,noload "/ucc_tmp/root/${local_image}" /ucc_tmp/root-ro; then
 			notice "ERROR: failed to mount /ucc_tmp/root/${local_image}"
-			panic "Dropping to a shell!"
+			failure
 		fi
 		if ! mount -t overlayfs -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/root-rw overlayfs-root /root/; then
 			notice "ERROR: failed to initialize overlayfs"
-			panic "Dropping to a shell!"
+			failure
 		fi
 		mkdir -p /root/root-ro /root/root-rw /root/ucc_root
 		mount -o move /ucc_tmp/root-rw /root/root-rw
@@ -595,7 +675,9 @@ _update_local_image ()
 	debug "IMAGE: $IMAGE"
 
 	if _mount_local_boot_device; then
-		_check_and_copy_image "${IMAGE}"
+		if ! _check_and_copy_image "${IMAGE}"; then
+			failure
+		fi
 		umount /ucc_tmp/boot_medium
 	fi
 
@@ -691,7 +773,7 @@ ucc_installation()
 	partition_device="$(_search_device ${device})"
 	if [ $? != 0 ]; then
 		notice "ERROR: Failed to search device."
-		panic "Dropping to a shell!"
+		failure
 	fi
 
 	# Load keyboard drivers
@@ -713,7 +795,7 @@ ucc_installation()
 
 		if [ -z "$continuation_dialog" -o -z "$continuation_dialog_no" -o -z "$continuation_dialog_yes" -o -z "$continuation_dialog_error" ]; then
 			notice "ERROR: continuation_dialog variables are not set."
-			panic "Dropping to a shell!"
+			failure
 		fi
 
 		while true; do
@@ -721,7 +803,7 @@ ucc_installation()
 			read answer
 			
 			if [ "$answer" = "$continuation_dialog_no" ]; then
-				panic "Abort partition! Dropping to a shell!"
+				failure "Abort partition! Dropping to a shell!"
 				break
 			elif [ "$answer" = "$continuation_dialog_yes" ]; then
 				partition "$partition_device"
@@ -835,7 +917,7 @@ ucc_update()
 		else
 			if ! _mount_image; then
 				notice "ERROR: failed to mount the local image"
-				panic "Dropping to a shell!"
+				failure
 			fi
 			if [ -e /root/var/univention-join/joined ]; then
 				# The system is joined. An image upgrade 
@@ -919,7 +1001,7 @@ ucc_image_local()
 	if [ "${ROOT}" = "search" -o "${ROOT}" = "/dev/nfs" ]; then
 		if ! _mount_local_root_device; then
 			notice "ERROR: local root device was not found. Try kernel commandline argument root=</dev/...>"
-			panic "Dropping to a shell!"
+			failure
 		fi
 	else
 		mount ${ROOT} /ucc_tmp/root
@@ -929,7 +1011,7 @@ ucc_image_local()
 
 	if ! mount | grep -qs " on /root "; then
 		notice "ERROR: An UCC image was not found!"
-		panic "Dropping to a shell!"
+		failure
 	fi
 }
 
@@ -953,7 +1035,7 @@ ucc_image_ro()
 
 		if ! mount | grep -qs " on /ucc_tmp/root-ro "; then
 			notice "ERROR: An UCC image was not found!"
-			panic "Dropping to a shell!"
+			failure
 		fi
 			
 		mount -t overlayfs -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/root-rw overlayfs-root /root/
@@ -964,7 +1046,7 @@ ucc_image_ro()
 		mount -o move /ucc_tmp/boot_medium /root/root-boot_medium
 	else
 		notice "ERROR: A local boot device was not found."
-		panic "Dropping to a shell!"
+		failure
 	fi
 	
 }
@@ -1002,7 +1084,7 @@ ucc_rollout ()
 			fi
 		) | tee /tmp/ucclog
 		debug "$(cat /tmp/ucclog)"
-		test -e /tmp/ucc_join_failed && panic "Dropping to a shell!"
+		test -e /tmp/ucc_join_failed && failure
 	fi
 }
 
@@ -1075,6 +1157,9 @@ check_parameter ()
 			;;
 		syslogserver=)
 			syslogserver={x#syslogserver=}
+			;;
+		debugshell=)
+			debugshell={x#debugshell=}
 			;;
 		esac
 	done
@@ -1155,7 +1240,7 @@ mountroot()
 		ucc_image_ro
 	elif [ "$UCC" = "shell" -o "$UCC" = "debug" ]; then
 		notice "Starting UCC shell"
-		panic "Dropping to a shell!"
+		failure
 	else # $UCC = local
 		notice "Starting UCC local mode"
 		ucc_image_local
