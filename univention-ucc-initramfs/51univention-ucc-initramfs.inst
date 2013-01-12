@@ -44,6 +44,8 @@ joinscript_init
 # Remove boot option from additional boot parameters
 /usr/sbin/univention-ucc-boot-option --write --option mount --delete
 
+univention-ucc-manage-persistent ucr add grub/append
+
 joinscript_save_current_version
 
 exit 0
