@@ -285,7 +285,7 @@ partition()
 		#	- mount the root partition to /ucc_tmp/root
 		#	- write the fstab: /ucc_tmp/fstab
 		# 	- if files should be copied (normally required for /boot), it should be written to /ucc_tmp/copy_files, for example:
-		#		echo "/dev/sda1 ext4 /boot" >>ucc_tmp/copy_files
+		#		echo "/dev/sda1 ext4 /boot" >>ucc_tmp/root/copy_files
 		#	- On the root device the file /ucc_root_device must be touched
 		if ! /sbin/custom_partition "$1"; then
 			notice "ERROR: /sbin/custom_partition failed."
@@ -571,7 +571,7 @@ _check_and_copy_image ()
 				failure
 			fi
 
-			rm "/ucc_tmp/root/$old_image"
+			test -n "$old_image" -a -e "/ucc_tmp/root/$old_image" && rm "/ucc_tmp/root/$old_image"
 
 			# A local images does not exist
 			_verbose_break
@@ -830,8 +830,15 @@ ucc_installation()
 	# Copy files from image to local partitions
 	_copy_files
 
+	# Execute a script which was created via custom_partition
+	if [ -e /root/ucc_root/custonmer.script ]; then
+		chmod +x /root/ucc_root/custonmer.script
+		/root/ucc_root/custonmer.script
+	fi
+
 	# Install grub
 	_install_grub "$partition_device"
+
 }
 
 ## Start the network
