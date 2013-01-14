@@ -718,6 +718,16 @@ _install_grub ()
 		echo "/usr/sbin/univention-config-registry set locale/default=$LOCALE >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 	fi
 
+	
+	if [ "$syslog" = "y" ]; then
+		echo 'append="$(/usr/sbin/univention-config-registry get grub/append)" 2>&1' >>/root/grub-inst.sh
+		echo 'append="$append syslog=y" 2>&1' >>/root/grub-inst.sh
+		if [ -n "$syslogserver" ]; then
+			echo "append=\"\$append syslogserver=$syslogserver\" 2>&1" >>/root/grub-inst.sh
+		fi
+		echo '/usr/sbin/univention-config-registry set grub/append="$append" 2>&1' >>/root/grub-inst.sh
+	fi
+
 	if grep -qs "/boot" /root/etc/fstab; then
 		echo "umount /boot" >>/root/grub-inst.sh
 	fi
