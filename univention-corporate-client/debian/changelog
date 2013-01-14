@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.7-1) unstable; urgency=low
+
+  * added rsyslog.d/100-ucc.conf for remote syslog logging  (Bug #29923)
+
+ -- Felix Botner <botner@univention.de>  Mon, 14 Jan 2013 15:13:45 +0100
+
 univention-corporate-client (1.0.6) unstable; urgency=low
 
   * Add UCC archive key (Bug #28835)

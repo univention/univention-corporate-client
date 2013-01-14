@@ -1,2 +1,6 @@
 Type: file
 File: etc/xdg/openbox/rc.xml
+
+Type: file
+File: etc/rsyslog.d/100-ucc.conf
+Variables: grub/append
