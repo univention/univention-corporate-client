@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-23) unstable; urgency=low
+
+  * removed pam_ldap from common-auth and common-password (Bug #28896) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 14 Jan 2013 13:16:37 +0100
+
 univention-ucc-pam (1.0.0-22) unstable; urgency=low
 
   * fixed univention-ucc-update-nss (Bug #29198) 
