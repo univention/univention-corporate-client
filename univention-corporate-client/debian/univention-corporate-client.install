@@ -3,3 +3,4 @@ univention-ucc-manage-persistent usr/sbin
 univention-ucc-sync-persistent-files usr/sbin
 ucc-base.conf /etc/init
 ucc.sh /usr/share/univention-lib
+ucc-archive-key.gpg /usr/share/keyrings

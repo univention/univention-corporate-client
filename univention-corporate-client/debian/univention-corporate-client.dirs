@@ -1,3 +1,4 @@
 usr/sbin
 etc/init
 usr/share/univention-lib
+usr/share/keyrings

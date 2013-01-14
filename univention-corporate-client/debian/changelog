@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.6) unstable; urgency=low
+
+  * Add UCC archive key (Bug #28835)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 14 Jan 2013 11:34:11 +0100
+
 univention-corporate-client (1.0.5) unstable; urgency=low
 
   * Add a shell library to easily parse cached user and host policies

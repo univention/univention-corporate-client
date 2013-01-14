@@ -42,4 +42,6 @@ done
 univention-config-registry set version/version=1.0
 univention-config-registry set version/releasename=Weser
 
+apt-key add /usr/share/keyrings/ucc-archive-key.gpg
+
 exit 0
