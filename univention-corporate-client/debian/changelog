@@ -1,3 +1,12 @@
+univention-corporate-client (1.0.8-2) unstable; urgency=low
+
+  * Add a Upstart job and a new script to retrieve the policies for the current
+    client. Otherwise the policies would only be available during login, which
+    is too late for early multi monitor configuration and software update checks
+    (Bug #28838)	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 15 Jan 2013 14:05:17 +0100
+
 univention-corporate-client (1.0.8-1) unstable; urgency=low
 
   * Added two ucr variables to set quick writeback times for thinclient (Bug #29952)
