@@ -1,0 +1,11 @@
+[ucc/sysctl/dirtywritebackcentisecs]
+Description[de]=Anzahl hundertstel-Sekunden die pdflush wartet um Daten zu schreiben
+Description[en]=Number of centiseconds between pdflush wakeups to write data to disk
+Type=str
+Categories=system-desktop
+
+[ucc/sysctl/dirtyexpiredcentisecs]
+Description[de]=Anzahl hundertstel-Sekunden bis Daten im Cache als veraltet gelten und zum schreiben markiert werden
+Description[en]=Number of centiseconds until cached data is marked to be written to disk
+Type=str
+Categories=system-desktop
