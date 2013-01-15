@@ -1,3 +1,12 @@
+univention-corporate-client (1.0.8-3) unstable; urgency=low
+
+  * Drop dependency on univention-ucc-lxde. This prevents LXDE from being
+    present in the desktop image (it was added to the config for the thin
+    client image) and additionally allows the build of customised images
+    without LXDE	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 15 Jan 2013 14:52:31 +0100
+
 univention-corporate-client (1.0.8-2) unstable; urgency=low
 
   * Add a Upstart job and a new script to retrieve the policies for the current
