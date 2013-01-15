@@ -3,6 +3,8 @@ univention-ucc-manage-persistent usr/sbin
 univention-ucc-sync-persistent-files usr/sbin
 ucc-base.conf /etc/init
 ucc-syspol.conf /etc/init
+ucc-update.conf /etc/init
 ucc.sh /usr/share/univention-lib
 ucc-archive-key.gpg /usr/share/keyrings
 univention-ucc-fetch-system-policies usr/sbin
+univention-ucc-software-update usr/sbin
