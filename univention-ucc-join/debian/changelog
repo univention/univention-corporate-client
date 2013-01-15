@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.5-1) unstable; urgency=low
+
+  * Add ucc/timezone as persistent variable (Bug #29909)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 15 Jan 2013 17:16:26 +0100
+
 univention-ucc-join (1.1.4) unstable; urgency=low
 
   * Added two new persistent ucr variables (Bug #29995):

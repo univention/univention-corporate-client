@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.6-1) precise; urgency=low
+
+  * Added parsing of new variable ucc/timezone (Bug #29909)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 15 Jan 2013 17:24:08 +0100
+
 univention-ucc-initramfs (1.0.5-1) precise; urgency=low
 
   * store syslog settings in grub/append during installation (Bug #29923)

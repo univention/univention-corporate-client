@@ -483,7 +483,8 @@ for var in ldap/server/name \
 	domainname \
 	lightdm/autologin \
 	xorg/keyboard/options/XkbLayout \
-	locale/default 
+	locale/default \
+	ucc/timezone
 do
 	univention-ucc-manage-persistent ucr add "$var" >>/var/log/univention/join.log 2>&1
 done

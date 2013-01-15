@@ -718,6 +718,9 @@ _install_grub ()
 		echo "/usr/sbin/univention-config-registry set locale/default=$LOCALE >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 	fi
 
+	if [ -n "$TIMEZONE" ]; then
+		echo "/usr/sbin/univention-config-registry set ucc/timezone=$TIMEZONE >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
+	fi
 	
 	if [ "$syslog" = "y" ]; then
 		echo 'append="$(/usr/sbin/univention-config-registry get grub/append)" 2>&1' >>/root/grub-inst.sh
@@ -1170,6 +1173,9 @@ check_parameter ()
 			;;
 		locale*)
 			LOCALE=${x#locale=}
+			;;
+		timezone*)
+			TIMEZONE=${x#timezone=}
 			;;
 		verbose=)
 			verbose={x#verbose=}

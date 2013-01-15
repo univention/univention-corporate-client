@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.9-1) unstable; urgency=low
+
+  * Modified upstart job to set timezone info (Bug #29909)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 15 Jan 2013 17:19:53 +0100
+
 univention-corporate-client (1.0.8-4) unstable; urgency=low
 
   * Add support for software updates initiated through a policy (Bug #28838)
