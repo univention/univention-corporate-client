@@ -481,7 +481,9 @@ for var in ldap/server/name \
 	kerberos/realm \
 	hostname \
 	domainname \
-	lightdm/autologin
+	lightdm/autologin \
+	xorg/keyboard/options/XkbLayout \
+	locale/default 
 do
 	univention-ucc-manage-persistent ucr add "$var" >>/var/log/univention/join.log 2>&1
 done

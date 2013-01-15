@@ -1,3 +1,11 @@
+univention-ucc-join (1.1.4) unstable; urgency=low
+
+  * Added two new persistent ucr variables (Bug #29995):
+    - xorg/keyboard/options/XkbLayout
+    - locale/default
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 15 Jan 2013 12:44:25 +0100
+
 univention-ucc-join (1.1.3-4) unstable; urgency=low
 
   * Added a check if the join was started on an overlayfs image
