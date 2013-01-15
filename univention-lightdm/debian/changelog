@@ -1,3 +1,12 @@
+univention-lightdm (1.0.2-2) unstable; urgency=low
+
+  * Drop dependency on lxde. This prevents LXDE from being
+    present in the desktop image (it was added to the config for the thin
+    client image) and additionally allows the build of customised images
+    without LXDE	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 15 Jan 2013 14:59:20 +0100
+
 univention-lightdm (1.0.2-1) unstable; urgency=low
 
   * Fixed quoting to enable login for usernames with spaces (Bug #22772)
