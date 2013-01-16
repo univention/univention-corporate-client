@@ -1,3 +1,10 @@
+univention-corporate-client (1.0.11-2) unstable; urgency=low
+
+  * Implement test, whether packages need to be installed, updatd or removed
+    and make the installation switchover more fine-grained (Bug #28838)	 
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 16 Jan 2013 12:26:19 +0100
+
 univention-corporate-client (1.0.11-1) unstable; urgency=low
 
   * Change shutdown order of networking when working with a livesystem (Bug #29978)

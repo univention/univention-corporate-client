@@ -28,42 +28,97 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-# This script is during during session startup with root privileges to retrieve
-# the LDAP policies for the user logging in
-
 . /usr/share/univention-lib/ucc.sh
 
 logfile="/var/log/univention/software-updates.log"
 
-
 # This script supports software updates for both systems with and without overlayfs
 # If a system with overlaysfs is booted, it is marked for read/write operation and rebooted
-if LC_ALL=C mount | grep -q "on /root-ro"; then
-    /usr/sbin/univention-ucc-boot-option --write --option mount --value rw
-    reboot
-fi
 
 update=`get_host_policy_var univentionCorporateClientSoftwareUpdateActivate` 
 if [ $update == "1" ]; then
-    plymouth message --text="Installing available software updates" 
 
     apt-get update 2>>$logfile 1>>$logfile
-    apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes -u dist-upgrade 2>>$logfile 1>>$logfile
+
+    new=`LANG=C apt-get dist-upgrade --dry-run | grep "packages will be [installed|upgraded]"`
+    if [ -n "$new" ]; then
+
+	if LC_ALL=C mount | grep -q "on /root-ro"; then
+	    /usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+	    reboot
+	fi
+
+	plymouth message --text="Installing available software updates" 
+	apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes -u dist-upgrade 2>>$logfile 1>>$logfile
+    fi
 fi
 
+# Test whether, we need to remove packages. If so, switch to r/w mode if using overlayfs
+
 remove==`get_host_policy_var univentionCorporateClientSoftwareUpdateRemoveList`
+rmneeded=0
 for I in $remove
 do
     PKGRM=`echo $I | tr -d "="`
-    apt-get --yes remove $PKGRM 2>>$logfile 1>>$logfile
+    
+    dpkg -l $PKGRM > /dev/null 2> /dev/null
+    if [ $? = 1 ]; then
+	rmneeded=1
+    fi
+
 done
 
+if [ $rmneeded = 1 ]; then
+
+    if LC_ALL=C mount | grep -q "on /root-ro"; then
+	/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+	reboot
+    fi
+
+    for I in $remove
+    do
+	PKGRM=`echo $I | tr -d "="`
+	plymouth message --text="Removing package $PKGRM"
+	apt-get --yes remove $PKGRM 2>>$logfile 1>>$logfile
+    done
+fi
+
 install==`get_host_policy_var univentionCorporateClientSoftwareUpdateInstallList` 
+
+# Test whether, we need to install packages. If so, switch to r/w mode if using overlayfs
+
+instneeded=0
 for I in $install
 do
     PKGINST=`echo $I | tr -d "="`
-    apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGINST 2>>$logfile 1>>$logfile
+
+    
+    apt-get install --dry-run $PKGINST
+    if [ $? = 0 ]; then
+	rmneeded=1
+    fi
+
+    new=`LANG=C apt-get install --dry-run exim4-base | grep "packages will be [installed|upgraded]"`
+    if [ -n "$new" ]; then
+	instneeded=1
+    fi
 done
+
+if [ $instneeded = 1 ]; then
+
+    if LC_ALL=C mount | grep -q "on /root-ro"; then
+	/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+	reboot
+    fi
+
+
+    for I in $install
+    do
+	PKGINST=`echo $I | tr -d "="`
+	plymouth message --text="Installing package $PKGINST"
+	apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGINST 2>>$logfile 1>>$logfil    
+    done
+fi
 
 # Reset flag that triggers a r/w mount for systems booted with overlayfs
 /usr/sbin/univention-ucc-boot-option --write --option mount --delete
