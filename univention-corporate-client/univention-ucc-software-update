@@ -32,6 +32,12 @@
 
 logfile="/var/log/univention/software-updates.log"
 
+# Fix post MS3
+if LC_ALL=C mount | grep -q "on /root-ro"; then
+	exit 0
+fi
+
+
 # This script supports software updates for both systems with and without overlayfs
 # If a system with overlaysfs is booted, it is marked for read/write operation and rebooted
 
