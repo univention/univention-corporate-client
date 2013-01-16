@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.11-5) unstable; urgency=low
+
+  * Bump version
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 16 Jan 2013 14:05:19 +0100
+
 univention-corporate-client (1.0.11-4) unstable; urgency=low
 
   * Disable updates on thin clients for MS3, currently leads to reboot loops
