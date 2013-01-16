@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.11-3) unstable; urgency=low
+
+  * Fix test (Bug #28838)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 16 Jan 2013 13:00:58 +0100
+
 univention-corporate-client (1.0.11-2) unstable; urgency=low
 
   * Implement test, whether packages need to be installed, updatd or removed
