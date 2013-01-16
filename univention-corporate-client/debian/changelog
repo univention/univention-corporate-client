@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.10-2) unstable; urgency=low
+
+  * Support updates on thin clients (Bug #28838)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 16 Jan 2013 10:45:56 +0100
+
 univention-corporate-client (1.0.10-1) unstable; urgency=low
 
   * added ucc-base to set syslogserver (Bug #29923) 

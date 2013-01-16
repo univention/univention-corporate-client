@@ -35,6 +35,14 @@
 
 logfile="/var/log/univention/software-updates.log"
 
+
+# This script supports software updates for both systems with and without overlayfs
+# If a system with overlaysfs is booted, it is marked for read/write operation and rebooted
+if LC_ALL=C mount | grep -q "on /root-ro"; then
+    /usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+    reboot
+fi
+
 update=`get_host_policy_var univentionCorporateClientSoftwareUpdateActivate` 
 if [ $update == "1" ]; then
     plymouth message --text="Installing available software updates" 
@@ -43,16 +51,21 @@ if [ $update == "1" ]; then
     apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes -u dist-upgrade 2>>$logfile 1>>$logfile
 fi
 
-remove==`get_host_policy_var univentionCorporateClientSoftwareUpdateRemoveList` 
-for PKGRM in $remove
+remove==`get_host_policy_var univentionCorporateClientSoftwareUpdateRemoveList`
+for I in $remove
 do
-    apt-get --yes remove $PKGINST 2>>$logfile 1>>$logfile
+    PKGRM=`echo $I | tr -d "="`
+    apt-get --yes remove $PKGRM 2>>$logfile 1>>$logfile
 done
 
 install==`get_host_policy_var univentionCorporateClientSoftwareUpdateInstallList` 
-for PKGINST in $install
+for I in $install
 do
-    apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGRM 2>>$logfile 1>>$logfile
+    PKGINST=`echo $I | tr -d "="`
+    apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGINST 2>>$logfile 1>>$logfile
 done
+
+# Reset flag that triggers a r/w mount for systems booted with overlayfs
+/usr/sbin/univention-ucc-boot-option --write --option mount --delete
 
 exit 0
