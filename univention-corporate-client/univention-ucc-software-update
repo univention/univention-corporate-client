@@ -46,13 +46,13 @@ fi
 remove==`get_host_policy_var univentionCorporateClientSoftwareUpdateRemoveList` 
 for PKGRM in $remove
 do
-    apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGRM 2>>$logfile 1>>$logfile
+    apt-get --yes remove $PKGINST 2>>$logfile 1>>$logfile
 done
 
 install==`get_host_policy_var univentionCorporateClientSoftwareUpdateInstallList` 
 for PKGINST in $install
 do
-    apt-get --yes remove $PKGINST 2>>$logfile 1>>$logfile
+    apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGRM 2>>$logfile 1>>$logfile
 done
 
 exit 0
