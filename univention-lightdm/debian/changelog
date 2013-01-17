@@ -1,3 +1,9 @@
+univention-lightdm (1.0.3-1) unstable; urgency=low
+
+  * added lightdm/xserver/allowtcp (xserver-allow-tcp=true) (Bug #28349) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 17 Jan 2013 11:50:10 +0100
+
 univention-lightdm (1.0.2-2) unstable; urgency=low
 
   * Drop dependency on lxde. This prevents LXDE from being

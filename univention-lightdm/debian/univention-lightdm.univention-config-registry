@@ -3,6 +3,7 @@ File: etc/lightdm/lightdm.conf
 Variables: lightdm/autologin
 Variables: lightdm/autologin/session
 Variables: lightdm/sessiondefault
+Variables: lightdm/xserver/allowtcp
 
 Type: file
 File: etc/lightdm/lightdm-gtk-greeter.conf
