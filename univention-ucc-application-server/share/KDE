@@ -32,10 +32,15 @@
 eval "$(/usr/sbin/ucr shell)"
 
 sound="false"
+x11="false"
 while [ $# -gt 0 ]; do
 	case $1 in
 		-sound)
 			sound="true"
+			shift 1
+			;;
+		-x11)
+			x11="true"
 			shift 1
 			;;
 		*)
@@ -44,6 +49,12 @@ while [ $# -gt 0 ]; do
 			;;
 	esac
 done
+
+# x11 forwarding ?
+if [ "true" = "$x11" ]; then
+	sshClient="$(echo $SSH_CLIENT | awk '{print $1}')"
+	export DISPLAY="$sshClient:0"
+fi
 
 # login script
 if [ -n "$client_login_script" ]; then
