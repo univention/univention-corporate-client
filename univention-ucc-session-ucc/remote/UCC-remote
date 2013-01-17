@@ -41,6 +41,8 @@ if [ -e /usr/share/univention-lightdm/force-user-session ]; then
 fi
 
 eval "$(/usr/sbin/ucr shell)"
+
+export PATH=$PATH:/sbin:/usr/sbin:/bin:/usr/bin
 . /usr/share/univention-lib/all.sh
 
 if [ -e "/var/cache/ucc/client-policy-$(hostname).txt" ]; then
@@ -58,11 +60,16 @@ if [ -n "$ucc_desktop" ]; then
 	servers="$ucc_desktop"
 fi
 
+# scp options
+scpOptions=()
+scpOptions+=("-o ConnectTimeout=3")
+scpOptions+=("-o StrictHostKeyChecking=no")
+scpOptions+=("-o BatchMode=yes")
+
 # get session host
 minLoad=999999
 for server in $servers; do
-	sshOpts="-o StrictHostKeyChecking=no -o ConnectTimeout=3 -o BatchMode=yes"
-	myLoad="$(ssh $sshOpts "$USER"@"$server" univention-showload 2>/dev/null)"
+	myLoad="$(ssh ${scpOptions[@]} "$USER"@"$server" univention-showload 2>/dev/null)"
 	if echo "$myLoad" | rgrep -q '^[0-9]+*'; then 
 		if [ -n "$myLoad" -a "$myLoad" -lt "$minLoad" ]; then
 			minLoad="$myLoad"
@@ -74,48 +81,70 @@ done
 # start session
 if [ -n "$sessionHost" ]; then
 
-	# obsolete univention-session stuff
-	#export SESSION_HOST="$sessionHost"
-	#export FIFOFILE=/tmp/univention-client.sock.$USER
-	#export SESSION_RSH=ssh
-	#export SESSION_RSH_ARGS='-X -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o BatchMode=yes'
-	#univention-session-client -p /usr/share/univention-ucc-session-ucc-remote/UCC-remote.Session  -f $FIFOFILE
-	
-	scpOptions="-o ConnectTimeout=3 -o StrictHostKeyChecking=no -o BatchMode=yes"
-	sshOptions="-X -o StrictHostKeyChecking=no -o BatchMode=yes -o GSSAPIDelegateCredentials=yes"
-	sshOptions="$sshOptions -o ServerAliveInterval=$ucc_session_remote_session_timeout"
-	sshOptions="$sshOptions -o ConnectTimeout=$ucc_session_remote_connection_timeout"
-	sessionOptions=""
+
+	# ssh options
+	sshOptions=()
+	sshOptions+=("-o StrictHostKeyChecking=no")
+	sshOptions+=("-o BatchMode=yes")
+	sshOptions+=("-o GSSAPIDelegateCredentials=yes")
+	sshOptions+=("-o ServerAliveInterval=$ucc_session_remote_session_timeout")
+	sshOptions+=("-o ConnectTimeout=$ucc_session_remote_connection_timeout")
+
+	# parameter for the session script on the terminal server
+	sessionOptions=()
+
+	# copy files
+	copyFiles=()
 
 	# copy env file to terminal server
 	if [ -e "$HOME/.ucc-environment" ]; then
-		scp $scpOptions "$HOME/.ucc-environment" "$sessionHost:~"
+		copyFiles+=("$HOME/.ucc-environment")
+	fi
+
+	# x11 forwarding
+	if is_ucr_true 'lightdm/xserver/allowtcp'; then
+		echo "using x11 forwarding"
+		cookie="$(xauth list $DISPLAY | awk '{print $NF}')"
+		xauth add "$(hostname):0" . $cookie	
+		if [ -e "$HOME/.Xauthority" ]; then
+			copyFiles+=("$HOME/.Xauthority")
+		fi
+		sessionOptions+=("-x11")
+	# ssh x forwarding
+	else
+		echo "using ssh x forwarding"
+		sshOptions+=("-X")
 	fi
 
 	# start pulseaudio and copy session cookie to terminal server
 	if is_ucr_true 'ucc/session/remote/disable-sound'; then
 		echo "Deactivating sound output"
 	else
-		killall -9 pulseaudio
+		killall -9 pulseaudio 2>/dev/null
 		rm -f "$HOME/.pulse-cookie"
 		pulseConfig="/tmp/${USER}-pulse.pa"
-		echo "#!/usr/bin/pulseaudio -nF" > $pulseConfig
-		echo "load-module module-native-protocol-tcp" >> $pulseConfig
-		echo "load-module module-alsa-sink device=hw:0" >> $pulseConfig
-		echo "load-module module-alsa-source device=hw:0" >> $pulseConfig	
-		pulseaudio -D --resample-method=auto --high-priority=1 -nF $pulseConfig
+		echo "#!/usr/bin/pulseaudio -nF" > "$pulseConfig"
+		echo "load-module module-native-protocol-tcp" >> "$pulseConfig"
+		echo "load-module module-alsa-sink device=hw:0" >> "$pulseConfig"
+		echo "load-module module-alsa-source device=hw:0" >> "$pulseConfig"	
+		pulseaudio -D --resample-method=auto --high-priority=1 -nF "$pulseConfig"
 		if [ -e "$HOME/.pulse-cookie" ]; then
-			scp $scpOptions "$HOME/.pulse-cookie" "$sessionHost:~"
-			sessionOptions="$sessionOptions -sound"
+			copyFiles+=("$HOME/.pulse-cookie")
+			sessionOptions+=("-sound")
 		fi
 	fi
-	
+
+	# copy files to terminal server
+	if [ -n "$copyFiles" ]; then
+		scp "${scpOptions[@]}" "${copyFiles[@]}" "$sessionHost:~"
+	fi
+
 	# start session
-	ssh $sshOptions $sessionHost $ucc_session_remote_command $sessionOptions
+	ssh "${sshOptions[@]}" "$sessionHost" "$ucc_session_remote_command" "${sessionOptions[@]}"
 	if [ ! $? -eq 0 ]; then
 		xmessage "Could not contact terminal server ($sessionHost) or run session script ($ucc_session_remote_command)"
 	fi
-	killall -9 pulseaudio
+	killall -9 pulseaudio 2>/dev/null
 else
 	xmessage "Could not find a usable terminal server, check uccTerminalServer Policy"
 fi

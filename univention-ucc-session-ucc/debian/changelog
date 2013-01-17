@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (1.0.0-14) unstable; urgency=low
+
+  * added x11 forwarding support in UCC-remote (Bug #29105) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 17 Jan 2013 13:38:20 +0100
+
 univention-ucc-session-ucc (1.0.0-13) unstable; urgency=low
 
   * fixed quotes (Bug #28313) 
