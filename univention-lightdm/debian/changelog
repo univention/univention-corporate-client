@@ -1,3 +1,9 @@
+univention-lightdm (1.0.3-2) unstable; urgency=low
+
+  * changed default of lightdm/xserver/allowtcp to true (Bug #28349) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 18 Jan 2013 09:19:01 +0100
+
 univention-lightdm (1.0.3-1) unstable; urgency=low
 
   * added lightdm/xserver/allowtcp (xserver-allow-tcp=true) (Bug #28349) 
