@@ -36,7 +36,7 @@ logfile="/var/log/univention/software-updates.log"
 # If a system with overlaysfs is booted, it is marked for read/write operation and rebooted
 
 update=`get_host_policy_var univentionCorporateClientSoftwareUpdateActivate` 
-if [ $update = "1" ]; then
+if [ "1" = "$update" ]; then
 
     apt-get update 2>>$logfile 1>>$logfile
 
@@ -62,13 +62,13 @@ do
     PKGRM=`echo $I | tr -d "="`
     
     dpkg -l $PKGRM > /dev/null 2> /dev/null
-    if [ $? = 1 ]; then
+    if [ $? -eq 1 ]; then
 		rmneeded=1
     fi
 
 done
 
-if [ $rmneeded = 1 ]; then
+if [ 1 -eq $rmneeded ]; then
 
     # if LC_ALL=C mount | grep -q "on /root-ro"; then
 	# 	/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
@@ -98,7 +98,7 @@ do
     fi
 done
 
-if [ $instneeded = 1 ]; then
+if [ 1 -eq $instneeded ]; then
 
     # if LC_ALL=C mount | grep -q "on /root-ro"; then
 	# 	/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
