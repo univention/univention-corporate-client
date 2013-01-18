@@ -36,7 +36,7 @@ logfile="/var/log/univention/software-updates.log"
 # If a system with overlaysfs is booted, it is marked for read/write operation and rebooted
 
 update=`get_host_policy_var univentionCorporateClientSoftwareUpdateActivate` 
-if [ $update == "1" ]; then
+if [ $update = "1" ]; then
 
     apt-get update 2>>$logfile 1>>$logfile
 
@@ -55,7 +55,7 @@ fi
 
 # Test whether, we need to remove packages. If so, switch to r/w mode if using overlayfs
 
-remove==`get_host_policy_var univentionCorporateClientSoftwareUpdateRemoveList`
+remove=`get_host_policy_var univentionCorporateClientSoftwareUpdateRemoveList`
 rmneeded=0
 for I in $remove
 do
@@ -83,7 +83,7 @@ if [ $rmneeded = 1 ]; then
     done
 fi
 
-install==`get_host_policy_var univentionCorporateClientSoftwareUpdateInstallList` 
+install=`get_host_policy_var univentionCorporateClientSoftwareUpdateInstallList` 
 
 # Test whether, we need to install packages. If so, switch to r/w mode if using overlayfs
 
