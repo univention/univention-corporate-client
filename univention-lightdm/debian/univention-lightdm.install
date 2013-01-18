@@ -1,4 +1,4 @@
-scripts/univention-ucc-fetch-policies /usr/sbin
+scripts/univention-ucc-fetch-user-policies /usr/sbin
 univention-run-lightdm-display-setup /usr/bin
 univention-run-lightdm-greeter-setup /usr/bin
 univention-run-lightdm-session-cleanup /usr/bin
