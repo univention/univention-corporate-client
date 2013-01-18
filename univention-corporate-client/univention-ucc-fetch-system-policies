@@ -40,6 +40,10 @@ if [ -z "$ldap_hostdn" ]; then
     exit 0
 fi
 
+if [ -z "$ldap_server_port" ]; then
+	ldap_server_port=7389
+fi
+
 # get user and client policies
 addition=$(echo "$ldap_server_addition" | sed -e "s/,/ /g")
 for host in $ldap_server_name $addition; do

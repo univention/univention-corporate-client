@@ -1,3 +1,10 @@
+univention-corporate-client (1.0.13-1) unstable; urgency=low
+
+  * added default for ldap_server_port in univention-ucc-fetch-system 
+    policies (Bug #28349)
+
+ -- Felix Botner <botner@univention.de>  Fri, 18 Jan 2013 14:55:04 +0100
+
 univention-corporate-client (1.0.12-2) unstable; urgency=low
 
   * Fix tests (Bug #28838)
