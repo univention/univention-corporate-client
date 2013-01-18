@@ -89,6 +89,8 @@ if [ -n "$position" ]; then   # Multi monitor configuration has been activated
 	else
 		logger "Dualhead setup: Unknown position setting xorg/display/relative-position: $position."
 	fi
+
+	xrandr --output $pname --primary
 fi
 
 exit 0

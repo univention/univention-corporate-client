@@ -1,3 +1,9 @@
+univention-lightdm (1.0.3-4) unstable; urgency=low
+
+  * Mark the primary display in xrandr (Bug #28315)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 18 Jan 2013 14:57:43 +0100
+
 univention-lightdm (1.0.3-3) unstable; urgency=low
 
   * added default for ldap_server_port in univention-ucc-fetch-policies (Bug #28349) 
