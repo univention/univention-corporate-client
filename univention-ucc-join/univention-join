@@ -472,6 +472,10 @@ univention-ucc-update-nss
 
 ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 
+# we are sure that this is not a liveimage because we are joining a domain
+# reset the network interface configuration so that networkmanager can control it
+ucr unset interfaces/eth0/type >>/var/log/univention/join.log 2>&1
+
 for var in ldap/server/name \
 	ldap/master \
 	ldap/base \
