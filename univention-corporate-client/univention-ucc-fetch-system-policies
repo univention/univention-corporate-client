@@ -50,6 +50,7 @@ for host in $ldap_server_name $addition; do
 	if /bin/netcat -q0 -w4 $host $ldap_server_port </dev/null >/dev/null 2>&1; then
 		univention-policy-result -s -h "$host" -D "$ldap_hostdn" \
 			-y /etc/machine.secret "$ldap_hostdn" > /var/cache/ucc/client-policy-"$(hostname)".txt
+		run-parts /usr/lib/univention-directory-policy >>/var/log/univention/ldap-policy.log 2>&1
 		break
 	fi
 done
