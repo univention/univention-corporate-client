@@ -34,8 +34,6 @@ VERSION=1
 
 eval "$(ucr shell)"
 
-set -x
-
 . /usr/share/univention-join/joinscripthelper.lib  || exit 1
 
 joinscript_init

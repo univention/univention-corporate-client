@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.8-1) unstable; urgency=low
+
+  * fixed permissions for join.log (Bug #30104)
+
+ -- Felix Botner <botner@univention.de>  Tue, 22 Jan 2013 13:22:30 +0100
+
 univention-ucc-join (1.1.7-2) unstable; urgency=low
 
   * Added /etc/krb5.keytab to persistent files (Bug #29877)

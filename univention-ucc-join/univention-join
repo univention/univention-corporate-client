@@ -40,6 +40,10 @@ eval "$(univention-config-registry shell)"
 
 REMOVE_PWD_FILE=""
 
+touch /var/log/univention/join.log
+chmod 640 /var/log/univention/join.log
+chown root:adm /var/log/univention/join.log
+
 display_help() {
 echo "-hostname <name>:        force a hostname"
 echo "-domainname <name>:      force a domain name"
