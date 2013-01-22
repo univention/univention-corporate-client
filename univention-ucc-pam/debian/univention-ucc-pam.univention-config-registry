@@ -3,6 +3,7 @@ File: etc/ldap.conf
 Variables: ldap/master
 Variables: ldap/base
 Variables: hostname
+Variables: ldap/hostdn
 
 Type: file
 File: etc/ldap/ldap.conf
