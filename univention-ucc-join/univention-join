@@ -498,7 +498,7 @@ for f in /etc/univention/ssl/ucsCA/CAcert.pem \
 	/etc/machine.secret \
 	/var/lib/extrausers/group \
 	/var/lib/extrausers/passwd \
-	/etch/krb5.keytab \
+	/etc/krb5.keytab \
 	/etc/univention/ssl/$HNAME/cert.pem \
 	/etc/univention/ssl/$HNAME/openssl.cnf \
 	/etc/univention/ssl/$HNAME/private.key \

@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.7-2) unstable; urgency=low
+
+  * Added /etc/krb5.keytab to persistent files (Bug #29877)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Tue, 22 Jan 2013 08:25:14 +0100
+
 univention-ucc-join (1.1.7-1) unstable; urgency=low
 
   * unset interfaces/eth0/type when installing (Bug #30031)
