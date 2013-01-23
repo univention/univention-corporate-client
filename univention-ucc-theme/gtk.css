@@ -1,0 +1,76 @@
+@define-color bg_color #58595d;
+@define-color entry_bg_color white;
+@define-color text_color_light white;
+@define-color text_color_dark black;
+@define-color border-dark #414245;
+@define-color border-light #b0b0b0;
+
+* {
+	background-color: @bg_color;
+	color: @text_color_light;
+}
+
+/* Textfield */
+.entry {
+	background-color: @entry_bg_color;
+	color: @text_color_dark;
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 0px;
+	border-top-color: @border-dark;
+	border-left-color: @border-dark;
+	border-right-color: @border-light;
+	border-bottom-color: @border-light;
+}
+
+/* Normal Button */
+.button {
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 0px;
+	border-top-color: @border-light;
+	border-left-color: @border-light;
+	border-right-color: @border-dark;
+	border-bottom-color: @border-dark;
+}
+
+/*Pressed Button */
+.button:active {
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 0px;
+	border-top-color: @border-dark;
+	border-left-color: @border-dark;
+	border-right-color: @border-light;
+	border-bottom-color: @border-light;
+}
+
+GtkComboBox {
+	-GtkWidget-focus-padding:           0;
+	-GtkWidget-focus-line-width:        0;
+	-GtkComboBox-arrow-scaling:         0.5;
+	-GtkComboBox-shadow-type:           none;
+}
+/* small separator between combobox arrow and content */
+GtkComboBox .separator {
+	-GtkWidget-wide-separators:                 true;
+	-GtkWidget-horizontal-separator:    0;
+	-GtkWidget-vertical-separator:              0;
+}
+
+/*GtkTreeMenu.menu {*/
+.menu {
+	padding: 2px;
+	background-color: @bg-color;
+	border-style: solid;
+	border-color: white;
+	border-width: 1px;
+}
+
+/*GtkTreeMenu .menuitem {*/
+.menuitem {
+	border-style: solid;
+	border-width: 0px 0px;
+	border-color: @border-light;
+	background-color: @border-light;
+}
