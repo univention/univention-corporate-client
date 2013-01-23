@@ -1,3 +1,10 @@
+univention-ucc-application-server (1.0.0-22) unstable; urgency=low
+
+  * fixed nss listener (Bug #30049)
+  * force ucc/nss/update=no
+
+ -- Felix Botner <botner@univention.de>  Wed, 23 Jan 2013 16:16:03 +0100
+
 univention-ucc-application-server (1.0.0-21) unstable; urgency=low
 
   * fixed nss-passwd listener (Bug #30049) 
