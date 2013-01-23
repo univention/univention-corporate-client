@@ -1,3 +1,9 @@
+univention-upstart (1.0-6) unstable; urgency=low
+
+  * Updated copyright to 2013 (Bug #30124)
+
+ -- Lukas Walter <walter@univention.de>  Wed, 23 Jan 2013 14:32:42 +0100
+
 univention-upstart (1.0-5) unstable; urgency=low
 
   * Let LightDM wait until software updates are installed (Bug #28838)

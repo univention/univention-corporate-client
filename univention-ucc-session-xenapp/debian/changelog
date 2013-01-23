@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (1.0.0-7) unstable; urgency=low
+
+  * Updated copyright to 2013 (Bug #30124)
+
+ -- Lukas Walter <walter@univention.de>  Wed, 23 Jan 2013 14:30:43 +0100
+
 univention-ucc-session-xenapp (1.0.0-6) unstable; urgency=low
 
   * Fix session force (Bug #28322)

@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-27) unstable; urgency=low
+
+  * Updated copyright to 2013 (Bug #30124)
+
+ -- Lukas Walter <walter@univention.de>  Wed, 23 Jan 2013 14:25:04 +0100
+
 univention-ucc-pam (1.0.0-26) unstable; urgency=low
 
   * replaced univention-scp with univention-ssh-rsync (Bug #30049) 

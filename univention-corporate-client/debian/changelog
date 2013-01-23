@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.14-1) unstable; urgency=low
+
+  * Updated copyright to 2013 (Bug #30124)
+
+ -- Lukas Walter <walter@univention.de>  Wed, 23 Jan 2013 14:01:07 +0100
+
 univention-corporate-client (1.0.13-2) unstable; urgency=low
 
   * added run-parts /usr/lib/univention-directory-policy 

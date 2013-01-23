@@ -1,3 +1,9 @@
+univention-lightdm (1.0.5-1) unstable; urgency=low
+
+  * Updated copyright to 2013 (Bug #30124)
+
+ -- Lukas Walter <walter@univention.de>  Wed, 23 Jan 2013 14:02:38 +0100
+
 univention-lightdm (1.0.4-1) unstable; urgency=low
 
   * renamed univention-ucc-fetch-policies to 
