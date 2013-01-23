@@ -1,3 +1,10 @@
+univention-ucc-pam (1.0.0-29) unstable; urgency=low
+
+  * do not run univention-ucc-update-nss if ucc/nss/update is false
+    (Bug #30049)
+
+ -- Felix Botner <botner@univention.de>  Wed, 23 Jan 2013 16:41:33 +0100
+
 univention-ucc-pam (1.0.0-28) unstable; urgency=low
 
   * dereference symlinks (-L) for univention-ssh-rsync (Bug #30049) 

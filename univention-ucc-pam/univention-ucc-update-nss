@@ -34,6 +34,11 @@
 
 eval "$(univention-config-registry shell)"
 
+# check ucc/nss/update
+if [ -n "$ucc_nss_update" ] && ! is_ucr_true "ucc/nss/update"; then
+	exit 0
+fi
+
 # if USERNAME is set and known in passwd, we don't 
 # need to update the passwd/group information
 if [ -n "$USERNAME" ]; then
@@ -43,7 +48,7 @@ if [ -n "$USERNAME" ]; then
 	getent passwd "$USERNAME" && exit 0
 fi
 
-# works only for join computers
+# works only for joined computers
 if [ ! -e "/var/univention-join/joined" ]; then
 	echo "system need to be joined into ucs domain"
 	exit 0
