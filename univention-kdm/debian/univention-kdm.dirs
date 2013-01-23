@@ -1,7 +1,0 @@
-/usr/sbin
-/usr/bin
-/etc/kde4/kdm
-/usr/share/kde4/apps/kdm/themes/ucc
-/etc/kde4/kdm/sessions/xreset
-/etc/kde4/kdm/sessions/xsetup
-/etc/kde4/kdm/sessions/xstartup
