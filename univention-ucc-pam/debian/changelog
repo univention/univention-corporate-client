@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.0-26) unstable; urgency=low
+
+  * replaced univention-scp with univention-ssh-rsync (Bug #30049) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 23 Jan 2013 10:27:33 +0100
+
 univention-ucc-pam (1.0.0-25) unstable; urgency=low
 
   * use ldap/hostdn in ldap.conf (Bug #30103) 
