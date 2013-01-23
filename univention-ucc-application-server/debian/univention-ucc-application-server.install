@@ -4,3 +4,5 @@ share/KDE usr/share/univention-ucc-application-server/
 share/kill-process-by-display usr/share/univention-ucc-application-server/
 share/univention-ucc-kde-remote-device-bookmark usr/share/univention-ucc-application-server/
 autostart/univention-ucc-kde-remote-device-bookmark.desktop usr/share/autostart/
+lib/*.py usr/lib/univention-ucc-application-server/
+listener/*.py usr/lib/univention-directory-listener/system/

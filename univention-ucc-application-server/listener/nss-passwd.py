@@ -1,9 +1,10 @@
-#!/bin/sh
+#!/usr/bin/python2.6
+# -*- coding: utf-8 -*-
 #
-# UCC application server
-#  postinst file
+# Univention nss updater
+#  Univention Listener Module
 #
-# Copyright 2012-2013 Univention GmbH
+# Copyright 2012 Univention GmbH
 #
 # http://www.univention.de/
 #
@@ -30,29 +31,28 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-. /usr/share/univention-lib/all.sh
+__package__='' 	# workaround for PEP 366
+import listener
+import univention.config_registry
+import univention.debug
 
-#DEBHELPER#
+name = 'nss-passwd'
+description = 'Invalidate the nss passwd cache whenever a user object has been modified.'
+filter = '(objectClass=posixAccount)'
+attributes = ['uid']
 
-univention-config-registry set \
-	sshd/clientAliveInterval?100 \
-	sshd/xforwarding?yes \
-	nss/group/cachefile?yes \
-	nss/group/cachefile/invalidate_on_changes?yes \
-	nss/group/cachefile/invalidate_interval?"*/15 * * * *" \
-	nss/group/cachefile/check_member?yes \
-	nss/passwd/cachefile?yes \
-	nss/passwd/cachefile/invalidate_on_changes?yes \
-	nss/passwd/cachefile/invalidate_interval?"*/15 * * * *" \
-	ucc/nss/update?no
+def handler(dn, new, old):
+	pass
 
-call_joinscript 50univention-ucc-application-server.inst
+def postrun():
 
-if [ -n "$(pidof univention-directory-listener)" ]; then
-	initctl restart univention-directory-listener
-fi
+	ucr = univention.config_registry.ConfigRegistry()
+	ucr.load()
 
-service ssh reload
-service dbus reload
+	if ucr.is_true('nss/passwd/cachefile', True) and ucr.is_true('nss/passwd/cachefile/invalidate_on_changes', True):
+		listener.setuid(0)
+		param = ['ldap-passwd-to-file.py']
+		listener.run('/usr/share/univention-ucc-application-server/ldap-passwd-to-file.py', param, uid=0)
+		listener.unsetuid()
 
-exit 0
+	return

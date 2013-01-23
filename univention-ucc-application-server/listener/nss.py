@@ -1,9 +1,10 @@
-#!/bin/sh
+#!/usr/bin/python2.6
+# -*- coding: utf-8 -*-
 #
-# UCC application server
-#  postinst file
+# Univention nss updater
+#  Univention Listener Module
 #
-# Copyright 2012-2013 Univention GmbH
+# Copyright 2012 Univention GmbH
 #
 # http://www.univention.de/
 #
@@ -30,29 +31,27 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-. /usr/share/univention-lib/all.sh
+name='nss'
+description='Invalidate the nss group cache whenever a group membership has been modified.'
+filter='(objectClass=univentionGroup)'
+attributes=['uniqueMember', 'cn']
 
-#DEBHELPER#
+__package__='' 	# workaround for PEP 366
+import listener
+import univention.config_registry
 
-univention-config-registry set \
-	sshd/clientAliveInterval?100 \
-	sshd/xforwarding?yes \
-	nss/group/cachefile?yes \
-	nss/group/cachefile/invalidate_on_changes?yes \
-	nss/group/cachefile/invalidate_interval?"*/15 * * * *" \
-	nss/group/cachefile/check_member?yes \
-	nss/passwd/cachefile?yes \
-	nss/passwd/cachefile/invalidate_on_changes?yes \
-	nss/passwd/cachefile/invalidate_interval?"*/15 * * * *" \
-	ucc/nss/update?no
+def handler(dn, new, old):
+	pass
 
-call_joinscript 50univention-ucc-application-server.inst
+def postrun():
+	ucr = univention.config_registry.ConfigRegistry()
+	ucr.load()
 
-if [ -n "$(pidof univention-directory-listener)" ]; then
-	initctl restart univention-directory-listener
-fi
+	if ucr.is_true('nss/group/cachefile', False) and ucr.is_true('nss/group/cachefile/invalidate_on_changes', True):
+		listener.setuid(0)
+		param = ['ldap-group-to-file.py']
+		if ucr.is_true('nss/group/cachefile/check_member', True):
+			param.append('--check_member')
+		listener.run('/usr/lib/univention-pam/ldap-group-to-file.py', param, uid=0)
+		listener.unsetuid()
 
-service ssh reload
-service dbus reload
-
-exit 0
