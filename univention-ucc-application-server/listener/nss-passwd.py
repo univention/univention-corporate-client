@@ -52,7 +52,7 @@ def postrun():
 	if ucr.is_true('nss/passwd/cachefile', True) and ucr.is_true('nss/passwd/cachefile/invalidate_on_changes', True):
 		listener.setuid(0)
 		param = ['ldap-passwd-to-file.py']
-		listener.run('/usr/share/univention-ucc-application-server/ldap-passwd-to-file.py', param, uid=0)
+		listener.run('/usr/lib/univention-ucc-application-server/ldap-passwd-to-file.py', param, uid=0)
 		listener.unsetuid()
 
 	return

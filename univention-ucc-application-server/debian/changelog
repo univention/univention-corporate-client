@@ -1,3 +1,9 @@
+univention-ucc-application-server (1.0.0-21) unstable; urgency=low
+
+  * fixed nss-passwd listener (Bug #30049) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 23 Jan 2013 16:01:12 +0100
+
 univention-ucc-application-server (1.0.0-20) unstable; urgency=low
 
   * fixed ucslint errors (Bug #30049) 
