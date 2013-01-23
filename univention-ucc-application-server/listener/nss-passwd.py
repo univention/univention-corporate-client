@@ -1,10 +1,10 @@
-#!/usr/bin/python2.6
+#!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 #
 # Univention nss updater
 #  Univention Listener Module
 #
-# Copyright 2012 Univention GmbH
+# Copyright 2013 Univention GmbH
 #
 # http://www.univention.de/
 #

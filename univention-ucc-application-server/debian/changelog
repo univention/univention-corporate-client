@@ -1,3 +1,9 @@
+univention-ucc-application-server (1.0.0-20) unstable; urgency=low
+
+  * fixed ucslint errors (Bug #30049) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 23 Jan 2013 15:02:12 +0100
+
 univention-ucc-application-server (1.0.0-19) unstable; urgency=low
 
   * added listener and scripts for nss group/passwd cache (Bug #30049)

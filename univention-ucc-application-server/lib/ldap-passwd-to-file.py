@@ -1,10 +1,10 @@
-#!/usr/bin/python2.6
+#!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 #
 # Univention PAM
 #   Dump all ldap groups with members to a single file
 #
-# Copyright 2011-2012 Univention GmbH
+# Copyright 2011-2013 Univention GmbH
 #
 # http://www.univention.de/
 #
