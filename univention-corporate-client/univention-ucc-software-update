@@ -109,7 +109,7 @@ if [ 1 -eq $instneeded ]; then
     do
 		PKGINST=`echo $I | tr -d "="`
 		plymouth message --text="Installing package $PKGINST"
-		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGINST 2>>$logfile 1>>$logfil    
+		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGINST 2>>$logfile 1>>$logfile    
     done
 fi
 
