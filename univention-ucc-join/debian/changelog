@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.10-1) unstable; urgency=low
+
+  * added /var/cache/.security.db to persistent files (Bug #28994)
+
+ -- Lukas Walter <walter@univention.de>  Thu, 24 Jan 2013 15:00:46 +0100
+
 univention-ucc-join (1.1.9-2) unstable; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)
