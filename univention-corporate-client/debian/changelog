@@ -1,3 +1,10 @@
+univention-corporate-client (1.0.15-2) unstable; urgency=low
+
+  * Activate support for installations on thin clients (Bug #28838)
+  * Fix test for removed packages	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 24 Jan 2013 12:04:03 +0100
+
 univention-corporate-client (1.0.15-1) unstable; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)

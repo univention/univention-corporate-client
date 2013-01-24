@@ -29,6 +29,7 @@
 # <http://www.gnu.org/licenses/>.
 
 . /usr/share/univention-lib/ucc.sh
+. /usr/share/univention-lib/ucr.sh
 
 logfile="/var/log/univention/software-updates.log"
 
@@ -40,16 +41,19 @@ if [ "1" = "$update" ]; then
 
     apt-get update 2>>$logfile 1>>$logfile
 
+	# Test, whether we need to update the installed packages.
     new=`LANG=C apt-get dist-upgrade --dry-run | grep "packages will be [installed|upgraded]"`
     if [ -n "$new" ]; then
 
-	# if LC_ALL=C mount | grep -q "on /root-ro"; then
-	#     /usr/sbin/univention-ucc-boot-option --write --option mount --value rw
-	#     reboot
-	# fi
+		# When running on overlayfs, switch to R/W mode
+		if LC_ALL=C mount | grep -q "on /root-ro"; then
+			/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+			sync
+			reboot
+		fi
 
-	plymouth message --text="Installing available software updates" 
-	apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes -u dist-upgrade 2>>$logfile 1>>$logfile
+		plymouth message --text="Installing available software updates" 
+		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes -u dist-upgrade 2>>$logfile 1>>$logfile
     fi
 fi
 
@@ -61,19 +65,19 @@ for I in $remove
 do
     PKGRM=`echo $I | tr -d "="`
     
-    dpkg -l $PKGRM > /dev/null 2> /dev/null
-    if [ $? -eq 1 ]; then
+	if LC_ALL=C dpkg-query -W  -f='${Status}' $PKGRM | grep -q "installed"; then
 		rmneeded=1
-    fi
-
+	fi
 done
 
+# Test, whether we need to remove packages
 if [ 1 -eq $rmneeded ]; then
 
-    # if LC_ALL=C mount | grep -q "on /root-ro"; then
-	# 	/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
-	# 	reboot
-    # fi
+    if LC_ALL=C mount | grep -q "on /root-ro"; then
+		/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+		sync
+		reboot
+    fi
 
     for I in $remove
     do
@@ -85,8 +89,7 @@ fi
 
 install=`get_host_policy_var univentionCorporateClientSoftwareUpdateInstallList` 
 
-# Test whether, we need to install packages. If so, switch to r/w mode if using overlayfs
-
+# Test whether, we need to install packages.
 instneeded=0
 for I in $install
 do
@@ -100,10 +103,11 @@ done
 
 if [ 1 -eq $instneeded ]; then
 
-    # if LC_ALL=C mount | grep -q "on /root-ro"; then
-	# 	/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
-	# 	reboot
-    # fi
+    if LC_ALL=C mount | grep -q "on /root-ro"; then
+		/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+		sync
+		reboot
+    fi
 
     for I in $install
     do
@@ -111,9 +115,16 @@ if [ 1 -eq $instneeded ]; then
 		plymouth message --text="Installing package $PKGINST"
 		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGINST 2>>$logfile 1>>$logfile    
     done
+
 fi
 
 # Reset flag that triggers a r/w mount for systems booted with overlayfs
-#/usr/sbin/univention-ucc-boot-option --write --option mount --delete
+if ! LC_ALL=C mount | grep -q "on /root-ro"; then
+	if is_ucr_true 'ucc/thinclientoverlayfs'; then
+		/usr/sbin/univention-ucc-boot-option --write --option mount --delete
+		sync
+		reboot
+	fi
+fi
 
 exit 0
