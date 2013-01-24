@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (1.0.0-16) unstable; urgency=low
+
+  * Updated copyright to 2013 (Bug #30124)
+
+ -- Lukas Walter <walter@univention.de>  Thu, 24 Jan 2013 10:45:46 +0100
+
 univention-ucc-session-ucc (1.0.0-15) unstable; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)

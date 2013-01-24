@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.7-2) precise; urgency=low
+
+  * Updated copyright to 2013 (Bug #30124)
+
+ -- Lukas Walter <walter@univention.de>  Thu, 24 Jan 2013 10:45:56 +0100
+
 univention-ucc-initramfs (1.0.7-1) precise; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)
