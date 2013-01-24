@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (1.0.1-1) unstable; urgency=low
+
+  * Removed dependency to removed package univension-session-client (Bug #30022)
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 24 Jan 2013 11:03:09 +0100
+
 univention-ucc-session-ucc (1.0.0-16) unstable; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)

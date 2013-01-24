@@ -19,7 +19,7 @@ Description: UCC session script
 
 Package: univention-ucc-session-ucc-remote
 Architecture: all
-Depends: ${shlib:Depends}, openssh-client, univention-session-client, xauth, ${misc:Depends}
+Depends: ${shlib:Depends}, openssh-client, xauth, ${misc:Depends}
 Description: UCC terminal server session script
  This package provides x session scripts for the
  ucc terminal server session.
