@@ -72,7 +72,7 @@ fi
 
 for word in $GRUB_CMDLINE_LINUX_DEFAULT; do
   if [ "$word" = splash ]; then
-    GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT \$vt_handoff"
+    GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT $vt_handoff"
   fi
 done
 
