@@ -1163,7 +1163,7 @@ check_parameter ()
 			FORCE_PARTITION=true
 			;;
 		force_partition_timeout=*)
-			FORCE_PARTITION_timeout=${x#force_partition_timeout=}
+			FORCE_PARTITION_TIMEOUT=${x#force_partition_timeout=}
 			;;
 		net_dev=)
 			net_dev={x#net_dev=}
