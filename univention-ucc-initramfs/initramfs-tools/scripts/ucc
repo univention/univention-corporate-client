@@ -844,9 +844,9 @@ ucc_installation()
 	_copy_files
 
 	# Execute a script which was created via custom_partition
-	if [ -e /root/ucc_root/custonmer.script ]; then
-		chmod +x /root/ucc_root/custonmer.script
-		/root/ucc_root/custonmer.script
+	if [ -e /root/ucc_root/customer.script ]; then
+		chmod +x /root/ucc_root/customer.script
+		/root/ucc_root/customer.script
 	fi
 
 	# Install grub

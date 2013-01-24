@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.7-3) precise; urgency=low
+
+  * Fix typo
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 24 Jan 2013 13:53:56 +0100
+
 univention-ucc-initramfs (1.0.7-2) precise; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)
