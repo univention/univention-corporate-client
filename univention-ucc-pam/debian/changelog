@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.1-1) unstable; urgency=low
+
+  * Use ldap/server/addition in /etc/ldap.conf and /etc/ldap/ldap.conf (Bug #22190)
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 24 Jan 2013 16:52:12 +0100
+
 univention-ucc-pam (1.0.0-30) unstable; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)
