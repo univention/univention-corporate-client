@@ -5,3 +5,4 @@ Variables: grub/hidden/timeout
 Variables: grub/timeout
 Variables: grub/append
 Variables: boot/ucc
+Variables: grub/font

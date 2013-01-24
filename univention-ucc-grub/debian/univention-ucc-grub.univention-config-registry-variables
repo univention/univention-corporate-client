@@ -16,4 +16,8 @@ Description[en]=Options to be passed to the Linux kernel
 Type=str
 Categories=system-base
 
-
+[grub/font]
+Description[de]=Grub Schriftart-Datei (default: /ucc_root/grub/unicode.pf2)
+Description[en]=Grub font file (default: /ucc_root/grub/unicode.pf2)
+Type=str
+Categories=system-base

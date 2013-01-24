@@ -17,6 +17,8 @@ print 'GRUB_CMDLINE_LINUX_DEFAULT="%s"' % grub_append
 @!@
 GRUB_CMDLINE_LINUX=""
 
+GRUB_FONT=@%@grub/font@%@
+
 # Uncomment to enable BadRAM filtering, modify to suit your needs
 # This works with Linux (no patch required) and with any kernel that obtains
 # the memory map information from GRUB (GNU Mach, kernel of FreeBSD ...)
