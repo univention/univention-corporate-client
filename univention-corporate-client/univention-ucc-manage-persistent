@@ -65,10 +65,6 @@ if type == "file":
 	files = fvar.split(";")
 
 	if mode == "add":
-		if not os.path.exists(name):
-			print "File does not exist, exit"
-			sys.exit(1)
-
 		if files.count(name) > 0:
 			print "File already present, quitting"
 			sys.exit(0)

@@ -1,3 +1,10 @@
+univention-corporate-client (1.0.16-1) unstable; urgency=low
+
+  * univention-ucc-manage-persistent: if asked to, also add files to
+  	persistent store which do not yet exist (Bug #28994)
+
+ -- Lukas Walter <walter@univention.de>  Thu, 24 Jan 2013 15:26:13 +0100
+
 univention-corporate-client (1.0.15-2) unstable; urgency=low
 
   * Activate support for installations on thin clients (Bug #28838)
