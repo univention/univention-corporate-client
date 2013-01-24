@@ -698,6 +698,14 @@ _install_grub ()
 
 	local device="$1"
 
+	# copy grub font to root device
+	if [ ! -d "/root/ucc_root/grub" ]; then
+		mkdir -p "/root/ucc_root/grub"
+	fi
+	if [ -e "/root/usr/share/grub/unicode.pf2" ]; then
+		cp "/root/usr/share/grub/unicode.pf2" "/root/ucc_root/grub/"
+	fi
+
 	for d in dev sys proc; do
 		mount -o move /${d} /root/${d}
 	done
