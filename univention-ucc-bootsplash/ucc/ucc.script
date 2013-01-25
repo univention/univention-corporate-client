@@ -1,0 +1,371 @@
+# This is an example plymouth plugin script
+
+# background image
+bg.image = Image("bg.png");
+bg.sprite = Sprite(bg.image);
+resized.bg.image = bg.image.Scale(Window.GetWidth(), Window.GetHeight());
+bg.sprite.SetImage(resized.bg.image);
+
+# navi
+navi.image = Image("navi.png");
+navi.sprite = Sprite(navi.image);
+resized.navi.image = navi.image.Scale(Window.GetWidth(), 28);
+navi.sprite.SetImage(resized.navi.image);
+
+# box image
+box.image = Image("logo-box.png");
+box.sprite = Sprite(box.image);
+box.sprite.SetOpacity(1.0);
+box.sprite.SetX(Window.GetX() + Window.GetWidth()  / 2 - box.image.GetWidth()  / 2);
+box.sprite.SetY(Window.GetY() + Window.GetHeight() / 2 - box.image.GetHeight() / 2);
+
+# circle
+logo.default = logo.image = Image("logo.png");
+logo.sprite = Sprite(logo.image);
+logo.sprite.SetOpacity(1.0);
+logo.sprite.SetX(Window.GetX() + Window.GetWidth()  / 2 - logo.image.GetWidth()  / 2);
+logo.sprite.SetY(Window.GetY() + Window.GetHeight() / 2 - logo.image.GetHeight() / 2);
+progress = 0;
+
+# univention logo 
+u.image = Image("u.png");
+u.sprite = Sprite(u.image);
+u.sprite.SetOpacity(1.0);
+u.sprite.SetX(Window.GetX() + Window.GetWidth()  / 2 - u.image.GetWidth()  / 2);
+u.sprite.SetY(Window.GetY() + Window.GetHeight() / 2 - u.image.GetHeight() / 2);
+u.opacity_angle = 0;
+
+# internal status
+status = "normal";
+
+
+# to determine the mode of operation plymouth was started in use Plymouth.GetMode 
+# which returns a string of one of: "boot", "shutdown", "suspend", "resume" or unknown. 
+#status = Plymouth.GetMode ();
+
+
+# helper
+
+fun StringToList(string, maxChar) {
+
+	if (!maxChar) maxChar = 10;
+	local.index = 0;
+	local.str = String(string);
+	local.list = [];
+	local.listPos = 0;
+	local.substring = "";
+	local.length = 0;
+
+	while (str.CharAt(index)) {
+		substring = substring + str.CharAt(index);
+
+		length = StringLength(substring);
+
+		if (length > maxChar - 4) {
+			if (str.CharAt(index) == " ") {
+				list[listPos] = substring;
+				listPos++;
+				substring = "";
+			}
+		}
+		#if (StringLength(substring) > maxChar -1) {
+		#	list[listPos] = substring;
+		#	listPos++;
+		#	substring = "";
+		#}
+		index++;
+	}
+
+	list[listPos] = substring;
+	return list;
+}
+
+fun StringLength(string) {
+	local.index = 0;
+	str = String(string);
+	while(str.CharAt(index)) index++;
+	return index;
+}
+
+ASK_PROMPT_LINES = 6;
+fun ask_dialog() {
+
+	local.entry;
+	local.text;
+	local.prompt = [];
+
+	entry.image = Image("entry.png");
+
+	entry.sprite = Sprite(entry.image);
+	entry.x = (global.box.sprite.GetX() + global.box.image.GetWidth() / 2) - entry.image.GetWidth() / 2;
+	entry.y = (global.box.sprite.GetY() + global.box.image.GetHeight() * 0.7 );
+	entry.z = 10000;
+	entry.sprite.SetPosition(entry.x, entry.y, entry.z);
+
+	for (i=0; i < ASK_PROMPT_LINES; i++) {
+		prompt[i] = Sprite();
+		prompt[i].SetPosition(
+			global.box.sprite.GetX() + 20, 
+			global.box.sprite.GetY() + (20*i) + 20,
+			10000
+		);
+	}
+
+	prompt.setText = fun (string) {
+		if (!string) string = "";
+		local.prompt = global.ask.prompt;
+		local.list = StringToList(string, 30);
+		local.msg;
+		for (i=0; i < ASK_PROMPT_LINES; i++) {
+			if (!list[i]) list[i] = "";
+			msg = Image.Text(list[i], 0, 0, 0);
+			prompt[i].SetImage(msg);
+		}
+	};
+
+	text.sprite = Sprite();
+	text.setText = fun (string) {
+		if (!string) string = "";
+		local.text = global.ask.text;
+		local.entry = global.ask.entry;
+		text.image = Image.Text(string, 0, 0, 0);
+		text.sprite.SetImage(text.image);
+		text.sprite.SetPosition(
+			entry.x + 3,
+			entry.y + (entry.image.GetHeight() - text.image.GetHeight()) / 2,
+			entry.z + 1
+		);
+	};	
+
+	global.ask.entry = entry;
+	global.ask.prompt = prompt;
+	global.ask.text = text;
+	ask_opacity(1);
+}
+
+PASSWORD_PROMPT_LINES = 5;
+fun dialog_setup() {
+
+	local.lock;
+	local.entry;
+	local.prompt;
+	
+	lock.image = Image("lock.png");
+	entry.image = Image("entry.png");
+	
+	lock.sprite = Sprite(lock.image);
+	lock.x = Window.GetX() + Window.GetWidth()  / 2 - lock.image.GetWidth() / 2;
+	lock.y = Window.GetY() + Window.GetHeight() / 2 - global.box.image.GetHeight() / 3;
+	lock.z = 10000;
+	lock.sprite.SetPosition(lock.x, lock.y, lock.z);
+	
+	entry.sprite = Sprite(entry.image);
+	entry.x = Window.GetX() + Window.GetWidth()  / 2 - entry.image.GetWidth() / 2;
+	entry.y = Window.GetY() + Window.GetHeight() / 2 - entry.image.GetHeight() / 2;
+	entry.z = lock.z + 1;
+	entry.sprite.SetPosition(entry.x, entry.y, entry.z);
+
+	for (i=0; i < PASSWORD_PROMPT_LINES; i++) {
+		prompt[i] = Sprite();
+		prompt[i].SetPosition(60, 100 + (20*i), 10000);
+	}
+	
+	global.dialog.lock = lock;
+	global.dialog.entry = entry;
+	global.dialog.prompt = prompt;
+	global.dialog.bullet_image = Image("bullet.png");
+	dialog_opacity (1);
+}
+    
+fun dialog_opacity(opacity) {
+
+	dialog.lock.sprite.SetOpacity (opacity);
+	dialog.entry.sprite.SetOpacity (opacity);
+	for (index = 0; dialog.bullet[index]; index++) {
+		dialog.bullet[index].sprite.SetOpacity(opacity);
+	}
+	for (i=0; i < PASSWORD_PROMPT_LINES; i++) {
+		global.dialog.prompt[i].SetOpacity (opacity);
+	}
+}
+
+fun ask_opacity(opacity) {
+
+	global.ask.entry.sprite.SetOpacity(opacity);
+	global.ask.text.sprite.SetOpacity(opacity);
+	for (i=0; i < ASK_PROMPT_LINES; i++) {
+		global.ask.prompt[i].SetOpacity(opacity);
+	}
+}
+
+##########
+# normal #
+##########
+
+fun display_normal_callback () {
+	global.status = "normal";
+
+	# disbale password|question dialog
+	if (global.dialog)
+		dialog_opacity (0);
+	if (global.ask)
+		ask_opacity (0);
+
+	# empty message 
+	msg = Image.Text("", 1, 1, 1);
+	message.sprite.SetImage(msg);
+
+	# display logo
+	global.logo.sprite.SetOpacity(1.0);
+	global.u.sprite.SetOpacity(1.0);
+}
+
+# the callback function is called when the display should return to normal 
+Plymouth.SetDisplayNormalFunction(display_normal_callback);
+
+############
+# password #
+############
+
+fun display_password_callback (prompt, bullets) {
+
+	global.status = "password";
+	if (!prompt) prompt = "";
+	local.list = StringToList(prompt);
+	local.msg;
+
+	# disbale logo
+	global.logo.sprite.SetOpacity(0.0);
+	global.u.sprite.SetOpacity(0.0);
+
+	if (!global.dialog)
+		dialog_setup();
+	else
+		dialog_opacity(1);
+
+	# prompt
+	for (i=0; i < PASSWORD_PROMPT_LINES; i++) {
+		if (!list[i]) list[i] = "";
+		msg = Image.Text(list[i], 0, 0, 0);
+		global.dialog.prompt[i].SetImage(msg);
+	}
+
+	# bullets
+	for (index = 0; dialog.bullet[index] || index < bullets; index++) {
+		if (!dialog.bullet[index]) {
+			dialog.bullet[index].sprite = Sprite(dialog.bullet_image);
+			dialog.bullet[index].x = dialog.entry.x + index * dialog.bullet_image.GetWidth();
+			dialog.bullet[index].y = dialog.entry.y + dialog.entry.image.GetHeight() / 2 - dialog.bullet_image.GetHeight() / 2;
+			dialog.bullet[index].z = dialog.entry.z + 1;
+			dialog.bullet[index].sprite.SetPosition(dialog.bullet[index].x, dialog.bullet[index].y, dialog.bullet[index].z);
+		}
+		if (index < bullets)
+			dialog.bullet[index].sprite.SetOpacity(1);
+		else
+			dialog.bullet[index].sprite.SetOpacity(0);
+	}
+}
+
+# the callback function is called when the display should display a 
+# password dialogue. First arg is prompt string, the second is the number of bullets.
+Plymouth.SetDisplayPasswordFunction(display_password_callback);
+
+##########
+# status # disabled
+##########
+
+statusmsg.sprite = Sprite();
+statusmsg.sprite.SetPosition(10, 30, 10000);
+
+fun update_status_callback (string) {
+	local.image = Image.Text(string, 1, 1, 1);
+	statusmsg.sprite.SetImage(image);
+}
+
+# the callback function is called with the new boot status string
+#Plymouth.SetUpdateStatusFunction(update_status_callback);
+    
+########
+# quit #
+########
+
+fun quit_callback () {
+	u.sprite.SetOpacity (1);
+}
+
+Plymouth.SetQuitFunction(quit_callback);
+
+############
+# question #
+############
+
+fun question_callback (prompt, string) {
+
+	global.status = "question";
+
+	# disbale logo
+	global.logo.sprite.SetOpacity(0.0);
+	global.u.sprite.SetOpacity(0.0);
+
+	# setup dialog
+	if (!global.ask) 
+		ask_dialog();
+	else 
+		ask_opacity(1);
+
+	# display text
+	global.ask.text.setText(string);
+
+	# display prompt
+	global.ask.prompt.setText(prompt);
+
+}
+
+# the callback function is called when the display should display a question 
+# dialogue. First arg is prompt string, the second is the entry contents.
+Plymouth.SetDisplayQuestionFunction(question_callback);
+
+###########
+# message #
+###########
+
+# message 
+message.sprite = Sprite();
+message.sprite.SetPosition(10, 5, 10000);
+message.maxLength = 80;
+
+fun message_callback (text) {
+	if (StringLength(text) > message.maxLength) {
+		text = text.SubString(0, message.maxLength - 3);
+		text += "...";
+	}
+	local.image = Image.Text(text, 1, 1, 1);
+	message.sprite.SetImage(image);
+	bg.sprite.SetImage(resized.bg.image);
+}
+
+# he callback function is called when new message should be displayed. 
+# First arg is message to display.
+Plymouth.SetMessageFunction(message_callback);
+
+###########
+# refresh #
+###########
+
+fun refresh_callback () {
+
+	# rotating image
+	logo.image = logo.default.Rotate(progress);
+	logo.sprite.SetImage(logo.image);
+	if (global.status == "normal") {
+		progress = progress + 0.03;
+		if (progress >= (Math.Pi * 2)-0.03) {
+			progress = 0;
+		}
+	}
+}
+  
+# calling Plymouth.SetRefreshFunction with a function will set that 
+# function to be called up to 50 times every second
+Plymouth.SetRefreshFunction (refresh_callback);
+

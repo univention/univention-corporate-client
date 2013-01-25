@@ -1,0 +1,19 @@
+Source: univention-ucc-bootsplash
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Build-Depends: debhelper, ucslint, univention-config-dev
+Standards-Version: 3.8.2
+
+Package: univention-ucc-bootsplash
+Architecture: all
+Depends: ${shlib:Depends}, plymouth, plymouth-label
+Provides: plymouth-theme
+Description: UCC plymouth theme
+ This package provides a UCC theme for the plymouth
+ bootsplash.
+ .
+ This package is part of Univention Corporate Server (UCS),
+ an integrated, directory driven solution for managing
+ corporate environments. For more information about UCS,
+ refer to: http://www.univention.de/

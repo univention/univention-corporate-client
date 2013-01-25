@@ -1,0 +1,5 @@
+univention-ucc-bootsplash (1.0.0-1) unstable; urgency=low
+
+  * initial release (Bug #28317) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 25 Jan 2013 14:50:00 +0100
