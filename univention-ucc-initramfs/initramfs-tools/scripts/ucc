@@ -876,6 +876,19 @@ _start_dhcpclient()
 	notice "Starting dhcp client"
 
 	ifconfig "$net_dev" up
+	
+	if [ "$?" != 0 -a "$UCC" = "overlayfs"]; then
+		while [ true ]; do
+			notice "Trying to bring up $net_dev"
+			ifconfig "$net_dev" up
+			if [ "$?" != 0 ]; then
+				sleep 1;
+			else
+				break;
+			fi
+		done
+	fi
+	
 	udhcpc -s /etc/udhcpc/default.script -i "$net_dev" -b
 }
 
