@@ -1,4 +1,10 @@
-univention-ucc-grub (1.0.3-1.1) unstable; urgency=low
+univention-ucc-grub (1.0.5-1) unstable; urgency=low
+
+  * added grub/font (Bug #28317) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 25 Jan 2013 16:39:33 +0100
+
+univention-ucc-grub (1.0.4-1) unstable; urgency=low
 
   * Fix typo
 
