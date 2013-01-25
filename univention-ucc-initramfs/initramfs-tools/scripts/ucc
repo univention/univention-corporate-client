@@ -698,14 +698,6 @@ _install_grub ()
 
 	local device="$1"
 
-	# copy grub font to root device
-	if [ ! -d "/root/ucc_root/grub" ]; then
-		mkdir -p "/root/ucc_root/grub"
-	fi
-	if [ -e "/root/usr/share/grub/unicode.pf2" ]; then
-		cp "/root/usr/share/grub/unicode.pf2" "/root/ucc_root/grub/"
-	fi
-
 	for d in dev sys proc; do
 		mount -o move /${d} /root/${d}
 	done
@@ -717,6 +709,10 @@ _install_grub ()
 	echo "update-grub >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 	echo "grub-install $device >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 	echo "/usr/share/univention-ucc-initramfs/scripts/set-bootable-flag-on-protective-mbr -p $device 2>&1" >>/root/grub-inst.sh
+
+	echo "if [ -e 'usr/share/grub/unicode.pf2' ]; then" >>/root/grub-inst.sh
+	echo "cp usr/share/grub/unicode.pf2 /boot/" >>/root/grub-inst.sh
+	echo "fi" >>/root/grub-inst.sh
 
 	if [ -n "$KEYBOARD" ]; then
 		echo "/usr/sbin/univention-config-registry set xorg/keyboard/options/XkbLayout=$KEYBOARD >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh

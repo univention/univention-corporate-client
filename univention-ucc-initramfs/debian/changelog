@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.10-1) precise; urgency=low
+
+  * store grub font on boot (Bug #28317) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 25 Jan 2013 16:37:47 +0100
+
 univention-ucc-initramfs (1.0.9-1) precise; urgency=low
 
   * Fixed syntax error (Bug #30118)
