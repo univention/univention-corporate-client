@@ -877,7 +877,7 @@ _start_dhcpclient()
 
 	ifconfig "$net_dev" up
 	
-	if [ "$?" != 0 -a "$UCC" = "overlayfs"]; then
+	if [ "$?" != 0 -a "$UCC" = "overlayfs" ]; then
 		while [ true ]; do
 			notice "Trying to bring up $net_dev"
 			ifconfig "$net_dev" up
