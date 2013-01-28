@@ -46,6 +46,7 @@ status = "normal";
 
 # helper
 
+# wrap line to list of lines with maxChar
 fun StringToList(string, maxChar) {
 
 	if (!maxChar) maxChar = 10;
@@ -55,24 +56,30 @@ fun StringToList(string, maxChar) {
 	local.listPos = 0;
 	local.substring = "";
 	local.length = 0;
+	local.split = 0;
 
 	while (str.CharAt(index)) {
-		substring = substring + str.CharAt(index);
 
 		length = StringLength(substring);
 
-		if (length > maxChar - 4) {
-			if (str.CharAt(index) == " ") {
-				list[listPos] = substring;
-				listPos++;
-				substring = "";
-			}
+		# respect \n
+		if (str.CharAt(index) == "\\" && str.CharAt(index + 1) == "n") {
+			index++;
+			split = 1;
 		}
-		#if (StringLength(substring) > maxChar -1) {
-		#	list[listPos] = substring;
-		#	listPos++;
-		#	substring = "";
-		#}
+
+		if (length > maxChar - 4 && str.CharAt(index) == " ")
+			split = 1;
+
+		if (split) {
+			list[listPos] = substring;
+			listPos++;
+			substring = "";
+			split = 0;
+		}
+		else {
+			substring = substring + str.CharAt(index);
+		}
 		index++;
 	}
 
@@ -97,24 +104,20 @@ fun ask_dialog() {
 	entry.image = Image("entry.png");
 
 	entry.sprite = Sprite(entry.image);
-	entry.x = (global.box.sprite.GetX() + global.box.image.GetWidth() / 2) - entry.image.GetWidth() / 2;
-	entry.y = (global.box.sprite.GetY() + global.box.image.GetHeight() * 0.7 );
+        entry.x = Window.GetX() + Window.GetWidth()  / 2 - entry.image.GetWidth() / 2;
+        entry.y = Window.GetY() + Window.GetHeight() / 2 - entry.image.GetHeight() / 2;
 	entry.z = 10000;
 	entry.sprite.SetPosition(entry.x, entry.y, entry.z);
 
 	for (i=0; i < ASK_PROMPT_LINES; i++) {
 		prompt[i] = Sprite();
-		prompt[i].SetPosition(
-			global.box.sprite.GetX() + 20, 
-			global.box.sprite.GetY() + (20*i) + 20,
-			10000
-		);
+		prompt[i].SetPosition(10, 50 + (20 * i), 10000);
 	}
 
 	prompt.setText = fun (string) {
 		if (!string) string = "";
 		local.prompt = global.ask.prompt;
-		local.list = StringToList(string, 30);
+		local.list = StringToList(string, 80);
 		local.msg;
 		for (i=0; i < ASK_PROMPT_LINES; i++) {
 			if (!list[i]) list[i] = "";
@@ -143,7 +146,7 @@ fun ask_dialog() {
 	ask_opacity(1);
 }
 
-PASSWORD_PROMPT_LINES = 5;
+PASSWORD_PROMPT_LINES = 6;
 fun dialog_setup() {
 
 	local.lock;
@@ -167,8 +170,20 @@ fun dialog_setup() {
 
 	for (i=0; i < PASSWORD_PROMPT_LINES; i++) {
 		prompt[i] = Sprite();
-		prompt[i].SetPosition(60, 100 + (20*i), 10000);
+		prompt[i].SetPosition(10, 50 + (20 * i), 10000);
 	}
+
+	prompt.setText = fun (string) {
+		if (!string) string = "";
+		local.prompt = global.dialog.prompt;
+		local.list = StringToList(string, 80);
+		local.msg;
+		for (i=0; i < PASSWORD_PROMPT_LINES; i++) {
+			if (!list[i]) list[i] = "";
+			msg = Image.Text(list[i], 0, 0, 0);
+			prompt[i].SetImage(msg);
+		}
+	};
 	
 	global.dialog.lock = lock;
 	global.dialog.entry = entry;
@@ -206,10 +221,8 @@ fun display_normal_callback () {
 	global.status = "normal";
 
 	# disbale password|question dialog
-	if (global.dialog)
-		dialog_opacity (0);
-	if (global.ask)
-		ask_opacity (0);
+	if (global.dialog) dialog_opacity (0);
+	if (global.ask) ask_opacity (0);
 
 	# empty message 
 	msg = Image.Text("", 1, 1, 1);
@@ -238,17 +251,12 @@ fun display_password_callback (prompt, bullets) {
 	global.logo.sprite.SetOpacity(0.0);
 	global.u.sprite.SetOpacity(0.0);
 
-	if (!global.dialog)
-		dialog_setup();
-	else
-		dialog_opacity(1);
+	# set up dialog
+	if (!global.dialog) dialog_setup();
+	else dialog_opacity(1);
 
 	# prompt
-	for (i=0; i < PASSWORD_PROMPT_LINES; i++) {
-		if (!list[i]) list[i] = "";
-		msg = Image.Text(list[i], 0, 0, 0);
-		global.dialog.prompt[i].SetImage(msg);
-	}
+	global.dialog.prompt.setText(prompt);
 
 	# bullets
 	for (index = 0; dialog.bullet[index] || index < bullets; index++) {
@@ -308,10 +316,8 @@ fun question_callback (prompt, string) {
 	global.u.sprite.SetOpacity(0.0);
 
 	# setup dialog
-	if (!global.ask) 
-		ask_dialog();
-	else 
-		ask_opacity(1);
+	if (!global.ask) ask_dialog();
+	else ask_opacity(1);
 
 	# display text
 	global.ask.text.setText(string);
