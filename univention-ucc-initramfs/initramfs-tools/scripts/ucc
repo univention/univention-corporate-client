@@ -842,7 +842,9 @@ ucc_installation()
 	modprobe atkbd
 
 	# Ensure the console is prepared for the user interaction
-	run_scripts /scripts/panic
+	if ! plymouth --ping; then
+		run_scripts /scripts/panic
+	fi
 
 	if [ "$continuation_prompt" = "false" ] || [ "$FORCE_PARTITION" = "yes" ]; then
 		if [ -z "$FORCE_PARTITION_TIMEOUT" ]; then
@@ -859,9 +861,17 @@ ucc_installation()
 			failure
 		fi
 
+		local plymsg="$(echo "$continuation_message$continuation_dialog" | sed "s|@PARTITION_DEVICE@|$partition_device|g")"
 		while true; do
 			echo -ne "$continuation_dialog "
-			read answer
+
+			if plymouth --ping; then
+				# plymouth accepts only 254 characters
+				plymsg="$(echo $plymsg | dd bs=1 skip=0 count=254 2>/dev/null)"
+				answer="$(plymouth ask-question --prompt="$plymsg")"
+			else
+				read answer
+			fi
 			
 			if [ "$answer" = "$continuation_dialog_no" ]; then
 				failure "Abort partition! Dropping to a shell!"
@@ -870,6 +880,7 @@ ucc_installation()
 				partition "$partition_device"
 				break
 			else
+				plymsg="$(echo "$continuation_message$continuation_dialog_error" | sed "s|@PARTITION_DEVICE@|$partition_device|g")"
 				echo -e "$continuation_dialog_error"
 			fi
 		done
