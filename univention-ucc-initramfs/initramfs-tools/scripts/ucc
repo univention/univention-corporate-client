@@ -72,6 +72,9 @@ notice ()
 		echo "$1" | logger
 	fi
 	echo "$1"
+	if plymouth --ping; then 
+		plymouth message --text="$1"
+	fi
 }
 
 # This message will send to rsyslogd only
@@ -90,10 +93,6 @@ failure ()
 	modprobe i8042
 	modprobe atkbd
 
-	# Ensure the console is prepared for the user interaction
-	run_scripts /scripts/panic
-	test -n "$1" && echo "$1"
-
 	if [ -e /tmp/boot_parameter ]; then
 		if grep -qs "debugshell=y" /tmp/boot_parameter; then
 			debugshell=y
@@ -103,15 +102,22 @@ failure ()
 	fi
 
 	if [ "$debugshell" = y ]; then
+		# Ensure the console is prepared for the user interaction
+		run_scripts /scripts/panic
+		test -n "$1" && echo "$1"
 		PS1='(initramfs) ' /bin/sh -i </dev/console >/dev/console 2>&1
 	else
-		echo
-		echo
-		echo "The boot failed. Please contact your system administrator."
-		echo "Add debugshell=y to the boot parameters to get a debug shell."
-		echo
-		echo "Press any key to reboot!"
-		read -n1
+		local msg="The boot failed. Please contact your system administrator."
+		msg="$msg\nAdd debugshell=y to the boot parameters to get a debug shell."
+		msg="$msg\n\nPress any key to reboot!"
+		if plymouth --ping; then
+			plymouth ask-question --prompt="$msg"
+		else
+			echo
+			echo
+			echo -e "$msg"
+			read -n1
+		fi
 	fi
 	reboot
 }
@@ -120,8 +126,13 @@ _verbose_break ()
 {
 	if test "$verbose" = "y"; then
 		set +x
-		echo "Pause. Press return to continue the boot process. Insert shell to start a debug shell: "
-		read shell
+		local msg="Pause. Press return to continue the boot process. Insert shell to start a debug shell:"
+		if plymouth --ping; then
+			shell="$(plymouth ask-question --prompt="$msg")"
+		else
+			echo $msg
+			read shell
+		fi
 		if [ "$shell" = "shell" ]; then
 			. /scripts/functions
 			# Load keyboard drivers
@@ -550,6 +561,31 @@ _check_free_space ()
 	fi
 }
 
+# Helper function to wait for rsync and update plymouth message
+waitForImage() {
+	local pid=$1
+	local msg="$2"
+	while (true); do
+		if kill -0 "$pid" 2>/dev/null; then
+			# still running
+			if [ -e "/tmp/rsync.progress" ] && plymouth --ping; then
+				pg="$(cat /tmp/rsync.progress | tr -d '\r' | grep '%' | awk '{print $(NF-2)}')"
+				plymouth message --text="$msg $pg"
+			fi
+		elif wait "$pid"; then
+			# $pid exited with zero exit status
+			return 0
+		else
+			# $pid exited with non-zero exit status
+			return 1
+		fi
+		sleep 1
+	done
+
+	return 0
+}
+
+
 # Helper function to copy the image from /ucc_tmp/boot_medium/$1 to /ucc_tmp/root/
 # /ucc_tmp/boot_medium/ must be mounted
 _check_and_copy_image ()
@@ -575,8 +611,11 @@ _check_and_copy_image ()
 
 			# A local images does not exist
 			_verbose_break
-			notice "Copy UCC image to local harddisk: "
-			if ! rsync --progress "/ucc_tmp/boot_medium/${img}" /ucc_tmp/root; then
+			local msg="Copy UCC image to local harddisk: "
+			notice "$msg"
+			rsync --progress "/ucc_tmp/boot_medium/${img}" /ucc_tmp/root | tee /tmp/rsync.progress &
+			waitForImage $! "$msg"
+			if [ ! 0 -eq $? ]; then
 				notice "ERROR: Failed to copy ${img}"
 				return 1
 			fi
@@ -872,7 +911,7 @@ _start_dhcpclient()
 	notice "Starting dhcp client"
 
 	ifconfig "$net_dev" up
-	
+
 	if [ "$?" != 0 -a "$UCC" = "overlayfs" ]; then
 		while [ true ]; do
 			notice "Trying to bring up $net_dev"
@@ -884,7 +923,7 @@ _start_dhcpclient()
 			fi
 		done
 	fi
-	
+
 	udhcpc -s /etc/udhcpc/default.script -i "$net_dev" -b
 }
 
@@ -1100,10 +1139,11 @@ ucc_rollout ()
 	modprobe i8042
 	modprobe atkbd
 
-	# Ensure the console is prepared for the user interaction
-	run_scripts /scripts/panic
-
 	if [ ! -e /root/var/univention-join/joined ]; then
+
+		# Ensure the console is prepared for the user interaction
+		run_scripts /scripts/panic
+
 		notice "Joining the UCC client"
 		mount -o move /proc /root/proc
 		# Copy resolv.conf into chroot. If the resolv.conf does
