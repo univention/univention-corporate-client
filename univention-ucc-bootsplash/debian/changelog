@@ -1,3 +1,9 @@
+univention-ucc-bootsplash (1.0.0-3) unstable; urgency=low
+
+  * do not erase message on "normal status" (Bug #28317)
+
+ -- Felix Botner <botner@univention.de>  Mon, 28 Jan 2013 13:05:47 +0100
+
 univention-ucc-bootsplash (1.0.0-2) unstable; urgency=low
 
   * fixed ask and password prompt (Bug #28317)

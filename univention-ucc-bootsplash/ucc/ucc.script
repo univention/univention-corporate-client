@@ -225,8 +225,8 @@ fun display_normal_callback () {
 	if (global.ask) ask_opacity (0);
 
 	# empty message 
-	msg = Image.Text("", 1, 1, 1);
-	message.sprite.SetImage(msg);
+	#msg = Image.Text("", 1, 1, 1);
+	#message.sprite.SetImage(msg);
 
 	# display logo
 	global.logo.sprite.SetOpacity(1.0);
