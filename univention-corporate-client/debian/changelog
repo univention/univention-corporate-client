@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.17-1) unstable; urgency=low
+
+  * added univention-ucc-bootsplash to package dependencies (Bug #28317) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 28 Jan 2013 13:07:02 +0100
+
 univention-corporate-client (1.0.16-1) unstable; urgency=low
 
   * univention-ucc-manage-persistent: if asked to, also add files to

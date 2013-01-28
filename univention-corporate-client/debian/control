@@ -18,6 +18,7 @@ Depends: univention-config,
  univention-ucc-initramfs,
  univention-directory-policy,
  univention-ucc-remote-mount,
+ univention-ucc-bootsplash,
  univention-lightdm,
  alsa-utils
 Description: Metapackage for Univention Corporate Client
