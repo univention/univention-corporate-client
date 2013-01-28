@@ -67,6 +67,10 @@ fun StringToList(string, maxChar) {
 			index++;
 			split = 1;
 		}
+		if (str.CharAt(index) == "\n") {
+			split = 1;
+		}
+
 
 		if (length > maxChar - 4 && str.CharAt(index) == " ")
 			split = 1;
