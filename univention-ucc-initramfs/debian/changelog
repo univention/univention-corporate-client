@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.14-1) precise; urgency=low
+
+  * plymouthfied join (Bug #28317) 
+
+ -- Felix Botner <botner@univention.de>  Tue, 29 Jan 2013 16:40:18 +0100
+
 univention-ucc-initramfs (1.0.13-1) precise; urgency=low
 
   * Update initramfs to allow autojoin to a domain. The required information is

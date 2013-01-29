@@ -63,6 +63,8 @@
 ##		For this interface is dhclient called during the boot (default is eth0)
 ##	- verbose=y
 ##		Start set -x
+##	- splash
+##		is not present, plymouth will be terminated
 
 
 # This message is send to rsyslogd and will be displayed on the console
@@ -566,9 +568,9 @@ waitForImage() {
 	while (true); do
 		if kill -0 "$pid" 2>/dev/null; then
 			# still running
-			if [ -e "/tmp/rsync.progress" ] && plymouth --ping; then
+			if [ -e "/tmp/rsync.progress" ]; then
 				pg="$(cat /tmp/rsync.progress | tr -d '\r' | grep '%' | awk '{print $(NF-2) " (" $NF ")"}')"
-				plymouth message --text="$msg $pg"
+				notice "$msg $pg"
 			fi
 		elif wait "$pid"; then
 			# $pid exited with zero exit status
@@ -611,7 +613,7 @@ _check_and_copy_image ()
 			_verbose_break
 			local msg="Copy UCC image to local harddisk: "
 			notice "$msg"
-			rsync --progress "/ucc_tmp/boot_medium/${img}" /ucc_tmp/root | tee /tmp/rsync.progress &
+			rsync --progress "/ucc_tmp/boot_medium/${img}" /ucc_tmp/root >/tmp/rsync.progress &
 			waitForImage $! "$msg"
 			if [ ! 0 -eq $? ]; then
 				notice "ERROR: Failed to copy ${img}"
@@ -1194,6 +1196,34 @@ ucc_image_ro()
 	
 }
 
+waitForJoin() {
+
+	local pid=$1
+	local infoFile="$2"
+	local msg=""
+
+	while (true); do
+		if kill -0 "$pid" 2>/dev/null; then
+			# still running
+			if [ -e "$infoFile" ] && plymouth --ping; then
+				msg="$(cat $infoFile | tail -1 | tr -d '\033' | sed 's/\[60G/ .../g')"
+				if [ -n "$msg" ]; then
+					notice "$msg"
+				fi
+			fi
+		elif wait "$pid"; then
+			# $pid exited with zero exit status
+			return 0
+		else
+			# $pid exited with non-zero exit status
+			return 1
+		fi
+		sleep 1
+	done
+
+	return 0
+}
+
 # Rollout
 ucc_rollout ()
 {
@@ -1201,12 +1231,52 @@ ucc_rollout ()
 	modprobe i8042
 	modprobe atkbd
 
+	local autojoin="false"
+	local join_user=""
+	local join_password=""
+	local join_domain=""
+	local testdom="$(cat /etc/resolv.conf | grep ^domain | tail -1 | awk '{print $2}')"
+	local joinRetval=0
+	local failedMsg=""
+
 	if [ ! -e /root/var/univention-join/joined ]; then
 
-		# Ensure the console is prepared for the user interaction
-		run_scripts /scripts/panic
+		if ! plymouth --ping; then
+			# Ensure the console is prepared for the user interaction
+			run_scripts /scripts/panic
+		fi
 
 		notice "Joining the UCC client"
+
+		# autojoin
+		if [ -e /root/etc/ucc_join_user -a -e /root/etc/ucc_join_password -a -e /root/etc/ucc_join_domain ]; then
+			autojoin="true"
+			join_user="$(cat /root/etc/ucc_join_user)"
+			join_password="/etc/ucc_join_password"
+			join_domain="$(cat /root/etc/ucc_join_domain)"
+		fi
+
+		# plymouth
+		if [ "$autojoin" = "false" ] && plymouth --ping; then
+			join_domain="$(plymouth ask-question --prompt="Insert domain name of client [$testdom]:")"
+			if [ -z "$join_domain" ]; then
+				join_domain="$testdom"
+			fi
+			join_user="$(plymouth ask-question --prompt="Insert DC Master Account [Administrator]:")"
+			if [ -z "$join_user" ]; then
+			        join_user="Administrator"
+			fi
+			while (true); do
+			        join_password="$(plymouth ask-for-password --prompt="Insert DC Master Password:")"
+			        if [ -n "$join_password" ]; then
+			                break
+			        fi
+			done
+			echo "$join_password" > "/root/tmp/.pass"
+			join_password="/tmp/.pass"
+	
+		fi
+
 		mount -o move /proc /root/proc
 		# Copy resolv.conf into chroot. If the resolv.conf does
 		# not exist, start the network and ignore the output, since
@@ -1217,27 +1287,51 @@ ucc_rollout ()
 			chroot /root /etc/init.d/networking restart >/dev/null 2>&1
 		fi
 
-		rm -f /tmp/ucc_join_failed
-		(	
-			if [ -e /root/etc/ucc_join_user -a -e /root/etc/ucc_join_password -a -e /root/etc/ucc_join_domain ]; then
-				autojoin=true
-				join_userparam="-dcaccount $(cat /root/etc/ucc_join_user)"
-				join_password="-dcpwd /etc/ucc_join_password"
-				join_domain="-domainname $(cat /root/etc/ucc_join_domain)"
-			fi
-			if ! chroot /root sh -c "/usr/sbin/univention-join $join_userparam $join_password $join_domain" 2>&1 ; then
-				mount -o move /root/proc /proc
-				notice "ERROR: Failed to join."
-				touch /tmp/ucc_join_failed
-			else
-				mount -o move /root/proc /proc
-			fi
-			if [ autojoin ]; then
-				rm /root/etc/ucc_join_user /root/etc/ucc_join_password /root/etc/ucc_join_domain
-			fi
-		) | tee /tmp/ucclog
+		# join the system, noninteractive
+		if [ -n "$join_user" -a -n "$join_password" -a -n "$join_domain" ]; then
+			chroot /root /usr/sbin/univention-join \
+				-dcaccount "$join_user" \
+				-dcpwd "$join_password" \
+				-domainname "$join_domain" 2>&1 >/tmp/ucclog &
+			waitForJoin $! "/tmp/ucclog"
+			joinRetval=$?
+		# join the system, interactive
+		else
+			# Ensure the console is prepared for the user interaction
+			run_scripts /scripts/panic
+			chroot /root /usr/sbin/univention-join 2>&1
+			joinRetval=$?
+		fi
+
+		# remove join data
+		if [ -e "/root/$join_password" ]; then
+			rm "/root/$join_password"
+		fi
+		if [ -e "/root/etc/ucc_join_user" ]; then
+			rm "/root/etc/ucc_join_user"
+		fi
+		if [ -e "/root/etc/ucc_join_domain" ]; then
+			rm "/root/etc/ucc_join_domain"
+		fi
+
 		debug "$(cat /tmp/ucclog)"
-		test -e /tmp/ucc_join_failed && failure
+		mount -o move /root/proc /proc
+
+		if [ 0 -eq $joinRetval ]; then
+			notice "Joined successfully"
+		else
+			if [ -e /tmp/ucclog ]; then
+				failedMsg="$(cat /tmp/ucclog | grep '* Message: '| tail -1 | awk -F 'Message: ' '{print $2}')"
+			fi
+
+			if [ -n "$failedMsg" ]; then
+				failedMsg="ERROR: Failed to join. ($failedMsg)"
+			else
+				failedMsg="ERROR: Failed to join."
+			fi
+			notice "$failedMsg"
+			failure
+		fi
 	fi
 }
 
