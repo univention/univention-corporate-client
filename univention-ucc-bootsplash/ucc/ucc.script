@@ -368,7 +368,7 @@ Plymouth.SetDisplayQuestionFunction(question_callback);
 # message 
 message.sprite = Sprite();
 message.sprite.SetPosition(10, 5, 10000);
-message.maxLength = 80;
+message.maxLength = 100;
 
 fun message_callback (text) {
 	if (StringLength(text) > message.maxLength) {
