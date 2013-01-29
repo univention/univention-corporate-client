@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+# Univention UCC Theme - postinst script
+#
+# Copyright 2012-2013 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# The source code of this program is made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this program provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use this program under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+
+#DEBHELPER#
+
+wallpaper_src_dir=/usr/share/wallpapers/Ariya/contents/images
+ksplash_src_dir=/usr/share/kde4/apps/ksplash/Themes/Default
+wallpaper_ucc_dir=/usr/share/wallpapers/UCC/contents/images
+
+# symlinks from kde standard theme to ucc wallpaper
+cd "$wallpaper_ucc_dir"
+for f in *.png
+do
+	ln -s "$wallpaper_ucc_dir/$f" "$wallpaper_src_dir/$f"
+done
+
+# ksplash backgrounds
+ln -s "$wallpaper_ucc_dir/640x480.png" "$ksplash_src_dir/600x400/background.png"
+ln -s "$wallpaper_ucc_dir/800x600.png" "$ksplash_src_dir/800x600/background.png"
+ln -s "$wallpaper_ucc_dir/1024x768.png" "$ksplash_src_dir/1024x768/background.png"
+ln -s "$wallpaper_ucc_dir/1280x1024.png" "$ksplash_src_dir/1280x1024/background.png"
+ln -s "$wallpaper_ucc_dir/1600x1200.png" "$ksplash_src_dir/1600x1200/background.png"
+ln -s "$wallpaper_ucc_dir/1920x1080.png" "$ksplash_src_dir/1920x1080/background.png"
+ln -s "$wallpaper_ucc_dir/1920x1200.png" "$ksplash_src_dir/1920x1200/background.png"
+
+exit 0
