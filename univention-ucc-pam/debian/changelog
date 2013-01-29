@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.2-1) unstable; urgency=low
+
+  * fixed univention-ucc-update-nss (Bug #29190) 
+
+ -- Felix Botner <botner@univention.de>  Tue, 29 Jan 2013 10:38:38 +0100
+
 univention-ucc-pam (1.0.1-1) unstable; urgency=low
 
   * Use ldap/server/addition in /etc/ldap.conf and /etc/ldap/ldap.conf (Bug #22190)

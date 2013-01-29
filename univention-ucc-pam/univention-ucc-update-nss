@@ -63,7 +63,7 @@ for host in $ldap_server_name $addition; do
 		success="true"
 		for type in group passwd; do
 			src="/var/cache/ucc/$type"
-			dest="/var/lib/extrausers/"
+			dest="/var/lib/extrausers/$type"
 			if is_ucr_true "ucc/nss/update/hostspecific"; then
 				src="/var/cache/ucc/$hostname.$type"
 			fi
