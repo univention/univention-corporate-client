@@ -216,7 +216,6 @@ search_device()
 		break	# Use the first device
 	done
 
-	_verbose_break
 }
 
 ## Writes the fastab in the new installed system
@@ -278,7 +277,6 @@ _search_device()
 
 	echo "$(_add_dev $device)"
 
-	_verbose_break
 	return 0
 }
 
@@ -569,7 +567,7 @@ waitForImage() {
 		if kill -0 "$pid" 2>/dev/null; then
 			# still running
 			if [ -e "/tmp/rsync.progress" ] && plymouth --ping; then
-				pg="$(cat /tmp/rsync.progress | tr -d '\r' | grep '%' | awk '{print $(NF-2)}')"
+				pg="$(cat /tmp/rsync.progress | tr -d '\r' | grep '%' | awk '{print $(NF-2) " (" $NF ")"}')"
 				plymouth message --text="$msg $pg"
 			fi
 		elif wait "$pid"; then
@@ -821,6 +819,36 @@ _update_grub ()
 	_verbose_break
 }
 
+waitForPartTimeout () {
+
+	local pid=$1
+	local timeout=$2
+	local waited=0
+
+	while (true); do
+
+		# timeout indicates success
+		if [ $waited -ge $timeout ]; then
+			kill -9 $pid
+			return 0
+		fi
+
+		if kill -0 "$pid" 2>/dev/null; then
+			if plymouth --ping; then
+				plymouth message --text="Starting partitioning in $((timeout-waited)) seconds. Press any key to abort."
+			fi
+		elif wait "$pid"; then
+			return 1
+		else
+			return 1
+		fi
+		waited=$((waited+1))
+		sleep 1
+	done
+
+	return 1
+}
+
 ## Ask if the partiton should be done and start the post installation
 ## configuration
 ucc_installation()
@@ -850,10 +878,28 @@ ucc_installation()
 		if [ -z "$FORCE_PARTITION_TIMEOUT" ]; then
 			FORCE_PARTITION_TIMEOUT=60
 		fi
-		notice "Starting partitioning in $FORCE_PARTITION_TIMEOUT seconds. Press CTRL-C to abort."
-		sleep $FORCE_PARTITION_TIMEOUT
+		
+		local timedout="false"
+		if plymouth --ping; then
+			plymouth watch-keystroke &
+			waitForPartTimeout $! $FORCE_PARTITION_TIMEOUT
+			if [ 0 -eq $? ]; then
+				timedout="true"
+			fi
+		else
+			notice "Starting partitioning in $FORCE_PARTITION_TIMEOUT seconds. Press any to abort."
+			read -t $FORCE_PARTITION_TIMEOUT tmp
+			if [ ! 0 -eq $? ]; then
+				timedout="true"
+			fi
+		fi
+		if [ "$timedout" = "false" ]; then
+			notice "Partitioning aborted by user!"
+			failure
+		fi
 		partition "$partition_device"
 	else
+		echo -e "$continuation_message_top"
 		echo -e "$continuation_message" | sed -e "s|@PARTITION_DEVICE@|$partition_device|g"
 
 		if [ -z "$continuation_dialog" -o -z "$continuation_dialog_no" -o -z "$continuation_dialog_yes" -o -z "$continuation_dialog_error" ]; then
@@ -861,10 +907,13 @@ ucc_installation()
 			failure
 		fi
 
-		local plymsg="$(echo "$continuation_message$continuation_dialog" | sed "s|@PARTITION_DEVICE@|$partition_device|g")"
+		if plymouth --ping; then
+			plymouth message --text="$continuation_message_top"
+		fi
+
+		local plymsg="$(echo "$continuation_message\n$continuation_dialog" | sed "s|@PARTITION_DEVICE@|$partition_device|g")"
 		while true; do
 			echo -ne "$continuation_dialog "
-
 			if plymouth --ping; then
 				# plymouth accepts only 254 characters
 				plymsg="$(echo $plymsg | dd bs=1 skip=0 count=254 2>/dev/null)"
@@ -880,12 +929,14 @@ ucc_installation()
 				partition "$partition_device"
 				break
 			else
-				plymsg="$(echo "$continuation_message$continuation_dialog_error" | sed "s|@PARTITION_DEVICE@|$partition_device|g")"
+				plymsg="$(echo "$continuation_message\n$continuation_dialog_error" | sed "s|@PARTITION_DEVICE@|$partition_device|g")"
 				echo -e "$continuation_dialog_error"
 			fi
 		done
 
 	fi
+
+	_verbose_break
 
 	# Search image
 	ucc_update
@@ -1257,6 +1308,9 @@ check_parameter ()
 		debugshell=)
 			debugshell={x#debugshell=}
 			;;
+		splash*)
+			SPLASH="true"
+			;;
 		esac
 	done
 }
@@ -1276,6 +1330,13 @@ mountroot()
 	udevadm settle # wait for udev
 
 	check_parameter /proc/cmdline
+
+	# stop plymouthd if splash is not set
+	if [ -n "$SPLASH" -a "$SPLASH" = "true" ]; then
+		:
+	else
+		plymouth quit
+	fi	
 
 	test "$verbose" = "y" && set -x
 
