@@ -1,3 +1,9 @@
+univention-ucc-theme (1.0.2-1) unstable; urgency=low
+
+  * Changed KDE and ksplash background images to use a ucc background (Bug #28338)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 29 Jan 2013 11:25:50 +0100
+
 univention-ucc-theme (1.0.1-2) unstable; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)
