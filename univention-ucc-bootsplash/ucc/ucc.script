@@ -46,6 +46,28 @@ status = "normal";
 
 # helper
 
+# remove spaces on the beginning of string
+fun trim(string) {
+
+	local.str = String(string);
+	local.ret = "";
+	local.index = 0;
+	local.beginning = 1;
+
+	while (str.CharAt(index)) {
+		if (str.CharAt(index) == " " && beginning) {
+			beginning = 1;
+		}
+		else {
+			ret = ret + str.CharAt(index);
+			beginning = 0;
+		}
+		index++;
+	}
+
+	return ret;
+}
+
 # wrap line to list of lines with maxChar
 fun StringToList(string, maxChar) {
 
@@ -63,7 +85,7 @@ fun StringToList(string, maxChar) {
 		length = StringLength(substring);
 
 		# respect \n
-		if (str.CharAt(index) == "\\" && str.CharAt(index + 1) == "n") {
+		if (str.CharAt(index) == "\\" && str.CharAt(index + 1) && str.CharAt(index + 1) == "n") {
 			index++;
 			split = 1;
 		}
@@ -76,7 +98,7 @@ fun StringToList(string, maxChar) {
 			split = 1;
 
 		if (split) {
-			list[listPos] = substring;
+			list[listPos] = trim(substring);
 			listPos++;
 			substring = "";
 			split = 0;
@@ -87,7 +109,7 @@ fun StringToList(string, maxChar) {
 		index++;
 	}
 
-	list[listPos] = substring;
+	list[listPos] = trim(substring);
 	return list;
 }
 
@@ -98,24 +120,15 @@ fun StringLength(string) {
 	return index;
 }
 
-ASK_PROMPT_LINES = 6;
+ASK_PROMPT_LINES = 15;
 fun ask_dialog() {
 
-	local.entry;
 	local.text;
 	local.prompt = [];
 
-	entry.image = Image("entry.png");
-
-	entry.sprite = Sprite(entry.image);
-        entry.x = Window.GetX() + Window.GetWidth()  / 2 - entry.image.GetWidth() / 2;
-        entry.y = Window.GetY() + Window.GetHeight() / 2 - entry.image.GetHeight() / 2;
-	entry.z = 10000;
-	entry.sprite.SetPosition(entry.x, entry.y, entry.z);
-
 	for (i=0; i < ASK_PROMPT_LINES; i++) {
-		prompt[i] = Sprite();
-		prompt[i].SetPosition(10, 50 + (20 * i), 10000);
+		prompt[i].sprite = Sprite();
+		prompt[i].sprite.SetPosition(10, 50 + (20 * i), 10000);
 	}
 
 	prompt.setText = fun (string) {
@@ -124,27 +137,35 @@ fun ask_dialog() {
 		local.list = StringToList(string, 80);
 		local.msg;
 		for (i=0; i < ASK_PROMPT_LINES; i++) {
-			if (!list[i]) list[i] = "";
-			msg = Image.Text(list[i], 0, 0, 0);
-			prompt[i].SetImage(msg);
+			if (list[i]) {
+				prompt[i].image = Image.Text(list[i], 0, 0, 0);
+				prompt[i].sprite.SetImage(prompt[i].image);
+				prompt.x = prompt[i].sprite.GetX();
+				prompt.y = prompt[i].sprite.GetY();
+			}
+			else {
+				prompt[i].image = Image.Text("", 0, 0, 0);
+				prompt[i].sprite.SetImage(prompt[i].image);
+			}
 		}
 	};
 
 	text.sprite = Sprite();
 	text.setText = fun (string) {
 		if (!string) string = "";
+		local.prompt = global.ask.prompt;
+		string = "-> " + string;
 		local.text = global.ask.text;
-		local.entry = global.ask.entry;
 		text.image = Image.Text(string, 0, 0, 0);
 		text.sprite.SetImage(text.image);
+		text.sprite.SetOpacity(0.5);
 		text.sprite.SetPosition(
-			entry.x + 3,
-			entry.y + (entry.image.GetHeight() - text.image.GetHeight()) / 2,
-			entry.z + 1
+			prompt.x,
+			prompt.y + 20,
+			10000
 		);
 	};	
 
-	global.ask.entry = entry;
 	global.ask.prompt = prompt;
 	global.ask.text = text;
 	ask_opacity(1);
@@ -210,10 +231,9 @@ fun dialog_opacity(opacity) {
 
 fun ask_opacity(opacity) {
 
-	global.ask.entry.sprite.SetOpacity(opacity);
 	global.ask.text.sprite.SetOpacity(opacity);
 	for (i=0; i < ASK_PROMPT_LINES; i++) {
-		global.ask.prompt[i].SetOpacity(opacity);
+		global.ask.prompt[i].sprite.SetOpacity(opacity);
 	}
 }
 
@@ -228,13 +248,10 @@ fun display_normal_callback () {
 	if (global.dialog) dialog_opacity (0);
 	if (global.ask) ask_opacity (0);
 
-	# empty message 
-	#msg = Image.Text("", 1, 1, 1);
-	#message.sprite.SetImage(msg);
-
 	# display logo
 	global.logo.sprite.SetOpacity(1.0);
 	global.u.sprite.SetOpacity(1.0);
+	global.box.sprite.SetOpacity(1.0);
 }
 
 # the callback function is called when the display should return to normal 
@@ -318,17 +335,17 @@ fun question_callback (prompt, string) {
 	# disbale logo
 	global.logo.sprite.SetOpacity(0.0);
 	global.u.sprite.SetOpacity(0.0);
+	global.box.sprite.SetOpacity(0.0);
 
 	# setup dialog
 	if (!global.ask) ask_dialog();
 	else ask_opacity(1);
 
-	# display text
-	global.ask.text.setText(string);
-
 	# display prompt
 	global.ask.prompt.setText(prompt);
 
+	# display text
+	global.ask.text.setText(string);
 }
 
 # the callback function is called when the display should display a question 
