@@ -38,13 +38,13 @@ u.opacity_angle = 0;
 # internal status
 status = "normal";
 
-
 # to determine the mode of operation plymouth was started in use Plymouth.GetMode 
 # which returns a string of one of: "boot", "shutdown", "suspend", "resume" or unknown. 
 #status = Plymouth.GetMode ();
 
-
-# helper
+##########
+# helper #
+##########
 
 # remove spaces on the beginning of string
 fun trim(string) {
@@ -113,6 +113,7 @@ fun StringToList(string, maxChar) {
 	return list;
 }
 
+# return the length of a string
 fun StringLength(string) {
 	local.index = 0;
 	str = String(string);
@@ -120,6 +121,7 @@ fun StringLength(string) {
 	return index;
 }
 
+# ask-question dialog
 ASK_PROMPT_LINES = 15;
 fun ask_dialog() {
 
@@ -171,6 +173,7 @@ fun ask_dialog() {
 	ask_opacity(1);
 }
 
+# ask password dialog
 PASSWORD_PROMPT_LINES = 6;
 fun dialog_setup() {
 
@@ -216,7 +219,8 @@ fun dialog_setup() {
 	global.dialog.bullet_image = Image("bullet.png");
 	dialog_opacity (1);
 }
-    
+
+# disable|enable password dialog
 fun dialog_opacity(opacity) {
 
 	dialog.lock.sprite.SetOpacity (opacity);
@@ -229,6 +233,7 @@ fun dialog_opacity(opacity) {
 	}
 }
 
+# disable|enable ask question dialog
 fun ask_opacity(opacity) {
 
 	global.ask.text.sprite.SetOpacity(opacity);
@@ -236,6 +241,10 @@ fun ask_opacity(opacity) {
 		global.ask.prompt[i].sprite.SetOpacity(opacity);
 	}
 }
+
+#############
+# callbacks #
+#############
 
 ##########
 # normal #
@@ -283,7 +292,7 @@ fun display_password_callback (prompt, bullets) {
 	for (index = 0; dialog.bullet[index] || index < bullets; index++) {
 		if (!dialog.bullet[index]) {
 			dialog.bullet[index].sprite = Sprite(dialog.bullet_image);
-			dialog.bullet[index].x = dialog.entry.x + index * dialog.bullet_image.GetWidth();
+			dialog.bullet[index].x = dialog.entry.x + 5 + index * dialog.bullet_image.GetWidth();
 			dialog.bullet[index].y = dialog.entry.y + dialog.entry.image.GetHeight() / 2 - dialog.bullet_image.GetHeight() / 2;
 			dialog.bullet[index].z = dialog.entry.z + 1;
 			dialog.bullet[index].sprite.SetPosition(dialog.bullet[index].x, dialog.bullet[index].y, dialog.bullet[index].z);
