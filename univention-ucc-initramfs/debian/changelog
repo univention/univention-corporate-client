@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.13-1) precise; urgency=low
+
+  * Update initramfs to allow autojoin to a domain. The required information is
+    written to the image by ucc-image-set-join-information (Bug #30141)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 29 Jan 2013 14:21:59 +0100
+
 univention-ucc-initramfs (1.0.12-2) precise; urgency=low
 
   * plymouthfied partitioning (Bug #28317) 

@@ -1218,13 +1218,22 @@ ucc_rollout ()
 		fi
 
 		rm -f /tmp/ucc_join_failed
-		(
-			if ! chroot /root /usr/sbin/univention-join 2>&1 ; then
+		(	
+			if [ -e /root/etc/ucc_join_user -a -e /root/etc/ucc_join_password -a -e /root/etc/ucc_join_domain ]; then
+				autojoin=true
+				join_userparam="-dcaccount $(cat /root/etc/ucc_join_user)"
+				join_password="-dcpwd /etc/ucc_join_password"
+				join_domain="-domainname $(cat /root/etc/ucc_join_domain)"
+			fi
+			if ! chroot /root sh -c "/usr/sbin/univention-join $join_userparam $join_password $join_domain" 2>&1 ; then
 				mount -o move /root/proc /proc
 				notice "ERROR: Failed to join."
 				touch /tmp/ucc_join_failed
 			else
 				mount -o move /root/proc /proc
+			fi
+			if [ autojoin ]; then
+				rm /root/etc/ucc_join_user /root/etc/ucc_join_password /root/etc/ucc_join_domain
 			fi
 		) | tee /tmp/ucclog
 		debug "$(cat /tmp/ucclog)"
