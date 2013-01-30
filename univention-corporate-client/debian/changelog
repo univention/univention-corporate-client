@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.18-1) unstable; urgency=low
+
+  * Added new upstart script ucc-ntpdate.conf (Bug #30196)
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 30 Jan 2013 15:02:05 +0100
+
 univention-corporate-client (1.0.17-1) unstable; urgency=low
 
   * added univention-ucc-bootsplash to package dependencies (Bug #28317) 

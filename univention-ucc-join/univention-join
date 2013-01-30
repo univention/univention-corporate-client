@@ -471,6 +471,10 @@ if [ "$interfaces_eth0_type" != "dhcp" ]; then
 	univention-config-registry commit /etc/resolv.conf >>/var/log/univention/join.log 2>&1
 fi
 
+#configure timeserver
+timeserver=$DCNAME
+univention-config-registry set ucc/timeserver="$timeserver" >>/var/log/univention/join.log 2>&1
+
 # update local nss information
 univention-ucc-update-nss
 
@@ -493,7 +497,8 @@ for var in ldap/server/name \
 	lightdm/autologin \
 	xorg/keyboard/options/XkbLayout \
 	locale/default \
-	ucc/timezone
+	ucc/timezone \
+	ucc/timeserver
 do
 	univention-ucc-manage-persistent ucr add "$var" >>/var/log/univention/join.log 2>&1
 done

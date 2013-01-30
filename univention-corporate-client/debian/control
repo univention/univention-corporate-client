@@ -20,7 +20,8 @@ Depends: univention-config,
  univention-ucc-remote-mount,
  univention-ucc-bootsplash,
  univention-lightdm,
- alsa-utils
+ alsa-utils,
+ ntpdate
 Description: Metapackage for Univention Corporate Client
  This package defines dependencies on the various packages
  needed on a Univention Corporate Client system.
