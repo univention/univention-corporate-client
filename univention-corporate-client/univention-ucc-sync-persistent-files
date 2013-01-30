@@ -132,7 +132,7 @@ if opt.sync_to_ucc:
 			
 		vv = []
 		for v in f.readlines():
-			vv.append(string.replace(v, ':', '=', 1))
+			vv.append(string.replace(v, ':', '=', 1).strip())
 		if vv:
 			univention.config_registry.handler_set( vv )
 	else:

@@ -1,3 +1,10 @@
+univention-corporate-client (1.0.19-1) unstable; urgency=low
+
+  * Strip chars that resulted in malformed files from ucr variables 
+    when syncing back to ucc (Bug #29995)
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 30 Jan 2013 16:23:36 +0100
+
 univention-corporate-client (1.0.18-1) unstable; urgency=low
 
   * Added new upstart script ucc-ntpdate.conf (Bug #30196)
