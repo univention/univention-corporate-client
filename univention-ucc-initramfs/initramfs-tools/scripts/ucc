@@ -111,7 +111,7 @@ failure ()
 	else
 		local msg="The boot failed. Please contact your system administrator."
 		msg="$msg\nAdd debugshell=y to the boot parameters to get a debug shell."
-		msg="$msg\n\nPress any key to reboot!"
+		msg="$msg\n\nPress enter to reboot!"
 		if plymouth --ping; then
 			plymouth ask-question --prompt="$msg"
 		else
@@ -128,7 +128,7 @@ _verbose_break ()
 {
 	if test "$verbose" = "y"; then
 		set +x
-		local msg="Pause. Press return to continue the boot process. Insert shell to start a debug shell:"
+		local msg="Pause. Press enter to continue the boot process. Insert shell to start a debug shell:"
 		if plymouth --ping; then
 			shell="$(plymouth ask-question --prompt="$msg")"
 		else
@@ -837,7 +837,7 @@ waitForPartTimeout () {
 
 		if kill -0 "$pid" 2>/dev/null; then
 			if plymouth --ping; then
-				plymouth message --text="Starting partitioning in $((timeout-waited)) seconds. Press any key to abort."
+				plymouth message --text="Starting partitioning in $((timeout-waited)) seconds. Press enter to abort."
 			fi
 		elif wait "$pid"; then
 			return 1
@@ -889,7 +889,7 @@ ucc_installation()
 				timedout="true"
 			fi
 		else
-			notice "Starting partitioning in $FORCE_PARTITION_TIMEOUT seconds. Press any to abort."
+			notice "Starting partitioning in $FORCE_PARTITION_TIMEOUT seconds. Press enter to abort."
 			read -t $FORCE_PARTITION_TIMEOUT tmp
 			if [ ! 0 -eq $? ]; then
 				timedout="true"
