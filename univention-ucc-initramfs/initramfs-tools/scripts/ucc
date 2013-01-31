@@ -745,13 +745,14 @@ _install_grub ()
 	if grep -qs "/boot" /root/etc/fstab; then
 		echo "mount /boot" >>/root/grub-inst.sh
 	fi
+
+	echo "if [ -e '/usr/share/grub/unicode.pf2' ]; then" >>/root/grub-inst.sh
+	echo "cp /usr/share/grub/unicode.pf2 /boot/" >>/root/grub-inst.sh
+	echo "fi" >>/root/grub-inst.sh
+
 	echo "update-grub >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 	echo "grub-install $device >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 	echo "/usr/share/univention-ucc-initramfs/scripts/set-bootable-flag-on-protective-mbr -p $device 2>&1" >>/root/grub-inst.sh
-
-	echo "if [ -e 'usr/share/grub/unicode.pf2' ]; then" >>/root/grub-inst.sh
-	echo "cp usr/share/grub/unicode.pf2 /boot/" >>/root/grub-inst.sh
-	echo "fi" >>/root/grub-inst.sh
 
 	if [ -n "$KEYBOARD" ]; then
 		echo "/usr/sbin/univention-config-registry set xorg/keyboard/options/XkbLayout=$KEYBOARD >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
@@ -1206,7 +1207,7 @@ waitForJoin() {
 		if kill -0 "$pid" 2>/dev/null; then
 			# still running
 			if [ -e "$infoFile" ] && plymouth --ping; then
-				msg="$(cat $infoFile | tail -1 | tr -d '\033' | sed 's/\[60G/ .../g')"
+				msg="$(cat $infoFile | tail -1 | tr -d '\033' | sed 's/\[60G/ ... /g')"
 				if [ -n "$msg" ]; then
 					notice "$msg"
 				fi

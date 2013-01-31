@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.16-1) precise; urgency=low
+
+  * fixed grub-font setting in initramfs/cc (Bug #28317)
+
+ -- Felix Botner <botner@univention.de>  Thu, 31 Jan 2013 15:21:54 +0100
+
 univention-ucc-initramfs (1.0.15-1) precise; urgency=low
 
   * Modified plymouth messages from "press any key" to "press enter" (Bug #28317)
