@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.12-1) unstable; urgency=low
+
+  * Change interfaces/eth0/type to empty string and sync-to-persistent (Bug #30031)
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 31 Jan 2013 10:01:28 +0100
+
 univention-ucc-join (1.1.11-1) unstable; urgency=low
 
   * Set ucc/timeserver during join, server is dc master (Bug #30196)

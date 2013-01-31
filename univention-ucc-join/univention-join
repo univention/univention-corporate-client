@@ -481,8 +481,8 @@ univention-ucc-update-nss
 ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 
 # we are sure that this is not a liveimage because we are joining a domain
-# reset the network interface configuration so that networkmanager can control it
-ucr unset interfaces/eth0/type >>/var/log/univention/join.log 2>&1
+# set interface type to "" ensures that it will be saved persistently. now network-manager can control the interface
+ucr set interfaces/eth0/type="" >>/var/log/univention/join.log 2>&1
 
 for var in ldap/server/name \
 	ldap/master \
@@ -498,7 +498,8 @@ for var in ldap/server/name \
 	xorg/keyboard/options/XkbLayout \
 	locale/default \
 	ucc/timezone \
-	ucc/timeserver
+	ucc/timeserver \
+	interfaces/eth0/type
 do
 	univention-ucc-manage-persistent ucr add "$var" >>/var/log/univention/join.log 2>&1
 done
