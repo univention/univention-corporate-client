@@ -1,3 +1,9 @@
+univention-ucc-application-server (1.0.1-1) unstable; urgency=low
+
+  * use KWIN_COMPOSE=X in KDE session script (Bug #22654) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 31 Jan 2013 14:48:38 +0100
+
 univention-ucc-application-server (1.0.0-23) unstable; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)

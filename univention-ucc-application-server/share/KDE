@@ -80,6 +80,7 @@ fi
 
 # kde
 echo "start remote kde session for user $USER" | logger
+export KWIN_COMPOSE=X
 startkde
 
 # logout/terminate
