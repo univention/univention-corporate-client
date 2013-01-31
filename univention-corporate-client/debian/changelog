@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.19-1.1) unstable; urgency=low
+
+  * Add an additional temporary boot flag when updating a thin client in r/w mode (Bug #28838)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 31 Jan 2013 10:40:58 +0100
+
 univention-corporate-client (1.0.19-1) unstable; urgency=low
 
   * Strip chars that resulted in malformed files from ucr variables 
