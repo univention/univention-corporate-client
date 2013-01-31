@@ -48,6 +48,7 @@ if [ "1" = "$update" ]; then
 		# When running on overlayfs, switch to R/W mode
 		if LC_ALL=C mount | grep -q "on /root-ro"; then
 			/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+			/usr/sbin/univention-ucc-boot-option --write --option swinstreset --value true
 			sync
 			reboot
 		fi
@@ -75,6 +76,7 @@ if [ 1 -eq $rmneeded ]; then
 
     if LC_ALL=C mount | grep -q "on /root-ro"; then
 		/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+		/usr/sbin/univention-ucc-boot-option --write --option swinstreset --value true
 		sync
 		reboot
     fi
@@ -105,6 +107,7 @@ if [ 1 -eq $instneeded ]; then
 
     if LC_ALL=C mount | grep -q "on /root-ro"; then
 		/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+		/usr/sbin/univention-ucc-boot-option --write --option swinstreset --value true
 		sync
 		reboot
     fi
@@ -121,9 +124,13 @@ fi
 # Reset flag that triggers a r/w mount for systems booted with overlayfs
 if ! LC_ALL=C mount | grep -q "on /root-ro"; then
 	if is_ucr_true 'ucc/thinclientoverlayfs'; then
-		/usr/sbin/univention-ucc-boot-option --write --option mount --delete
-		sync
-		reboot
+		resetclient=`/usr/sbin/univention-ucc-boot-option --read --option swinstreset`
+		if [[  -n $resetclient  && "true" = $resetclient ]]; then
+			/usr/sbin/univention-ucc-boot-option --write --option swinstreset --delete
+			/usr/sbin/univention-ucc-boot-option --write --option mount --delete
+			sync
+			reboot
+		fi
 	fi
 fi
 
