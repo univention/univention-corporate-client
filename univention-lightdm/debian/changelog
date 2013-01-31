@@ -1,3 +1,9 @@
+univention-lightdm (1.0.6-1) unstable; urgency=low
+
+  * replaced gtk-greeter with unity-greeter in lightdm.conf (Bug #28896)
+
+ -- Felix Botner <botner@univention.de>  Thu, 31 Jan 2013 13:41:33 +0100
+
 univention-lightdm (1.0.5-2) unstable; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)
