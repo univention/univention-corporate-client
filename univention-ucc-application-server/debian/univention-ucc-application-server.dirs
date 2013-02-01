@@ -1,6 +1,6 @@
 usr/bin
 usr/lib/univention-install
-usr/share/univention-ucc-application-server
+usr/share/univention-ucc-application-server/kde-profile
 usr/share/autostart
 usr/lib/univention-directory-listener/system
 usr/lib/univention-ucc-application-server

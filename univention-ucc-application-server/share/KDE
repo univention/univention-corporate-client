@@ -80,7 +80,10 @@ fi
 
 # kde
 echo "start remote kde session for user $USER" | logger
-export KWIN_COMPOSE=X
+export QT_GRAPHICSSYSTEM="native"
+if [ -n "$ucc_session_remote_profile" -a "$ucc_session_remote_profile" = "true" ]; then
+	export KDEDIRS=/usr/share/univention-ucc-application-server/kde-profile
+fi
 startkde
 
 # logout/terminate

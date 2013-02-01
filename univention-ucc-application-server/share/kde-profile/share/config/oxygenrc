@@ -1,0 +1,15 @@
+[Windeco][$i]
+UseAnimations=false
+AnimationsEnabled=false
+BlendColor=Solid Color
+BlendTitlebarColors[$d]
+ButtonAnimationsEnabled=false
+ShadowAnimationsEnabled=false
+TabAnimationsEnabled=false
+TitleAnimationsEnabled=false
+UseDropShadows=false
+UseOxygenShadows=false
+
+[Style][$i]
+AnimationsEnabled=false
+
