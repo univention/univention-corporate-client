@@ -39,3 +39,9 @@ Description[de]=Definiert das Intervall für die automatische Erzeugung der Cach
 Description[en]=Defines the interval for the automatic generation of the cache file NSS database passwd in cron format, default is every 15 minutes (default: */15 * * * *)
 Type=str
 Categories=system-base
+
+[ucc/session/remote/profile]
+Description[de]=Konfiguriert, ob für eine UCC Remote Session ein angepasstes KDE Profil verwendet wird (default: true)
+Description[en]=Configures whether the UCC remote session is started with a customized KDE profile (default: true)
+Type=str
+Categories=system-base

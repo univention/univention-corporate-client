@@ -44,6 +44,7 @@ univention-config-registry set \
 	nss/passwd/cachefile?yes \
 	nss/passwd/cachefile/invalidate_on_changes?yes \
 	nss/passwd/cachefile/invalidate_interval?"*/15 * * * *" \
+	ucc/session/remote/profile?true \
 	ucc/nss/update=no
 
 call_joinscript 50univention-ucc-application-server.inst

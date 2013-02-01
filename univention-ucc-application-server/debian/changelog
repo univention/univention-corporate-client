@@ -1,3 +1,9 @@
+univention-ucc-application-server (1.0.2-2) unstable; urgency=low
+
+  * added ucc/session/remote/profile?true(Bug #22654) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 01 Feb 2013 13:58:40 +0100
+
 univention-ucc-application-server (1.0.2-1) unstable; urgency=low
 
   * added QT_GRAPHICSSYSTEM and kde profile (Bug #22654) 
