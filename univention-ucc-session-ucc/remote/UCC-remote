@@ -118,7 +118,7 @@ if [ -n "$sessionHost" ]; then
 		if [ -n "$ucc_session_remote_ssh_cipher" ]; then
 			sshOptions+=("$ucc_session_remote_ssh_cipher")
 		else
-			sshOptions+=("arcfour,blowfish-cbc")
+			sshOptions+=("arcfour128")
 		fi
 		if is_ucr_true 'ucc/session/remote/ssh/compression'; then
 			sshOptions+=("-C")

@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (1.0.2-2) unstable; urgency=low
+
+  * changed ucc/session/remote/ssh/cipher default to arcfour128 (Bug #29105) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 01 Feb 2013 16:07:43 +0100
+
 univention-ucc-session-ucc (1.0.2-1) unstable; urgency=low
 
   * added ucc/session/remote/ssh/compression?true and

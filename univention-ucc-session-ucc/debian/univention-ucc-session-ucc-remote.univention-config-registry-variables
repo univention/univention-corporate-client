@@ -29,8 +29,8 @@ Type=bool
 Categories=system-desktop
 
 [ucc/session/remote/ssh/cipher]
-Description[de]=Chiffre für die Verbindung, wenn SSH für die UCC Remote Session verwendet wird (default: arcfour,blowfish-cbc)
-Description[en]=Cipher for the connection if ssh used for the UCC remote session (default: arcfour,blowfish-cbc)
+Description[de]=Chiffre für die Verbindung, wenn SSH für die UCC Remote Session verwendet wird (default: arcfour128)
+Description[en]=Cipher for the connection if ssh used for the UCC remote session (default: arcfour128)
 Type=bool
 Categories=system-desktop
 
