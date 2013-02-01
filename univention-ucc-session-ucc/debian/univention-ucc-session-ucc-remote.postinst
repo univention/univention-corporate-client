@@ -37,6 +37,8 @@
 ucr set \
 	ucc/session/remote/session/timeout?100 \
 	ucc/session/remote/connection/timeout?15 \
-	ucc/session/remote/command?"/usr/share/univention-ucc-application-server/KDE"
+	ucc/session/remote/command?"/usr/share/univention-ucc-application-server/KDE" \
+	ucc/session/remote/ssh/compression?true \
+	ucc/session/remote/ssh/cipher?"arcfour,blowfish-cbc"
 
 exit 0

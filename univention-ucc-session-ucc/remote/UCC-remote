@@ -114,6 +114,15 @@ if [ -n "$sessionHost" ]; then
 	else
 		echo "using ssh x forwarding"
 		sshOptions+=("-X")
+		sshOptions+=("-c")
+		if [ -n "$ucc_session_remote_ssh_cipher" ]; then
+			sshOptions+=("$ucc_session_remote_ssh_cipher")
+		else
+			sshOptions+=("arcfour,blowfish-cbc")
+		fi
+		if is_ucr_true 'ucc/session/remote/ssh/compression'; then
+			sshOptions+=("-C")
+		fi
 	fi
 
 	# start pulseaudio and copy session cookie to terminal server

@@ -1,3 +1,11 @@
+univention-ucc-session-ucc (1.0.2-1) unstable; urgency=low
+
+  * added ucc/session/remote/ssh/compression?true and
+    ucc/session/remote/ssh/cipher?"arcfour,blowfish-cbc" (Bug #29105)
+ 
+
+ -- Felix Botner <botner@univention.de>  Fri, 01 Feb 2013 15:09:52 +0100
+
 univention-ucc-session-ucc (1.0.1-1) unstable; urgency=low
 
   * Removed dependency to removed package univension-session-client (Bug #30022)

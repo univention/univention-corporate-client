@@ -21,3 +21,16 @@ Description[de]=Deaktiviert die Sound-Weiterleitung mit pulseaudio für UCC Term
 Description[en]=If set to true sound redirection with pulseaudio in a UCC terminal server session is disabled (default: none)
 Type=bool
 Categories=system-desktop
+
+[ucc/session/remote/ssh/compression]
+Description[de]=Kompression für alle Daten, wenn SSH für die UCC Remote Session verwendet wird (default: true)
+Description[en]=Requests compression of all data if ssh used for the UCC remote session (default: true)
+Type=bool
+Categories=system-desktop
+
+[ucc/session/remote/ssh/cipher]
+Description[de]=Chiffre für die Verbindung, wenn SSH für die UCC Remote Session verwendet wird (default: arcfour,blowfish-cbc)
+Description[en]=Cipher for the connection if ssh used for the UCC remote session (default: arcfour,blowfish-cbc)
+Type=bool
+Categories=system-desktop
+
