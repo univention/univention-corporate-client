@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.19-2) unstable; urgency=low
+
+  * Fix Upstart jobs (Bug #28838)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 04 Feb 2013 08:23:35 +0100
+
 univention-corporate-client (1.0.19-1.1) unstable; urgency=low
 
   * Add an additional temporary boot flag when updating a thin client in r/w mode (Bug #28838)
