@@ -1,3 +1,9 @@
+univention-ucc-theme (1.0.4-1) unstable; urgency=low
+
+  * Added symlinks for UCC-remote and LXDE session icons (Bug #29906)
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 04 Feb 2013 16:47:24 +0100
+
 univention-ucc-theme (1.0.3-1) unstable; urgency=low
 
   * Changed style to apply to unity-greeter (Bug #29906)
