@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.2-2) unstable; urgency=low
+
+  * Fix Upstart job (Bug #28838)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 04 Feb 2013 08:26:33 +0100
+
 univention-ucc-pam (1.0.2-1) unstable; urgency=low
 
   * fixed univention-ucc-update-nss (Bug #29190) 
