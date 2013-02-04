@@ -1,3 +1,9 @@
+univention-lightdm (1.0.6-5) unstable; urgency=low
+
+  * added logon/logout scripts (Bug #28520) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 04 Feb 2013 12:34:46 +0100
+
 univention-lightdm (1.0.6-4) unstable; urgency=low
 
   * added logon/logout scripts (Bug #28520) 

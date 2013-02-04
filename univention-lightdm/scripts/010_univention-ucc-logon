@@ -35,7 +35,7 @@ wanted="univentionCorporateClientDesktopLogon"
 if [ ! -e "$policy" ]; then
 	exit 0
 fi
-set -x
+
 files="$(cat $policy | grep $wanted | sed -e "s/^$wanted=//" -e 's/"//g')"
 
 # run logon scripts
