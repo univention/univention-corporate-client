@@ -43,6 +43,7 @@ IFS='
 '
 for file in $files; do
 	if [ -x "$file" ]; then
+		echo "Running logout script $file as user $USER" | logger
 		su "$USER" -c "$file"
 	fi
 done
