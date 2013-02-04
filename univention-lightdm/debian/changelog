@@ -1,3 +1,9 @@
+univention-lightdm (1.0.6-2) unstable; urgency=low
+
+  * added logon/logout scripts (Bug #28520) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 04 Feb 2013 12:15:55 +0100
+
 univention-lightdm (1.0.6-1) unstable; urgency=low
 
   * replaced gtk-greeter with unity-greeter in lightdm.conf (Bug #28896)

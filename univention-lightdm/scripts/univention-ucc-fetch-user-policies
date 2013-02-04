@@ -83,12 +83,15 @@ for host in $ldap_server_name $addition; do
 done
 
 
+logonScripts=()
+logoutScripts=()
+
 # create environment file
 if [ -e "$HOME/.ucc-environment" ]; then
 	rm $HOME/.ucc-environment
 fi
 if [ -e "/var/cache/ucc/user-policy-$USER.txt" ]; then
-	cat "/var/cache/ucc/user-policy-$USER.txt" | while read line; do
+	while read line; do
 		var="${line%%=*}"
 		val="${line#*=}"
 		hex="${var#univentionCorporateClientDesktopEnv_entry_hex_}"
@@ -97,7 +100,23 @@ if [ -e "/var/cache/ucc/user-policy-$USER.txt" ]; then
 			echo "$envVar DEFAULT=$val" >> "$HOME/.ucc-environment"
 			chown "$USER" "$HOME/.ucc-environment"
 		fi
-	done
+		if [ "$var" = "univentionCorporateClientDesktopLogon" ]; then
+			val="${val//\"/}"
+			logonScripts+=("$val")
+		fi
+		if [ "$var" = "univentionCorporateClientDesktopLogout" ]; then
+			val="${val//\"/}"
+			logoutScripts+=("$val")
+		fi
+	done < "/var/cache/ucc/user-policy-$USER.txt"
+fi
+
+if [ -n "$logoutScripts" ]; then
+	echo logout DEFAULT=\"${logoutScripts[@]}\" >> "$HOME/.ucc-environment"
+fi
+
+if [ -n "$logonScripts" ]; then
+	echo logon DEFAULT=\"${logonScripts[@]}\" >> "$HOME/.ucc-environment"
 fi
 
 exit 0

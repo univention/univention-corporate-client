@@ -7,3 +7,5 @@ libs/force-user-session usr/share/univention-lightdm/
 univention-lightdm-save-pass /usr/bin
 scripts/univention-ucc-setup-multimonitor /usr/sbin
 scripts/040_univention-ucc-mount-permissions etc/lightdm/session-setup/
+scripts/010_univention-ucc-logout etc/lightdm/session-cleanup/
+scripts/010_univention-ucc-logon etc/lightdm/session-setup/
