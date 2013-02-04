@@ -112,11 +112,11 @@ if [ -e "/var/cache/ucc/user-policy-$USER.txt" ]; then
 fi
 
 if [ -n "$logoutScripts" ]; then
-	echo logout DEFAULT=\"${logoutScripts[@]}\" >> "$HOME/.ucc-environment"
+	echo ucclogout DEFAULT=\"${logoutScripts[@]}\" >> "$HOME/.ucc-environment"
 fi
 
 if [ -n "$logonScripts" ]; then
-	echo logon DEFAULT=\"${logonScripts[@]}\" >> "$HOME/.ucc-environment"
+	echo ucclogon DEFAULT=\"${logonScripts[@]}\" >> "$HOME/.ucc-environment"
 fi
 
 exit 0
