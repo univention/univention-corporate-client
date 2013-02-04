@@ -57,11 +57,13 @@ if [ "true" = "$x11" ]; then
 fi
 
 # login script
-if [ -n "$client_login_script" ]; then
-    if [ -x "$client_login_script" ]; then
-    	echo "Running $client_login_script as user $USER" | logger
-        . "$client_login_script"
-    fi
+if [ -n "$ucclogon" ]; then
+	for file in $ucclogon; do
+		if [ -x "$file" ]; then
+			echo "Running logon script $file as user $USER" | logger
+			$file
+		fi
+	done
 fi
 
 # configure pulseaudio/alsa
@@ -96,11 +98,13 @@ if ! test -z "$DISPLAY"; then
 fi
 
 # logout script
-if [ -n "$client_logout_script" ]; then
-	if [ -x "$client_logout_script" ]; then
-		echo "Running $client_logout_script as user $USER" | logger
-		. "$client_logout_script"
-	fi
+if [ -n "$ucclogout" ]; then
+	for file in $ucclogout; do
+		if [ -x "$file" ]; then
+			echo "Running logout script $file as user $USER" | logger
+			$file
+		fi
+	done
 fi
 
 exit 0
