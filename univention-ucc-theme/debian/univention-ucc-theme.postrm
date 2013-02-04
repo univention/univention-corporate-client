@@ -34,25 +34,34 @@
 wallpaper_src_dir=/usr/share/wallpapers/Ariya
 ksplash_src_dir=/usr/share/kde4/apps/ksplash/Themes/Default
 
-#remove links to ucc wallpapers and remove the divert
-for f in $(find $wallpaper_src_dir -type -l)
-do
-	rm $f
-done
+# remove kde wallpapers (on desktop image)
+if [ "$1" != "upgrade" ]; then
+	if [ -e "$wallpaper_src_dir" ]; then
+		for f in $(find $wallpaper_src_dir -type f -name "*.distrib")
+		do
+			origname=$(echo "$f" | awk '{split($0,a,".distrib"); print a[1]}')
+			if [ ! -e "$origname" ]; then
+				dpkg-divert --quiet --remove --rename $origname
+			fi
+		done
+	fi
+fi
 
-for f in $(find $wallpaper_src_dir -type f -name "*.distrib")
-do
-	origname=$(echo "$f" | awk '{split($0,a,".distrib"); print a[1]}')
-	dpkg-divert --remove --rename $origname
-done
-
-# remove ksplash links to ucc images and remove the divert
-for f in $(find $ksplash_divert_dir -type f -name background.png)
-do
-	#remove links
-	rm $f
-	#remove file divert
-        dpkg-divert --remove --rename $f
-done
+#remove ksplash wallpapers (on desktop image)
+if [ "$1" != "upgrade" ]; then
+	if [ -e "$ksplash_src_dir" ]; then
+		for f in $(find $ksplash_src_dir -type f -name "*.distrib")
+		do
+			origname=$(echo "$f" | awk '{split($0,a,".distrib"); print a[1]}')
+			if [ ! -e "$origname" ]; then
+		        	dpkg-divert --quiet --remove --rename $origname
+			fi
+		done
+	fi
+fi
+ 
+if [ -e "/usr/share/unity-greeter/ubuntu_badge.png.distrib" -a ! -e "/usr/share/unity-greeter/ubuntu_badge.png" ]; then
+	dpkg-divert --quiet --remove --rename /usr/share/unity-greeter/ubuntu_badge.png
+fi
 
 exit 0

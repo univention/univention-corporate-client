@@ -34,14 +34,28 @@
 wallpaper_src_dir=/usr/share/wallpapers/Ariya
 ksplash_src_dir=/usr/share/kde4/apps/ksplash/Themes/Default
 
-for f in $(find $wallpaper_src_dir -type f -not -name metadata.desktop)
-do
-	dpkg-divert --rename $f
-done
+# add kde wallpapers (on desktop image)
+if [ -e "$wallpaper_src_dir" ]; then 
+	for f in $(find $wallpaper_src_dir -type f -not -name metadata.desktop -not -name "*.distrib")
+	do
+		if [ -e "$f" -a ! -e "${f}.distrib" ]; then
+			dpkg-divert --quiet --rename $f
+		fi
+	done
+fi
 
-for f in $(find $ksplash_src_dir -type f -name background.png)
-do
-	dpkg-divert --rename $f
-done
+# add ksplash wallpapers (on desktop image)
+if [ -e "$ksplash_src_dir" ]; then
+	for f in $(find $ksplash_src_dir -type f -name background.png -not -name "*.distrib")
+	do
+		if [ -e "$f" -a ! -e "${f}.distrib" ]; then
+			dpkg-divert --quiet --rename $f
+		fi
+	done
+fi
+
+if [ -e "/usr/share/unity-greeter/ubuntu_badge.png" -a ! -e "/usr/share/unity-greeter/ubuntu_badge.png.distrib" ]; then
+	dpkg-divert --quiet --rename /usr/share/unity-greeter/ubuntu_badge.png
+fi
 
 exit 0

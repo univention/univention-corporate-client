@@ -31,24 +31,6 @@
 
 #DEBHELPER#
 
-wallpaper_src_dir=/usr/share/wallpapers/Ariya/contents/images
-ksplash_src_dir=/usr/share/kde4/apps/ksplash/Themes/Default
-wallpaper_ucc_dir=/usr/share/wallpapers/UCC/contents/images
-
-# symlinks from kde standard theme to ucc wallpaper
-cd "$wallpaper_ucc_dir"
-for f in *.png
-do
-	ln -s "$wallpaper_ucc_dir/$f" "$wallpaper_src_dir/$f"
-done
-
-# ksplash backgrounds
-ln -s "$wallpaper_ucc_dir/640x480.png" "$ksplash_src_dir/600x400/background.png"
-ln -s "$wallpaper_ucc_dir/800x600.png" "$ksplash_src_dir/800x600/background.png"
-ln -s "$wallpaper_ucc_dir/1024x768.png" "$ksplash_src_dir/1024x768/background.png"
-ln -s "$wallpaper_ucc_dir/1280x1024.png" "$ksplash_src_dir/1280x1024/background.png"
-ln -s "$wallpaper_ucc_dir/1600x1200.png" "$ksplash_src_dir/1600x1200/background.png"
-ln -s "$wallpaper_ucc_dir/1920x1080.png" "$ksplash_src_dir/1920x1080/background.png"
-ln -s "$wallpaper_ucc_dir/1920x1200.png" "$ksplash_src_dir/1920x1200/background.png"
+glib-compile-schemas /usr/share/glib-2.0/schemas
 
 exit 0

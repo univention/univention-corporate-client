@@ -1,3 +1,9 @@
+univention-ucc-theme (1.0.3-1) unstable; urgency=low
+
+  * Changed style to apply to unity-greeter (Bug #29906)
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 04 Feb 2013 11:09:38 +0100
+
 univention-ucc-theme (1.0.2-1) unstable; urgency=low
 
   * Changed KDE and ksplash background images to use a ucc background (Bug #28338)

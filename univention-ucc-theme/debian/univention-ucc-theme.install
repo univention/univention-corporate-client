@@ -1,3 +1,5 @@
 *png /usr/share/wallpapers/UCC/contents/images
 metadata.desktop /usr/share/wallpapers/UCC
 gtk.css /usr/share/themes/UCC/gtk-3.0
+20_ucc-unity-greeter.gschema.override /usr/share/glib-2.0/schemas
+UCS_Univention-Corporate-Client_web.png /usr/share/unity-greeter

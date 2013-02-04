@@ -1,4 +1,3 @@
-@define-color bg_color #58595d;
 @define-color entry_bg_color white;
 @define-color text_color_light white;
 @define-color text_color_dark black;
@@ -6,7 +5,6 @@
 @define-color border-light #b0b0b0;
 
 * {
-	background-color: @bg_color;
 	color: @text_color_light;
 }
 
@@ -23,54 +21,61 @@
 	border-bottom-color: @border-light;
 }
 
-/* Normal Button */
 .button {
-	border-width: 2px;
+	border-width: 1px;
 	border-style: solid;
-	border-radius: 0px;
+	border-radius: 4px;
+	padding: 5px;	
 	border-top-color: @border-light;
 	border-left-color: @border-light;
 	border-right-color: @border-dark;
 	border-bottom-color: @border-dark;
 }
 
-/*Pressed Button */
-.button:active {
-	border-width: 2px;
+.lightdm.button{
+	background-image: none;
+	background-color: alpha (black, 0.3);
+	border-radius: 4px;
+	padding: 7px;
+
+	color: alpha (black, 0.3);
+	text-shadow: none;
+
+	-unico-border-gradient: none;
+	-unico-inner-stroke-gradient: none;
+	-unico-inner-stroke-width: 0;
+	-unico-glow-radius: 0;
+	-unico-outer-stroke-color: alpha (white, 0.1);
+	-unico-outer-stroke-gradient: none;
+	-unico-outer-stroke-width: 1px;
+	-unico-focus-border-color: alpha (white, 0.5);
+}
+
+.lightdm.button:focused *,
+.lightdm.button:selected *,
+.lightdm.button:selected:focused * {
+	color: white;
+	-unico-outer-stroke-color: alpha (white, 0.15);
+}
+
+.lightdm.button:active {
+	border-width: 1px;
 	border-style: solid;
-	border-radius: 0px;
+	border-radius: 4px;
 	border-top-color: @border-dark;
 	border-left-color: @border-dark;
 	border-right-color: @border-light;
 	border-bottom-color: @border-light;
 }
 
-GtkComboBox {
-	-GtkWidget-focus-padding:           0;
-	-GtkWidget-focus-line-width:        0;
-	-GtkComboBox-arrow-scaling:         0.5;
-	-GtkComboBox-shadow-type:           none;
-}
-/* small separator between combobox arrow and content */
-GtkComboBox .separator {
-	-GtkWidget-wide-separators:                 true;
-	-GtkWidget-horizontal-separator:    0;
-	-GtkWidget-vertical-separator:              0;
-}
-
-/*GtkTreeMenu.menu {*/
 .menu {
-	padding: 2px;
-	background-color: @bg-color;
-	border-style: solid;
-	border-color: white;
-	border-width: 1px;
+	background-color: alpha (white, 0.122);
 }
 
-/*GtkTreeMenu .menuitem {*/
 .menuitem {
-	border-style: solid;
-	border-width: 0px 0px;
-	border-color: @border-light;
-	background-color: @border-light;
+        border-style: solid;
+        border-width: 0px 0px;
+        border-color: @border-light;
+        background-color: alpha (white, 0.4);
 }
+
