@@ -19,6 +19,7 @@ Depends: univention-config,
  univention-directory-policy,
  univention-ucc-remote-mount,
  univention-ucc-bootsplash,
+ univention-errata-level,
  univention-lightdm,
  alsa-utils,
  ntpdate
