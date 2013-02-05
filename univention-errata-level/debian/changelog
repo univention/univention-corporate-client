@@ -1,0 +1,5 @@
+univention-errata-level (1.0.0-1) unstable; urgency=low
+
+  * Initial release (Bug #28023)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 05 Feb 2013 09:22:00 +0100
