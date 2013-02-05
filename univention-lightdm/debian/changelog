@@ -1,3 +1,9 @@
+univention-lightdm (1.0.9-1) unstable; urgency=low
+
+  * Added light-themes to dependencies (Bug #29906)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 05 Feb 2013 16:34:53 +0100
+
 univention-lightdm (1.0.8-1) unstable; urgency=low
 
   * Added indicator-session to dependencies (Bug #30275)

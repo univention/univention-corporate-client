@@ -5,7 +5,7 @@ draw-user-backgrounds=false
 draw-grid=false
 logo='/usr/share/unity-greeter/UCS_Univention-Corporate-Client_web.png'
 #background-logo=''
-theme-name='UCC'
+theme-name='Ambiance'
 #icon-theme-name=
 #font-name=
 #xft-antialias
