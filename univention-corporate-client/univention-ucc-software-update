@@ -55,6 +55,7 @@ if [ "1" = "$update" ]; then
 
 		plymouth message --text="Installing available software updates" 
 		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes -u dist-upgrade 2>>$logfile 1>>$logfile
+		apt-get clean 2>>$logfile 1>>$logfile
     fi
 fi
 

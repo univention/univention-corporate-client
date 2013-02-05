@@ -1,3 +1,10 @@
+univention-corporate-client (1.0.19-4) unstable; urgency=low
+
+  * Run "apt-get clean" after installing updates to minimise disk space usage
+    (Bug #28838)	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 05 Feb 2013 10:48:24 +0100
+
 univention-corporate-client (1.0.19-3) unstable; urgency=low
 
   * Depend on univention-errata-level (Bug #28023)
