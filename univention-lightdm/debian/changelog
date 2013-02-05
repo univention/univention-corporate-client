@@ -1,3 +1,9 @@
+univention-lightdm (1.0.8-1) unstable; urgency=low
+
+  * Added indicator-session to dependencies (Bug #30275)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 05 Feb 2013 12:03:30 +0100
+
 univention-lightdm (1.0.7-1) unstable; urgency=low
 
   * Hide guest user (Bug #29906)

@@ -17,7 +17,8 @@ Depends: ${misc:Depends},
  univention-policy-tools,
  gconf2,
  univention-ucc-theme,
- x11-xserver-utils
+ x11-xserver-utils,
+ indicator-session 
 Recommends: gnome-icon-theme, univention-ucc-session-firefox, univention-ucc-session-rdp
 Description: UCS - LightDM configuration
  This package integrates the LightDM login manager into 
