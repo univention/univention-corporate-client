@@ -1,3 +1,10 @@
+univention-ucc-initramfs (1.0.17-1) precise; urgency=low
+
+  * Start custom partition script on /dev/console and use the input of
+    /dev/console (Bug #29138)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Tue, 05 Feb 2013 07:30:28 +0100
+
 univention-ucc-initramfs (1.0.16-1) precise; urgency=low
 
   * fixed grub-font setting in initramfs/cc (Bug #28317)
