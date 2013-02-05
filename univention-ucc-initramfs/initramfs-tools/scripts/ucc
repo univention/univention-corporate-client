@@ -298,7 +298,7 @@ partition()
 		# 	- if files should be copied (normally required for /boot), it should be written to /ucc_tmp/copy_files, for example:
 		#		echo "/dev/sda1 ext4 /boot" >>ucc_tmp/root/copy_files
 		#	- On the root device the file /ucc_root_device must be touched
-		if ! /sbin/custom_partition "$1" </dev/console >/dev/console; then
+		if ! /sbin/custom_partition "$1"; then
 			notice "ERROR: /sbin/custom_partition failed."
 			failure
 		fi

@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.17-2) precise; urgency=low
+
+  * Revert last commit (Bug #29138)
+
+ -- Stefan Gohmann <gohmann@univention.de>  Tue, 05 Feb 2013 09:07:51 +0100
+
 univention-ucc-initramfs (1.0.17-1) precise; urgency=low
 
   * Start custom partition script on /dev/console and use the input of
