@@ -21,7 +21,7 @@ Depends: ${misc:Depends},
  indicator-session,
  light-themes,
  ttf-ubuntu-font-family
-Recommends: gnome-icon-theme, univention-ucc-session-firefox, univention-ucc-session-rdp
+Recommends: gnome-icon-theme
 Description: UCS - LightDM configuration
  This package integrates the LightDM login manager into 
  Univention Corporate Client.

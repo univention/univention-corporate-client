@@ -1,3 +1,9 @@
+univention-lightdm (1.0.12-1) unstable; urgency=low
+
+  * removed dep on u-ucc-session-firefox and u-ucc-session-rdp (Bug #30299)
+
+ -- Felix Botner <botner@univention.de>  Wed, 06 Feb 2013 12:11:17 +0100
+
 univention-lightdm (1.0.11-1) unstable; urgency=low
 
   * Added ttf-ubuntu-font-family to dependencies (Bug #29906)
