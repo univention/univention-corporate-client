@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: univention-ucc-session-ucc
 Architecture: all
-Depends: ${shlib:Depends}
+Depends: ${shlib:Depends}, ${misc:Depends}
 Description: UCC session script
  This package provides x session scripts for the
  ucc session.
