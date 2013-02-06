@@ -1,3 +1,10 @@
+univention-ucc-session-ucc (1.0.2-3) unstable; urgency=low
+
+  * do not check servers if there is only one
+  * use ssh cipher arcfour128 (Bug #29105)
+
+ -- Felix Botner <botner@univention.de>  Wed, 06 Feb 2013 10:48:39 +0100
+
 univention-ucc-session-ucc (1.0.2-2) unstable; urgency=low
 
   * changed ucc/session/remote/ssh/cipher default to arcfour128 (Bug #29105) 

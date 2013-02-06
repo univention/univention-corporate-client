@@ -66,21 +66,24 @@ scpOptions+=("-o ConnectTimeout=3")
 scpOptions+=("-o StrictHostKeyChecking=no")
 scpOptions+=("-o BatchMode=yes")
 
-# get session host
-minLoad=999999
-for server in $servers; do
-	myLoad="$(ssh ${scpOptions[@]} "$USER"@"$server" univention-showload 2>/dev/null)"
-	if echo "$myLoad" | rgrep -q '^[0-9]+*'; then 
-		if [ -n "$myLoad" -a "$myLoad" -lt "$minLoad" ]; then
-			minLoad="$myLoad"
-			sessionHost="$server"
+if echo $servers | grep -q '\b \b'; then
+	# get session host
+	minLoad=999999
+	for server in $servers; do
+		myLoad="$(ssh ${scpOptions[@]} "$USER"@"$server" univention-showload 2>/dev/null)"
+		if echo "$myLoad" | rgrep -q '^[0-9]+*'; then 
+			if [ -n "$myLoad" -a "$myLoad" -lt "$minLoad" ]; then
+				minLoad="$myLoad"
+				sessionHost="$server"
+			fi
 		fi
-	fi
-done
+	done
+else
+	sessionHost="$servers"
+fi
 
 # start session
 if [ -n "$sessionHost" ]; then
-
 
 	# ssh options
 	sshOptions=()
