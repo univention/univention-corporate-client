@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (1.0.1-1) unstable; urgency=low
+
+  * added lightdm/sessiondefault?XenApp (Bug #30299) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 06 Feb 2013 11:39:28 +0100
+
 univention-ucc-session-xenapp (1.0.0-7) unstable; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)
