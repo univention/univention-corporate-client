@@ -34,7 +34,9 @@
 
 eval "$(univention-config-registry shell)"
 
-ucr set rdp/checknla?true
-ucr set rdp/ignorecertificate?true
+ucr set \
+	rdp/checknla?true \
+	rdp/ignorecertificate?true \
+	lightdm/sessiondefault?RDP
 
 exit 0
