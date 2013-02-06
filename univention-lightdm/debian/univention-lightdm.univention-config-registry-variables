@@ -23,7 +23,7 @@ Type=str
 Categories=system-desktop
 
 [lightdm/xserver/allowtcp]
-Description[de]=Erlaubt X11-Forwarding über das Netzwerk, die Remote-UCC Session läuft dann nicht über SSH X-Forwarding, sondern über X11 (default: true)
-Description[en]=Allow x11 forwarding via network, the remote ucc session then uses x11 forwarding, not ssh x forwarding (default: true)
+Description[de]=Erlaubt X11-Forwarding über das Netzwerk, die Remote-UCC Session läuft dann nicht über SSH X-Forwarding, sondern über X11 (default: false)
+Description[en]=Allow x11 forwarding via network, the remote ucc session then uses x11 forwarding, not ssh x forwarding (default: false)
 Type=str
 Categories=system-desktop

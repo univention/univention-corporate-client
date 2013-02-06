@@ -43,6 +43,6 @@ if [ ! -L /etc/lightdm/display-setup/010_univention-ucc-setup-multimonitor ]; th
 	ln -s /usr/sbin/univention-ucc-setup-multimonitor /etc/lightdm/display-setup/010_univention-ucc-setup-multimonitor
 fi
 
-univention-config-registry set lightdm/xserver/allowtcp?true
+univention-config-registry set lightdm/xserver/allowtcp?false
 
 exit 0

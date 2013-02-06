@@ -1,3 +1,9 @@
+univention-lightdm (1.0.10-1) unstable; urgency=low
+
+  * changed default lightdm/xserver/allowtcp?false (Bug #22654)
+
+ -- Felix Botner <botner@univention.de>  Wed, 06 Feb 2013 09:57:19 +0100
+
 univention-lightdm (1.0.9-1) unstable; urgency=low
 
   * Added light-themes to dependencies (Bug #29906)
