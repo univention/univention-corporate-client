@@ -1,3 +1,9 @@
+univention-lightdm (1.0.11-1) unstable; urgency=low
+
+  * Added ttf-ubuntu-font-family to dependencies (Bug #29906)
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 06 Feb 2013 10:56:02 +0100
+
 univention-lightdm (1.0.10-1) unstable; urgency=low
 
   * changed default lightdm/xserver/allowtcp?false (Bug #22654)
