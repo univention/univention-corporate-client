@@ -1,3 +1,9 @@
+univention-ucc-application-server (1.0.4-3) unstable; urgency=low
+
+  * fixed last commit (Bug #22654) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 06 Feb 2013 10:42:50 +0100
+
 univention-ucc-application-server (1.0.4-2) unstable; urgency=low
 
   * set sshd/xforwarding=yes only for new installations (Bug #22654) 

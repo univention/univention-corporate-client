@@ -47,8 +47,9 @@ univention-config-registry set \
 
 # new installation
 if [ "$1" = "configure" -a -z "$2" ]; then
-	sshd/xforwarding=yes
-	ucc/nss/update=no
+	univention-config-registry set \
+		sshd/xforwarding=yes \
+		ucc/nss/update=no
 	service ssh reload
 fi
 
