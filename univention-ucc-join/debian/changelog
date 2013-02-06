@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.12-2) unstable; urgency=low
+
+  * Add /etc/resolv.conf to persistent files (Bug #30313)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 06 Feb 2013 16:01:30 +0100
+
 univention-ucc-join (1.1.12-1) unstable; urgency=low
 
   * Change interfaces/eth0/type to empty string and sync-to-persistent (Bug #30031)
