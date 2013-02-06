@@ -36,7 +36,6 @@
 
 univention-config-registry set \
 	sshd/clientAliveInterval?100 \
-	sshd/xforwarding=yes \
 	nss/group/cachefile?yes \
 	nss/group/cachefile/invalidate_on_changes?yes \
 	nss/group/cachefile/invalidate_interval?"*/15 * * * *" \
@@ -44,8 +43,14 @@ univention-config-registry set \
 	nss/passwd/cachefile?yes \
 	nss/passwd/cachefile/invalidate_on_changes?yes \
 	nss/passwd/cachefile/invalidate_interval?"*/15 * * * *" \
-	ucc/session/remote/profile?true \
+	ucc/session/remote/profile?true
+
+# new installation
+if [ "$1" = "configure" -a -z "$2" ]; then
+	sshd/xforwarding=yes
 	ucc/nss/update=no
+	service ssh reload
+fi
 
 call_joinscript 50univention-ucc-application-server.inst
 
@@ -53,7 +58,6 @@ if [ -n "$(pidof univention-directory-listener)" ]; then
 	initctl restart univention-directory-listener
 fi
 
-service ssh reload
 service dbus reload
 
 exit 0
