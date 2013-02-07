@@ -499,6 +499,9 @@ for var in ldap/server/name \
 	locale/default \
 	ucc/timezone \
 	ucc/timeserver \
+	nameserver1 \
+	nameserver2 \
+	nameserver3 \
 	interfaces/eth0/type
 do
 	univention-ucc-manage-persistent ucr add "$var" >>/var/log/univention/join.log 2>&1
@@ -518,7 +521,6 @@ for f in /etc/univention/ssl/ucsCA/CAcert.pem \
 	/etc/univention/ssl/$HNAME.$DOMAINNAME/private.key \
 	/etc/univention/ssl/$HNAME.$DOMAINNAME/req.pem \
 	/etc/fstab \
-	/etc/resolv.conf \
 	/var/cache/.security.db
 do
 	univention-ucc-manage-persistent file add "$f" >>/var/log/univention/join.log 2>&1
