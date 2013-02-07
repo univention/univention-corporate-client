@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.20-1) unstable; urgency=low
+
+  * moved local/keyboard configuration from ucc-base to ucc-syspol (Bug #28985)
+
+ -- Felix Botner <botner@univention.de>  Thu, 07 Feb 2013 11:35:16 +0100
+
 univention-corporate-client (1.0.19-4) unstable; urgency=low
 
   * Run "apt-get clean" after installing updates to minimise disk space usage
