@@ -1,3 +1,10 @@
+univention-ucc-session-xenapp (1.0.1-2) unstable; urgency=low
+
+  * Start metacity instead of openbox to support dual monitor (Bug #30356)
+  * Fix the link to the greeter login button
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 08 Feb 2013 13:05:14 +0100
+
 univention-ucc-session-xenapp (1.0.1-1) unstable; urgency=low
 
   * added lightdm/sessiondefault?XenApp (Bug #30299) 
