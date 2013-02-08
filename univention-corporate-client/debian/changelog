@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.20-3) unstable; urgency=low
+
+  * added ucc-syspol-timeout (Bug #28985) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 08 Feb 2013 11:18:52 +0100
+
 univention-corporate-client (1.0.20-2) unstable; urgency=low
 
   * fixed last commit (Bug #28985) 

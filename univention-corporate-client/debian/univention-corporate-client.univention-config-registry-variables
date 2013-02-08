@@ -9,3 +9,9 @@ Description[de]=Anzahl hundertstel-Sekunden bis Daten im Cache als veraltet gelt
 Description[en]=Number of centiseconds until cached data is marked to be written to disk
 Type=str
 Categories=system-desktop
+
+[ucc/syspol/timeout]
+Description[de]=Timeout in Sekunden für den upstart Job ucc-syspol, falls das Netzwerk nicht gestartet werden kann (default: 10)
+Description[en]=Timeout in seconds for upstart job ucc-syspol if the network can not be started (default: 10)
+Type=str
+Categories=system-desktop
