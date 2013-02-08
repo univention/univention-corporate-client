@@ -44,7 +44,7 @@ fi
 eval "$(/usr/sbin/univention-config-registry shell)"
 
 if [ -z "$citrix_windowmanager_disabled" -o "$citrix_windowmanager_disabled" = "no" ]; then
-	/usr/bin/openbox &
+	/usr/bin/metacity &
 fi
 
 if [ ! -e /opt/Citrix/ICAClient ]; then
