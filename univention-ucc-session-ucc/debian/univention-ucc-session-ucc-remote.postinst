@@ -40,6 +40,6 @@ ucr set \
 	ucc/session/remote/command?"/usr/share/univention-ucc-application-server/KDE" \
 	ucc/session/remote/ssh/compression?true \
 	ucc/session/remote/ssh/cipher?"arcfour128" \
-	lightdm/sessiondefault?UCC-Remote
+	lightdm/sessiondefault?UCC-remote
 
 exit 0

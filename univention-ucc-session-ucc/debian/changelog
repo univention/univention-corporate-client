@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (1.0.3-3) unstable; urgency=low
+
+  * fixed lightdm/sessiondefault?UCC-remote (Bug #30299)
+
+ -- Felix Botner <botner@univention.de>  Fri, 08 Feb 2013 12:25:08 +0100
+
 univention-ucc-session-ucc (1.0.3-2) unstable; urgency=low
 
   * fixed control (Bug #30299) 
