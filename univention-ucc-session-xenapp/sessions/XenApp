@@ -43,6 +43,8 @@ fi
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
+export WFICA_OPTS="-span a"
+
 if [ -z "$citrix_windowmanager_disabled" -o "$citrix_windowmanager_disabled" = "no" ]; then
 	/usr/bin/metacity &
 fi
