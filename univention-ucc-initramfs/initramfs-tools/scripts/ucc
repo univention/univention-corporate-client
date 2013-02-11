@@ -1336,6 +1336,15 @@ ucc_rollout ()
 	fi
 }
 
+set_boot_variant ()
+{
+	# Reset the boot flag for this client
+	if ! chroot /root /usr/share/univention-ucc-initramfs/scripts/set_boot_variant.sh none >/tmp/ucclog 2>&1; then
+		debug "$(cat /tmp/ucclog)"
+	fi
+}
+
+
 get_boot_mount_option ()
 {
 	# Read  the boot mount option ro or rw from mounted image
@@ -1496,6 +1505,7 @@ mountroot()
 		# The kernel might be upgraded during the image update
 		_update_grub
 		ucc_rollout
+		set_boot_variant
 	elif [ "$UCC" = "overlayfs" ]; then
 		notice "Starting UCC overlayfs mode"
 		ucc_image_ro
