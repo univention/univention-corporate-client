@@ -1,3 +1,9 @@
+univention-lightdm (1.0.13-1) unstable; urgency=low
+
+  * Changed theme dependency from light-themes to gnome-themes-standard (Bug #30359)
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 11 Feb 2013 12:27:38 +0100
+
 univention-lightdm (1.0.12-1) unstable; urgency=low
 
   * removed dep on u-ucc-session-firefox and u-ucc-session-rdp (Bug #30299)

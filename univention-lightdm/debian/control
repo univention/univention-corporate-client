@@ -19,7 +19,7 @@ Depends: ${misc:Depends},
  univention-ucc-theme,
  x11-xserver-utils,
  indicator-session,
- light-themes,
+ gnome-themes-standard,
  ttf-ubuntu-font-family
 Recommends: gnome-icon-theme
 Description: UCS - LightDM configuration
