@@ -10,3 +10,4 @@ ucc.sh /usr/share/univention-lib
 ucc-archive-key.gpg /usr/share/keyrings
 univention-ucc-fetch-system-policies usr/sbin
 univention-ucc-software-update usr/sbin
+000ucc etc/network/if-up.d/

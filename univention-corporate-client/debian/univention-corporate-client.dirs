@@ -2,3 +2,4 @@ usr/sbin
 etc/init
 usr/share/univention-lib
 usr/share/keyrings
+etc/network/if-up.d
