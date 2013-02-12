@@ -1,3 +1,9 @@
+univention-ucc-theme (1.0.6-2) unstable; urgency=low
+
+  * Slightly trim UCC logo in login theme
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 12 Feb 2013 15:53:21 +0100
+
 univention-ucc-theme (1.0.6-1) unstable; urgency=low
 
   * Changed gtk theme to Adwaita (Bug #30359)
