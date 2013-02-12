@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.21-4) unstable; urgency=low
+
+  * disabled ifup script (Bug #29880) 
+
+ -- Felix Botner <botner@univention.de>  Tue, 12 Feb 2013 16:21:37 +0100
+
 univention-corporate-client (1.0.21-3) unstable; urgency=low
 
   * added ifup script for resolv.conf handling (Bug #29880)

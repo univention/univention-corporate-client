@@ -38,8 +38,8 @@ if [ "$IFACE" = lo ]; then
 	exit 0
 fi
 
-# DHCP4_DOMAIN_NAME -> domain name
-# DHCP4_DOMAIN_NAME_SERVERS | IP4_NAMESERVERS -> nameservers
+# DHCP4_DOMAIN_NAME
+# DHCP4_DOMAIN_NAME_SERVERS | IP4_NAMESERVERS
 # DHCP4_IP_ADDRESS -> ip
 # DHCP4_ROUTERS -> gateway
 # DHCP4_SUBNET_MASK
@@ -47,17 +47,17 @@ fi
 # DHCP4_BROADCAST_ADDRESS
 # ...
 
-nscounter=1
-for NS in $IP4_NAMESERVERS; do
-	if [ $nscounter -gt 3 ]; then
-		break
-	fi
-	value="${value} nameserver${nscounter}=$NS"
-	nscounter=$((nscounter+1))
-done
-
-if [ -n "$value" ]; then
-	ucr set $value
-fi
+#nscounter=1
+#for NS in $IP4_NAMESERVERS; do
+#	if [ $nscounter -gt 3 ]; then
+#		break
+#	fi
+#	value="${value} nameserver${nscounter}=$NS"
+#	nscounter=$((nscounter+1))
+#done
+#
+#if [ -n "$value" ]; then
+#	ucr set $value
+#fi
 
 exit 0
