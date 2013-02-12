@@ -32,7 +32,7 @@
 # force user session
 if [ -e /usr/share/univention-lightdm/force-user-session ]; then
     if [ -n "$1" ]; then
-		if ["$1" = "skipforce" ]; then
+		if [ "$1" == "skipforce" ]; then
 			echo "Session already forced"
 		fi
     else
@@ -41,6 +41,7 @@ if [ -e /usr/share/univention-lightdm/force-user-session ]; then
 fi
 
 . /usr/share/univention-lib/all.sh
+. /usr/share/univention-lib/ucc.sh
 
 function cleanup_and_exit {
     if test -e /tmp/password-store-$USER; then
@@ -129,7 +130,7 @@ fi
 if [ -n "$rdp_domainname" ]; then
     params+=(-d "$rdp_domainname")
 else
-    policy_windows_domain=`grep -A 1 univentionCorporateClientUserWindowsDomain /var/cache/ucc/user-policy-"$USER".txt  | grep univentionCorporateClientUserWindowsDomain | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//;s/^\"//;s/\"$//' `
+	policy_windows_domain=`get_user_policy_var univentionCorporateClientUserWindowsDomain` 
 
 if [ -z "$policy_windows_domain" ]; then
 	echo "Use a local workstation login and not a domain login"
@@ -154,7 +155,7 @@ if [ -n "$rdp_additionaloptions" ]; then
        params+=("$rdp_additionaloptions")
 fi
 
-policy_windows_ts=`grep -A 1 univentionCorporateClientUserWindowsTerminalserver /var/cache/ucc/user-policy-"$USER".txt  | grep univentionCorporateClientUserWindowsTerminalserver | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
+policy_windows_ts=`get_user_policy_var univentionCorporateClientUserWindowsTerminalserver` 
 
 server=""
 if [ -n "$policy_windows_ts" ]; then
@@ -188,7 +189,6 @@ fi
 messageFile=$(mktemp)
 echo "Could not contact terminal server" "$server"  > "$messageFile:"
 
-echo /usr/bin/xfreerdp "${params[@]}" $server > /tmp/call
 /usr/bin/xfreerdp "${params[@]}" $server 1>> "$messageFile"
 ret=$?
 
