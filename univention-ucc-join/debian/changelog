@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.14-1) unstable; urgency=low
+
+  * use dnsmasq nameserver 127.0.0.1 as default (Bug #29880) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 13 Feb 2013 09:49:55 +0100
+
 univention-ucc-join (1.1.13-1) unstable; urgency=low
 
   * Added nameserver{1,2,3} to persistent ucr variables (Bug #30313)

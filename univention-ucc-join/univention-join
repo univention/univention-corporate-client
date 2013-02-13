@@ -163,16 +163,6 @@ fi
 # Save the current domain in $testdomain
 testdomain="$(cat /etc/resolv.conf  | sed -ne 's|^domain\t* *||p')"
 
-# If the nameserver was only set via dhcp, the ucr set domainname command will
-# overwrite the /etc/resolv.conf.
-# So, let's check if the nameserver variables are empty and set them to the nameserver
-# values from the current /etc/resolv.conf
-cat /etc/resolv.conf | sed -ne 's|^nameserver ||p' | while read ns; do
-	test -z "$(ucr get nameserver1)" && ucr set nameserver1="$ns" >>/var/log/univention/join.log 2>&1 && continue
-	test -z "$(ucr get nameserver2)" && ucr set nameserver2="$ns" >>/var/log/univention/join.log 2>&1 && continue
-	test -z "$(ucr get nameserver3)" && ucr set nameserver3="$ns" >>/var/log/univention/join.log 2>&1 && continue
-done
-
 if [ -z "$DOMAINNAME" ]; then
 	echo -n "Insert domain name of client [$testdomain]: "
 	read DOMAINNAME
@@ -212,21 +202,8 @@ if [ -z "$DCNAME" ]; then
 	DCNAME=`host -t SRV _domaincontroller_master._tcp.$DOMAINNAME | grep -v "not found" | grep -v "reached" | tail -1 | sed -e 's|.* ||g' | sed -e 's|\.$||'`
 	if [ -n "$DCNAME" ]; then
 		echo -e "\033[60Gdone"
-	else
-		for i in "$nameserver" "$nameserver1" "$nameserver2" "$nameserver3" "$dns_forwarder1" "$dns_forwarder2" "$dns_forwarder3"; do
-			if [ -z "$i" ]; then continue; fi
-			DCNAME=`host -t SRV _domaincontroller_master._tcp.$DOMAINNAME $i | grep -v "not found" | grep -v "reached" | tail -1 | sed -e 's|.* ||g' | sed -e 's|\.$||'`
-			if [ -n "$DCNAME" ]; then
-				echo -e "\033[60Gdone"
-				echo "domain $DOMAINNAME" >/etc/resolv.conf
-				echo "nameserver $i" >>/etc/resolv.conf
-				test -x /etc/init.d/nscd && /etc/init.d/nscd restart >>/var/log/univention/join.log 2>&1
-				break
-			fi
-		done
 	fi
 fi
-
 
 if [ -z "$DCNAME" ]; then
 	failed_message "missing dns service record for _domaincontroller_master._tcp.$DOMAINNAME. Please verify whether the 'nameserver entry' /etc/resolv.conf points to a UCS DNS server"
@@ -484,6 +461,9 @@ ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 # set interface type to "" ensures that it will be saved persistently. now network-manager can control the interface
 ucr set interfaces/eth0/type="" >>/var/log/univention/join.log 2>&1
 
+# use dnsmasq (127.0.0.1) as default nameserver
+ucr set nameserver1="127.0.0.1" >>/var/log/univention/join.log 2>&1
+
 for var in ldap/server/name \
 	ldap/master \
 	ldap/base \
@@ -502,7 +482,12 @@ for var in ldap/server/name \
 	nameserver1 \
 	nameserver2 \
 	nameserver3 \
-	interfaces/eth0/type
+	interfaces/eth0/type \
+	interfaces/eth0/address \
+	interfaces/eth0/broadcast \
+	interfaces/eth0/ipv6/acceptRA \
+	interfaces/eth0/netmask \
+	interfaces/eth0/network
 do
 	univention-ucc-manage-persistent ucr add "$var" >>/var/log/univention/join.log 2>&1
 done
