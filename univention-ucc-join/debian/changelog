@@ -1,3 +1,10 @@
+univention-ucc-join (1.1.14-2) unstable; urgency=low
+
+  * set domainname at the end of the join to
+    avoid losing the resolv.conf information (Bug #29880)
+
+ -- Felix Botner <botner@univention.de>  Wed, 13 Feb 2013 10:26:39 +0100
+
 univention-ucc-join (1.1.14-1) unstable; urgency=low
 
   * use dnsmasq nameserver 127.0.0.1 as default (Bug #29880) 
