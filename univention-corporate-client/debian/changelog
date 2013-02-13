@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.21-6) unstable; urgency=low
+
+  * Configure thin client writeback intervals in lightdm session script (Bug #30421)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 13 Feb 2013 14:29:04 +0100
+
 univention-corporate-client (1.0.21-5) unstable; urgency=low
 
   * removed ifup script (Bug #29880) 
