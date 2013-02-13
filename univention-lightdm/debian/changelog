@@ -1,3 +1,9 @@
+univention-lightdm (1.0.13-2) unstable; urgency=low
+
+  * Configure thin client writeback intervals in lightdm session script (Bug #30421)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 13 Feb 2013 14:26:52 +0100
+
 univention-lightdm (1.0.13-1) unstable; urgency=low
 
   * Changed theme dependency from light-themes to gnome-themes-standard (Bug #30359)

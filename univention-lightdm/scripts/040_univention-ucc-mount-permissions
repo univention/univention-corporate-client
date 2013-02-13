@@ -1,7 +1,8 @@
 #!/bin/sh
 #
 # Univention Corporate Client
-#   manage /run/drives/ permissions
+#   manage /run/drives/ permissions and configure short writeback intervals for
+#   USB storage attached to thin clients
 #
 # Copy region information to user home
 #
@@ -37,5 +38,13 @@ if [ ! -d /run/drives ]; then
 fi
 chmod 700 /run/drives
 chown "$USER" /run/drives
+
+ucc_thinclient_short_expire=`/usr/sbin/univention-config-registry get ucc/sysctl/dirtyexpiredcentisecs`
+ucc_thinclient_short_writeback=`/usr/sbin/univention-config-registry get ucc/sysctl/dirtywritebackcentisecs`
+
+if [ -n "$ucc_thinclient_short_expire" -a -n "$ucc_thinclient_short_writeback" ]; then
+	echo $ucc_thinclient_short_expire > /proc/sys/vm/dirty_expire_centisecs
+	echo $ucc_thinclient_short_writeback > /proc/sys/vm/dirty_writeback_centisecs
+fi
 
 exit 0
