@@ -1,3 +1,11 @@
+univention-ucc-initramfs (1.0.19-1) precise; urgency=low
+
+  * copy dhcp resolv.conf to image and
+    commit /root/etc/resolv.conf at the end of the main
+    initrd script (Bug #29880) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 13 Feb 2013 10:04:18 +0100
+
 univention-ucc-initramfs (1.0.18-1) precise; urgency=low
 
   * Re-added set_boot_variant to remove the update flag after the update

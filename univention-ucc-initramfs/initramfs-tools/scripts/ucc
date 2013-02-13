@@ -667,6 +667,13 @@ _mount_image ()
 		fi
 		mkdir -p /root/ucc_root
 		mount -o move /ucc_tmp/root /root/ucc_root
+
+		# copy dhcp resolv.conf settings to the image, so we
+		# we have proper dns settings for "chroot /root do something"
+		if [ -e /etc/resolv.conf ] && cat /etc/resolv.conf | grep -q nameserver; then
+			cp /etc/resolv.conf /root/etc/
+		fi
+
 		return 0
 	else
 		mount -t tmpfs tmpfs-root /ucc_tmp/root-rw
@@ -992,17 +999,13 @@ _start_dhcpclient()
 	udhcpc -s /etc/udhcpc/default.script -i "$net_dev" -b
 }
 
-# start the network depending on the configuration in the image
-_start_network()
+# start the static network
+_start_static_network()
 {
 	# Image is mounted as /ucc_tmp/root
 	chroot /root /usr/sbin/ucr --shell search interfaces gateway nameserver>/tmp/ucr_interfaces
 	cat /tmp/ucr_interfaces | while read line; do
-		if [ -n "$(echo $line | grep _type=dhcp)" ]; then
-			iface="$(echo $line | sed -e 's|interfaces_\(.*\)_type=.*|\1|')"
-			ifconfig "${iface}" up
-			udhcpc -s /etc/udhcpc/default.script -i "${iface}" -b
-		elif [ -n "$(echo $line | grep _address=)" ]; then
+		if [ -n "$(echo $line | grep _address=)" ]; then
 			iface="$(echo $line | sed -e 's|interfaces_\(.*\)_address=.*|\1|')"
 			addr=$(cat /tmp/ucr_interfaces | sed -ne "s|interfaces_${iface}_address=||p")
 			mask=$(cat /tmp/ucr_interfaces | sed -ne "s|interfaces_${iface}_netmask=||p")
@@ -1068,7 +1071,7 @@ ucc_update()
 			if [ -e /root/var/univention-join/joined ]; then
 				# The system is joined. An image upgrade 
 				# is possible. So dive into the image and boot
-				if _start_network; then
+				if _start_static_network; then
 					start_upgrade_script
 				fi
 			fi
@@ -1535,4 +1538,9 @@ mountroot()
 
 	stop_remote_logging
 
+	# until here the dhcp|previous resolv.conf is used, from
+	# now on the UCR resolv.conf (if the system is joined)
+	if [ -e /root/var/univention-join/joined ]; then
+		chroot /root /usr/sbin/ucr commit /etc/resolv.conf
+	fi
 }
