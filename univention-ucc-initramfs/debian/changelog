@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.19-2) precise; urgency=low
+
+  * add timeout to dhcp resolv.conf in initrd (Bug #30434) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 14 Feb 2013 11:27:06 +0100
+
 univention-ucc-initramfs (1.0.19-1) precise; urgency=low
 
   * copy dhcp resolv.conf to image and
