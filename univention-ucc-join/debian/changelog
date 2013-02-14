@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.15-1) unstable; urgency=low
+
+  * reverted "set domainname at the end of the join" (Bug #29880) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 14 Feb 2013 14:32:03 +0100
+
 univention-ucc-join (1.1.14-2) unstable; urgency=low
 
   * set domainname at the end of the join to

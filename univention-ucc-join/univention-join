@@ -168,7 +168,9 @@ if [ -z "$DOMAINNAME" ]; then
 	read DOMAINNAME
 	test -z "$DOMAINNAME" && DOMAINNAME="$testdomain"
 fi
-    
+
+ucr set domainname="$DOMAINNAME" >>/var/log/univention/join.log 2>&1
+
 if [ -z "$DCACCOUNT" ]; then
 	echo -n "Insert DC Master Account [Administrator] : "
 	read DCACCOUNT
@@ -461,8 +463,6 @@ ucr set interfaces/eth0/type="" >>/var/log/univention/join.log 2>&1
 
 # use dnsmasq (127.0.0.1) as default nameserver
 ucr set nameserver1="127.0.0.1" >>/var/log/univention/join.log 2>&1
-
-ucr set domainname="$DOMAINNAME" >>/var/log/univention/join.log 2>&1
 
 for var in ldap/server/name \
 	ldap/master \
