@@ -1,3 +1,9 @@
+univention-lightdm (1.0.14-2) unstable; urgency=low
+
+  * improved force-user-session (Bug #30420)
+
+ -- Felix Botner <botner@univention.de>  Tue, 02 Apr 2013 17:14:51 +0200
+
 univention-lightdm (1.0.14-1) unstable; urgency=low
 
   * Improved ucr variable descriptions (Bug #30933) 

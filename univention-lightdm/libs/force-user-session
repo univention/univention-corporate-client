@@ -31,7 +31,10 @@
 
 if [ -e /var/cache/ucc/fixed-session-"$USER".txt ]; then
 	session=`cat /var/cache/ucc/fixed-session-"$USER".txt`
-	if [ -x "/usr/share/xsessions/$session" ]; then
+	if [ "LXDE" = "$session" -a -x /usr/bin/startlxde ]; then
+		/usr/bin/startlxde skipforce
+		exit
+	elif [ -x "/usr/share/xsessions/$session" ]; then
 		/usr/share/xsessions/$session skipforce
 		exit
 	fi
