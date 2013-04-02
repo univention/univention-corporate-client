@@ -1,18 +1,18 @@
 [lightdm/autologin]
-Description[de]=Aktiviert die automatische Anmeldung
-Description[en]=Activates automatic login at the display manager
+Description[de]=Aktiviert die automatische Anmeldung mit einem Gastbenutzer (Standard: false)
+Description[en]=Activates automatic login with a guest user (default: false)
 Type=bool
 Categories=system-desktop
 
 [lightdm/autologin/session]
-Description[de]=Das für die automatische Anmeldung zu verwendende Anmeldeskript (Name der .deskop-Datei unter /usr/share/xsessions, Standard: LXDE)
-Description[en]=The session script to be used for automatic logins (Name of .deskop-Datei below /usr/share/xsessions, Standard: LXDE)
+Description[de]=Das für die automatische Anmeldung zu verwendende Anmeldeskript (Name der .desktop-Datei unter /usr/share/xsessions)
+Description[en]=The session script to be used for automatic logins (Name of .desktop file in /usr/share/xsessions)
 Type=str
 Categories=system-desktop
 
 [lightdm/sessiondefault]
-Description[de]=Die Voreinstellung für die Sitzung bei der interaktiven Benutzeranmeldung
-Description[en]=The default session in inactive user logins
+Description[de]=Das bei der ersten interaktiven Anmeldung eines Benutzers voreingestellte Anmeldeskript (Name der .desktop-Datei unter /usr/share/xsessions)
+Description[en]=The default session script for a user's first interactive login (Name of .desktop file in /usr/share/xsessions)
 Type=str
 Categories=system-desktop
 
@@ -23,7 +23,7 @@ Type=str
 Categories=system-desktop
 
 [lightdm/xserver/allowtcp]
-Description[de]=Erlaubt X11-Forwarding über das Netzwerk, die Remote-UCC Session läuft dann nicht über SSH X-Forwarding, sondern über X11 (default: false)
+Description[de]=Erlaubt X11-Forwarding über das Netzwerk, die Remote-UCC Session läuft dann nicht über SSH X-Forwarding, sondern über X11 (Standard: false)
 Description[en]=Allow x11 forwarding via network, the remote ucc session then uses x11 forwarding, not ssh x forwarding (default: false)
 Type=str
 Categories=system-desktop

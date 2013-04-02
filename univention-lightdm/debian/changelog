@@ -1,3 +1,9 @@
+univention-lightdm (1.0.14-1) unstable; urgency=low
+
+  * Improved ucr variable descriptions (Bug #30933) 
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 02 Apr 2013 10:49:06 +0200
+
 univention-lightdm (1.0.13-2) unstable; urgency=low
 
   * Configure thin client writeback intervals in lightdm session script (Bug #30421)
