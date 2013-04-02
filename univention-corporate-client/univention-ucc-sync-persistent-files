@@ -72,9 +72,17 @@ def copy_to_persistent_storage(src):
 		if os.path.isdir(s):
 			if not os.path.exists(d):
 				os.makedirs(d)
+				copy_permissions(s,d)
+		elif os.path.islink(s):
+			try:
+				f = open("/ucc_root/persistent-files.links", "a")
+				f.write(s+"\n")
+				f.write(os.readlink(s)+"\n")
+			except:
+				print "could not open /ucc_root/persistent-files.links"
 		else:
 			shutil.copy(s,d)
-		copy_permissions(s,d)
+			copy_permissions(s,d)
 	
 if opt.sync_to_persistent:
 	if configRegistry.has_key("ucc/persistent/files"):
@@ -84,6 +92,12 @@ if opt.sync_to_persistent:
 
 		if os.path.exists("/ucc_root/persistent-files"):
 			os.renames("/ucc_root/persistent-files", "/ucc_root/persistent-files.SAVE")
+
+		if os.path.exists("/ucc_root/persistent-files.links.SAVE"):
+			shutil.rmtree("/ucc_root/persistent-files.links.SAVE", True)
+
+		if os.path.exists("/ucc_root/persistent-files.links"):
+			os.renames("/ucc_root/persistent-files.links", "/ucc_root/persistent-files.links.SAVE")
 
 		if not os.path.exists("/ucc_root/persistent-files"):
 			os.makedirs("/ucc_root/persistent-files")
@@ -138,3 +152,16 @@ if opt.sync_to_ucc:
 	else:
 		print "Storage directory for persistent Univention Configuration Registry configuration not found"
 
+	if os.path.exists("/ucc_root/persistent-files.links"):
+		try:
+			f = open("/ucc_root/persistent-files.links", "r")
+			while 1:
+				linkname=f.readline().strip()
+				if not linkname:
+					break
+				sourcefile=f.readline().strip()
+				if not os.path.exists(linkname):
+					print "creating symlink %s -> %s" % (linkname, sourcefile)
+					os.symlink(sourcefile,linkname)
+		except:
+			print "error while processing symlinks"
