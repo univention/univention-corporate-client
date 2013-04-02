@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.22-1) unstable; urgency=low
+
+  * Added dependency to network-manager (Bug #20297)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 02 Apr 2013 12:27:46 +0200
+
 univention-corporate-client (1.0.21-6) unstable; urgency=low
 
   * Configure thin client writeback intervals in lightdm session script (Bug #30421)
