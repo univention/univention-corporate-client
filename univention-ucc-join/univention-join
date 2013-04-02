@@ -506,7 +506,8 @@ for f in /etc/univention/ssl/ucsCA/CAcert.pem \
 	/etc/univention/ssl/$HNAME.$DOMAINNAME/private.key \
 	/etc/univention/ssl/$HNAME.$DOMAINNAME/req.pem \
 	/etc/fstab \
-	/var/cache/.security.db
+	/var/cache/.security.db \
+	/etc/ldap.secret
 do
 	univention-ucc-manage-persistent file add "$f" >>/var/log/univention/join.log 2>&1
 done
