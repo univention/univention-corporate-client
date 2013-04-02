@@ -32,6 +32,4 @@
 
 #DEBHELPER#
 
-ucr set ucc/mount?true
-
 exit 0

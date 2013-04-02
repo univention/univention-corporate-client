@@ -1,3 +1,9 @@
+univention-ucc-remote-mount (1.0.0-7) unstable; urgency=low
+
+  * Removed initial setting 'true' from ucc/mount (Bug #30552) 
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 02 Apr 2013 13:44:39 +0200
+
 univention-ucc-remote-mount (1.0.0-6) unstable; urgency=low
 
   * Updated copyright to 2013 (Bug #30124)
