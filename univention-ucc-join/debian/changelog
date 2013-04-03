@@ -1,4 +1,4 @@
-univention-ucc-join (1.1.16-3) unstable; urgency=low
+univention-ucc-join (1.1.16-4) unstable; urgency=low
 
   * Add /etc/ldap.secret to persistent files during join (Bug #30463)
 
