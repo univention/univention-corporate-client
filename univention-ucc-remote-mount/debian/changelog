@@ -1,3 +1,9 @@
+univention-ucc-remote-mount (1.0.0-8) unstable; urgency=low
+
+  * ignore loop and ram devices in add_fstab_entry (Bug #30468) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 03 Apr 2013 10:17:59 +0200
+
 univention-ucc-remote-mount (1.0.0-7) unstable; urgency=low
 
   * Removed initial setting 'true' from ucc/mount (Bug #30552) 

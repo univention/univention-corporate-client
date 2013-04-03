@@ -41,6 +41,14 @@ echo "univention-ucc-remote-mount: add_fstab_entry called: options: $1 $2 $3"|lo
 # $2 = "cdrom"
 # $3 = "auto" (filesystem?)
 
+# ignoe ram* and loop* devices bug #30468
+blacklist="ram loop"
+for i in $blacklist; do
+	if [ -n "$1" ] && [[ "$1" == $i* ]]; then
+		exit 0
+	fi
+done
+
 call_cdpinger(){
     if [ -z "$(pgrep -f -l "/usr/sbin/cdpinger $1")" ]; then
         /usr/sbin/cdpinger $1 &
