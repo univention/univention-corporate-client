@@ -32,8 +32,9 @@
 #DEBHELPER#
 
 if [ "$1" = configure -a -n "$2" ] && dpkg --compare-versions "$2" lt 1.1.16; then
-	if [ "$(ucr get ucc/persistent/files | grep -q /etc/ldap.secret)" -eq 1 ]; then
-		univention-ucc-manage-persistent file add /etc/ldap.secret
+	if [ $(ucr get ucc/persistent/files | grep -c /etc/ldap.secret) -eq "0" ]; then
+		echo "Adding /etc/ldap.secret to persistent files"
+		univention-ucc-manage-persistent file add /etc/ldap.secret >/dev/null
 	fi
 fi
 
