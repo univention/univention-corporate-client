@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.19-3) unstable; urgency=low
+
+  * Start the loopback interface on system boot (Bug #30441)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 09 Apr 2013 12:27:23 +0200
+
 univention-ucc-initramfs (1.0.19-2) precise; urgency=low
 
   * add timeout to dhcp resolv.conf in initrd (Bug #30434) 

@@ -982,6 +982,8 @@ _start_dhcpclient()
 
 	notice "Starting dhcp client"
 
+	# alway start loopback interface
+	ifconfig lo up
 	ifconfig "$net_dev" up
 
 	if [ "$?" != 0 -a "$UCC" = "overlayfs" ]; then
