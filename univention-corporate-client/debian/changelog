@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.23-1) unstable; urgency=low
+
+  * added DEBIAN_FRONTEND to univention-ucc-software-update (Bug #31010)
+
+ -- Felix Botner <botner@univention.de>  Thu, 11 Apr 2013 12:14:52 +0200
+
 univention-corporate-client (1.0.22-2) unstable; urgency=low
 
   * Added dependency to network-manager (Bug #20297)

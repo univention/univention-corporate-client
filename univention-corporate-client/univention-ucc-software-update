@@ -36,6 +36,8 @@ logfile="/var/log/univention/software-updates.log"
 # This script supports software updates for both systems with and without overlayfs
 # If a system with overlaysfs is booted, it is marked for read/write operation and rebooted
 
+export DEBIAN_FRONTEND="noninteractive"
+
 update=`get_host_policy_var univentionCorporateClientSoftwareUpdateActivate` 
 if [ "1" = "$update" ]; then
 
