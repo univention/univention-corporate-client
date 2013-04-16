@@ -38,27 +38,38 @@ logfile="/var/log/univention/software-updates.log"
 
 export DEBIAN_FRONTEND="noninteractive"
 
+apt_get_update() {
+	plymouth message --text="Checking for available software updates"
+	apt-get update 2>>$logfile 1>>$logfile
+}
+
+check_for_rw_mount_and_reboot() {
+	# When running on overlayfs, switch to R/W mode
+	if LC_ALL=C mount | grep -q "on /root-ro"; then
+		plymouth message --text="Rebooting to install software updates"
+		/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
+		/usr/sbin/univention-ucc-boot-option --write --option swinstreset --value true
+		sync
+		reboot
+		exit 0
+	fi
+}
+
 update=`get_host_policy_var univentionCorporateClientSoftwareUpdateActivate` 
 if [ "1" = "$update" ]; then
 
-    apt-get update 2>>$logfile 1>>$logfile
+	apt_get_update
 
 	# Test, whether we need to update the installed packages.
-    new=`LANG=C apt-get dist-upgrade --dry-run | grep "packages will be [installed|upgraded]"`
-    if [ -n "$new" ]; then
+	new=`LANG=C apt-get dist-upgrade --dry-run | grep "packages will be [installed|upgraded]"`
+	if [ -n "$new" ]; then
 
-		# When running on overlayfs, switch to R/W mode
-		if LC_ALL=C mount | grep -q "on /root-ro"; then
-			/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
-			/usr/sbin/univention-ucc-boot-option --write --option swinstreset --value true
-			sync
-			reboot
-		fi
+		check_for_rw_mount_and_reboot
 
-		plymouth message --text="Installing available software updates" 
+		plymouth message --text="Installing available software updates - this may take some time. Do not turn of the computer" 
 		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes -u dist-upgrade 2>>$logfile 1>>$logfile
 		apt-get clean 2>>$logfile 1>>$logfile
-    fi
+	fi
 fi
 
 # Test whether, we need to remove packages. If so, switch to r/w mode if using overlayfs
@@ -67,8 +78,8 @@ remove=`get_host_policy_var univentionCorporateClientSoftwareUpdateRemoveList`
 rmneeded=0
 for I in $remove
 do
-    PKGRM=`echo $I | tr -d "="`
-    
+	PKGRM=`echo $I | tr -d "="`
+
 	if LC_ALL=C dpkg-query -W  -f='${Status}' $PKGRM | grep -q "installed"; then
 		rmneeded=1
 	fi
@@ -77,19 +88,14 @@ done
 # Test, whether we need to remove packages
 if [ 1 -eq $rmneeded ]; then
 
-    if LC_ALL=C mount | grep -q "on /root-ro"; then
-		/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
-		/usr/sbin/univention-ucc-boot-option --write --option swinstreset --value true
-		sync
-		reboot
-    fi
+	check_for_rw_mount_and_reboot
 
-    for I in $remove
-    do
+	for I in $remove
+	do
 		PKGRM=`echo $I | tr -d "="`
 		plymouth message --text="Removing package $PKGRM"
 		apt-get --yes remove $PKGRM 2>>$logfile 1>>$logfile
-    done
+	done
 fi
 
 install=`get_host_policy_var univentionCorporateClientSoftwareUpdateInstallList` 
@@ -98,30 +104,25 @@ install=`get_host_policy_var univentionCorporateClientSoftwareUpdateInstallList`
 instneeded=0
 for I in $install
 do
-    PKGINST=`echo $I | tr -d "="`
+	apt_get_update
+	PKGINST=`echo $I | tr -d "="`
 
-    new=`LANG=C apt-get install --dry-run $PKGINST | grep "packages will be [installed|upgraded]"`
-    if [ -n "$new" ]; then
+	new=`LANG=C apt-get install --dry-run $PKGINST | grep "packages will be [installed|upgraded]"`
+	if [ -n "$new" ]; then
 		instneeded=1
-    fi
+	fi
 done
 
 if [ 1 -eq $instneeded ]; then
 
-    if LC_ALL=C mount | grep -q "on /root-ro"; then
-		/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
-		/usr/sbin/univention-ucc-boot-option --write --option swinstreset --value true
-		sync
-		reboot
-    fi
+	check_for_rw_mount_and_reboot
 
-    for I in $install
-    do
+	for I in $install
+	do
 		PKGINST=`echo $I | tr -d "="`
 		plymouth message --text="Installing package $PKGINST"
 		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGINST 2>>$logfile 1>>$logfile    
-    done
-
+	done
 fi
 
 # Reset flag that triggers a r/w mount for systems booted with overlayfs

@@ -1,6 +1,13 @@
+univention-corporate-client (1.0.23-2) unstable; urgency=low
+
+  * Exit softwareupdate script when a reboot is necessary (Bug #31061)
+  * Added additional messages during software update (Bug #31061)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 16 Apr 2013 10:31:37 +0200
+
 univention-corporate-client (1.0.23-1) unstable; urgency=low
 
-  * added DEBIAN_FRONTEND to univention-ucc-software-update (Bug #31010)
+  * Added DEBIAN_FRONTEND to univention-ucc-software-update (Bug #31010)
 
  -- Felix Botner <botner@univention.de>  Thu, 11 Apr 2013 12:14:52 +0200
 
