@@ -52,6 +52,7 @@ echo "-dcpwd <password file>:  file with DC master password"
 echo "-ldapbase <ldap base>:   LDAP Base DN, e.g. dc=test,dc=local"
 echo "-realm <kerberos realm>: Kerberos realm, e.g. TEST.LOCAL"
 echo "-force:                  force the join on a read only image"
+echo "-keephostkeys:           do not create new ssh hostkeys during join"
 
 }
 
@@ -96,6 +97,7 @@ check_ldap_tls_connection () {
 }
 
 FORCE=n
+KEEPHOSTKEYS=n
 
 while [ $# -gt 0 ]
 do
@@ -134,6 +136,11 @@ do
 			shift
 			FORCE=y
 			;;
+		"-keephostkeys")
+			shift
+			KEEPHOSTKEYS=y
+			;;
+
 		*)
 			display_help
 			exit 1
@@ -152,6 +159,14 @@ Use -force to ignore this error.
 
 __HERE__
 	exit 1
+fi
+
+# recreate openssh-server hostkeys
+if test "$KEEPHOSTKEYS" = "n" && dpkg-query --show --showformat='${Status}\n' openssh-server | grep 'install ok installed' > /dev/null; then
+	echo -n "Recreating openssh-server hostkeys: "
+	rm /etc/ssh/ssh_host_* >>/var/log/univention/join.log 2>&1
+	dpkg-reconfigure openssh-server >>/var/log/univention/join.log 2>&1
+	echo -e "\033[60Gdone"
 fi
 
 if [ -x /etc/init.d/nscd ]; then
@@ -510,6 +525,11 @@ for f in /etc/univention/ssl/ucsCA/CAcert.pem \
 	/etc/ldap.secret
 do
 	univention-ucc-manage-persistent file add "$f" >>/var/log/univention/join.log 2>&1
+done
+
+for hostkey in /etc/ssh/ssh_host_*
+do
+	univention-ucc-manage-persistent file add "$hostkey" >>/var/log/univention/join.log 2>&1
 done
 
 # Not every UCC system uses join scripts
