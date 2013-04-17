@@ -1,4 +1,4 @@
-univention-ucc-join (1.1.16-5) unstable; urgency=low
+univention-ucc-join (1.1.16-6) unstable; urgency=low
 
   * recreate openssh-server hostkeys during join and add
     them to persistent files (Bug #30163)

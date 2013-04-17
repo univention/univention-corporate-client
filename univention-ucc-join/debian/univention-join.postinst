@@ -33,13 +33,14 @@
 
 if [ "$1" = configure -a -n "$2" ] && dpkg --compare-versions "$2" lt 1.1.16; then
 	if [ $(ucr get ucc/persistent/files | grep -c /etc/ldap.secret) -eq "0" ]; then
-		echo "Adding /etc/ldap.secret to persistent files"
 		univention-ucc-manage-persistent file add /etc/ldap.secret >/dev/null
-		for hostkey in /etc/ssh/ssh_host_*
-		do
-			univention-ucc-manage-persistent file add "$hostkey" >>/var/log/univention/join.log 2>&1
-		done		
 	fi
+	for hostkey in /etc/ssh/ssh_host_*
+	do
+		if [ $(ucr get ucc/persistent/files | grep -c $hostkey) -eq "0" ]; then
+			univention-ucc-manage-persistent file add "$hostkey" >>/var/log/univention/join.log 2>&1
+		fi
+	done
 fi
 
 exit 0
