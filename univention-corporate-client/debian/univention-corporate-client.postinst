@@ -45,4 +45,6 @@ univention-config-registry set version/releasename=Weser
 
 apt-key add /usr/share/keyrings/ucc-archive-key.gpg
 
+univention-config-registry unset kdm/autostart
+
 exit 0

@@ -1,9 +1,10 @@
-univention-corporate-client (1.0.23-2) unstable; urgency=low
+univention-corporate-client (1.0.23-3) unstable; urgency=low
 
   * Exit softwareupdate script when a reboot is necessary (Bug #31061)
   * Added additional messages during software update (Bug #31061)
+  * Unset kdm/autostart to keep plymouth displaying during software updates (Bug #31061)
 
- -- Erik Damrose <damrose@univention.de>  Tue, 16 Apr 2013 10:31:37 +0200
+ -- Erik Damrose <damrose@univention.de>  Mon, 22 Apr 2013 13:56:15 +0200
 
 univention-corporate-client (1.0.23-1) unstable; urgency=low
 
