@@ -4,3 +4,6 @@ File: etc/xdg/openbox/rc.xml
 Type: file
 File: etc/rsyslog.d/100-ucc.conf
 Variables: grub/append
+
+Type: file
+File: etc/apt/apt.conf.d/900-ucc-pre-invoke

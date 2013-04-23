@@ -15,3 +15,15 @@ Description[de]=Timeout in Sekunden für den upstart Job ucc-syspol, falls das N
 Description[en]=Timeout in seconds for upstart job ucc-syspol if the network can not be started (default: 10)
 Type=str
 Categories=system-desktop
+
+[ucc/update/remove/old/kernel]
+Description[de]=Alte Kernel-Pakete werden vor der Verwaltung von Software-Paketen mit apt-get entfernt (default: true)
+Description[en]=Remove old kernel packages before managing software packages with apt-get (default: true)
+Type=str
+Categories=system-desktop
+
+[ucc/update/remove/old/kernel/pkgregex]
+Description[de]=Regulärer Ausdruck für die Suche nach Kernel-Paketen (default: linux-image-[[:digit:]])
+Description[en]=Regular expression used for search for kernel packages (default: linux-image-[[:digit:]])
+Type=str
+Categories=system-desktop
