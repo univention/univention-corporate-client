@@ -2,5 +2,5 @@
 
 DPkg
 {
-	Pre-Invoke {"run-parts /usr/share/univention-corporate-client/apt-pre-invoke.d";};
+	Pre-Invoke {"run-parts /usr/share/univention-corporate-client/apt-get-pre-invoke.d";};
 }
