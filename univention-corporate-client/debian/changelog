@@ -1,3 +1,9 @@
+univention-corporate-client (1.0.24-3) unstable; urgency=low
+
+  * added apt-get-pre-invoke.d hook to remove old kernel (Bug #31012) 
+
+ -- Felix Botner <botner@univention.de>  Tue, 23 Apr 2013 11:31:01 +0200
+
 univention-corporate-client (1.0.24-2) unstable; urgency=low
 
   * added apt-get-pre-invoke.d hook to remove old kernel (Bug #31012) 
