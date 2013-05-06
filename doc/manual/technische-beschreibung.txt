@@ -1,0 +1,110 @@
+Technische Beschreibung von UCC:
+
+1. Boot / Initrd / Rollout
+-----------------------
+
+Das Image Toolkit erzeugt einen Kernel, eine Initrd und ein Image. Zusätzlich
+erstellt das Toolkit ein ISO Image, welche per DVD oder USB Stick gestartet
+werden kann.
+
+Initrd, Kernel und Image müssen derzeit im Verzeichnis /var/lib/univenton-boot
+abgelegt werden. Das Image Toolkit erstellt auch eine register-Datei, damit
+kann das Image im Managementsystem registriert werden.
+
+Einem UCC Client kann dann per UMC ein Image zugeordnet werden. Wird kein Image
+zugeordnet, so kann die UCR Variable ucc/pxe/image gesetzt werden. Dann wird
+der Wert per Default verwendet, beispielsweise:
+ ucr set ucc/pxe/kernel=ucc-thinclient-v1.img.kernel
+Das Listener Modul uccpxeboot erstellt dann entsprechend eine PXE Bootdatei.
+
+Zusätzlich kann für einen UCC Client die Bootvariante ausgewählt werden. Im
+Moment kann zwischen den folgenden Werten gewählt werden:
+ - none 
+   → es wird normal gestartet, ohne das ein Image Update getestet wird
+ - overlayfs 
+   → ein Live-System, alle Änderungen werden verworfen
+ - update 
+   → Update des Images falls das Image auf der Server Seite aktualisiert wurde
+und Neuinstallation falls noch kein Image ausgerollt wurde. Im Update Fall wird
+nicht neu partitioniert.
+ - rollout 
+   → wie update, nur dass am Ende noch der Join durchgeführt wird
+ - installation 
+   → eine erneute Installation, auch wenn schon eine Installation vorhanden
+ist. Es wird auch neu partitioniert. Lokale Daten, auch auf /home gehen
+verloren!
+# TODO: Forcieren der Option im LDAP sollte noch hinterlegt werden
+
+
+Im Image ist hinterlegt, wie die Partitionierung durchgeführt werden soll. Es
+muss auf jeden Fall eine eigene Bootpartition geben, da ansonsten die Kernel
+Aktualisierung nicht funktioniert. Grub müsste sonst das Image mounten und den
+Kernel dort booten.
+Dadurch das /boot eine eigene Partitionierung ist, funktioniert es aber sehr
+gut, weil eine Kernel Aktualisierung innerhalb des Images die Daten auf die
+Bootpartition schreibt.
+
+Wenn das Image auf das System kopiert wird, so wird im ersten Schritt
+partitioniert. Sämtliche Schritte erfolgen dabei in der initrd. Bevor die
+Partitionierung gestartet wird, gibt es eine Sicherheitsabfrage. Das Kopieren
+erfolgt derzeit per rsync. Die Daten liegen anschließend auf der im Image
+angegeben root-Partition. Es werden auf dem System noch weitere Dateien
+abgelegt:
+ - local_image
+   → die Datei beinhaltet den Namen des lokal kopierten Images
+ - local_image.md5
+   → die MD5 Summe des lokalen Images das kopiert wurde
+ - <das eigentliche Image>
+   → das Image, in das später gebootet wird
+ - ucc_root_device
+   → eine leere Datei, durch die erkannt wird, dass dies ein UCC Root Device
+ist
+
+Ein Image wird im Update Fall nur kopiert, wenn die Upstream MD5 Summe nicht
+mit der lokal gespeicherten MD5 Summe übereinstimmt. Da das System später beim
+Booten das lokale Image verändert, wird eine lokale MD5 Summe unterschiedlich
+sein, deshalb wird die MD5 Summe beim Kopieren des Images lokal auf dem UCC
+Client mit gespeichert.
+
+Im Image ist hinterlegt, ob das System per Default RO eingebunden werden soll
+oder nicht. Per default ist der Thin Client RO, das Desktop Image RW. Das kann
+über die UCR Variable ucc/boot/mount = ro|rw gesteuert werden. Zusätzlich kann
+im LDAP über die Boot Optionen definiert werden, wie das System beim nächsten
+Boot gestartet werden soll. Diese Option wird automatisch beim Booten und beim
+Joinen entfernt.
+/usr/sbin/univention-ucc-boot-option --write --option mount --value ro
+/usr/sbin/univention-ucc-boot-option --read --option mount
+
+Der UCC Client ändert im Join Skript die Boot Variante auf None. Derzeit wird
+das auch noch in der Rollout Variante gemacht. Das ist unnötig, siehe 
+https://forge.univention.org/bugzilla/show_bug.cgi?id=29955
+
+Auf dem gestarteten UCC Client ist das lokale root Dateisystem unter /ucc_root
+eingebunden. Wenn man dort die MD5 Summe ändert, dann wird auf jeden Fall beim
+nächsten Boot ein Image Update durchgeführt.
+
+Das UCC System prüft beim Boot, ob das System gejoint ist, wenn ja, dann wird
+geprüft, ob eine geänderte Boot-Variante im LDAP hinterlegt ist. Dies sollte
+zukünftig auch direkt in UCR gespeichert werden:
+ https://forge.univention.org/bugzilla/show_bug.cgi?id=29956
+
+Beim Image Update werden die UCR Einstellungen und die Dateien kopiert, die per
+univention-ucc-manage-persistent registriert wurden.
+
+Das Image Update kann entweder erfolgen, wenn aus dem Netz gebootet wird oder
+aber wenn vom lokalen System gestartet wird. Wenn vom lokalen System gestartet
+wird, dann muss das Image aber gejoint sein, da der UCC Client die Einstellung
+nicht per Boot cmdline übergeben bekommt. Dieser Punkt ist noch nicht
+umgesetzt: Bug #28972.
+
+Ein Debug der initrd ist nicht ganz einfach. Eine Möglichkeit ist es mit
+boot=ucc und ucc=debug zu starten. Anschließend kann man das Skript
+/scripts/ucc bearbeiten und die einzelnen Funktionen aufrufen. Zusätzlich kann
+noch verbose=y als Boot Parameter eingetragen werden. Dadurch werden die
+Skripte per set -x gestartet.
+
+2. UCC Image Toolkit
+--------------------
+
+Neue Thin Client Images können mit dem folgenden Befehl erstellt werden:
+ucc-image -t /var/lib/univention-client-boot -c /usr/share/doc/ucc-image-toolkit/example/ucc-thinclient.cfg

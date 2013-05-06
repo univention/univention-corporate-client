@@ -1,0 +1,86 @@
+<chapter id="introduction:chapter">
+<title>Introduction</title>
+
+<para>
+  Univention Corporate Client (UCC) is a flexible and economic
+  alternative for the operation and administration of PCs, notebooks
+  and thin clients in companies and institutions. The software
+  contains a Linux-based desktop environment optimised for business
+  use. In addition, UCC serves as a platform for access to remote
+  desktop solutions and virtualized desktops as well as browser or
+  terminal server-based applications.
+</para>
+
+<para>
+  Univention Corporate Client is the successor to Univention Corporate
+  Desktop (UCD) and UCS Thin Client Services (UCS TCS). Notes on
+  upgrading from UCD and TCS can be found in the Univention Wiki under
+  <ulink url="http://wiki.univention.de/index.php?title=Upgrade-TCS-UCD-to-UCC"/>.
+</para>
+
+<para>
+  UCC systems are rolled out via an image-based procedure: All the
+  user data - and as such also the user settings - are typically saved on a
+  separate partition. If a new version of the image is installed, the
+  complete operating system installation is overwritten.
+</para>
+
+<para>
+  UCC clients need to be joined into a UCS domain. The clients are
+  entirely managed through settings from the LDAP. As a result, a UCC
+  system is directly configured after an upgrade or an
+  installation. Features configured from the LDAP include network
+  configuration, hardware settings like dual monitor setups and
+  software selections.
+</para>
+
+<para>
+  Kubuntu is used as the basis for the images (Version 12.04 in UCC
+  1.0). Univention provides two preconfigured: a
+  minimal image for thin clients and a larger image for native desktop
+  installations. These two images are maintained and tested
+  by Univention. It is also possible to create modified or completely
+  new images with a minimum of effort using the included image toolkit
+  (see <xref linkend="imagegen:toolkit"/>). In contrast to the
+  existing integration of Ubuntu clients in UCS, UCC clients work out
+  of the box and require no further modification.
+</para>
+
+<para>
+  UCC systems include the most important UCS base components and
+  integrate into the UCS user management: all the users in a UCS
+  domain can log on to UCC clients using their domain password. The
+  integration packages are installed via the Univention App
+  Center (UCC requires UCS 3.1).
+</para>
+
+<para>
+  UCC support both a local desktop based on KDE Plasma and working on
+  terminal servers (RDP, Citrix XenApp and remotely used KDE
+  desktops). Access to web-based services can also be configured.
+  A UCC desktop system be used both in the company network and in
+  mobile use (all user and group information is cached locally for
+  that).
+</para>
+
+<para>
+  A UCC system is usually installed over a network using PXE, but can
+  also be setup from local media (DVD ROM or USB stick). The rollout
+  can be performed fully automatic without user interaction (see <xref
+  linkend="rollout:automatic"/>).
+</para>
+
+<para>
+  The CompactFlash storage media typically integrated in thin clients
+  are only designed for a limited number of write operations.
+  Thin clients in UCC are thus started with an OverlayFS file system
+  so that all write accesses on the storage media of a booted system
+  are only performed in the system memory and not written to the hard
+  drive. All the write changes are thus lost once the thin client is
+  switched off. This does not pose any problems for access to terminal
+  services, as all the user activities are performed on the respective
+  terminal servers. The system log of UCC clients is performed
+  remotely.
+</para>
+
+</chapter>

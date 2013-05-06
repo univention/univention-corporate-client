@@ -1,0 +1,370 @@
+<chapter id="terminalservices:chapter">
+<title>Terminal services with UCC</title>
+
+<para>
+  In addition to the operation of stationary UCC clients, UCC also supports
+  access to terminal services. Login is supported to:
+  <itemizedlist>
+	<listitem><simpara>UCC terminal servers</simpara></listitem>
+	<listitem><simpara>Windows terminal services via the RDP protocol</simpara></listitem>
+	<listitem><simpara>Citrix XenApp</simpara></listitem>
+  </itemizedlist>
+</para>
+
+<para>
+  There are three possibilities for configuring access to a terminal service:
+  <itemizedlist>
+	<listitem><simpara>An interactive selection of the session by the
+	user during login to LightDM (see <xref
+	linkend="logins:sessions"/>)</simpara></listitem>
+	<listitem><simpara>A user login to LightDM where a session is
+	forcibly specified by the administrator</simpara></listitem>
+	<listitem><simpara>Automatic session selection where login is
+	performed with a guest user. In this case, no login dialogue is
+	shown.</simpara></listitem>
+  </itemizedlist>
+</para>
+
+<section id="terminalservices:ucc">
+<title>UCC terminal services</title>
+
+<section id="terminalservices:ucc:installation">
+<title>Installation</title>
+<para>
+  The UCC standard desktop is based on KDE Plasma and can also be
+  provided for thin clients as a terminal server.
+</para>
+<para>
+  As a terminal server, a UCC system is setup with the standard
+  desktop image. Then the
+  <emphasis>univention-ucc-application-server</emphasis> package is
+  installed and <command>univention-run-join-scripts</command> must be run. UCC
+  terminal servers are registered as a service in the UCS management
+  system.
+</para>
+<para>
+  The access to UCC terminal servers is performed with the
+  session script <emphasis>UCC-remote</emphasis>. All applications are run on the UCC
+  terminal server and only the graphic output transmitted to the thin
+  client.
+</para>
+</section>
+
+<section id="terminalservices:ucc:assign">
+<title>Assignment of users to terminal servers</title>
+<para>
+  The UCC terminal server to be used can be assigned via a
+  <emphasis>UCC user session</emphasis> user policy. One or several
+  servers can be specified in the <guimenu>UCC terminal server</guimenu> input field. If
+  more than one server is configured, the server with the lowest
+  system load is selected during login.
+</para>
+</section>
+
+<section id="terminalservices:ucc:graphics">
+<title>Configuration of graphic transmission</title>
+<para>
+  The screen content output can be transmitted in two different ways,
+  which must be compared and selected depending on the application
+  scenario and the available thin client hardware:
+
+  <itemizedlist>
+	<listitem><simpara>Transmission of the data via SSH-tunnelled X
+	forwarding</simpara></listitem>
+	<listitem><simpara>Transmission of the data via pure X forwarding</simpara></listitem>
+  </itemizedlist>
+</para>
+
+<para>
+  The transmission via SSH offers the advantage of an encrypted
+  transmission and the optional compression of the data considerably
+  reduces the bandwidth requirement. However, data encryption can
+  cause bottlenecks in cases such as streaming videos, which require
+  large bandwidths. The SSH-tunnelled access is also not suitable for
+  use with very old thin client hardware.
+</para>
+
+<para>
+  The standard setting is transmission via SSH-tunnelled X forwarding;
+  it is possible to switch back to pure X forwarding for older hardware. To
+  enable X forwarding, the &ucsUCRV; <envar>lightdm/xserver/allowtcp</envar> must be
+  set to <emphasis>true</emphasis> on UCC clients and LightDM restarted.
+</para>
+
+<para>
+  The encryption algorithms used by SSH can be adapted via the
+  &ucsUCRV; <envar>ucc/session/remote/ssh/cipher</envar>. SSH
+  compression can be disabled with the &ucsUCRV;
+  <envar>ucc/session/remote/ssh/compression</envar>.
+</para>
+
+<para>
+  As standard, UCC uses a KDE profile optimised for remote operation
+  on terminal servers, in which some graphic-intensive effects are
+  disabled. The use of this profile can be disabled per UCC terminal
+  server by setting the &ucsUCRV;
+  <envar>ucc/session/remote/profile</envar> to false.
+</para>
+
+<para>
+  The integration package <emphasis>libreoffice-kde</emphasis>
+  (installed as standard) provides improved integration of LibreOffice
+  in the KDE desktop environment. However, these integration packages
+  also result in a considerably increased graphic throughput when
+  browsing the menus. To reduce the data quantities transmitted in terminal
+  service operation, <emphasis>libreoffice-kde</emphasis> can be uninstalled on UCC
+  terminal services.
+</para>
+
+</section>
+
+
+<section id="terminalservices:ucc:timeouts">
+<title>Session timeouts</title>
+<para>
+  The terminal server and the client send keep alive messages
+  regularly (by default every 100 seconds). If the client has not been
+  reached after the third attempt (i.e., 300 seconds = five minutes),
+  the server terminates the connection (and vice versa: the client
+  also terminates the connection if the server cannot be reached). The
+  value for the test on the server can be set using the &ucsUCRV;
+  <envar>sshd/clientAliveInterval</envar> and on the client using the
+  &ucsUCRV; <envar>ucc/session/remote/session/timeout</envar>.
+</para>
+</section>
+
+<section id="terminalservices:ucc:sound">
+<title>Sound output</title>
+<para>
+  Sound output in the terminal server session is transmitted via the
+  sound server PulseAudio. The sound transmission can be disabled by
+  setting the &ucsUCRV;
+  <envar>ucc/session/remote/disable-sound</envar> to
+  <emphasis>yes</emphasis> on the UCC client.
+</para>
+</section>
+
+<section id="terminalservices:ucc:usb">
+<title>Access to USB mass storage devices on the thin client</title>
+<para>
+  A USB mass storage device attached on the thin client (see <xref
+  linkend="hardware:usbthin"/>) is
+  integrated via a KDE autostart script during login. This generates a
+  KDE file bookmark, which creates a connection to the mount directory
+  on the thin client via the FISH protocol. This bookmark is displayed
+  as a separate drive in the file manager Dolphin, for example. In
+  applications which do not use the KDE dialogues (e.g., Firefox), the
+  files firstly need to be saved in another directory and then copied
+  to the USB stick in Dolphin.
+</para>
+<para>
+  The authentication of the access is performed with Kerberos; there
+  is no need to enter a password manually. During the first access to
+  the client, the SSH host key must be confirmed.
+</para>
+</section>
+</section>
+
+
+<section id="terminalservices:rdp">
+<title>RDP terminal services</title>
+<para>
+  UCC supports login to Windows 2003-based and Windows 2008R2-based
+  Windows terminal servers via the RDP protocol. The Windows terminal
+  servers can be joined in the UCS domain or alternatively the access
+  can be performed against an external domain.
+</para>
+
+<para>
+  The login is performed via the <emphasis>RDP</emphasis> session script installed as
+  standard, which uses <command>freerdp</command> for the access. The password entered by
+  the user during login to LightDM is cached by a PAM module and
+  automatically provided to Freerdp, i.e., it is not necessary to
+  enter it again when logging in to the terminal server.
+</para>
+
+<para>
+  The RDP client Remmina is provided as a client with which an RDP connection can be
+  configured and started on the desktop.
+</para>
+
+<section id="terminalservices:rdp:assign">
+<title>Assignment of the terminal server and the Windows domain</title>
+<para>
+  The terminal server and the Windows domain of the terminal server
+  can be specified per user via a <emphasis>UCC user
+  session</emphasis> user policy. Alternatively, the server and the
+  domain can also be specified per client by setting the &ucsUCR; variables
+  <envar>rdp/domainname</envar> and
+  <envar>rdp/server</envar>.
+</para>
+<para>
+  <envar>rdp/user</envar> can be used to specify a different user name
+  from the current one during login.
+</para>
+</section>
+
+<section id="terminalservices:rdp:usb">
+<title>Access to USB mass storage devices on the thin client</title>
+<para>
+  A mass storage device mounted on the thin client (see <xref linkend="hardware:usbthin"/>) is
+  mounted in the session if the &ucsUCRV; <envar>rdp/redirectdisk</envar> is set to
+  <emphasis>true</emphasis>. The transmission is performed via a session channel of the RDP
+  protocol.
+</para>
+</section>
+
+<section id="terminalservices:rdp:crypto">
+<title>Networklevel authentication / certificate approval</title>
+<para>
+  The RDP client does not use the "Network Level Authentication" (NLA)
+  authentication method as standard. If NLA is enabled on the terminal
+  server, this can be enabled by setting the &ucsUCRV;
+  <envar>rdp/checknla</envar> to <emphasis>true</emphasis>.
+</para>
+
+<para>
+  Verification of the login certificate is also disabled as
+  standard. It can be enabled by setting the &ucsUCRV;
+  <envar>rdp/ignorecertificate</envar> to <emphasis>true</emphasis>.
+</para>
+
+<para>
+  In special cases, it may be necessary to disable the TLS encryption
+  of the RDP connection entirely. This is done by setting the
+  &ucsUCRV; <envar>rdp/checktls</envar> to <emphasis>false</emphasis>.
+</para>
+</section>
+
+<section id="terminalservices:rdp:sound">
+<title>Sound output in the RDP session</title>
+<para>
+  As standard, the sound output in the RDP session is transmitted via
+  an RDP session channel. The sound output can be disabled by setting
+  the &ucsUCRV; <envar>rdp/disable-sound</envar> to <emphasis>true</emphasis>.
+</para>
+</section>
+
+<section id="terminalservices:rdp:furtheropts">
+<title>Further options for the RDP session</title>
+<para>
+  The &ucsUCRV; <envar>rdp/keyboard</envar> can be used to configure a
+  different keyboard layout for the RDP session from that of the
+  current client. The layout is specified in the same format as the
+  &ucsUCRV; <envar>xorg/keyboard/options/XkbLayout</envar>.
+</para>
+
+<para>
+  The &ucsUCRV; <envar>rdp/additionaloptions</envar> can be used to
+  provide any additional options to freerdp (e.g., to enable
+  additional plugins).
+</para>
+
+<para>
+  <envar>rdp/geometry</envar> can be used to specify the screen
+  resolution.
+</para>
+
+<para>
+  <envar>rdp/clienthostname</envar> allows you to specify a different
+  host name from the current computer name in the RDP session.
+</para>
+</section>
+</section>
+
+
+<section id="terminalservices:citrix">
+<title>Citrix XenApp terminal services</title>
+<para>
+  UCC supports access to Citrix XenApp terminal servers. This
+  documentation refers to Citrix XenApp 6.5 Enterprise on Windows
+  Server 2008R2, which uses a Windows 2008R2 domain controller and the
+  Citrix Receiver 12.1.
+</para>
+<para>
+  Citrix XenApp supports two login methods:
+  <itemizedlist>
+	<listitem><simpara>Access to the XenApp terminal server is
+	configured by an ICA session file in which the connection
+	parameters are configured.</simpara></listitem>
+	<listitem><simpara>The access is performed via a Citrix Farm web
+	interface the user logs in to. During the login, an ICA file
+	tailored to the user is generated, which is started via a browser
+	plugin in the Citrix Receiver client.</simpara></listitem>
+  </itemizedlist>
+</para>
+<para>
+  UCC only integrates the browser-based login method.
+</para>
+
+
+<section id="terminalservices:citrix:installation">
+<title>Installation</title>
+<para>
+  To set up the session script <emphasis>XenApp</emphasis> on a client, the
+  <emphasis>univention-ucc-session-xenapp</emphasis> package must be
+  installed. It also installs some packages required by the Citrix
+  Receiver. Then the &ucsUCRV; <envar>citrix/webinterface</envar> must
+  be set to the URL of the Citrix Farm web interface. The session
+  script then opens the web interface directly in Firefox during
+  login.
+</para>
+<para>
+  The Citrix Receiver cannot be supplied with UCC and must be
+  downloaded from the Citrix website as a DEB package and installed on
+  the client. <footnote><para><ulink url="http://www.citrix.com/downloads/citrix-receiver/receivers-by-platform/receiver-for-linux-121.html"/></para></footnote>
+  Version 12.1 is needed as the minimum version.
+</para>
+<para>
+  The Citrix Receiver uses <filename>/dev/random</filename> as a
+  randomness source as standard. <filename>/dev/random</filename> blocks access if insufficient entropy is
+  available from hardware sources. This is the case on many thin
+  clients. To avoid login delays, the basic setting on the client thus
+  symlinks <filename>/dev/random</filename> to
+  <filename>/dev/urandom</filename>. If the hardware generates
+  sufficient entropy, this can be prevented by setting the &ucsUCRV;
+  <envar>citrix/linkdevrandom</envar> to <emphasis>false</emphasis>.
+</para>
+<para>
+  If the Citrix web interfaces performs authentication against an
+  Active Directory domain separate from UCS, it is possible to
+  configure a login-less access to the web interface by setting the
+  &ucsUCRV; <envar>lightdm/autologin/session</envar> to
+  <emphasis>XenApp</emphasis> and the &ucsUCRV;
+  <envar>lightdm/autologin</envar> to <emphasis>yes</emphasis>.
+</para>
+
+</section>
+
+<section id="terminalservices:citrix:soundusb">
+<title>Sound transmission / Access to USB storage devices on the thin client</title>
+<para>
+  Configuration parameters such as full screen display or the
+  sound transmission are configured in the Citrix Farm settings. They
+  are then saved in the ICA file generated for the user during login
+  and implemented by the Citrix Receiver.
+</para>
+<para>
+  An USB storage device on a thin client (see <xref
+  linkend="hardware:usbthin"/>) is available under Drive Z: in the
+  Citrix session.
+</para>
+</section>
+
+<section id="terminalservices:citrix:flash">
+<title>Accelerating the playback of Flash videos</title>
+<para>
+  The Citrix client offers the possibility of optimising the
+  playback of Flash videos: instead of streaming the video on the
+  server and transmitting every image, the video is transmitted to the
+  client and played locally in the terminal session. This requires
+  the installation of the Flash plugin on the UCC client (included in
+  the default settings).
+</para>
+</section>
+
+
+</section>
+
+
+</chapter>

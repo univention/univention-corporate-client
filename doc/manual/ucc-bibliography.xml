@@ -1,0 +1,51 @@
+<bibliography>
+<biblioentry id="ucs-manual">
+  <publishername>Univention GmbH</publishername>
+  <pubdate>2013</pubdate>
+  <title>Univention Corporate Server - Manual for users and administrators</title>
+  <releaseinfo><ulink url="http://docs.univention.de/manual-3.1.html"/></releaseinfo>
+</biblioentry>
+
+<biblioentry id="ucs-manual-multiedit">
+  <publishername>Univention GmbH</publishername>
+  <pubdate>2013</pubdate>
+  <title>Univention Corporate Server - Manual for users and administrators</title>
+  <releaseinfo><ulink url="http://docs.univention.de/handbuch-3.1.html#central%3Auser-interface%3Aedit"/></releaseinfo>
+</biblioentry>
+
+<biblioentry id="ucs-manual-cron">
+  <publishername>Univention GmbH</publishername>
+  <pubdate>2013</pubdate>
+  <title>Univention Corporate Server - Manual for users and administrators</title>
+  <releaseinfo><ulink url="http://docs.univention.de/manual-3.1.html#computers%3AExecuting_recurring_actions_with_Cron"/></releaseinfo>
+</biblioentry>
+
+<biblioentry id="ucs-manual-pxeboot">
+  <publishername>Univention GmbH</publishername>
+  <pubdate>2013</pubdate>
+  <title>Univention Corporate Server - Manual for users and administrators</title>
+  <releaseinfo><ulink url="http://docs.univention.de/manual.html#ip-config:Configuration_of_boot_server/PXE_settings"/></releaseinfo>
+</biblioentry>
+
+<biblioentry id="ubuntu-repositories">
+  <publishername>Ubuntu Community Wiki</publishername>
+  <pubdate>2013</pubdate>
+  <title>Repositories Ubuntu</title>
+  <releaseinfo><ulink url="https://help.ubuntu.com/community/Repositories/Ubuntu"/></releaseinfo>
+</biblioentry>
+
+<biblioentry id="ucs-docs">
+  <publishername>Univention GmbH</publishername>
+  <pubdate>2013</pubdate>
+  <title>Documentation on Univention products</title>
+  <releaseinfo><ulink url="http://docs.univention.de/en/ucs.html"/></releaseinfo>
+</biblioentry>
+
+<biblioentry id="ucs-manual-uvmm">
+  <publishername>Univention GmbH</publishername>
+  <pubdate>2013</pubdate>
+  <title>Univention Corporate Server - Manual for users and administrators</title>
+  <releaseinfo><ulink url="http://docs.univention.de/manual-3.1.html#uvmm:chapter"/></releaseinfo>
+</biblioentry>
+
+</bibliography>

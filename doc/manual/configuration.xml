@@ -1,0 +1,212 @@
+<chapter id="config:chapter">
+<title>Configuration of UCC systems</title>
+<section id="config:ucr">
+<title>Setting of Univention Configuration Registry settings on UCC clients</title>
+<para>
+  The configuration of UCC system settings is mostly performed using
+  &ucsUCR;. Typically, these settings are not saved locally on the UCC client
+  systems, but rather via UCR policies via the LDAP.
+</para>
+<para>
+  &ucsUCR; policies can be managed in the &ucsUMC; in the
+  <guimenu>Policies</guimenu> menu. At least one UCR variable must be
+  configured with the <guimenu>Variable</guimenu> and
+  <guimenu>Value</guimenu> fields. Additional variables can be added
+  by clicking on the plus sign. The UCR policies are evaluated when
+  the system is started and then once an hour.
+</para>
+
+<figure><title>Configuring UCR values through a policy</title>
+ <graphic scalefit="1" width="60%" fileref="illustrations/ucc-ucr-policy.png"/>
+ </figure>
+
+<para>
+  In addition to policies, &ucsUCR; variables can also be set via the
+  command line frontend. However, we recommend performing the UCR settings
+  via policies as the locally set variables are lost when image updates are
+  installed or thin clients are switched off (see <xref linkend="rollout:overlayfs"/>).
+</para>
+</section>
+
+<section id="config:cron">
+<title>Definition of Cron jobs</title>
+<para>
+  Regularly recurring actions can be defined and run on UCC clients
+  via Cron jobs. The configuration is performed as in Univention
+  Corporate Server via &ucsUCR; or local configuration files under
+  <filename>/etc/cron.d</filename>. Further information can be found
+  in the UCS manual <xref linkend="ucs-manual-cron"/>.
+</para>
+</section>
+
+<section id="config:softwareupdates">
+<title>Software updates</title>
+<caution>
+<para>
+  Always test UCC software updates on the target platform before updating all clients.
+  UCC Updates have been tested on official UCC images. If individual images have been
+  created for an environment a number of things should be considered before
+  updating.
+<itemizedlist>
+        <listitem><simpara>Is there enough free space to perform the update?
+        </simpara></listitem><listitem><simpara>
+	How long does the update take on the target platform? Large packages
+	take a considerable amount of time to download. Slow hardware can
+	prolong the update when e.g. the initramfs has to be recreated.
+	</simpara></listitem><listitem><simpara>
+	Does all hardware still work after a kernel update?
+	</simpara></listitem>
+</itemizedlist>
+</para>
+</caution>
+
+<para>
+  Every UCC image comes with a predefined software package selection. A computer
+  policy in the UCS management system can be used to install available
+  software updates and install/uninstall software packages. This check
+  is performed every time the system is started.
+</para>
+
+<para>
+  The settings are defined with a <guimenu>UCC software update
+  settings</guimenu> computer policy in the &ucsUMC;:
+</para>
+
+<figure><title>Installing additional software through a software update policy</title>
+ <graphic scalefit="1" width="60%" fileref="illustrations/ucc-software-policy.png"/>
+ </figure>
+
+<para>
+  <itemizedlist>
+	<listitem><simpara><guimenu>Install available software
+	updates</guimenu> updates all the installed packages for which
+	updates are available.</simpara></listitem>
+	<listitem><simpara><guimenu>Packages to be installed</guimenu> is a
+	list of packages which are installed if they have not yet been
+	installed and which are updated if a newer version is
+	available.</simpara></listitem>
+	<listitem><simpara><guimenu>Packages to be removed</guimenu> is a
+	list of packages to be removed. This function should be used with
+	care to ensure that no packages which are essential for UCC are
+	removed due to dependencies.</simpara></listitem>
+  </itemizedlist>
+</para>
+
+<para>
+  The installation/updates are logged in
+  <filename>/var/log/univention/software-updates.log</filename>.
+</para>
+
+<para>
+  Thin clients employ an OverlayFS (see <xref linkend="rollout:overlayfs"/>). For this reason,
+  the installation of updates is performed in several stages on thin
+  clients: The client is restarted to change to the writeable mode and
+  then following installation of the updates restarted again to change
+  to the OverlayFS mode.
+</para>
+</section>
+
+
+<section id="config:keyboardlocale">
+<title>Configuration of the keyboard layout / locale</title>
+<para>
+  In the standard setting, the keyboard layout and the language
+  setting (locale) of the UCC PXE server is also employed on the UCC
+  clients. If UCC systems are not installed using PXE, the &ucsUCR;
+  variables specified below need to be set via a policy:
+</para>
+
+<para>
+  The &ucsUCRV; <envar>xorg/keyboard/options/XkbLayout</envar> can be
+  used to set another keyboard layout, e.g., <emphasis>de</emphasis>
+  for German or <emphasis>fr</emphasis> for French.
+</para>
+
+<para>
+  The &ucsUCRV; <envar>locale/default</envar> can be used to set a
+  different locale, e.g., <emphasis>de_DE.UTF-8:UTF-8</emphasis> for German or
+  <emphasis>fr_FR.UTF-8:UTF-8</emphasis> for French. Please note that it may be necessary
+  to install additional language packages for some locales. The standard thin client
+  image includes German and English; the standard desktop image
+  includes English, German, French, Dutch and Spanish.
+</para>
+
+<para>
+  The language and keyboard settings are evaluated every time the
+  system is started.
+</para>
+</section>
+
+<section id="config:time">
+<title>Configuration of the time zone / time server</title>
+<para>
+  In the standard setting, the time zone of the UCC PXE server is also
+  employed on the UCC clients. If UCC systems are not installed using
+  PXE, the time zone needs to be set via a policy:
+
+</para>
+
+<para>
+  The &ucsUCRV; <envar>ucc/timezone</envar> can be used to set a
+  different time zone. The available time zones can be found in the
+  <filename>/usr/share/zoneinfo/</filename> directory, for example
+  <emphasis>Europe/Berlin</emphasis>.
+</para>
+
+<para>
+  Authentication in UCC is performed through Kerberos. For this reason,
+  synchronised time sources are essential. When a UCC client joins a
+  domain, the &ucsMaster; of the domain is set as the
+  time server. The &ucsUCRV; <envar>ucc/timeserver</envar> can be used to configure a
+  different server.
+</para>
+
+<para>
+  The system time is synchronised via NTP every time the system is
+  started.
+</para>
+</section>
+
+<section id="config:logging">
+<title>Remote logging</title>
+<para>
+  In addition to local logging, the system logging (syslog) of UCC
+  clients can also be performed remotely against a central log host
+  based on rsyslog. As standard, the logging is performed against the
+  UCC PXE server.
+</para>
+
+<para>
+  The &ucsUCRV; <envar>ucc/pxe/append</envar> can be adapted to
+  deactivate the remote logging (syslog=n) or reroute it to another
+  log host (syslogserver=HOSTNAME). These configuration options are
+  only set during the installation or update of an UCC system.
+</para>
+</section>
+
+
+<section id="config:ssh">
+<title>SSH access to UCC clients</title>
+<para>
+  As standard, an SSH login is possible on UCC clients. The login is
+  performed with the local root account or a domain account.
+</para>
+</section>
+
+
+<section id="config:bootsplash">
+<title>Bootsplash startup animation</title>
+<para>
+  A startup animation (bootsplash) is displayed when a UCC client is started. This
+  can be hidden by pressing the Escape key to diagnose the startup in
+  full details.
+</para>
+
+<para>
+  The &ucsUCRV; <envar>ucc/pxe/bootsplash</envar> on the UCC PXE
+  server can be set to <emphasis>no</emphasis> to deactivate it
+  completely.
+</para>
+</section>
+
+</chapter>

@@ -1,0 +1,377 @@
+<chapter id="rollout:chapter">
+<title>Management, rollout and updates of UCC systems</title>
+<para>
+  UCC systems are rolled out via an image-based procedure. The
+  recommended rollout procedure is creating the UCC systems in the
+  &ucsUMC; in advance. When the image is installed, the image installation tool then
+  checks whether there is already a computer account available for the
+  client and uses it. If the computer name is not stored in advance,
+  the name can be specified interactively during the installation.
+</para>
+
+<section id="rollout:administrationumc">
+<title>Administration of UCC systems in the &ucsUMC;</title>
+<para>
+  UCC systems are registered and administrated with the system role
+  <emphasis>Univention Corporate Client</emphasis> in the computer
+  management module of the &ucsUMC;.
+</para>
+
+<para>
+  In the command line frontend Univention Directory Manager, clients
+  are managed with the <emphasis>computers/ucc</emphasis> module.
+</para>
+<para>
+  The following settings must be configured for every UCC client as a minimum:
+  <itemizedlist>
+	<listitem><simpara>The <emphasis>name</emphasis> of the client
+	(composed of lowercase and uppercase letters, numbers, hyphens and
+	underscores).</simpara></listitem>
+	<listitem><simpara>The <emphasis>MAC address</emphasis> of the
+	client in the notation XX:XX:XX:XX:XX:XX</simpara></listitem>
+	<listitem><simpara>The <emphasis>IP address</emphasis> of the client</simpara></listitem>
+  </itemizedlist>
+</para>
+
+<figure><title>Management of a UCC system in the UMC</title>
+ <graphic scalefit="1" width="100%" fileref="illustrations/ucc-client-umc.png"/>
+ </figure>
+
+<para>
+  A forward and reverse zone for DNS resolution should be assigned under
+  <guimenu>DNS Forward and Reverse Lookup Zone</guimenu>. These zones
+  are created automatically in the scope of the installation of the
+  &ucsMaster;. The name and the IP address of the UCC client can thus
+  also be resolved in the UCS DNS service.
+</para>
+<para>
+  The network configuration of UCC clients is managed through DHCP in
+  the default setting. A DHCP service must also be assigned under
+  <guimenu>DHCP</guimenu>. These are also created automatically in the
+  scope of the installation of the domain controller master. The UCC
+  client is then registered for the DHCP server and the configured IP
+  address is assigned to the DHCP.
+</para>
+
+<para>
+  UCS offers you the possibility of centrally managing the IP
+  addresses and DNS/DHCP settings of a network in a network
+  object in the LDAP. This can considerably facilitate the management of
+  UCC clients by selecting the network object in
+  <guimenu>Network</guimenu> input field: The next free IP address of
+  the network and the DNS and DHCP settings are then adopted automatically.
+</para>
+
+<figure><title>Management of IP addresses through a network object</title>
+ <graphic scalefit="1" width="80%" fileref="illustrations/umc-network.png"/>
+ </figure>
+
+<para>
+  During the installation of an UCS system, a network object with the
+  name <emphasis>default</emphasis> is saved as standard, which can
+  usually be used in normal cases. If, for example, several sites are
+  to be managed, additional networks can be defined using the
+  <guimenu>Networks</guimenu> wizard in the &ucsUMC;.
+</para>
+<para>
+  The DHCP configuration is then also performed via the UMC. The
+  network properties of UCC clients can be centrally specified per
+  subnetwork. The settings can be set via the UMC's
+  <guimenu>DHCP</guimenu> wizard. The DHCP service of the current
+  domain must be selected. The selection list which opens then shows
+  the subnetwork object, which can be opened with a click. The
+  following properties can be specified under
+  <guimenu>Policies</guimenu> amongst others:
+  <itemizedlist>
+	<listitem><simpara><emphasis>DNS</emphasis> allows the assignment
+	of one or more name servers</simpara></listitem>
+	<listitem><simpara><emphasis>Routing</emphasis> allows the
+	assignment of a default gateway. This must be set to ensure proper routing!</simpara></listitem>
+	<listitem><simpara><emphasis>Lease time</emphasis> allows
+	configuration of a lease time for an IP address</simpara></listitem>
+  </itemizedlist>
+</para>
+<para>
+  In the default setting, fixed IP addresses are assigned and only to
+  clients registered in the LDAP.
+</para>
+<para>
+  The DHCP administration also offers numerous, extensive configuration options,
+  which are generally, however, not required in UCC
+  client operation. They are described in the DHCP section in the UCS
+  manual <xref linkend="ucs-manual"/>.
+</para>
+</section>
+
+
+<section id="rollout:bootpolicy">
+<title>Configuration of the PXE server in a multi-server environment</title>
+<para>
+  The rollout of UCC systems usually occurs via PXE (see <xref linkend="rollout:imagerollout"/>). If
+  UCC is operated in a single server environment the server distributing the IP adresses to the
+  clients is identical to the PXE server providing the UCC images for installation.
+</para>
+<para>
+  If UCC is used in a distributed environment, there may be DHCP servers not serving as PXE servers. In
+  that case the UCS server distributing the UCC images needs to be configured through a
+  <guimenu>DHCP Boot</guimenu> policy. Please see the UCS manual for additional information
+  <xref linkend="ucs-manual-pxeboot"/>.
+</para>
+</section>
+
+<section id="rollout:imagerollout">
+<title>Rollout of images</title>
+<para>
+  The image with which a UCC client is operated is configured in the
+  &ucsUMC; in the <guimenu>Images</guimenu> tab on UCC computer
+  objects. All the UCC images registered in the UCS management
+  system are available for selection. The registration is effected
+  with join scripts during the installation of the image, see <xref
+  linkend="installation:imagemanagement:download"/>.
+</para>
+<para>
+  The &ucsUMC; can also be used to edit several objects at once, which
+  permits the assignment of images to several computers at once. This
+  is documented in the UCS manual <xref linkend="ucs-manual-multiedit"/>.
+</para>
+
+<figure><title>Assigning the desktop image to a UCC client</title>
+ <graphic scalefit="1" width="60%" fileref="illustrations/ucc-assign-image.png"/>
+ </figure>
+
+<para>
+  UCC clients can be operated in three different installation modes,
+  which can be assigned via the <guimenu>Boot variant</guimenu> field:
+  <itemizedlist>
+	<listitem><simpara><guimenu>Live boot</guimenu> Here the image is
+	started via PXE and mounted via NFS. The client must be configured
+	for PXE boot in the BIOS. Technically, all UCC systems are always
+	treated as having read/write storage media: If an image is mounted from a
+	source which itself only allows readonly access (from a live DVD or as
+	in this case from a NFS share), an OverlayFS file system is employed:
+	All the write changes are cached in the system memory and are lost when the computer is
+	switched off. Thin clients are also always run with an overlayfs
+	for a local installation, further information can be found under
+	<xref linkend="rollout:overlayfs"/>.</simpara></listitem>
+	<listitem>
+		<para><guimenu>Image boot with update check / Initial
+				installation</guimenu> This mode is used for two purposes:
+		</para>
+	<itemizedlist>
+	  <listitem><simpara>The initial installation of a UCC client</simpara></listitem>
+	  <listitem><simpara>For updates of UCC systems to a new UCC image</simpara></listitem>
+	</itemizedlist>
+	<para>
+	If there are no partitions present, the system is partitioned.
+	After the installation of the image, the system is joined into the
+	UCS domain. If this boot variante is used on an existing UCC
+	installation, is is detected whether the installed image differs
+	from the image to be installed. If that is the case, the
+	system, the UCC system partition is overwritten. In this case, no
+	new partitioning occurs.</para>
+	</listitem>
+	<listitem><simpara><guimenu>Image boot without update
+	check</guimenu> In this boot mode, the locally installed image
+	is started and no check for a newly available image
+	performed. Following an installation performed with <guimenu>Image boot
+	with update check / Initial installation</guimenu>, the system returns to
+	this boot mode automatically.</simpara></listitem>
+  </itemizedlist>
+</para>
+<para>
+  The <guimenu>Additional boot parameter</guimenu> input field can be
+  used to add any parameters to the initial RAM disk, which performs
+  the installation/rollout. Two preconfigured options are:
+  <itemizedlist>
+	<listitem><simpara><emphasis>debugshell=y</emphasis> : If an error
+	occurs during installation of the image, a shell opens in which
+	the problem can be analysed further.</simpara></listitem>
+	<listitem><simpara><emphasis>verbose=y</emphasis> : The shell scripts
+	of the initial RAM disk are started with the parameter "-x", with
+	which the current control flow can be better monitored (useful
+	for debugging).</simpara></listitem>
+  </itemizedlist>
+</para>
+</section>
+
+<section id="rollout:partitioning">
+<title>Partitioning / separation of user and system data</title>
+<para>
+  On the systems installed with images, user-specific data such as the
+  home of the users must be stored separately from the system data on
+  another partition. This is the case in the default partition configuration.
+</para>
+<para>
+  The partitioning scheme is specified in the images configuration, see
+  <xref linkend="imagegen:params"/>.
+</para>
+<para>
+  The <guimenu>Repartitioning for installed systems</guimenu> option
+  on the <guimenu>Images</guimenu> tab of a UCC client in the computer
+  management of the &ucsUMC; forces repartitioning of a
+  system. A prompt must be confirmed before the partitioning begins.
+</para>
+<caution>
+	<para>
+	Existing user data on a /home partition on a system are
+	also deleted!
+	</para>
+</caution>
+<para>
+  The GNU Parted version used in Ubuntu 12.04 has a bug, which means that
+  the <emphasis>bootable</emphasis> flag of the protective MBR disappears when you edit a
+  partition. This can cause boot problems with some BIOS
+  implementations. This bug does not occur during partitioning in UCC
+  as the flag is set manually via a script
+  (<command>set-bootable-flag-on-protective-mbr</command>). As such, manual
+  partitioning should be avoided or the script be executed after partitioning.
+</para>
+
+<para>
+  It is also possible to perform completely new partitioning schemes - e.g. an encrypted hard drive -
+  with an adapted partitioning script, see <xref linkend="imagegen:crypto"/>).
+</para>
+
+</section>
+
+<section id="rollout:automatic">
+<title>Configuration of a fully automated rollout</title>
+<para>
+  The rollout of UCC systems can be completely automated so that user
+  interaction is no longer necessary. Once all the clients to be
+  rolled out have been created in the UCS management system (see
+  <xref linkend="rollout:administrationumc"/>), the following steps
+  are necessary:
+</para>
+
+<para>
+  An image must be generated in which the interactive confirmation of
+  the partitioning is disabled. This can be achieved by setting the
+  option <emphasis>continuation_prompt</emphasis> to
+  <emphasis>false</emphasis> (see <xref
+  linkend="imagegen:params"/>).
+</para>
+
+<para>
+  Then the credentials of a user need to be stored in the image,
+  which is authorised to join clients in the domain (the user must be
+  a member of the <emphasis>Domain Admins</emphasis> and <emphasis>DC Backup Hosts</emphasis> groups for
+  this). For security reasons, this user should only be created during
+  the rollout and then removed or disabled after the rollout.
+</para>
+
+<para>
+  These credentials are now saved in the image with the tool
+  <command>ucc-image-set-join-information</command>. The parameter
+  <emphasis>-i</emphasis> is used to specify an image and the join
+  account and its password are interactively prompted.
+</para>
+
+<para>
+  The clients are then rolled out fully automatically without user
+  interaction.
+</para>
+
+</section>
+
+<section id="rollout:domainjoins">
+<title>Domain join of UCC systems</title>
+<para>
+  Only UCC clients, which are joined into a UCS domain can be
+  centrally configured. Unjoined clients can still be used for special
+  setups like live systems or demo points.
+</para>
+
+<para>
+  The domain join is typically performed in the scope of the rollout
+  via PXE (see <xref linkend="rollout:imagerollout"/>). The domain
+  join can also be subsequently performed by
+  running <command>univention-join</command>. The subsequent domain join
+  cannot be performed via SSH, but should instead be run via a
+  local login or, if virtualization is employed, via VNC. The system
+  must be restarted after the join.
+</para>
+</section>
+
+<section id="rollout:iso">
+<title>Rollouts using an ISO image</title>
+<para>
+  While the standard rollout mechanism for UCC systems is PXE-based,
+  it is also possible to perform installations using ISO images, which
+  can be written to USB sticks, DVDs or BluRays.
+</para>
+<para>
+  The images are available at
+  <ulink url="http://ucc-images.software-univention.de/download/ucc-images/"/>.
+</para>
+<para>
+  The client to be installed should be created in the UMC computer
+  management first (see <xref linkend="rollout:administrationumc"/>).
+</para>
+<para>
+  After the image has been written to disk and the boot medium is
+  started, a boot menu appears. Here, <guimenu>UCC - Image boot with
+  update check / Initial installation</guimenu> needs to be selected
+  and the <emphasis>e</emphasis> key pressed. Then the boot options need to
+  be modified from <emphasis>ucc=update</emphasis> to
+  <emphasis>ucc=rollout</emphasis>. If the client already contains a
+  partitioning, which needs to be replaced
+  <emphasis>repartition=y</emphasis> needs to be added.
+</para>
+
+<section id="rollout:iso:xen">
+<title>UCC installation as Xen Guest</title>
+<para>
+  To install an UCC ISO image in a Xen DomU, the DomU must be configured to be
+  fully virtualized (HVM). On an UCS System with a virtual machine manager the operating system option
+  'Other' has to be used <xref linkend="ucs-manual-uvmm"/>.
+  Please note that the official UCC desktop image uses a kernel that supports pvops, so I/O performance
+  is that of a paravirtualized guest when pvops is supported by Dom0. On an official thinclient image
+  another kernel with pvops support can be installed, e.g. linux-image-generic-pae. More information
+  about pvops can be found at <ulink url="http://wiki.xen.org/wiki/Paravirtualization_%28PV%29"/>.
+</para>
+</section>
+</section>
+
+<section id="rollout:persistent">
+<title>Persistently stored system settings</title>
+<para>
+  System data which must be preserved during an update (e.g., the join
+  status) are saved separately from the system data and automatically restored
+  after updates. These files and selected &ucsUCR; variables are registered in
+  the UCR variables <envar>ucc/persistent/files</envar> and
+  <envar>ucc/persistent/ucr</envar>. Important standard UCC settings
+  are preconfigured automatically and can be expanded for local
+  adaptations.
+</para>
+</section>
+
+<section id="rollout:overlayfs">
+<title>OverlayFS on thin clients</title>
+<para>
+  The CompactFlash storage media typically integrated in thin clients
+  are only designed for a limited number of write operations.
+</para>
+
+<para>
+  Thin clients are thus started in UCC with an OverlayFS file system
+  so that all write accesses on the storage media of a booted system
+  are only performed in the system memory and not written to the hard
+  drive. All the write changes are thus lost once the thin client is
+  switched off. This does not pose any problems for access to terminal
+  services, as all the user activities are performed on the respective
+  terminal servers. The standard write access is selectively enabled
+  for individual operations such as the installation of new UCC images
+  or subsequent installation of software.
+</para>
+
+<para>
+  If a thin client uses storage media which allow
+  permanent write access, the Overlayfs can also be disabled by
+  setting the &ucsUCR; variables <envar>ucc/boot/mount</envar> to <emphasis>rw</emphasis> and
+  <envar>ucc/thinclientoverlayfs</envar> to <emphasis>false</emphasis>.
+</para>
+
+</section>
+
+</chapter>

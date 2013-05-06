@@ -1,0 +1,43 @@
+<chapter id="desktop:chapter">
+<title>Univention Corporate Client desktop environment</title>
+<para>
+  Univention Corporate Client offers a desktop environment based on
+  the KDE Plasma desktop in version 4.8. It offers a compilation of
+  software components suitable for typical business applications.
+</para>
+
+<figure><title>Univention Corporate Client desktop</title>
+ <graphic scalefit="1" width="80%" fileref="illustrations/ucc-desktop.png"/>
+ </figure>
+
+<para>
+  Extensive documentation and manuals for all the KDE components can
+  be found at <ulink url="http://docs.kde.org/"/>.
+</para>
+
+<para>
+  LibreOffice is the core application of the Univention Corporate
+  Client and offers the full scope of functions of a modern Office
+  suite. In addition to standardised, open formats such as the
+  OpenDocument format, OpenOffice.org can also be used to open and
+  edit documents created in other office applications such as
+  Microsoft Office. To ensure uncomplicated distribution, documents can
+  also be easily exported in PDF format.
+</para>
+
+<para>
+  Extensive documentation on Libreoffice can be found at
+  <ulink url="http://www.libreoffice.org/get-help/documentation/"/>.
+</para>
+
+<para>
+  Mozilla Firefox is also supplied for accessing websites. The Adobe
+  Flash plugin is integrated for the playback of Flash animations.
+</para>
+
+<para>
+  Thin clients only offer a slimmed down desktop environment based on
+  LXDE. LXDE is only provided for simple administrative environments.
+</para>
+
+</chapter>

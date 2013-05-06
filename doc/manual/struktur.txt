@@ -1,0 +1,54 @@
+Introduction
+
+Installation
+
+  Installation über App Center *
+  Image download *
+
+
+Management, rollout and updates of UCC systems
+
+  Management of UCC systems in the UMC *
+  Domain joins (Nachträglich fehlt)
+  Installation/updates (mehr Details)
+  Persistent files *
+  PXE 
+  Partitioning (mehr Details)
+  Overlaysfs auf TC
+  Installation von USB/DVD
+
+
+Configuration of UCC systems
+
+  UCR
+  Cron
+  Software updates
+  Locale
+  Time zone
+  Logging
+  Bootsplash
+
+Hardware configuration
+
+  Network configuration
+  USB on thin clients
+  Sound
+  Multimonitor
+  Keyboard layout
+
+User logins
+
+  LightDM
+  Local credentials cache
+  Firefox session script
+  ccreds
+
+Terminal services
+
+  XenApp
+  RDP
+  UCC
+
+Image generation
+
+  

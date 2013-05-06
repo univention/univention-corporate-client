@@ -1,0 +1,257 @@
+<chapter id="installation:chapter">
+<title>Installation</title>
+<para>
+  Univention Corporate Client integrates into the management system
+  of Univention Corporate Server. UCS 3.1 is a prerequisite for the
+  installation of UCC.
+</para>
+<para>
+  The UCS integration packages are installed via the Univention App
+  Center. General information on the Univention App Center can be found
+  in the UCS manual <xref linkend="ucs-manual"/>.
+</para>
+
+<figure><title>Installing UCC in the Univention App Center</title>
+ <graphic scalefit="1" width="60%" fileref="illustrations/ucc-app-center.png"/>
+ </figure>
+
+<para>
+  A UCC environment is made up of three components:
+  <itemizedlist>
+	<listitem><simpara>The integration in the UCS management system (UMC
+	modules and LDAP schema extensions). These must be installed on
+	the &ucsMaster; and all &ucsBackup; systems.</simpara></listitem>
+	<listitem><simpara>A UCS server which distributes the images for the
+	installation of UCC systems via PXE. The images used for the installation of
+	UCC systems are loaded from the Univention mirror using an image
+	download tool and then distributed locally to the clients. Custom
+	installation images are also created on UCS servers. UCC
+	servers can be installed in all UCS server roles (&ucsMaster;, &ucsBackup;,
+	&ucsSlave; and &ucsMember;). It is possible to employ
+	more than one UCC server in an environment.</simpara></listitem>
+	<listitem><simpara>The UCC clients. They are installed via the
+	images.</simpara></listitem>
+  </itemizedlist>
+</para>
+
+
+<section id="installation:singleserver">
+<title>Installation in a single-server environment</title>
+<para>
+  All available errata updates should be installed on the
+  &ucsMaster;.
+</para>
+<para>
+  In the Univention App Center, select the <emphasis>Univention Corporate
+  Client</emphasis> application and click on
+  <guimenu>Install</guimenu>.
+</para>
+
+<para>
+  The thin client image is downloaded during the installation; the
+  download may take some time depending on the speed of the Internet
+  connection.
+</para>
+<para>
+  Once the component is installed, click on
+  <guimenu>Restart</guimenu>.
+</para>
+<para>
+  It is recommended to restart the system before the rollout of UCC clients.
+</para>
+
+</section>
+
+<section id="installation:distributed">
+<title>Installation in a distributed environment</title>
+<para>
+  When UCC is installed in an environment with more than one server,
+  the installation is performed in two stages:
+</para>
+<para>
+  All available errata updates should be installed on both the
+  &ucsMaster; and the additional server.
+</para>
+<para>
+1. Installation of the UMC modules and LDAP schema expansions:
+</para>
+<para>
+  Log on to the &ucsMaster; as the <emphasis>root</emphasis> user and
+  run the following command. If &ucsBackup; systems are in use, the
+  command must also be run on all of these systems. After installation
+  the &ucsUMC; server needs to be restarted:
+
+  <programlisting>
+univention-add-app ucc_20130218 ucc-management-integration
+/etc/init.d/univention-management-console-server restart
+  </programlisting>
+</para>
+
+
+<para>
+  2. Installation of the UCC server(s)
+</para>
+<para>
+  UCC servers can be installed in all UCS server roles. The UMC module
+  <guimenu>Univention App Center</guimenu> must be opened on all the
+  systems on which you wish to install a UCC server.
+</para>
+<para>
+  In the Univention App Center, select the <emphasis>Univention Corporate
+  Client</emphasis> application and click on
+  <guimenu>Install</guimenu>. The thin client image is downloaded
+  during the installation; the download may take some time depending
+  on the speed of the Internet connection.
+</para>
+<para>
+  Once the component is installed, click on <guimenu>Restart</guimenu>.
+</para>
+<para>
+  Finally the join scripts need to be executed on the UCC server:
+  <programlisting>
+univention-run-join-scripts
+  </programlisting>
+</para>
+<para>
+  It is recommended to restart the system before the rollout of UCC clients.
+</para>
+
+
+</section>
+
+
+<section id="installation:imagemanagement">
+<title>Management of UCC images</title>
+
+<section id="installation:imagemanagement:download">
+<title>Downloading UCC images</title>
+<para>
+  The UCC images are not delivered in the Debian package format; the
+  Debian package format is not best suited to files in the gigabyte
+  range.
+</para>
+<para>
+  Instead, UCC images are downloaded with the
+  <command>ucc-image-download</command> tool. The individual files of
+  the image are referenced via a spec file containing the file names
+  and SHA256 hashes. The hash values are checked as part of the
+  download procedure in order to detect erroneous transmissions. The
+  proxy settings of a UCS system are taken into account.
+</para>
+<para>
+  The images are available at
+  <ulink url="http://ucc-images.software-univention.de/download/ucc-images/"/>. A
+  local UCC mirror can also be used, see <xref linkend="installation:imagemanagement:mirror"/>.
+</para>
+<para>
+  Univention provides two metapackages, the installation of which
+  initiates the downloading of the images. The packages can be
+  installed with <command>univention-install</command> or via the
+  software management module of the &ucsUMC;.
+
+  <itemizedlist>
+	<listitem><simpara><emphasis>ucc-thinclient-image</emphasis>
+	installs the latest thin client image</simpara></listitem>
+	<listitem><simpara><emphasis>ucc-desktop-image</emphasis> installs
+	the latest desktop image</simpara></listitem>
+  </itemizedlist>
+</para>
+<para>
+  The installation of the images is initiated at the end of the
+  installation. The downloaded images are not removed when removing
+  the metapackages. If desired, they should be removed manually in the
+  directory <filename>/var/lib/univention-client-boot</filename>.
+</para>
+<para>
+  Alternatively, the download can also be performed manually by
+  running <command>ucc-image-download</command>. The parameter
+  <emphasis>-s</emphasis> is used to provide the name of the spec file
+  on the mirror, e.g.:
+  <programlisting>
+ucc-image-download -s ucc-1.0-thinclient-image.img.spec
+  </programlisting>
+</para>
+<para>
+  Interrupted downloads are restarted as standard. You can use the
+  option <emphasis>--reload</emphasis> to force the download to
+  restart completely.
+</para>
+<para>
+  The full list of available parameters can be queried with the
+  <emphasis>-h</emphasis> option.
+</para>
+<para>
+  The root password of the installed system is initially specified in
+  the image. To avoid there being an identical root password on all
+  UCC systems operated with the official Univention images, the root password
+  is "personalised" during the image download: the root password of
+  the UCC server is set as the root password on the images. You can
+  also use the <emphasis>--set-root-pw-interactive</emphasis> option
+  to set a different root password.
+</para>
+</section>
+
+<section id="installation:imagemanagement:remove">
+<title>Deleting UCC images</title>
+<para>
+  The <command>ucc-image-remove -l</command> command can be used to
+  output an overview of the available images. An image can be deleted
+  using the parameter <emphasis>-r</emphasis> and specifying a spec
+  file, e.g.:
+  <programlisting>
+ucc-image-remove -r ucc-1.0-desktop-image.img.spec
+  </programlisting>
+</para>
+</section>
+
+<section id="installation:imagemanagement:mirror">
+<title>Operating a local UCC image mirror</title>
+<para>
+  If you are operating a number of UCC servers or an infrastructure
+  completely disconnected from the Internet, you can also operate a
+  local UCC mirror. In this case, the images need to be stored on an
+  HTTP server. Then the &ucsUCRV; <envar>ucc/image/download/url</envar> on the UCC
+  servers needs to be set to the download path.
+</para>
+</section>
+</section>
+
+<section id="installation:officialimages">
+<title>Official UCC images</title>
+<para>
+  Univention provides two preconfigured UCC images: a
+  minimal image for thin clients and a larger image for native desktop
+  installations. These two images are maintained and tested
+  by Univention.
+</para>
+
+<para>
+  UCC systems operated with these images must have at least 512 MB of
+  system memory available.
+</para>
+
+<para>
+  The thin client image offers a minimal desktop and support for
+  terminal sessions on Windows and UCC terminal servers. In addition, a local LXDE desktop environment is also
+  available. Thin clients which are to be operated with this image
+  must be equipped with at least 2 GB of local disk space (e.g.,
+  CompactFlash or SSD).
+</para>
+
+<para>
+  The desktop client image offers a KDE Plasma desktop and support for
+  terminal sessions on Windows and UCC terminal servers (support for
+  Citrix XenApp can be subsequently installed).
+</para>
+
+<para>
+  Software packages can also be installed or removed to complement the
+  range of functions of the standard UCC images. Software updates can
+  also be initiated through a policy (see <xref linkend="config:softwareupdates"/>)
+</para>
+
+
+
+</section>
+
+</chapter>

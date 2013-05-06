@@ -1,0 +1,221 @@
+<chapter id="logins:chapter">
+<title>User logins</title>
+<section id="logins:lightdm">
+<title>User logins on LightDM</title>
+
+<section id="logins:sessions">
+  <title>Session selection</title>
+  <para>
+	UCC uses LightDM as its login manager. When the UCC client is started,
+	a login mask is shown. If the UCC client is not yet joined, an
+	automatic login is performed with a temporary guest user. The user can choose between different session
+	types. LightDM can optionally also be configured in such a way that a
+	session is started automatically without additional user login, see
+	<xref linkend="logins:autologin"/>
+  </para>
+
+<figure><title>User login at LightDM</title>
+ <graphic scalefit="1" width="80%" fileref="illustrations/ucc-lightdm.png"/>
+ </figure>
+
+  <para>
+	If a password has expired or a user is scheduled for a password
+	change the next time she logs in, the password change is performed
+	in the scope of the login. Password changes are currently not
+	possible when using the RDP session script, this will be fixed in
+	a future release.
+  </para>
+
+  <para>
+	It must be noted that although the &ucsUMC; permits the creation
+	of users with a space in their user name - as these user names
+	are legitimate in Active Directory domains - it is not
+	possible to logon to UCC clients with these user names.
+  </para>
+
+  <para>
+	The last chosen user session is cached per user.
+  </para>
+
+
+<figure><title>Session selection at LightDM</title>
+ <graphic scalefit="1" width="40%" fileref="illustrations/ucc-session-selection.png"/>
+ </figure>
+
+  <para>
+	The following session scripts are supported in UCC 1.0:
+	<itemizedlist>
+	  <listitem><simpara>Univention Corporate Client based on KDE (on a
+	  local system and as a terminal service) (<xref linkend="terminalservices:ucc"/>, <xref linkend="desktop:chapter"/>)</simpara></listitem>
+	  <listitem><simpara>Citrix XenApp (<xref linkend="terminalservices:citrix"/>)</simpara></listitem>
+	  <listitem><simpara>Microsoft Windows Terminal Server (<xref linkend="terminalservices:rdp"/>)</simpara></listitem>
+	  <listitem><simpara>Firefox (with direct login to a configured website) (<xref linkend="logins:firefox"/>)</simpara></listitem>
+	  <listitem><simpara>LXDE (Lightweight X11 Desktop Environment) (<xref linkend="desktop:chapter"/>)</simpara></listitem>
+	</itemizedlist>
+  </para>
+</section>
+
+<section id="logins:sessiondefault">
+  <title>Configuration of a default session for a user's first login</title>
+  <para>
+	To configure the default session that is set for a user's first login on a client,
+	the &ucsUCRV; <envar>lightdm/sessiondefault</envar> must contain the name
+	of one of the session scripts in <filename>/usr/share/xsessions</filename>.
+	For subsequent logins on a client the last chosen session is cached on a per user basis.
+  </para>
+</section>
+
+<section id="logins:autologin">
+  <title>Configuration of an automatic login and session selection</title>
+  <para>
+	Instead of an interactive login, it is also possible to configure
+	an automatic login with the guest user. This is useful for a
+	UCC client which is only used for access to terminal services or
+	to a website (e.g., for kiosk systems).
+  </para>
+  <para>
+	This is done by setting the &ucsUCRV; <envar>lightdm/autologin</envar> to <emphasis>yes</emphasis>
+	and <envar>lightdm/autologin/session</envar> to a session script. The session
+	scripts can be found in the <filename>/usr/share/xsessions</filename> directory, in
+	other words, <emphasis>RDP</emphasis> for example.
+  </para>
+
+  <para>
+	In the case described above, the LightDM login dialogue is no
+	longer shown. The session can alternatively also be specified in
+	the user management of the &ucsUMC;. This is performed in the
+	<guimenu>Force this session for user logins</guimenu> input field in the <emphasis>UCC user
+	session</emphasis> policy: Independently of the selection of the session
+	script during the LightDM user login, the login is always
+	performed with the predefined session. The sessions available in
+	the policy can be extended, see <xref linkend="logins:sessionobjects"/>.
+  </para>
+
+</section>
+
+<section id="logins:sessionscripts">
+  <title>Session scripts</title>
+  <para>
+	Scripts can be run at different times during session setup and
+	when exiting the session. All the scripts which can be run in the
+	following directories are run alphabetically with root rights:
+
+	<itemizedlist>
+	  <listitem>
+	  <simpara><filename>/etc/lightdm/session-setup</filename>:
+	  Is run before the session script is executed.</simpara></listitem>
+	  <listitem>
+	  <simpara><filename>/etc/lightdm/session-cleanup</filename>: Is run
+	  after the session script is exited.</simpara></listitem>
+	  <listitem>
+	  <simpara><filename>/etc/lightdm/display-setup</filename>: Is run if
+	  a greeter session is run.</simpara></listitem>
+	  <listitem>
+	  <simpara><filename>/etc/lightdm/greeter-setup</filename>: Is run if
+	  a greeter session is started.</simpara></listitem>
+	</itemizedlist>
+  </para>
+</section>
+
+<section id="logins:environmentvars">
+  <title>Configuration of environment variables and execution of scripts during user login</title>
+  <para>
+	A <guimenu>UCC desktop settings</guimenu> user policy can be used
+	to configure environment variables in the user session. All the
+	variables set with the <guimenu>Variable</guimenu> and
+	<guimenu>Value</guimenu> options are then set in the user session
+	scripts.
+  </para>
+
+  <para>
+	The settings set via the <guimenu>Desktop logon scripts</guimenu>
+	and <guimenu>Desktop logout scripts</guimenu> settings are run
+	before and after the user login with the rights of the accessing
+	user.
+  </para>
+
+  <para>
+	The scripts must be specified as absolute file names and must not
+	contain any spaces. Also, the scripts must be executable.
+  </para>
+
+</section>
+
+
+</section>
+
+<section id="logins:localcaching">
+  <title>Local caching of user and group information</title>
+  <para>
+	UCC systems store user and group information in local files
+	integrated via an NSS module. In combination with caching of the
+	login credentials (see <xref linkend="logins:pwcaching"/>),
+	this allows operation of UCC clients
+	without a connection to an LDAP server of the UCS domain.
+  </para>
+  <para>
+	The user and group information is extracted via a listener module
+	(<filename>ucc-nss-passwd.py</filename>) on the UCS-based UCC
+	servers into a <filename>passwd</filename> and a
+	<filename>group</filename> file.
+  </para>
+  <para>
+	These files are read from UCC systems via an NSS module
+	(libnss-extrausers). The user and group data are downloaded in
+	two ways:
+	<itemizedlist>
+	  <listitem><simpara>The current files are downloaded when the UCC
+	  client is started.</simpara></listitem>
+	  <listitem><simpara>If the user is not yet present on the UCC
+	  system, the download is also initiated during login via the PAM
+	  stack.</simpara></listitem>
+	</itemizedlist>
+  </para>
+  <para>
+	As standard, all of the users in the domain are always copied to
+	the client. For special cases - such as notebooks, on which
+	only a few users should be present - the &ucsUCRV;
+	<envar>ucc/nss/update/hostspecific</envar> should be set to
+	<emphasis>true</emphasis>. In this case, the download script for
+	the user data on the UCS server searches for the
+	<filename>/var/cache/ucc/HOSTNAME.passwd</filename> and
+	<filename>/var/cache/ucc/HOSTNAME.group</filename> files in which
+	system-specific user data can be stored.
+  </para>
+</section>
+
+<section id="logins:pwcaching">
+  <title>Logins to offline UCC systems / password credentials caching</title>
+  <para>
+	Kerberos authentication is performed on UCC systems with a network
+	connection.
+  </para>
+
+  <para>
+	In addition, successful login attempts are cached via the PAM
+	module pam_ccreds, i.e., if a user has successfully logged in once
+	with an active network connection, she can also continue to log in
+	with this password when working offline.
+  </para>
+
+</section>
+
+<section id="logins:firefox">
+  <title>Firefox session script</title>
+  <para>
+	The Firefox session script starts a Firefox web browser in a fullscreen session. If the
+	&ucsUCRV; <envar>firefox/startsite</envar> is set to an URL, the
+	website is automatically opened.
+  </para>
+</section>
+
+<section id="logins:sessionobjects">
+  <title>Registration of sessions in the Univention Management Console</title>
+  <para>
+	Sessions are registered in the &ucsUMC;. New sessions can be
+	created by selecting the UMC module <guimenu>LDAP
+	directory</guimenu> and adding a <guimenu>UCC session
+	script</guimenu> object below <emphasis>cn=univention,cn=UCC,dc=Session</emphasis>.
+  </para>
+</section>
+</chapter>
