@@ -1,0 +1,11 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-ucc-remote-mount
+fix: 1.0.0-8.11.201304031020
+note:
+desc: |
+  * Removed initial setting 'true' from ucc/mount
+  * Ignore ram* and loop* devices in add_fstab_entry
+version: [0]
+bug: [30552, 30468]

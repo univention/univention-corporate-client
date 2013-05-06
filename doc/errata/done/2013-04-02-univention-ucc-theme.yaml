@@ -1,0 +1,10 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-ucc-theme
+fix: 1.0.7-1.13.201304021736
+note:
+desc: |
+  Added dependency to libglib2.0-bin
+version: [0]
+bug: [30579]

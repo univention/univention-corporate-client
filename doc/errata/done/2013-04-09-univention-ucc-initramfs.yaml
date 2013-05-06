@@ -1,0 +1,11 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-ucc-initramfs
+fix: 1.0.19-3.73.201304091246
+note:
+desc: |
+  * Start the loopback interface on system boot which improves boot times 
+    when the master ldap server is unreachable
+version: [0]
+bug: [30441]

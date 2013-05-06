@@ -1,0 +1,15 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-corporate-client
+fix: 1.0.23-3.78.201304221409
+note:
+desc: |
+  * Added dependency to network-manager
+  * Added symlink support to univention-ucc-sync-persistent-files
+  * Added DEBIAN_FRONTEND to univention-ucc-software-update
+  * Exit softwareupdate script when a reboot is necessary
+  * Added additional messages during software update
+  * Unset kdm/autostart to keep plymouth displaying during software updates
+version: [0]
+bug: [30297, 30463, 31010, 31061]

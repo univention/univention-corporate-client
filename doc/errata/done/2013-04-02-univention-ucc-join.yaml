@@ -1,0 +1,12 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-ucc-join
+fix: 1.1.16-6.52.201304171617
+note:
+desc: |
+  * Add /etc/ldap.secret to persistent files 
+  * Recreate openssh-server hostkeys during join and add
+    them to persistent files
+version: [0]
+bug: [30463, 30163]

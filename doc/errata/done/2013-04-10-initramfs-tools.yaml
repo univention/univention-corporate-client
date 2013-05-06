@@ -1,0 +1,13 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: initramfs-tools
+fix: 0.99ubuntu13.1.28.201304101506
+note:
+desc: |
+ * Do not backup old initramfs files
+ * Create new initramfs files in temporary directory (not in /boot)
+ * Temporary directory is /tmp or /ucc_root (the dir with more 
+   free space, default /tmp)
+version: [0]
+bug: [31015]
