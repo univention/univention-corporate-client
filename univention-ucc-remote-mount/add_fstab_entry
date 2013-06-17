@@ -28,7 +28,7 @@
 # <http://www.gnu.org/licenses/>.
 
 # Debug
-echo "univention-ucc-remote-mount: add_fstab_entry called: options: $1 $2 $3"|logger
+echo "univention-ucc-remote-mount: add_fstab_entry called: options: '$1' '$2' '$3'"|logger
 
 ##  if called by udev
 # add_fstab_entry
@@ -50,43 +50,36 @@ for i in $blacklist; do
 done
 
 call_cdpinger(){
-    if [ -z "$(pgrep -f -l "/usr/sbin/cdpinger $1")" ]; then
-        /usr/sbin/cdpinger $1 &
+	if [ -z "$(pgrep -f -l "cdpinger $1")" ]; then
+		# speed up device
+		if [ -x "$(which eject)" ]; then
+			max=72
+			max="$(eject -X $1)"
+			eject -x $max $1 || true
+		fi
+		cdpinger $1 &
 		echo "univention-ucc-remote-mount: started cdpinger for $1"|logger
-        return 0
-    else
-        # already running cdpinger for this device
-        return 1
-    fi
+		return 0
+	else
+		# already running cdpinger for this device
+		return 1
+	fi
 }
 
 . /usr/share/univention-lib/all.sh
 
-
 eval "$(univention-config-registry shell)"
 
 if ! is_ucr_true 'ucc/mount'; then
-    echo "univention-ucc-remote-mount: Device mount has been disabled, exiting" | logger
-    exit 0
+	echo "univention-ucc-remote-mount: Device mount has been disabled, exiting" | logger
+	exit 0
 fi
 
-# check if we are called by cdpinger
-if [ "$1" = "add" ] || [ "$1" = "remove" ]; then
-    devicename=$(basename $2) # normally "cdrom"
-    fstype="$3"
-    if [ "$1" = "remove" ]; then # call remove_fstab_entry
-		/lib/udev/remove_fstab_entry "$2" "$3"
-    fi
-    # remove_fstab_entry will stop cdpinger because it don't see the difference 
-    # to an CD-eject, so we restart cdpinger here
-    call_cdpinger $devicename
-    return 0
-else
-    devicename=$(basename $1)
-fi
+devicename=$(basename "$1")
 
-export $(udevinfo -qenv -n $devicename)
+export $(udevadm info -q env -n $1)
 
+# ignore truecrypt devices
 if [ -n "$DM_NAME" ]; then
 	if [[ "$DM_NAME" == truecrypt* ]]; then
 		echo "univention-ucc-remote-mount: Ignoring Truecrypt dm device" | logger
@@ -94,12 +87,15 @@ if [ -n "$DM_NAME" ]; then
 	fi
 fi
 
-if [ "$ID_BUS" != "usb" ]; then
-    echo "univention-ucc-remote-mount: Device is not a USB device" | logger
+# ignore non USB or CDROM devices
+if [ "$ID_BUS" != "usb" ] && [ "${ID_TYPE}" != "cd" ]; then
+    echo "univention-ucc-remote-mount: Device is not a USB or CD-ROM device" | logger
     exit 0
 fi
 
-# handle CDROM devices, which do not produce udev add/remove events
+## handle CDROM devices, which do not produce udev add/remove events
+## start cdpinger for the devices, cdpinger will be killed and restarted
+## in remove_fstab_entry
 if [ "${ID_TYPE}" = "cd" ]; then
     if call_cdpinger $devicename ; then
         # started new cdpinger, which will handle the rest
@@ -167,6 +163,7 @@ if [ ! -d $MOUNTPOINT ];then
 fi
 
 mount $mountoptions $filesystemoptions /dev/$devicename ${MOUNTPOINT}
+echo mount $mountoptions $filesystemoptions /dev/$devicename ${MOUNTPOINT} | logger
 
 if [ $? -ne 0 ]; then
 	rmdir ${MOUNTPOINT}
