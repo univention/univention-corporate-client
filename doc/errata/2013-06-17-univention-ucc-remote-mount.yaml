@@ -8,5 +8,6 @@ desc: |
   * The udev handling for ATA cdrom devices has been fixed 
   * The udev script now tries to speed up ATA cdrom devices 
     with the eject tool
+  * Problems with changing CD/DVDs in a drive were fixed.
 version: [0]
 bug: [31685, 31713]
