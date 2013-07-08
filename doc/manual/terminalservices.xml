@@ -48,6 +48,35 @@
   terminal server and only the graphic output transmitted to the thin
   client.
 </para>
+
+<para>
+  It should be noted that UCC terminal services are based on X11 forwarding, which are rather
+  bandwidth-intensive compared to an optimised remote access protocol like RDP or Citrix ICA.
+  For Linux-based desktop deployments it should be evaluated whether local installations might be
+  more suitable for the intended scenario:
+
+  <itemizedlist>
+	<listitem><simpara>
+	  In comparison to a standard Linux desktop installation UCC offers very quick and easy client
+	  rollout. 
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  Thin client hardware based on the x86 architecture are niche hardware and often more expensive
+	  than a standard desktop PC. Many of the traditional benefits of thin clients (e.g. fanless
+	  operation) can also be found in current desktop PC hardware. In addition a setup of standard
+	  PCs avoids the need for terminal servers.
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  In almost every environment some systems need to be mobile systems / notebooks. A rollout of
+	  stationary clients instead of thin clients ensure that a homogenous environment is used.
+	</simpara></listitem>
+  </itemizedlist>
+</para>
+
+
+
 </section>
 
 <section id="terminalservices:ucc:assign">
