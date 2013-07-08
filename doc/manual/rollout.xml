@@ -291,6 +291,15 @@
   local login or, if virtualization is employed, via VNC. The system
   must be restarted after the join.
 </para>
+
+<para>
+  UCS installations, in which the &ucsMaster; was installed in a release older than 2.3 still use
+  MD5 as the hashing algorithm for the SSL certificates. Later releases use SHA1 has the hashing
+  algorithm. UCC clients cannot join a domain still using MD5 hashes. The necessary steps to migrate
+  a UCS domain from MD5 to SHA1 are documented in the Univention Support Database (<ulink
+  url="http://sdb.univention.de/1150"/>).
+</para>
+
 </section>
 
 <section id="rollout:iso">
