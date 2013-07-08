@@ -366,10 +366,13 @@
 </para>
 
 <para>
-  If a thin client uses storage media which allow
+  If a thin client uses storage media which allows
   permanent write access, the Overlayfs can also be disabled by
-  setting the &ucsUCR; variables <envar>ucc/boot/mount</envar> to <emphasis>rw</emphasis> and
-  <envar>ucc/thinclientoverlayfs</envar> to <emphasis>false</emphasis>.
+  setting the &ucsUCR; variable <envar>ucc/thinclientoverlayfs</envar> to
+  <emphasis>false</emphasis>. In addition
+  <emphasis>mount=rw</emphasis> must be set in under
+  <guimenu>Images - >Additional boot parameter</guimenu> in the
+  computer management module of the &ucsUMC;.
 </para>
 
 </section>
