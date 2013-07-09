@@ -294,7 +294,7 @@
 
 <para>
   UCS installations, in which the &ucsMaster; was installed in a release older than 2.3 still use
-  MD5 as the hashing algorithm for the SSL certificates. Later releases use SHA1 has the hashing
+  MD5 as the hashing algorithm for the SSL certificates. Later releases use SHA1 as the hashing
   algorithm. UCC clients cannot join a domain still using MD5 hashes. The necessary steps to migrate
   a UCS domain from MD5 to SHA1 are documented in the Univention Support Database (<ulink
   url="http://sdb.univention.de/1150"/>).
@@ -377,11 +377,11 @@
 <para>
   If a thin client uses storage media which allows
   permanent write access, the Overlayfs can also be disabled by
-  setting the &ucsUCR; variable <envar>ucc/thinclientoverlayfs</envar> to
-  <emphasis>false</emphasis>. In addition
-  <emphasis>mount=rw</emphasis> must be set in under
-  <guimenu>Images - >Additional boot parameter</guimenu> in the
-  computer management module of the &ucsUMC;.
+  adding <emphasis>mount=rw</emphasis> to the <guimenu>Images -> Additional
+  boot parameter</guimenu> of the computer object in the computer management
+   module of the &ucsUMC;.
+  In addition the &ucsUCR; variable <envar>ucc/thinclientoverlayfs</envar> must
+  be set to <emphasis>false</emphasis>.
 </para>
 
 </section>
