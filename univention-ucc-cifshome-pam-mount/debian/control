@@ -1,0 +1,16 @@
+Source: univention-ucc-cifshome-pam-mount
+Section: univention
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper,
+ univention-config-dev,
+ ucslint
+
+Package: univention-ucc-cifshome-pam-mount
+Architecture: all
+Depends: ${misc:Depends},
+ libpam-mount,
+ cifs-utils,
+ univention-lightdm (>> 1.2.0),
+Description: internal ucc pam_mount settings
+ internal ucc pam_mount settings

@@ -1,0 +1,17 @@
+[ucc/mount/cifshome/server]
+Description[de]=Servername der CIFS-Heimatverzeichnis-Freigabe. Falls nicht gesetzt, wird automatisch die Variable ldap/server/name verwendet.
+Description[en]=Servername of user's CIFS home share. If unset, ldap/server/name is used automatically.
+Type=str
+Categories=system-desktop
+
+[ucc/mount/cifshome/share]
+Description[de]=Name der CIFS-Heimatverzeichnis-Freigabe, die während des lightdm-Logins automatisch eingehängt wird (Vorgabe: "%(DOMAIN_USER)")
+Description[en]=Name of CIFS home share that will be mounted automatically during lightdm login (default: "%(DOMAIN_USER)")
+Type=str
+Categories=system-desktop
+
+[ucc/mount/cifshome/options]
+Description[de]=Mount-Optionen für die CIFS-Heimatverzeichnis-Freigabe, die während des lightdm-Logins automatisch eingehängt wird (Vorgabe: "serverino")
+Description[en]=Mount options for CIFS home share that will be mounted automatically during lightdm login (default: "serverino")
+Type=str
+Categories=system-desktop

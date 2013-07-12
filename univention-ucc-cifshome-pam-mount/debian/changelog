@@ -1,0 +1,5 @@
+univention-ucc-cifshome-pam-mount (1.0.0-1) unstable; urgency=low
+
+  * initial release (Bug #31906)
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Fri, 12 Jul 2013 10:49:59 +0200
