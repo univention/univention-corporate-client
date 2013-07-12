@@ -1,0 +1,5 @@
+[proxy/pac]
+Description[de]=URL zur Proxy PAC Datei. Falls gesetzt, werden Firefox und KDE Konfigurationen mit dieser URL als Proxy Config Script erzeugt.
+Description[en]=URL to the proxy PAC file. If set, Firefox and KDE configurations are generated with this URL as the proxy config script.
+Type=str
+Categories=system-base

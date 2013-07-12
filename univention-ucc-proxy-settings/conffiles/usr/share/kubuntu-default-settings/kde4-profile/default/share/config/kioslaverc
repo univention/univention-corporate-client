@@ -1,0 +1,17 @@
+@%@UCRWARNING=# @%@
+
+@!@
+if configRegistry.get("proxy/pac", ""):
+	print '[Proxy Settings][$i]'
+	print 'Proxy Config Script[$i]=%s' % configRegistry["proxy/pac"]
+	print 'ProxyType[$i]=2'
+elif configRegistry.get("proxy/http", ""):
+	list = configRegistry["proxy/http"].split(":")
+	server = ":".join(list[0:-1])
+	port = list[-1]
+	if not server.startswith("http://"):
+		server = "http://" + server
+	print '[Proxy Settings]'
+	print 'ProxyType=1'
+	print 'httpProxy=%s %s' % (server, port)
+@!@

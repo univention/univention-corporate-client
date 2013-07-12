@@ -1,0 +1,5 @@
+univention-ucc-proxy-settings (1.0.0-1) unstable; urgency=low
+
+  * initial release (Bug #31905) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 11 Jul 2013 12:53:24 +0200
