@@ -1,0 +1,27 @@
+Fix: Return correct fullName of authenticated users instead of 'root'
+
+diff -Naur italc-2.0.0.orig/lib/src/LocalSystem.cpp italc-2.0.0/lib/src/LocalSystem.cpp
+--- italc-2.0.0.orig/lib/src/LocalSystem.cpp	2013-07-09 16:48:25.378917773 +0200
++++ italc-2.0.0/lib/src/LocalSystem.cpp	2013-07-10 14:19:06.523710926 +0200
+@@ -506,10 +506,6 @@
+ 
+ #ifdef ITALC_HAVE_PWD_H
+ 	struct passwd * pw_entry = getpwnam( m_name.toUtf8().constData() );
+-	if( !pw_entry )
+-	{
+-		pw_entry = getpwuid( m_userToken );
+-	}
+ 	if( pw_entry )
+ 	{
+ 		QString shell( pw_entry->pw_shell );
+@@ -523,6 +519,10 @@
+ 			m_fullName = QString::fromUtf8( pw_entry->pw_gecos );
+ 		}
+ 	}
++	else
++	{
++		m_fullName = QString("");
++	}
+ #endif
+ 
+ #endif

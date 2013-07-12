@@ -1,0 +1,20 @@
+univention-ucc-italc (2:1.0.0-3) unstable; urgency=low
+
+  * Run italc as root (Bug #30830)
+  * Patch: Return fullname instead of 'root' when handling
+    ItalcCore::GetUserInformation message
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 10 Jul 2013 16:13:59 +0200
+
+univention-ucc-italc (2:1.0.0-2) unstable; urgency=low
+
+  * Added univention-config-dev to build-dependencies (Bug #30830)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 09 Jul 2013 15:26:34 +0200
+
+univention-ucc-italc (2:1.0.0-1) unstable; urgency=low
+
+  * Initial build
+  * Renamed package to univention-ucc-italc (Bug #30830)
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 09 Jul 2013 12:19:38 +0200

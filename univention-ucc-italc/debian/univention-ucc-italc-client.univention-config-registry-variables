@@ -1,0 +1,11 @@
+[ucc/italc/key/sambasource]
+Description[de]=Samba Freigabe von der der italc-key während des Joinvorgangs heruntergeladen wird (default=\\$ldap_master\netlogon)
+Description[en]=Samba share from which the italc-key is downloaded during system join (default=\\$ldap_master\netlogon)
+Type=str
+Categories=italc
+
+[ucc/italc/key/filename]
+Description[de]=Dateiname des italc-keys auf der Samba Freigabe (default=italc-key.pub)
+Description[en]=Italc-key filename on the samba share (default=italc-key.pub)
+Type=str
+Categories=italc
