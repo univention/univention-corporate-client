@@ -1,0 +1,17 @@
+Source: univention-ucc-ucsschool-integration
+Section: univention
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper,
+ univention-config-dev,
+ ucslint
+
+Package: univention-ucc-ucsschool-integration
+Architecture: all
+Depends: ${misc:Depends},
+ univention-ucc-italc-master,
+ univention-ucc-proxy-settings,
+ univention-ucc-cifshome-pam-mount
+Description: Meta package for UCS@school integration
+ This package installs all packages that are required to
+ use UCC in an UCS@school environment.
