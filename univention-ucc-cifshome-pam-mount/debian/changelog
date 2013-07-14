@@ -1,3 +1,9 @@
+univention-ucc-cifshome-pam-mount (1.0.0-2) unstable; urgency=low
+
+  * activate UCR variable description (Bug #31906)
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Sun, 14 Jul 2013 14:35:45 +0200
+
 univention-ucc-cifshome-pam-mount (1.0.0-1) unstable; urgency=low
 
   * initial release (Bug #31906)
