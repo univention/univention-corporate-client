@@ -1,0 +1,13 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-ucc-proxy-settings
+fix: 1.0.0-2.2.201307151122
+note:
+desc: |
+ Two new UCR variables have been added to pre-configure
+ proxy settings for firefox and KDE on UCC clients.
+ ucc/proxy/http - URL to the proxy server
+ ucc/proxy/autoconfig/url - URL to the proxy pac
+version: [0]
+bug: [31905]
