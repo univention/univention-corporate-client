@@ -1,9 +1,9 @@
 Type: file
 File: usr/share/kubuntu-default-settings/kde4-profile/default/share/config/kioslaverc
-Variables: proxy/pac
-Variables: proxy/http
+Variables: ucc/proxy/autoconfig/url
+Variables: ucc/proxy/http
 
 Type: file
 File: usr/lib/firefox/defaults/pref/ucc-proxy.js
-Variables: proxy/pac
-Variables: proxy/http
+Variables: ucc/proxy/autoconfig/url
+Variables: ucc/proxy/http

@@ -1,3 +1,9 @@
+univention-ucc-proxy-settings (1.0.0-2) unstable; urgency=low
+
+  * changed var names (Bug #31905) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 15 Jul 2013 11:22:04 +0200
+
 univention-ucc-proxy-settings (1.0.0-1) unstable; urgency=low
 
   * initial release (Bug #31905) 
