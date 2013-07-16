@@ -1,3 +1,9 @@
+univention-lightdm (1.0.15-2) unstable; urgency=low
+
+  * removed old files (Bug #31409)
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Tue, 16 Jul 2013 14:10:35 +0200
+
 univention-lightdm (1.0.15-1) unstable; urgency=low
 
   * switch to multifile template for /etc/pam.d/lightdm (Bug #31409)
