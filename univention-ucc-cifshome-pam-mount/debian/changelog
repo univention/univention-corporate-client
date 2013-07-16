@@ -1,3 +1,10 @@
+univention-ucc-cifshome-pam-mount (1.0.0-4) unstable; urgency=low
+
+  * Bug #31906: removed default value as python is unable to parse UCR
+    variable description
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Tue, 16 Jul 2013 15:46:46 +0200
+
 univention-ucc-cifshome-pam-mount (1.0.0-3) unstable; urgency=low
 
   * Bug #31906: fixed dependencies

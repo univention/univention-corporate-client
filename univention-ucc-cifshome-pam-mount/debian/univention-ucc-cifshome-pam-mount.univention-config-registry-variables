@@ -5,8 +5,8 @@ Type=str
 Categories=system-desktop
 
 [ucc/mount/cifshome/share]
-Description[de]=Name der CIFS-Heimatverzeichnis-Freigabe, die während des lightdm-Logins automatisch eingehängt wird (Vorgabe: "%(DOMAIN_USER)")
-Description[en]=Name of CIFS home share that will be mounted automatically during lightdm login (default: "%(DOMAIN_USER)")
+Description[de]=Name der CIFS-Heimatverzeichnis-Freigabe, die während des lightdm-Logins automatisch eingehängt wird
+Description[en]=Name of CIFS home share that will be mounted automatically during lightdm login
 Type=str
 Categories=system-desktop
 
