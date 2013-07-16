@@ -43,9 +43,9 @@
 <mkmountpoint enable="1" remove="true" />
 
 @!@
-server = ucr.get('ucc/mount/cifshome/server', ucr.get('ldap/server/name', 'UNDEFINED'))
-path = ucr.get('ucc/mount/cifshome/share', '%(DOMAIN_USER)')
-options = ucr.get('ucc/mount/cifshome/options', 'serverino')
+server = configRegistry.get('ucc/mount/cifshome/server', configRegistry.get('ldap/server/name', 'UNDEFINED'))
+path = configRegistry.get('ucc/mount/cifshome/share', '%(DOMAIN_USER)')
+options = configRegistry.get('ucc/mount/cifshome/options', 'serverino')
 print '<volume fstype="cifs" server="%s" path="%s" mountpoint="~/" options="%s" />' % (server, path, options)
 @!@
 <cifsmount>mount -t cifs //%(SERVER)/%(VOLUME) %(MNTPT) -o user=%(USER),%(OPTIONS)</cifsmount>
