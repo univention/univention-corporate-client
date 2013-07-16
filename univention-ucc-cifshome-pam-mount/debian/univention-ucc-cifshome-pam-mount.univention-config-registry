@@ -14,3 +14,4 @@ File: etc/security/pam_mount.conf.xml
 Variables: ucc/mount/cifshome/server
 Variables: ucc/mount/cifshome/share
 Variables: ucc/mount/cifshome/options
+Variables: ldap/server/name
