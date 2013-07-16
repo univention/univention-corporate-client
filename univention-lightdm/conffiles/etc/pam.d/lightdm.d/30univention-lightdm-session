@@ -1,0 +1,4 @@
+session [success=ok ignore=ignore module_unknown=ignore default=bad] pam_selinux.so close
+session required pam_runasroot.so export_pass program=/usr/bin/univention-lightdm-save-pass
+session required pam_limits.so
+session optional pam_runasroot.so program=/usr/sbin/univention-ucc-fetch-user-policies

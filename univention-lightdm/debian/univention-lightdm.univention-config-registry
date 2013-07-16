@@ -9,8 +9,44 @@ Type: file
 File: etc/lightdm/lightdm-gtk-greeter.conf
 Variables: lightdm/wallpaper
 
-Type: file
-File: etc/pam.d/lightdm
+Type: multifile
+Multifile: etc/pam.d/lightdm
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/01univention-lightdm-head
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/10univention-lightdm-auth
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/15univention-lightdm-common-auth
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/20univention-lightdm-auth
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/25univention-lightdm-common-account
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/30univention-lightdm-session
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/35univention-lightdm-common-session
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/45univention-lightdm-common-password
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/40univention-lightdm-session
 
 Type: file
 File: etc/X11/default-display-manager
