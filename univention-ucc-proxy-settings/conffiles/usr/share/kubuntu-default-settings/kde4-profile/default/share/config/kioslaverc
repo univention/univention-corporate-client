@@ -12,10 +12,10 @@ elif configRegistry.get("ucc/proxy/http", ""):
 	if not server.startswith("http://"):
 		server = "http://" + server
 	if server and port:
-		print '[Proxy Settings]'
-		print 'ProxyType=1'
-		print 'httpProxy=%s %s' % (server, port)
-		print 'ftpProxy=%s %s' % (server, port)
-		print 'httpsProxy=%s %s' % (server, port)
-		print 'socksProxy=%s %s' % (server, port)
+		print '[Proxy Settings][$i]'
+		print 'ProxyType[$i]=1'
+		print 'httpProxy[$i]=%s %s' % (server, port)
+		print 'ftpProxy[$i]=%s %s' % (server, port)
+		print 'httpsProxy[$i]=%s %s' % (server, port)
+		print 'socksProxy[$i]=%s %s' % (server, port)
 @!@

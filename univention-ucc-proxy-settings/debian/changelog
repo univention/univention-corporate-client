@@ -1,3 +1,9 @@
+univention-ucc-proxy-settings (1.0.0-3) unstable; urgency=low
+
+  * added immutable flag to kde proxy settings (Bug #31905) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 17 Jul 2013 11:54:33 +0200
+
 univention-ucc-proxy-settings (1.0.0-2) unstable; urgency=low
 
   * changed var names (Bug #31905) 
