@@ -31,6 +31,8 @@
 
 #DEBHELPER#
 
+. /usr/share/univention-lib/all.sh
+
 eval "$(univention-config-registry shell)"
 
 mkdir -p /var/univention-lightdm/xsessions
@@ -41,6 +43,13 @@ done
 
 if [ ! -L /etc/lightdm/display-setup/010_univention-ucc-setup-multimonitor ]; then
 	ln -s /usr/sbin/univention-ucc-setup-multimonitor /etc/lightdm/display-setup/010_univention-ucc-setup-multimonitor
+fi
+
+if [ "$1" = configure ] && dpkg --compare-versions "$2" lt-nl 1.0.15; then
+	# do something on update from VERSION <= 1.0-15 to current Version
+	# but NOT on initial installation ==> -n "$2"
+	# As of version 1.0.15-1 the following file is a multifile template, so the corresponding monolithic UCR template gets removed.
+	remove_ucr_template /etc/pam.d/lightdm
 fi
 
 univention-config-registry set lightdm/xserver/allowtcp?false

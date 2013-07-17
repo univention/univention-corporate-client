@@ -1,3 +1,9 @@
+univention-lightdm (1.0.15-3) unstable; urgency=low
+
+  * Bug #31409: remove old UCR template
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Wed, 17 Jul 2013 16:25:16 +0200
+
 univention-lightdm (1.0.15-2) unstable; urgency=low
 
   * removed old files (Bug #31409)
