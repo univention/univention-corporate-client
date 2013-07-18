@@ -1,0 +1,14 @@
+Source: univention-ucc-printerconfig
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper,
+ univention-config-dev,
+ ucslint
+
+Package: univention-ucc-printerconfig
+Architecture: all
+Depends: ${misc:Depends}
+Description: UCC - printer config
+ This package contains configuration files for cups.

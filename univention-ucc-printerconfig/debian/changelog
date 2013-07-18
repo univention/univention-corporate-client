@@ -1,0 +1,7 @@
+univention-ucc-printerconfig (1.0.0-1) unstable; urgency=low
+
+  * Cups client.conf entries can be configured by 
+    UCR variable ucc/cups/server (Bug #31902)
+  * Initial Release.
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 18 Jul 2013 12:21:49 +0200

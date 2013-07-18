@@ -1,0 +1,5 @@
+[ucc/cups/server]
+Description[de]=Konfiguriert die von cups verwendeten Druckserver. Mehrere Server sind durch Leerzeichen zu trennen. (default=localhost)
+Description[en]=Configures printservers used by cups. Multiple servers have to be split by one blank character. (default=localhost)
+Type=str
+Categories=printer
