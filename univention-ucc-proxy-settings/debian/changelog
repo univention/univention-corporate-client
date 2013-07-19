@@ -1,3 +1,9 @@
+univention-ucc-proxy-settings (1.0.0-4) unstable; urgency=low
+
+  * updated copyright (Bug #31905) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 19 Jul 2013 12:07:21 +0200
+
 univention-ucc-proxy-settings (1.0.0-3) unstable; urgency=low
 
   * added immutable flag to kde proxy settings (Bug #31905) 
