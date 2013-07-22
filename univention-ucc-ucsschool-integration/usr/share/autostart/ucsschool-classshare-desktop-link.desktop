@@ -1,0 +1,8 @@
+[Desktop Entry]
+Exec=xdg-desktop-icon uninstall --novendor ucsschool-classshares.desktop; xdg-desktop-icon install --novendor /usr/share/univention-ucc-ucsschool-integration/ucsschool-classshares.desktop
+Name=Create UCS@school desktop icon during login
+Type=Application
+OnlyShowIn=KDE;
+X-DBUS-StartupType=none
+X-KDE-autostart-after=panel
+X-KDE-StartupNotify=false

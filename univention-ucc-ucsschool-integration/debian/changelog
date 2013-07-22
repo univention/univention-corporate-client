@@ -1,3 +1,11 @@
+univention-ucc-ucsschool-integration (1.0.2-1) unstable; urgency=low
+
+  * Bug #31906: refresh desktop link on every login
+  * updated translations
+  * fixed name of directory
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Mon, 22 Jul 2013 17:07:33 +0200
+
 univention-ucc-ucsschool-integration (1.0.1-1) unstable; urgency=low
 
   * Bug #31906: add desktop link to class shares
