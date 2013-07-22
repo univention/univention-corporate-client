@@ -1,0 +1,11 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-ucc-ucsschool-integration
+fix: 1.0.2-1.3.201307221716
+note:
+desc: |
+ The new package univention-ucc-ucsschool-integration is a meta package and 
+ installs all required packages for using UCC with UCS@school.
+version: [0]
+bug: [30829,31906]
