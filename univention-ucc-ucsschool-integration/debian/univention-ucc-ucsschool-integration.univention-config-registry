@@ -1,0 +1,4 @@
+Type: file
+File: usr/share/univention-ucc-ucsschool-integration/ucsschool-classshares.desktop
+Variables: ucc/ucsschool/classshares/server
+Variables: ucc/mount/cifshome/server

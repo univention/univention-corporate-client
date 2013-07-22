@@ -1,0 +1,5 @@
+[ucc/ucsschool/classshares/server]
+Description[de]=Vollständiger Name des Servers, dessen CIFS-Freigaben über den KDE-Desktop direkt erreichbar sein sollen
+Description[en]=Name of Server whose CIFS shares shall be available via KDE desktop link
+Type=str
+Categories=system-desktop
