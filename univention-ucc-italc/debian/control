@@ -29,7 +29,7 @@ Description: iTALC Master Application
 
 Package: univention-ucc-italc-client
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, univention-ucc-libitalc (=${binary:Version}), shell-univention-lib, univention-ucc-italc-management-console
+Depends: ${shlibs:Depends}, ${misc:Depends}, univention-ucc-libitalc (=${binary:Version}), shell-univention-lib, univention-ucc-italc-management-console, smbclient
 Description: iTALC Client Application
  iTALC makes it possible, to access and influence the pupils 
  activities just from the computer of the teacher. With the 

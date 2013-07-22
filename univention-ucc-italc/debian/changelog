@@ -1,3 +1,9 @@
+univention-ucc-italc (2:1.0.0-4) unstable; urgency=low
+
+  * Added smbclient to univention-ucc-italc-client dependencies (Bug #30830)
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 22 Jul 2013 14:14:33 +0200
+
 univention-ucc-italc (2:1.0.0-3) unstable; urgency=low
 
   * Run italc as root (Bug #30830)
