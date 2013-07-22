@@ -1,0 +1,14 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-ucc-cifshome-pam-mount
+fix: 1.0.0-5.4.201307161657
+note:
+desc: |
+ The new package univention-ucc-cifshome-pam-mount installs a mechanism
+ that automatically mounts a CIFS share as home directory during user login.
+ Server, share name and mount options may be defined via the UCR variables
+ ucc/mount/cifshome/server, ucc/mount/cifshome/share and 
+ ucc/mount/cifshome/options.
+version: [0]
+bug: [31906]
