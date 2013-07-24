@@ -27,6 +27,11 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
+. /usr/share/univention-lib/all.sh
+
 #DEBHELPER#
+
+# Execute the joinscript
+call_joinscript 80univention-ucc-ucsschool-integration.inst
 
 exit 0

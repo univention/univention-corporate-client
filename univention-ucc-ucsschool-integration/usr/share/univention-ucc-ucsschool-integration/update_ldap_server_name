@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 #
 # Univention UCS@school configuration
 #  determine ldap/server/name and ldap/server/addition
