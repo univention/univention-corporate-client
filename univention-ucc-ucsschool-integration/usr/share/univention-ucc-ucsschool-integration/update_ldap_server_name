@@ -84,6 +84,10 @@ if __name__ == '__main__':
 		else:
 			ldap_server_addition.append(fqdn)
 
+	if not ldap_server_name and ldap_server_addition:
+		ldap_server_name = ldap_server_addition[0]
+		ldap_server_addition = ldap_server_addition[1:]
+
 	if opt.dryrun:
 		print 'DRYRUN: ldap/server/name=%r' % ldap_server_name
 		print 'DRYRUN: ldap/server/addition=%r' % ' '.join(ldap_server_addition)

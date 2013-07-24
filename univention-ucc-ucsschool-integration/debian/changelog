@@ -1,3 +1,9 @@
+univention-ucc-ucsschool-integration (1.0.4-1) unstable; urgency=low
+
+  * Bug #31976: updated update_ldap_server_name
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Wed, 24 Jul 2013 20:47:53 +0200
+
 univention-ucc-ucsschool-integration (1.0.3-3) unstable; urgency=low
 
   * Bug #31976: fixed typo
