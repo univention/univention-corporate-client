@@ -1,2 +1,3 @@
 usr/share/autostart/ucsschool-classshare-desktop-link.desktop              usr/share/autostart/
 usr/share/univention-ucc-ucsschool-integration/update_ldap_server_name     usr/share/univention-ucc-ucsschool-integration/
+80univention-ucc-ucsschool-integration.inst                                usr/lib/univention-install/
