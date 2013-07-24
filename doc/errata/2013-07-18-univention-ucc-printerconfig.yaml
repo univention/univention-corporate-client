@@ -8,4 +8,4 @@ desc: |
   univention-ucc-printerconfig allows to configure cups servers with
   the UCR variable ucc/cups/server.
 version: [0]
-bug: [31902]
+bug: [32056]
