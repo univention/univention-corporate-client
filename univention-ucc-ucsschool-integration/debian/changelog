@@ -1,3 +1,9 @@
+univention-ucc-ucsschool-integration (1.0.3-1) unstable; urgency=low
+
+  * Bug #31976: added update_ldap_server_name which is called in join script
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Wed, 24 Jul 2013 17:00:37 +0200
+
 univention-ucc-ucsschool-integration (1.0.2-2) unstable; urgency=low
 
   * Added dependency to univention-ucc-printerconfig (Bug #31902)

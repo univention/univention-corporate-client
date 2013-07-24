@@ -1,0 +1,101 @@
+#!/usr/bin/python
+#
+# Univention UCS@school configuration
+#  determine ldap/server/name and ldap/server/addition
+#
+# Copyright 2013 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# The source code of this program is made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this program provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use this program under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+#
+
+import re
+import sys
+import univention.uldap
+import univention.config_registry
+from optparse import OptionParser
+
+if __name__ == '__main__':
+	servers = []
+
+	p = OptionParser()
+	p.add_option("--dry-run", action="store_true", dest="dryrun", default=False, help="Only determine ldap servers")
+	opt, args = p.parse_args()
+
+	ucr = univention.config_registry.ConfigRegistry()
+	ucr.load()
+
+	# Build the LDAP connection
+	try:
+		lo = univention.uldap.getMachineConnection(ldap_master=False)
+	except:
+		print >>sys.stderr, "ERROR: Could not establish machine connection."
+		sys.exit(1)
+
+	# determine DN of local OU
+	ou_dn = re.sub('^.*?,ou=', 'ou=', ucr.get('ldap/hostdn'))
+	ou_attrs = lo.get(ou_dn, ['ucsschoolHomeShareFileServer', 'ou'])
+	ou_name = ou_attrs.get('ou',[''])[0]
+	print 'Local OU DN: %r' % ou_dn
+	print 'Local OU name: %r' % ou_name
+
+	res = lo.search(base='cn=groups,%s' % ucr.get('ldap/base'), filter='(&(objectClass=univentionGroup)(cn=OU%s-DC-Edukativnetz))' % ou_name, attr=['uniqueMember'])
+	if not res:
+		print >>sys.stderr, 'ERROR: cannot read/find group OU%s-DC-Edukativnetz' % ou_name
+		sys.exit(1)
+
+	ldap_server_name = ''
+	ldap_server_addition = []
+
+	def getFQDN(lo, dn):
+		attrs = lo.get(dn)
+		if attrs.get('sn') and attrs.get('associatedDomain'):
+			return '%s.%s' % (attrs.get('sn')[0], attrs.get('associatedDomain')[0])
+		return None
+
+	for member in res[0][1].get('uniqueMember',[]):
+		fqdn = getFQDN(lo, member)
+		if not fqdn:
+			continue
+		if member == ou_attrs.get('ucsschoolHomeShareFileServer',[''])[0]:
+			ldap_server_name = fqdn
+		else:
+			ldap_server_addition.append(fqdn)
+
+	if opt.dryrun:
+		print 'DRYRUN: ldap/server/name=%r' % ldap_server_name
+		print 'DRYRUN: ldap/server/addition=%r' % ' '.join(ldap_server_addition)
+	else:
+		changes = []
+		if ldap_server_name:
+			changes.append('ldap/server/name=%s' % ldap_server_name)
+		if ldap_server_addition:
+			changes.append('ldap/server/addition=%s' % ' '.join(ldap_server_addition))
+
+		if changes:
+			univention.config_registry.handler_set(changes)
+		else:
+			print 'ERROR: Could not determine ldap/server/name'
+			sys.exit(1)
