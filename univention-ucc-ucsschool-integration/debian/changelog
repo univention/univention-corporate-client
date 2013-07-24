@@ -1,3 +1,10 @@
+univention-ucc-ucsschool-integration (1.0.2-2) unstable; urgency=low
+
+  * Added dependency to univention-ucc-printerconfig (Bug #31902)
+  * Corrected italc dependency to italc-client package
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 24 Jul 2013 16:03:03 +0200
+
 univention-ucc-ucsschool-integration (1.0.2-1) unstable; urgency=low
 
   * Bug #31906: refresh desktop link on every login
