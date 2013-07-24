@@ -1,8 +1,14 @@
+univention-ucc-ucsschool-integration (1.0.3-3) unstable; urgency=low
+
+  * Bug #31976: fixed typo
+
+ -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Wed, 24 Jul 2013 17:30:20 +0200
+
 univention-ucc-ucsschool-integration (1.0.3-2) unstable; urgency=low
 
   * Bug #31976: 
     - updated postinst script
-	- added correct python hash bang
+    - added correct python hash bang
 
  -- Sönke Schwardt-Krummrich <schwardt@univention.de>  Wed, 24 Jul 2013 17:21:26 +0200
 
