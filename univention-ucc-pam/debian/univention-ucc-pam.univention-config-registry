@@ -25,6 +25,7 @@ File: etc/krb5.conf
 Variables: kerberos/realm
 Variables: kerberos/kdc
 Variables: kerberos/adminserver
+Variables: kerberos/defaults/dns_lookup_kdc
 
 Type: file
 File: etc/security/group.conf
