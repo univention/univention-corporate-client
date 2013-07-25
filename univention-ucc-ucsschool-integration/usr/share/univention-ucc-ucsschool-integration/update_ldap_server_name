@@ -88,6 +88,11 @@ if __name__ == '__main__':
 		ldap_server_name = ldap_server_addition[0]
 		ldap_server_addition = ldap_server_addition[1:]
 
+	ldap_master = ucr.get('ldap/master')
+	if not ldap_server_name and ldap_master:
+		ldap_server_name = ldap_master
+		print >>sys.stderr, 'WARNING: could not determine value for ldap/server/name - looks like a single server environment - using ldap/master (%s) as fallback' % ldap_master
+
 	if opt.dryrun:
 		print 'DRYRUN: ldap/server/name=%r' % ldap_server_name
 		print 'DRYRUN: ldap/server/addition=%r' % ' '.join(ldap_server_addition)
@@ -101,5 +106,5 @@ if __name__ == '__main__':
 		if changes:
 			univention.config_registry.handler_set(changes)
 		else:
-			print 'ERROR: Could not determine ldap/server/name'
+			print 'ERROR: Could not determine value for ldap/server/name'
 			sys.exit(1)
