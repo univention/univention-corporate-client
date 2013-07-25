@@ -54,6 +54,10 @@ if __name__ == '__main__':
 		print >>sys.stderr, "ERROR: Could not establish machine connection."
 		sys.exit(1)
 
+	if not ',ou=' in ucr.get('ldap/hostdn'):
+		print >>sys.stderr, 'WARNING: UCC system seems not to be a UCS@school client - leaving ldap/server/name untouched'
+		sys.exit(0)
+
 	# determine DN of local OU
 	ou_dn = re.sub('^.*?,ou=', 'ou=', ucr.get('ldap/hostdn'))
 	ou_attrs = lo.get(ou_dn, ['ucsschoolHomeShareFileServer', 'ou'])
