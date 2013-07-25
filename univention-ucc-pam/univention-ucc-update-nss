@@ -67,7 +67,7 @@ for host in $ldap_server_name $addition; do
 			if is_ucr_true "ucc/nss/update/hostspecific"; then
 				src="/var/cache/ucc/$hostname.$type"
 			fi
-			echo "$(date) trying to update $type from $hostname\$@$hostname.$domainname:$src" >> $logFile
+			echo "$(date) trying to update $type from $hostname\$@$host:$src" >> $logFile
 			univention-ssh-rsync /etc/machine.secret -L "$hostname"\$\@"$host:$src" "$dest" 2>>$logFile 1>>$logFile
 			if [ $? -eq 0 ]; then
 				echo "$(date) -> success" >> $logFile

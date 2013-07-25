@@ -1,3 +1,9 @@
+univention-ucc-pam (1.0.2-3) unstable; urgency=low
+
+  * support dns_lookup_kdc in krb5.conf template (Bug #32080) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 25 Jul 2013 14:28:12 +0200
+
 univention-ucc-pam (1.0.2-2) unstable; urgency=low
 
   * Fix Upstart job (Bug #28838)
