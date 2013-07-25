@@ -36,6 +36,7 @@ joinscript_init
 
 set -e
 /usr/share/univention-ucc-ucsschool-integration/update_ldap_server_name
+ucr unset kerberos/kdc
 
 joinscript_save_current_version
 

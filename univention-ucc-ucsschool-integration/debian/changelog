@@ -1,3 +1,9 @@
+univention-ucc-ucsschool-integration (1.0.4-4) unstable; urgency=low
+
+  * unset kerberos/kdc (Bug #32081)
+
+ -- Felix Botner <botner@univention.de>  Thu, 25 Jul 2013 14:40:47 +0200
+
 univention-ucc-ucsschool-integration (1.0.4-3) unstable; urgency=low
 
   * Bug #31976: fixed typo in join script
