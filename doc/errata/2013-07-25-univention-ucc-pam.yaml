@@ -1,0 +1,11 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-ucc-pam
+fix: 1.0.2-4.34.201307251434
+note:
+desc: |
+  The template for the krb5.conf config file now
+  also supports dns_lookup_kdc option.
+version: [0]
+bug: [32080]
