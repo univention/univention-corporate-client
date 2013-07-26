@@ -2,7 +2,7 @@ product: ucc
 release: "1.0"
 scope: ucs_3.1-0-ucc-errata
 src: univention-ucc-ucsschool-integration
-fix: 1.0.4-4.11.201307251441
+fix: 1.0.6-1.13.201307261104
 note:
 desc: |
   For ucc clients with UCS@SCHOOL integration 
