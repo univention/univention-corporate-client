@@ -1,3 +1,9 @@
+univention-ucc-ucsschool-integration (1.0.6-1) unstable; urgency=low
+
+  * added dependency to univention-ucc-pam (Bug #32080) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 26 Jul 2013 11:01:12 +0200
+
 univention-ucc-ucsschool-integration (1.0.5-1) unstable; urgency=low
 
   * Bug #31976: use ldap/master if group OU%s-DC-Edukativnetz is empty

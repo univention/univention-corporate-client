@@ -12,7 +12,8 @@ Depends: ${misc:Depends},
  univention-ucc-italc-client,
  univention-ucc-proxy-settings,
  univention-ucc-cifshome-pam-mount,
- univention-ucc-printerconfig
+ univention-ucc-printerconfig,
+ univention-ucc-pam (>= 1.0.2-4)
 Description: Meta package for UCS@school integration
  This package installs all packages that are required to
  use UCC in an UCS@school environment.
