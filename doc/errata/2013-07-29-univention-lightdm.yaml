@@ -1,0 +1,11 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-lightdm
+fix: 1.0.17.69.201307291737
+note:
+desc: |
+  This update fixes a bug in univention-lightdm
+  that deletes the lightdm pam config during update.
+version: [0]
+bug: [32119]
