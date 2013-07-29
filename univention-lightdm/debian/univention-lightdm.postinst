@@ -49,7 +49,10 @@ if [ "$1" = configure ] && dpkg --compare-versions "$2" lt-nl 1.0.16; then
 	# do something on update from VERSION <= 1.0-15 to current Version
 	# but NOT on initial installation ==> -n "$2"
 	# As of version 1.0.15-1 the following file is a multifile template, so the corresponding monolithic UCR template gets removed.
-	mv /etc/univention/templates/files/etc/pam.d/lightdm /etc/univention/templates/removed/
+	mkdir -p /etc/univention/templates/removed/
+	if [ -e /etc/univention/templates/files/etc/pam.d/lightdm ]; then
+		mv /etc/univention/templates/files/etc/pam.d/lightdm /etc/univention/templates/removed/
+	fi
 	univention-config-registry commit /etc/pam.d/lightdm
 fi
 
