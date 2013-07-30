@@ -35,7 +35,7 @@
   via Cron jobs. The configuration is performed as in Univention
   Corporate Server via &ucsUCR; or local configuration files under
   <filename>/etc/cron.d</filename>. Further information can be found
-  in the UCS manual <xref linkend="ucs-manual-cron"/>.
+  in the UCS manual <biblioref linkend="ucs-manual-cron"/>.
 </para>
 </section>
 

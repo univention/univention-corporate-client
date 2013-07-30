@@ -107,7 +107,7 @@
 
 	  <listitem><simpara><emphasis>universe, multiverse</emphasis>:
 	  These options (true/false) integrate additional archive suites
-	  from Ubuntu, see <xref linkend="ubuntu-repositories"/> for details.</simpara></listitem>
+	  from Ubuntu, see <biblioref linkend="ubuntu-repositories"/> for details.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>ucc</emphasis>: Installs some basic
 	  packages required during image generation.</simpara></listitem>

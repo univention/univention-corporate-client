@@ -8,7 +8,7 @@
 <para>
   The UCS integration packages are installed via the Univention App
   Center. General information on the Univention App Center can be found
-  in the UCS manual <xref linkend="ucs-manual"/>.
+  in the UCS manual <biblioref linkend="ucs-manual"/>.
 </para>
 
 <figure><title>Installing UCC in the Univention App Center</title>

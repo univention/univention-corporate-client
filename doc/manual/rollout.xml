@@ -99,7 +99,7 @@
   The DHCP administration also offers numerous, extensive configuration options,
   which are generally, however, not required in UCC
   client operation. They are described in the DHCP section in the UCS
-  manual <xref linkend="ucs-manual"/>.
+  manual <biblioref linkend="ucs-manual"/>.
 </para>
 </section>
 
@@ -115,7 +115,7 @@
   If UCC is used in a distributed environment, there may be DHCP servers not serving as PXE servers. In
   that case the UCS server distributing the UCC images needs to be configured through a
   <guimenu>DHCP Boot</guimenu> policy. Please see the UCS manual for additional information
-  <xref linkend="ucs-manual-pxeboot"/>.
+  <biblioref linkend="ucs-manual-pxeboot"/>.
 </para>
 </section>
 
@@ -132,7 +132,7 @@
 <para>
   The &ucsUMC; can also be used to edit several objects at once, which
   permits the assignment of images to several computers at once. This
-  is documented in the UCS manual <xref linkend="ucs-manual-multiedit"/>.
+  is documented in the UCS manual <biblioref linkend="ucs-manual-multiedit"/>.
 </para>
 
 <figure><title>Assigning the desktop image to a UCC client</title>
@@ -333,7 +333,7 @@
 <para>
   To install an UCC ISO image in a Xen DomU, the DomU must be configured to be
   fully virtualized (HVM). On an UCS System with a virtual machine manager the operating system option
-  'Other' has to be used <xref linkend="ucs-manual-uvmm"/>.
+  'Other' has to be used <biblioref linkend="ucs-manual-uvmm"/>.
   Please note that the official UCC desktop image uses a kernel that supports pvops, so I/O performance
   is that of a paravirtualized guest when pvops is supported by Dom0. On an official thinclient image
   another kernel with pvops support can be installed, e.g. linux-image-generic-pae. More information
