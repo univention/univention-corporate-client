@@ -5,7 +5,7 @@ src: grub2
 fix: 1.99-21ubuntu3.10.59.201308271248
 note:
 desc: |
-  Errata #9 for UCC 1.0 forced the non-interactive installation mode. grub
+  Erratum #9 for UCC 1.0 forced the non-interactive installation mode. grub
   was updated in Ubuntu Precise. This update integrates these changes.
 version: [0]
 bug: [32385]
