@@ -40,6 +40,8 @@ if [ -e /usr/share/univention-lightdm/force-user-session ]; then
     fi
 fi
 
+/usr/bin/metacity &
+
 . /usr/share/univention-lib/all.sh
 . /usr/share/univention-lib/ucc.sh
 

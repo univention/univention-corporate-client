@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (1.1.0-1) unstable; urgency=low
+
+  *  Added metacity to session-script to properly display zenity-messages: Ticket#: 2013040421001242
+
+ -- Michael Grandjean <grandjean@univention.de>  Tue, 17 Sep 2013 14:28:20 +0200
+
 univention-ucc-session-rdp (1.0.5-1) unstable; urgency=low
 
   * Bump version
