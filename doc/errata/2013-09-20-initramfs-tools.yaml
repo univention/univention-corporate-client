@@ -1,0 +1,12 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: initramfs-tools
+fix: 0.99ubuntu13.2.30.201309201111
+note:
+desc: |
+  Erratum #8 for UCC 1.0 fixed various issues in the initramfs generation.
+  initramfs-tools was updated in Ubuntu Precise. This update integrates the changes
+  from this erratum into the updated version.
+version: [0]
+bug: [32651]
