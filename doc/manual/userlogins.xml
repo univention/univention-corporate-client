@@ -77,7 +77,7 @@
 	This is done by setting the &ucsUCRV; <envar>lightdm/autologin</envar> to <emphasis>yes</emphasis>
 	and <envar>lightdm/autologin/session</envar> to a session script. The session
 	scripts can be found in the <filename>/usr/share/xsessions</filename> directory, in
-	other words, <emphasis>RDP</emphasis> for example.
+	other words, <emphasis>firefox</emphasis> for example.
   </para>
 
   <para>
