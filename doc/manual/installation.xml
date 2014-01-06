@@ -186,8 +186,17 @@ ucc-image-download -s ucc-1.0-thinclient-image.img.spec
   UCC systems operated with the official Univention images, the root password
   is "personalised" during the image download: the root password of
   the UCC server is set as the root password on the images. You can
-  also use the <emphasis>--set-root-pw-interactive</emphasis> option
-  to set a different root password.
+  also use the <emphasis>--set-root-pw-interactive</emphasis> option of the
+  <command>ucc-image-download</command> command to set a different root password.
+</para>
+
+<para>
+  For existing images, the root password can be set subsequently with the command
+  <command>ucc-image-root-password</command>, e.g.
+
+  <programlisting>
+ucc-image-root-password -i ucc-1.0-rev2-desktop-image.img -p
+  </programlisting>
 </para>
 </section>
 
