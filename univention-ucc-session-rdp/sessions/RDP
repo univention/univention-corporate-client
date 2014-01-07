@@ -72,7 +72,9 @@ fi
 
 # Needed as a workaround for crashes with "remote control"
 # https://forge.univention.org/bugzilla/show_bug.cgi?id=32816
-params+=(--no-bmp-cache)
+if is_ucr_true 'rdp/disable-bmp-cache'; then
+	params+=(--no-bmp-cache)
+fi
 
 if test -e /tmp/password-store-$USER; then
     PASSWD=`cat /tmp/password-store-$USER | base64 --decode`

@@ -46,6 +46,12 @@ Description[en]=If this variable is activated, no sound is redirected in the RDP
 Type=bool
 Categories=system-desktop
 
+[rdp/disable-bmp-cache]
+Description[de]=Wird diese Variable aktiviert, wird der Bitmap-Cache in freerdp deaktiviert. Dies behebt Abstürze in der Verwendung von RDP Remote Control.
+Description[en]=If this variable is activated, the bitmap cache in freerdp is disabled. This resolves crashes when using RDP remote control
+Type=bool
+Categories=system-desktop
+
 [rdp/additionaloptions]
 Description[de]=Diese Variable kann genutzt werden, um zusätzliche Optionen an freerdp zu übergeben
 Description[en]=This variable can be used to pass additional options to freerdp

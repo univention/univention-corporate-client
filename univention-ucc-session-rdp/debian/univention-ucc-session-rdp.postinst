@@ -36,6 +36,7 @@ eval "$(univention-config-registry shell)"
 
 ucr set \
 	rdp/checknla?true \
+	rdp/disable-bmp-cache?true \
 	rdp/ignorecertificate?true \
 	lightdm/sessiondefault?RDP
 
