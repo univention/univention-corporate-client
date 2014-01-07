@@ -1,3 +1,10 @@
+univention-ucc-session-rdp (1.1.0-2) unstable; urgency=low
+
+  * Add a workaround for segfaults when subjected to "remote control"
+    (Bug #32816)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 07 Jan 2014 11:18:56 +0100
+
 univention-ucc-session-rdp (1.1.0-1) unstable; urgency=low
 
   *  Added metacity to session-script to properly display zenity-messages: Ticket#: 2013040421001242
