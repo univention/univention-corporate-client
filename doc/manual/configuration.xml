@@ -167,6 +167,15 @@
 </para>
 </section>
 
+<section id="config:cups">
+  <title>Print server configuration</title>
+  <para>
+	UCC can use one or several print servers from the UCS domain. The &ucsUCRV;
+	<envar>ucc/cups/server</envar> configures the server(s) to use;  multiple servers need to be
+	separated by a blank character.
+  </para>
+</section>
+
 <section id="config:logging">
 <title>Remote logging</title>
 <para>
