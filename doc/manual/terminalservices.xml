@@ -348,8 +348,8 @@
 
 	<programlisting>
 mkdir /mnt/img
-cp ~/icaclient-12.1.0_i386.deb ctxusb-2.2.0_i386.deb /mnt/img
-mount -o loop /var/lib/univention-client-boot/IMAGENAME.img  /mnt/img/
+mount -o loop /var/lib/univention-client-boot/IMAGENAME.img /mnt/img/
+cp ~/icaclient-12.1.0_i386.deb ~/ctxusb-2.2.0_i386.deb /mnt/img
 chroot /mnt/img
 dpkg -i icaclient-12.1.0_i386.deb
 dpkg -i ctxusb-2.2.0_i386.deb
