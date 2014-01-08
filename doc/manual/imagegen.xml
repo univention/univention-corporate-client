@@ -221,5 +221,23 @@
   </para>
 </section>
 
+<section id="imagegen:modify">
+  <title>Modification of existing images</title>
+  <para>
+	UCC images can be edited without the need for a complete rebuild, e.g.to preinstall an
+	additional package or to perform various configuration modifications. The following steps need
+	to be executed as root: 
+
+	<programlisting>
+mkdir /mnt/img
+mount -o loop /var/lib/univention-client-boot/IMAGENAME.img  /mnt/img/
+chroot /mnt/img
+( perform arbitrary changes.. )
+sync
+exit
+umount /mnt/img
+	</programlisting>
+  </para>
+</section>
 
 </chapter>

@@ -40,7 +40,7 @@
 </section>
 
 <section id="config:softwareupdates">
-<title>Software updates</title>
+<title>Software updates / Installing additional software</title>
 <caution>
 <para>
   Always test UCC software updates on the target platform before updating all clients.
@@ -104,6 +104,18 @@
   then following installation of the updates restarted again to change
   to the OverlayFS mode.
 </para>
+
+<para>
+  Additional software packages can be installed on the command line using
+  <command>apt-get</command>:
+
+  <programlisting>
+apt-get update
+apt-get install emacs23
+  </programlisting>
+</para>
+
+
 </section>
 
 
