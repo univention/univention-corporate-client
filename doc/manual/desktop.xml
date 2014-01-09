@@ -47,7 +47,7 @@
 <section id="desktop:proxy">
   <title>Configuration of proxy settings for the desktop</title>
   <para>
-	The proxy settings in Firefox and KDE can be centrally configured via &ucsUCR; variables (see
+	The proxy settings in Firefox and KDE can be centrally configured via &ucsUCR; variables provide by the package <emphasis>univention-ucc-proxy-settings</emphasis> (see
 	<xref linkend="config:ucr"/>). <envar>ucc/proxy/http</envar> configures a specific proxy, e.g.
 	<emphasis>http://192.168.0.100:3128</emphasis>. Alternatively the URL to a PAC (proxy
 	auto-config) file can be provided with the variable <envar>ucc/proxy/autoconfig/url</envar>.
