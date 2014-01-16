@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+          "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+
+  <!ENTITY % entities SYSTEM "../../../doc-common/docbook/stylesheets/macros-en.ent" >
+  <!ENTITY bibliography SYSTEM "../../../doc-common/docbook/stylesheets/bibliography-en.xml">
+  <!ENTITY changelog SYSTEM "changelog-ucc-1.0-rev3.xml">
+
+  %entities;
+]>
+
+<book lang="en" id="releasenotes-1.0-rev3">
+
+	<bookinfo>
+		<title>Univention Corporate Client 1.0-rev3 Release Notes</title>
+		<subtitle></subtitle>
+		<legalnotice>
+			<literallayout>
+Version 1.0-rev3
+15. Jan 2014
+			</literallayout>
+			<literallayout>
+All rights reserved.
+(c) 2002-2014
+Univention GmbH
+Mary-Somerville-Straße 1
+28359 Bremen
+Deutschland
+feedback@univention.de
+			</literallayout>
+			<para>
+				The mentioned brand names and registered trademarks are owned by the respective legal owners in each case.
+				Linux is a registered trademark of Linus Torvalds.
+			</para>
+		</legalnotice>
+	</bookinfo>
+
+	<chapter>
+	  <title>Changelog</title>
+	  <section><title>General</title>
+	  <para>
+	  	New official UCC images will be provided with UCC 1.0-rev3.
+		
+		These images include all software updates up to UCC 1.0-rev3 and can be installed by installing the packages ucc-1.0-rev3-thinclient-image respectively ucc-1.0-rev3-desktop-image.
+	  </para>
+	  <para>
+		Installing or updating the UCC App automatically installs the new thinclient image ucc-1.0-rev3-thinclient-image.
+		
+		See the UCC manual <biblioref linkend="ucc-handbuch"/> for detailed information about UCC image management.
+	  </para>
+	  </section>
+	  <section><title>Changelog</title>
+	    &changelog;
+	  </section>
+	  <section><title>Bibliography</title>
+	  	&bibliography;
+	  </section>
+	</chapter>
+
+
+	<?dbhtml-include href="../../../doc-common/docbook/stylesheets/piwiki.html"?>
+</book>

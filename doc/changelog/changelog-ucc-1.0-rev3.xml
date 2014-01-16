@@ -1,0 +1,22 @@
+<section>
+	<title>UCC integration packages</title>
+		<simpara>This section lists all changes to ucc integration packages, i.e. packages that are installed on Univention
+		Corporate Server.
+		</simpara>
+			<itemizedlist>
+				<listitem><simpara>
+					Improved image toolkit support for image joinscripts with sequence numbers. 
+					Image joinscripts created since this version will be created with a 95[filename] prefix (<ulink url="&ucsbug;32136">Bug 32136</ulink>).
+				</simpara></listitem>
+				<listitem><simpara>
+					Updated example files for rev3 images (<ulink url="&ucsbug;32136">Bug 32136</ulink>).
+				</simpara></listitem>
+			</itemizedlist>
+</section>
+
+<section>
+	<title>UCC client packages</title>
+	  <para>
+		Information about errata updates released for UCC clients can be found at <ulink url="http://errata.univention.de/ucc/1.0/"/>
+	  </para>
+</section>
