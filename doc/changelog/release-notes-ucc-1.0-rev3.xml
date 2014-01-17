@@ -39,6 +39,9 @@ feedback@univention.de
 	  <title>Changelog</title>
 	  <section><title>General</title>
 	  <para>
+	  	The UCC ubuntu mirror has been updated to the most recent version.
+	  </para>
+	  <para>
 	  	New official UCC images will be provided with UCC 1.0-rev3.
 		
 		These images include all software updates up to UCC 1.0-rev3 and can be installed by installing the packages ucc-1.0-rev3-thinclient-image respectively ucc-1.0-rev3-desktop-image.

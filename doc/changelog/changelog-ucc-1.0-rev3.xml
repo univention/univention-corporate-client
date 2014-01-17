@@ -3,20 +3,103 @@
 		<simpara>This section lists all changes to ucc integration packages, i.e. packages that are installed on Univention
 		Corporate Server.
 		</simpara>
-			<itemizedlist>
-				<listitem><simpara>
-					Improved image toolkit support for image joinscripts with sequence numbers. 
-					Image joinscripts created since this version will be created with a 95[filename] prefix (<ulink url="&ucsbug;32136">Bug 32136</ulink>).
-				</simpara></listitem>
-				<listitem><simpara>
-					Updated example files for rev3 images (<ulink url="&ucsbug;32136">Bug 32136</ulink>).
-				</simpara></listitem>
-			</itemizedlist>
+		<section><title>ucc-image-toolkit</title>
+		<itemizedlist>
+			<listitem><simpara>
+				Improved image toolkit support for image joinscripts with sequence numbers. 
+				Image joinscripts created since this version will be created with a 95[filename] prefix (<ulink url="&ucsbug;32136">Bug 32136</ulink>).
+			</simpara></listitem>
+			<listitem><simpara>
+				Updated example files for rev3 images (<ulink url="&ucsbug;32136">Bug 32136</ulink>).
+			</simpara></listitem>
+		</itemizedlist>
+		</section>
 </section>
 
 <section>
 	<title>UCC client packages</title>
 	  <para>
 		Information about errata updates released for UCC clients can be found at <ulink url="http://errata.univention.de/ucc/1.0/"/>
+		For UCC 1.0-rev3 the following errata updates have been released.
 	  </para>
+	  	<section><title>univention-ucc-remote-mount</title>
+		<itemizedlist>
+			<listitem><simpara>
+				The udev handling for ATA cdrom devices has been fixed (<ulink url="&ucsbug;31685">Bug 31685</ulink>).
+			</simpara></listitem>
+			<listitem><simpara>
+				The udev script now tries to speed up ATA cdrom devices with the eject tool.
+				Problems with changing CD/DVDs in a drive were fixed (<ulink url="&ucsbug;31713">Bug 31713</ulink>).
+			</simpara></listitem>
+		</itemizedlist>
+		</section>
+
+	  	<section><title>univention-ucc-proxy-settings</title>
+		<itemizedlist>
+			<listitem><simpara>
+				Two new UCR variables have been added to pre-configure proxy settings for firefox and KDE on UCC clients (<ulink url="&ucsbug;31905">Bug 31905</ulink>).
+				<itemizedlist>
+				<listitem>ucc/proxy/http - URL to the proxy server</listitem>
+				<listitem>ucc/proxy/autoconfig/url - URL to the proxy pac</listitem>
+				</itemizedlist>
+			</simpara></listitem>
+			<listitem><simpara>	 	
+				The firefox proxy settings are now forced with 'lockPref' in the firefox configuration file (<ulink url="&ucsbug;32580">Bug 32580</ulink>).
+			</simpara></listitem>
+		</itemizedlist>
+		</section>
+
+	  	<section><title>univention-lightdm</title>
+		<itemizedlist>
+			<listitem><simpara>
+				The monolithic UCR template for /etc/pam.d/lightdm has been changed into a multifile UCR template (<ulink url="&ucsbug;31409">Bug 31409</ulink>).
+			</simpara></listitem>
+			<listitem><simpara>
+				This update fixes a bug in univention-lightdm that deletes the lightdm pam config during update (<ulink url="&ucsbug;32119">Bug 32119</ulink>).
+			</simpara></listitem>
+		</itemizedlist>
+		</section>
+			
+	  	<section><title>univention-ucc-cifshome-pam-mount</title>
+		<itemizedlist>
+			<listitem><simpara>
+				The new package univention-ucc-cifshome-pam-mount installs a mechanism that automatically mounts a CIFS share as home directory during user login.
+				Server, share name and mount options may be defined via the UCR variables ucc/mount/cifshome/server, ucc/mount/cifshome/share and ucc/mount/cifshome/options. (<ulink url="&ucsbug;32057">Bug 32057</ulink>).
+			</simpara></listitem>
+		</itemizedlist>
+		</section>
+
+	  	<section><title>univention-ucc-italc</title>
+		<itemizedlist>
+			<listitem><simpara>
+				This new package provides italc for Univention Corporate Client (<ulink url="&ucsbug;30830">Bug 30830</ulink>).
+				More information can be found in the UCS@School user manual.
+			</simpara></listitem>
+		</itemizedlist>
+		</section>
+
+	  	<section><title>univention-ucc-printerconfig</title>
+		<itemizedlist>
+			<listitem><simpara>
+				univention-ucc-printerconfig allows to configure cups servers with the UCR variable ucc/cups/server (<ulink url="&ucsbug;32056">Bug 32056</ulink>).
+			</simpara></listitem>
+		</itemizedlist>
+		</section>
+
+	  	<section><title>univention-ucc-ucsschool-integration</title>
+		<itemizedlist>
+			<listitem><simpara>
+				The new package univention-ucc-ucsschool-integration is a meta package and installs all required packages for using UCC with UCS@school (<ulink url="&ucsbug;30829">Bug 30829</ulink>).
+				For ucc clients with UCS@school integration dns_lookup_kdc is used in krb5.conf (by unsetting the UCR variable kerberos/kdc in the UCS@SCHOOL integration join script).
+			</simpara></listitem>
+		</itemizedlist>
+		</section>
+
+	  	<section><title>univention-ucc-pam</title>
+		<itemizedlist>
+			<listitem><simpara>
+				The template for the krb5.conf config file now also supports dns_lookup_kdc option (<ulink url="&ucsbug;32080">Bug 32080</ulink>).
+			</simpara></listitem>
+		</itemizedlist>
+		</section>
 </section>
