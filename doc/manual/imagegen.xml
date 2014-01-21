@@ -238,6 +238,17 @@ exit
 umount /mnt/img
 	</programlisting>
   </para>
+
+  <para>
+	After modifying the UCC image the MD5 checksums need to be recalculated. The MD5 sums determine
+	whether a rolled-out image has been modified:
+
+	<programlisting>
+md5sum /var/lib/univention-client-boot/ucc-1.0-rev3-desktop-image.img \
+> /var/lib/univention-client-boot/ucc-1.0-rev2-desktop-image.img.md5
+	</programlisting>
+  </para>
+
 </section>
 
 </chapter>
