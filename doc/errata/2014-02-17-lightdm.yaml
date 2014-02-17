@@ -1,0 +1,11 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: lightdm
+fix: 1.2.3-0ubuntu2.4.5.201402171053
+note:
+desc: |
+  Erratum #11 for UCC 1.0 forced the non-interactive installation mode. Since then lightdm
+  was updated in Ubuntu Precise. This update integrates these changes.
+version: [0]
+bug: [34137]
