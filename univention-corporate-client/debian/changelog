@@ -1,4 +1,4 @@
-univention-corporate-client (1.0.24-5) unstable; urgency=low
+univention-corporate-client (1.0.24-6) unstable; urgency=low
 
   * univention-ucc-software-update has been improved in several
     ways:
@@ -8,7 +8,7 @@ univention-corporate-client (1.0.24-5) unstable; urgency=low
     * A typo in a status message has been fixed (Bug #34026)
     * Check for package existence before (un-)installing it (Bug #34124)
 
- -- Erik Damrose <damrose@univention.de>  Tue, 18 Feb 2014 15:46:11 +0100
+ -- Erik Damrose <damrose@univention.de>  Wed, 19 Feb 2014 11:21:46 +0100
 
 univention-corporate-client (1.0.24-4) unstable; urgency=low
 

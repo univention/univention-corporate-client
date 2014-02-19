@@ -103,7 +103,7 @@ do
 done
 
 # Test, whether we need to remove packages
-if [ -n $rmneeded ]; then
+if [ -n "$rmneeded" ]; then
 
 	check_for_rw_mount_and_reboot
 
@@ -149,6 +149,7 @@ if ! mount | grep -q "on /root-ro"; then
 		if [[  -n $resetclient  && "true" = $resetclient ]]; then
 			/usr/sbin/univention-ucc-boot-option --write --option swinstreset --delete
 			/usr/sbin/univention-ucc-boot-option --write --option mount --delete
+			rm -f "$update_status_file"
 			sync
 			reboot
 		fi
