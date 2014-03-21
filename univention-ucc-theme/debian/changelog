@@ -1,3 +1,10 @@
+univention-ucc-theme (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+  * Fix copyright file	
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:24:32 +0100
+
 univention-ucc-theme (1.0.7-1) unstable; urgency=low
 
   * Added dependency to libglib2.0-bin (Bug #30579) 
