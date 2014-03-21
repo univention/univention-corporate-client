@@ -1,3 +1,9 @@
+univention-corporate-client (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:29:38 +0100
+
 univention-corporate-client (1.0.24-4) unstable; urgency=low
 
   * added apt-get-pre-invoke.d hook to remove old kernel (Bug #31012) 
