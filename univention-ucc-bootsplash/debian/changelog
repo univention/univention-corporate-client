@@ -1,3 +1,9 @@
+univention-ucc-bootsplash (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:07:23 +0100
+
 univention-ucc-bootsplash (1.0.0-7) unstable; urgency=low
 
   * fixed max message length (Bug #28317) 
