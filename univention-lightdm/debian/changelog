@@ -1,3 +1,9 @@
+univention-lightdm (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 12:42:22 +0100
+
 univention-lightdm (1.0.17) unstable; urgency=low
 
   * do not delete /etc/pam.d/lightdm (Bug #32119) 
