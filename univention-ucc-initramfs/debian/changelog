@@ -1,3 +1,9 @@
+univention-ucc-initramfs (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:08:47 +0100
+
 univention-ucc-initramfs (1.0.19-3) unstable; urgency=low
 
   * Start the loopback interface on system boot (Bug #30441)
