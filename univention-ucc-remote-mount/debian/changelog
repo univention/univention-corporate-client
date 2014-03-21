@@ -1,3 +1,9 @@
+univention-ucc-remote-mount (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:12:09 +0100
+
 univention-ucc-remote-mount (1.0.0-9) unstable; urgency=low
 
   * fixed cdrom handling in add_fstab_entry, remove_fstab_entry (Bug #31685 #31713)
