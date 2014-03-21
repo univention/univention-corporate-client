@@ -1,3 +1,9 @@
+univention-ucc-initramfs (3.0.0-1) unstable; urgency=low
+
+  * Bump version again, it was incorrectly raised to 2.0 in a customer scope already (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:10:34 +0100
+
 univention-ucc-initramfs (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)
