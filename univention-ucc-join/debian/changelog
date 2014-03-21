@@ -1,3 +1,9 @@
+univention-ucc-join (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 12:49:26 +0100
+
 univention-ucc-join (1.1.16-6) unstable; urgency=low
 
   * recreate openssh-server hostkeys during join and add
