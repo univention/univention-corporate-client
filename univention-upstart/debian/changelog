@@ -1,3 +1,9 @@
+univention-upstart (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:27:37 +0100
+
 univention-upstart (1.0-8) unstable; urgency=low
 
   * Trigger reread of evdev rules to ensure that /etc/default/keyboard is 
