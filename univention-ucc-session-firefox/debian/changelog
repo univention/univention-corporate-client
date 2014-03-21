@@ -1,3 +1,9 @@
+univention-ucc-session-firefox (3.0.0-1) unstable; urgency=low
+
+  * Bump version, this was incorrectly already imported in a customer scope (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:16:08 +0100
+
 univention-ucc-session-firefox (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)
