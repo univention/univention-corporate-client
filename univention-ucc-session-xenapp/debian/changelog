@@ -1,8 +1,8 @@
-univention-ucc-session-xenapp (1.0.1-3) unstable; urgency=low
+univention-ucc-session-xenapp (2.0.0-1) unstable; urgency=low
 
-  * Export WFICA_OPTS="-span a" in the session script for dual monitor support (Bug #30356)
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
 
- -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 08 Feb 2013 13:49:01 +0100
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:21:54 +0100
 
 univention-ucc-session-xenapp (1.0.1-2) unstable; urgency=low
 
