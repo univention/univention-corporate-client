@@ -1,3 +1,9 @@
+univention-ucc-proxy-settings (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:05:10 +0100
+
 univention-ucc-proxy-settings (1.0.0-5) unstable; urgency=low
 
   * lockPref in firefox proxy default settings (Bug #32580) 
