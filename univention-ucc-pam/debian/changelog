@@ -1,3 +1,9 @@
+univention-ucc-pam (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 12:55:29 +0100
+
 univention-ucc-pam (1.0.2-4) unstable; urgency=low
 
   * support dns_lookup_kdc in krb5.conf template (Bug #32080) 
