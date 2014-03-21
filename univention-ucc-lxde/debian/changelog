@@ -1,3 +1,9 @@
+univention-ucc-lxde (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 12:50:35 +0100
+
 univention-ucc-lxde (1.0.1-1) unstable; urgency=low
 
   * added lightdm/sessiondefault?LXDE (Bug #30299) 
