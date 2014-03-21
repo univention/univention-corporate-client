@@ -1,9 +1,8 @@
-univention-ucc-session-rdp (1.1.0-2) unstable; urgency=low
+univention-ucc-session-rdp (2.0.0-1) unstable; urgency=low
 
-  * Add a workaround for segfaults when subjected to "remote control"
-    (Bug #32816)
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
 
- -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 07 Jan 2014 11:18:56 +0100
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:17:34 +0100
 
 univention-ucc-session-rdp (1.1.0-1) unstable; urgency=low
 
