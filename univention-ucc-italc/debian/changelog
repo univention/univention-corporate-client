@@ -1,3 +1,9 @@
+univention-ucc-italc (2:2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0, update copyright  (Bug #34310)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 21 Mar 2014 13:34:53 +0100
+
 univention-ucc-italc (2:1.0.0-4) unstable; urgency=low
 
   * Added smbclient to univention-ucc-italc-client dependencies (Bug #30830)
