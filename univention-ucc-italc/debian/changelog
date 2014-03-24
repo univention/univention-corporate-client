@@ -1,3 +1,9 @@
+univention-ucc-italc (2:2.0.0-2) unstable; urgency=low
+
+  * Fix build with GCC from Ubuntu 14.04 (Bug #33760)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 24 Mar 2014 12:19:31 +0100
+
 univention-ucc-italc (2:2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)

@@ -1,0 +1,16 @@
+See "Header dependency changes" from http://gcc.gnu.org/gcc-4.7/porting_to.html
+
+UCS Bug #33760
+
+diff -aur italc-2.0.0.orig/lib/src/LocalSystem.cpp italc-2.0.0/lib/src/LocalSystem.cpp
+--- italc-2.0.0.orig/lib/src/LocalSystem.cpp	2011-08-03 23:18:00.000000000 +0200
++++ italc-2.0.0/lib/src/LocalSystem.cpp	2014-03-24 12:18:30.335593869 +0100
+@@ -41,6 +41,7 @@
+ #include <sddl.h>
+ #include <userenv.h>
+ #include <lm.h>
++#include <unistd.h>
+ 
+ 
+ namespace LocalSystem
+Nur in italc-2.0.0/lib/src: LocalSystem.cpp~.
