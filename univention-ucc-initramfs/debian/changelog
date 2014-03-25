@@ -1,3 +1,9 @@
+univention-ucc-initramfs (3.0.0-3) unstable; urgency=low
+
+  * Install default.script from the new path in trusty (Bug #33760)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 25 Mar 2014 13:41:10 +0100
+
 univention-ucc-initramfs (3.0.0-2) unstable; urgency=low
 
   * Don't copy default.script, directory no longer exists in current busybox (Bug #33760)

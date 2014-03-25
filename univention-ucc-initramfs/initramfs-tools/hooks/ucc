@@ -80,5 +80,5 @@ cp -a /lib/terminfo/ $DESTDIR/lib/
 copy_exec /sbin/udhcpc /sbin/
 copy_exec /sbin/ifconfig /sbin/
 copy_exec /sbin/route /sbin/
-#cp -pr /usr/share/udhcpc "${DESTDIR}/etc/"
+cp -pr /etc/udhcpc/default.script "${DESTDIR}/etc/"
 
