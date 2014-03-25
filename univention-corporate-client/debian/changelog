@@ -1,3 +1,9 @@
+univention-corporate-client (2.0.0-2) unstable; urgency=low
+
+  * univention-errata-level doesn't exist in UCC 2.0 (Bug #33760)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 25 Mar 2014 12:18:37 +0100
+
 univention-corporate-client (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)
