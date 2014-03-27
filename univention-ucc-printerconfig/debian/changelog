@@ -1,3 +1,9 @@
+univention-ucc-printerconfig (2.0.0-2) unstable; urgency=low
+
+  * Add a dependency on cups-client (Bug #32515)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 27 Mar 2014 09:02:08 +0100
+
 univention-ucc-printerconfig (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)
