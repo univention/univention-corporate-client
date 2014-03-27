@@ -8,6 +8,6 @@ Standards-Version: 3.8.2
 Package: univention-ucc-session-firefox
 Architecture: all
 Depends: firefox, openbox, ${misc:Depends}
-Description: UCC session script for RDP
+Description: UCC session script for Firefox
  This package provides the logon scripts to automatically start 
  a Firefox browser session.
