@@ -363,12 +363,12 @@ umount /mnt/img
   The Citrix Receiver uses <filename>/dev/random</filename> as a
   randomness source as standard. <filename>/dev/random</filename> blocks access if insufficient entropy is
   available from hardware sources. This is the case on many thin
-  clients. To avoid login delays, the basic setting on the client thus
-  symlinks <filename>/dev/random</filename> to
-  <filename>/dev/urandom</filename>. If the hardware generates
-  sufficient entropy, this can be prevented by setting the &ucsUCRV;
-  <envar>citrix/linkdevrandom</envar> to <emphasis>false</emphasis>.
+  clients. 
+  If the &ucsUCRV; <envar>citrix/linkdevrandom</envar> is set to <emphasis>true</emphasis>,
+  <filename>/dev/random</filename> is converted to a symbolic link to
+  <filename>/dev/urandom</filename> which prevents these delays.
 </para>
+
 <para>
   If the Citrix web interfaces performs authentication against an
   Active Directory domain separate from UCS, it is possible to
