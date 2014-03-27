@@ -341,7 +341,12 @@
   The Citrix Receiver cannot be supplied with UCC and must be
   downloaded from the Citrix website as a DEB package and installed on
   the client. <footnote><para><ulink url="http://www.citrix.com/downloads/citrix-receiver/receivers-by-platform/receiver-for-linux-121.html"/></para></footnote>
-  Version 12.1 is needed as the minimum version. The following steps describe how to install the
+  Version 12.1 is needed as the minimum version. Citrix Receiver 13 is not yet supported in UCS 1.0.
+</para>
+
+
+<para>
+  The following steps describe how to install the
   Citrix Receiver package into an existing UCC image. Due to a bug in the Citrix Receiver package
   these steps need to be performed on a 32 bit system! During the installation of
   <filename>icaclient</filename> and <filename>ctxusb</filename> the EULA needs to be confirmed.
