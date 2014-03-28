@@ -23,6 +23,9 @@ Depends: univention-config,
  alsa-utils,
  ntpdate,
  network-manager
+Recommends: univention-ucc-printerconfig,
+ univention-ucc-proxy-settings,
+ univention-ucc-cifshome-pam-mount
 Description: Metapackage for Univention Corporate Client
  This package defines dependencies on the various packages
  needed on a Univention Corporate Client system.
