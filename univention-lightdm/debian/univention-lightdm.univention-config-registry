@@ -1,6 +1,7 @@
 Type: file
 File: etc/lightdm/lightdm.conf
 Variables: lightdm/autologin
+Variables: lightdm/autologin/user
 Variables: lightdm/autologin/session
 Variables: lightdm/sessiondefault
 Variables: lightdm/xserver/allowtcp

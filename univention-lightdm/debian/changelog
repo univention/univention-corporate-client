@@ -1,3 +1,9 @@
+univention-lightdm (2.0.0-3) unstable; urgency=low
+
+  * Fix UCR variable registration (Bug #30617)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 31 Mar 2014 12:24:33 +0200
+
 univention-lightdm (2.0.0-2) unstable; urgency=low
 
   * Added the UCR variable lightdm/autologin/user to specify a user for the automatic
