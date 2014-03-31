@@ -1,3 +1,10 @@
+univention-lightdm (2.0.0-2) unstable; urgency=low
+
+  * Added the UCR variable lightdm/autologin/user to specify a user for the automatic
+    login (Bug #30617) 
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 31 Mar 2014 11:51:57 +0200
+
 univention-lightdm (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)

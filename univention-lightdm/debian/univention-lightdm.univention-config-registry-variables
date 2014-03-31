@@ -1,12 +1,18 @@
 [lightdm/autologin]
-Description[de]=Aktiviert die automatische Anmeldung mit einem Gastbenutzer (Standard: false)
-Description[en]=Activates automatic login with a guest user (default: false)
+Description[de]=Aktiviert die automatische Anmeldung mit einem Gastbenutzer oder einem bestimmten Benutzer (siehe 'lightdm/autologin/user).
+Description[en]=Activates automatic login with a guest user or a specific user (see 'lightdm/autologin/user').
 Type=bool
 Categories=system-desktop
 
 [lightdm/autologin/session]
 Description[de]=Das für die automatische Anmeldung zu verwendende Anmeldeskript (Name der .desktop-Datei unter /usr/share/xsessions)
 Description[en]=The session script to be used for automatic logins (Name of .desktop file in /usr/share/xsessions)
+Type=str
+Categories=system-desktop
+
+[lightdm/autologin/user]
+Description[de]=Ist diese Variable auf einen Benutzernamen gesetzt, erfolgt die automatisch Anmeldung (siehe 'lightdm/autologin') mit diesem Benutzer. Ist die Variable nicht gesetzt, wird ein Gast-Benutzer verwendet.
+Description[en]=If this variable is set to a user name, the automatic login (see 'lightdm/autologin') occurs with this user. If the variable is unset, a guest user is used.
 Type=str
 Categories=system-desktop
 
