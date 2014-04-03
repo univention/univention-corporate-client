@@ -102,6 +102,11 @@
 		</itemizedlist>
 	  </para>
 	  </listitem>
+
+	  <listitem><simpara>
+		The parsing of several initramfs parameters has been corrected 
+		(<ulink url="&ucsbug;31367">Bug 31367</ulink>).
+	  </simpara></listitem>
 	</itemizedlist>
 </section>
 
