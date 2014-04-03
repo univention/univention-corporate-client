@@ -5,8 +5,20 @@
 		The dependencies of the <package>univention-corporate-client</package> package have been updated: Network Manager was added
 		(<ulink url="&ucsbug;30297">Bug 30297</ulink>).
 	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The original LSB values from Kubuntu are now retained. This fixes the compatibility with
+		packages/services depending on specific values (<ulink url="&ucsbug;32627">Bug 32627</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Patches applied to UCC 1.0 were migrated to UCC 2.0 (if applicable) (<ulink
+		url="&ucsbug;33760">Bug 33760</ulink>).
+	  </simpara></listitem>
+
 	</itemizedlist>
 </section>
+
 
 <section>
   <title>Image rollouts, software and image updates</title>
@@ -23,6 +35,11 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
+		<command>ucc-image</command> now displays the progress when uncompressing UCC images (<ulink
+		url="&ucsbug;33933">Bug 33933</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
 		Start the loopback interface on system boot which improves boot times  when the LDAP server is unreachable (<ulink url="&ucsbug;30441">Bug 30441</ulink>).
 	  </simpara></listitem>
 
@@ -32,6 +49,11 @@
 
 	  <listitem><simpara>
 		Create new initramfs files in temporary directory (not in <filename>/boot</filename>) (<ulink url="&ucsbug;31015">Bug 31015</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The apt source from which errata updates are installed has been updated for UCC 2.0 (<ulink
+		url="&ucsbug;31150">Bug 31150</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
@@ -92,6 +114,34 @@
   </itemizedlist>
 </section>
 
+<section>
+  <title>UCC standard images</title>
+
+  <section>
+	<title>UCC desktop image</title>
+	<itemizedlist>
+	  <listitem><simpara>
+		The package <package>language-pack-gnome-de</package> has been added, it adds
+		internalisation for the "Power off" button in the LightDM login manager. Note that this
+		package hasn't been added to the thin client image due to size constraints. It can be added
+		to custom images (<ulink url="&ucsbug;31807">Bug 31807</ulink>).
+	  </simpara></listitem>
+	</itemizedlist>
+  </section>
+
+  <section>
+	<title>UCC thin client image</title>
+	<itemizedlist>
+	  <listitem><simpara>
+	  </simpara></listitem>
+	</itemizedlist>
+  </section>
+
+
+</section>
+
+
+
 
 <section>
   <title>User logins</title>
@@ -120,6 +170,17 @@
   </itemizedlist>
 </section>
 
+<section>
+  <title>&ucsUMC; integration</title>
+  <itemizedlist>
+	<listitem><simpara>
+	  The description of the UCC image module has been fixed (<ulink url="&ucsbug;32515">Bug 32515</ulink>).
+
+	</simpara></listitem>
+  </itemizedlist>
+</section>
+
+
 
 <section>
   <title>Hardware support</title>
@@ -146,6 +207,11 @@
   <itemizedlist>
 	<listitem><simpara>
 	  After connection timeouts to Cups server, a reconnect is now performed (<ulink url="&ucsbug;30911">Bug 30911</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  <package>univention-ucc-printerconfig</package> now depends on <package>cups-client</package>
+	  (<ulink url="&ucsbug;32515">Bug 32515</ulink>).
 	</simpara></listitem>
 
 	<listitem><simpara>
