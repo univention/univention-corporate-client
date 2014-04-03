@@ -1,0 +1,210 @@
+<section>
+  <title>General</title>
+	<itemizedlist>
+	  <listitem><simpara>
+		The dependencies of the <package>univention-corporate-client</package> package have been updated: Network Manager was added
+		(<ulink url="&ucsbug;30297">Bug 30297</ulink>).
+	  </simpara></listitem>
+	</itemizedlist>
+</section>
+
+<section>
+  <title>Image rollouts, software and image updates</title>
+	<itemizedlist>
+	  <listitem><simpara>
+		<filename>/etc/ldap.secret</filename> was added to the list of persistent files (<ulink
+		url="&ucsbug;30463">Bug 30463</ulink>). Also add symlink support to
+		<command>univention-ucc-sync-persistent-files</command>.
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Added DEBIAN_FRONTEND=noninteractive to <command>univention-ucc-software-update</command>
+		(<ulink url="&ucsbug;31010">Bug 31010</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Start the loopback interface on system boot which improves boot times  when the LDAP server is unreachable (<ulink url="&ucsbug;30441">Bug 30441</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Do not backup old initramfs files (<ulink url="&ucsbug;31015">Bug 31015</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Create new initramfs files in temporary directory (not in <filename>/boot</filename>) (<ulink url="&ucsbug;31015">Bug 31015</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Remove unused kernel packages before performing a software update (<ulink
+		url="&ucsbug;31012]">Bug 31012]</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Package source lists are no longer updated for each package that is to installed (<ulink
+		url="&ucsbug;32575">Bug 32575</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Check for package existence before (un-)installing it (<ulink url="&ucsbug;34124">Bug
+		34124</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		A typo in a status message during software updates has been fixed (<ulink
+		url="&ucsbug;34026">Bug 34026</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Logging of software updates has been improved (<ulink url="&ucsbug;34123">Bug
+		34123</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Use <filename>/tmp</filename> or <filename>/ucc_root</filename> as the temporary directory (the directory with more  free space is used) (<ulink url="&ucsbug;31015">Bug 31015</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><para>
+		Several improvements were made to <command>univention-ucc-software-update</command> (<ulink url="&ucsbug;31061">Bug 31061</ulink>)
+		<itemizedlist>
+		  <listitem><simpara>
+			Exit softwareupdate script when a reboot is necessary
+		  </simpara></listitem>
+
+		  <listitem><simpara>
+			Added additional messages during software update
+		  </simpara></listitem>
+
+		  <listitem><simpara>
+			Unset kdm/autostart to keep plymouth displaying during software updates
+		  </simpara></listitem>
+		</itemizedlist>
+	  </para>
+	  </listitem>
+	</itemizedlist>
+</section>
+
+<section>
+  <title>Domain integration</title>
+  <itemizedlist>
+	<listitem><simpara>
+	  The SSH host keys are now recreated during domain join. They are also tracked as persistent files (<ulink url="&ucsbug;30163">Bug 30163</ulink>).
+	</simpara></listitem>
+  </itemizedlist>
+</section>
+
+
+<section>
+  <title>User logins</title>
+  <itemizedlist>
+	<listitem><simpara>
+	  The &ucsUCR; variable description of <package>univention-lightdm</package> has been improved (<ulink url="&ucsbug;30933">Bug 30933</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  The monolithic &ucsUCR; template for <filename>/etc/pam.d/lightdm</filename> has been split
+	  into a  multifile template (<ulink url="&ucsbug;31409">Bug 31409</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  The LXDE session can now also be forced (<ulink url="&ucsbug;30420">Bug 30420</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  The <package>univention-ucc-theme</package> package now depends on <package>libglib2.0-bin</package> (<ulink url="&ucsbug;30579">Bug 30579</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  A bug was fixed that deleted the LightDM PAM configuration during updates (<ulink
+	  url="&ucsbug;32119">Bug 32119</ulink>).
+	</simpara></listitem>
+  </itemizedlist>
+</section>
+
+
+<section>
+  <title>Hardware support</title>
+  <itemizedlist>
+	<listitem><simpara>
+	  <command>univention-ucc-remote-mount</command> is now disabled on desktop images (<ulink
+	  url="&ucsbug;30552">Bug 30552</ulink>). ram* and loop* devices are now ignored (<ulink
+	  url="&ucsbug;30468">Bug 30468</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  The udev handling for ATA CDROM devices in <command>univention-ucc-remote-mount</command> has
+	  been fixed.  The udev script now tries to speed up ATA cdrom devices with the eject tool.
+	  Problems with changing CD/DVDs in a drive were fixed (<ulink url="&ucsbug;31685">Bug
+	  31685</ulink>, <ulink url="&ucsbug;31713">Bug 31713</ulink>).
+	</simpara></listitem>
+
+  </itemizedlist>
+</section>
+
+
+<section>
+  <title>System services</title>
+  <itemizedlist>
+	<listitem><simpara>
+	  After connection timeouts to Cups server, a reconnect is now performed (<ulink url="&ucsbug;30911">Bug 30911</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  Add workarounds for <package>grub2</package>, <package>kdm</package> and
+	  <package>lightdm</package> to always install noninteractively (<ulink url="&ucsbug;31035">Bug
+	  31035</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  The &ucsUCR; template for the <filename>krb5.conf</filename> config file now also supports the
+	  <emphasis>dns_lookup_kdc</emphasis> option (<ulink url="&ucsbug;32080">Bug 32080</ulink>).
+	</simpara></listitem>
+  </itemizedlist>
+</section>
+
+<section>
+  <title>Client management</title>
+  <itemizedlist>
+	<listitem><simpara>
+	  Two new &ucsUCR; variables have been added to preconfigure proxy settings for Firefox and KDE:
+	  <envar>ucc/proxy/http</envar> configures the URL of the proxy server and
+	  <envar>ucc/proxy/autoconfig/url</envar> the URL of the proxy PAC (<ulink
+	  url="&ucsbug;31905">Bug 31905</ulink>, <ulink url="&ucsbug;32580">Bug 32580</ulink>)
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  The new package <package>univention-ucc-cifshome-pam-mount</package> installs a mechanism to
+	  automatically mount a CIFS share as home directory during user login. Server, share name and
+	  mount options may be defined via the &ucsUCR; variables
+	  <envar>ucc/mount/cifshome/server</envar>, <envar>ucc/mount/cifshome/share</envar> and
+	  <envar>ucc/mount/cifshome/options</envar> (<ulink url="&ucsbug;32057">Bug 32057</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  The new &ucsUCRV; <envar>ucc/cups/server</envar> allows to configure Cups server(s) (<ulink
+	  url="&ucsbug;32056">Bug 32056</ulink>).
+	</simpara></listitem>
+
+  </itemizedlist>
+</section>
+
+
+<section>
+  <title>Other changes</title>
+  <itemizedlist>
+	<listitem><simpara>
+	  The <package>univention-ucc-italc</package> package provides italc for Univention Corporate
+	  Client (<ulink url="&ucsbug;30830">Bug 30830</ulink>). The package
+	  <package>univention-ucc-ucsschool-integration</package> installs all required packages for
+	  using UCC with UCS@school (<ulink url="&ucsbug;30829">Bug 30829</ulink>, <ulink
+	  url="&ucsbug;31902">Bug 31902</ulink>, <ulink url="&ucsbug;31906">Bug 31906</ulink>, <ulink
+	  url="&ucsbug;31976">Bug 31976</ulink>, <ulink url="&ucsbug;31976">Bug 31976</ulink>,). More information can be found in the UCS@School user
+	  manual 
+	</simpara></listitem>
+  </itemizedlist>
+</section>
+
+
+
+
+
+

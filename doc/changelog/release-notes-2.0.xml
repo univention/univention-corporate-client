@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+          "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+
+  <!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+  <!ENTITY bibliography SYSTEM "../stylesheets/bibliography-en.xml">
+  <!ENTITY changelog SYSTEM "changelog-2.0.xml">
+
+  %entities;
+]>
+<book lang="en" id="releasenotes-ucc-2.0-en">
+    <bookinfo>
+      <title>UCC 2.0 release notes</title>
+      <subtitle>Release notes for the installation and update of Univention Corporate Client (UCC) 2.0</subtitle>
+
+        <revhistory>
+            <revision>
+                <revnumber>2.0</revnumber>
+                <date>30 Apr 2014</date>
+            </revision>
+        </revhistory>
+
+		<legalnotice>
+		  <para>
+			Alle Rechte vorbehalten. / All rights reserved.
+		  </para>
+
+		  <para>
+			(c) 2012 bis 2014 Univention GmbH
+		  </para>
+
+		  <para>
+			Mary-Somerville-Straße 1, 28359 Bremen, Deutschland/Germany
+		  </para>
+
+		  <para>
+			feedback@univention.de
+		  </para>
+
+		  <para>
+			Jede aufgeführte Marke und jedes Warenzeichen steht im Eigentum
+			ihrer jeweiligen eingetragenen Rechtsinhaber. Linux ist ein
+			eingetragenes Warenzeichen von Linus Torvalds.
+		  </para>
+
+		  <para>
+			The mentioned brand names and registered trademarks are owned by
+			the respective legal owners in each case. Linux is a registered
+			trademark of Linus Torvalds.
+		  </para>
+		</legalnotice>
+
+    </bookinfo>
+
+    <chapter id="relnotes:highlights">
+	  <title>Release highlights</title>
+
+		<para>
+		  With Univention Corporate Client 2.0 the first major release of Univention Corporate
+		  Server (UCS) is now available. It provides several improvements and bugfixes:
+		</para>
+
+		<itemizedlist>
+		  <listitem><para>
+		  </para></listitem>
+		</itemizedlist>
+
+    </chapter>
+
+    <chapter id="relnotes:prepare">
+	  <title>Preparation of update</title>
+
+		<para>
+		</para>
+
+		<para>
+		</para>
+
+		<para>
+		</para>
+	</chapter>
+
+    <chapter>
+	  <title>Postprocessing of the update</title>
+
+	</chapter>
+
+    <chapter>
+	  <title>Changelog</title>
+	  <para>
+		Listed are the changes since UCS 1.0:
+	  </para>
+
+	  &changelog;
+
+	</chapter>
+
+    <?dbhtml-include href="../stylesheets/piwiki.html"?>
+</book>
