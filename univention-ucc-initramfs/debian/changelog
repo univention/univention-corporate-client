@@ -1,3 +1,9 @@
+univention-ucc-initramfs (3.0.0-5) unstable; urgency=low
+
+  * Fixed parsing of several command line parameters (Bug #31367) 
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 03 Apr 2014 13:05:37 +0200
+
 univention-ucc-initramfs (3.0.0-4) unstable; urgency=low
 
   * Fix path to DHCP script (Bug #33760)

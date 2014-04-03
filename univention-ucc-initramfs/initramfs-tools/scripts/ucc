@@ -1408,8 +1408,8 @@ check_parameter ()
 		force_partition_timeout=*)
 			FORCE_PARTITION_TIMEOUT=${x#force_partition_timeout=}
 			;;
-		net_dev=)
-			net_dev={x#net_dev=}
+		net_dev=*)
+			net_dev=${x#net_dev=}
 			;;
 		keyboard*)
 			KEYBOARD=${x#keyboard=}
@@ -1420,17 +1420,17 @@ check_parameter ()
 		timezone*)
 			TIMEZONE=${x#timezone=}
 			;;
-		verbose=)
-			verbose={x#verbose=}
+		verbose=*)
+			verbose=${x#verbose=}
 			;;
-		syslog=)
-			syslog={x#syslog=}
+		syslog=*)
+			syslog=${x#syslog=}
 			;;
-		syslogserver=)
-			syslogserver={x#syslogserver=}
+		syslogserver=*)
+			syslogserver=${x#syslogserver=}
 			;;
-		debugshell=)
-			debugshell={x#debugshell=}
+		debugshell=*)
+			debugshell=${x#debugshell=}
 			;;
 		splash*)
 			SPLASH="true"
