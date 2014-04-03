@@ -1,0 +1,5 @@
+[citrix/accepteula]
+Description[de]=Ist diese Option aktiviert, erfolgt keine Bestätigung des Citrix Enduser License Agreement durch den Benutzer. Ist die Variable nicht gesetzt, muss die Lizenz bei der ersten Verwendung des Citrix Receivers bestätigt werden.
+Description[en]=If this option is activated the Citrix Enduser License Agreement doesn't need be acknowledged by the user. If the variable is unset, the license must be acknowledged the first time the Citrix Receiver is used.
+Type=bool
+Categories=system-desktop

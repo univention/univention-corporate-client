@@ -43,7 +43,16 @@ fi
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
+. /usr/share/univention-lib/all.sh
+. /usr/share/univention-lib/ucc.sh
+
 export WFICA_OPTS="-span a"
+
+if is_ucr_true 'citrix/accepteula'; then
+	if [ ! -e ~/.ICAClient/.eula_accepted ]; then
+		touch ~/.ICAClient/.eula_accepted
+	fi
+fi
 
 if [ -z "$citrix_windowmanager_disabled" -o "$citrix_windowmanager_disabled" = "no" ]; then
 	/usr/bin/metacity &

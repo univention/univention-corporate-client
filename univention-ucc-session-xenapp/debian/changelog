@@ -1,3 +1,10 @@
+univention-ucc-session-xenapp (2.0.0-2) unstable; urgency=low
+
+  * Update dependency list for Citrix Receiver 13 (Bug #34452)
+  * Add a new UCR variable citrix/eulaaccepted which can be used to accept the Citrix EULA 
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 03 Apr 2014 15:20:18 +0200
+
 univention-ucc-session-xenapp (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)
