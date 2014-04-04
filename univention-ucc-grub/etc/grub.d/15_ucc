@@ -37,7 +37,7 @@ fi
 
 ## Changes for UCC:
 ##  The grub device must be the partition with the image
-GRUB_DEVICE="`${grub_probe} --target=device /ucc_root/)`"
+GRUB_DEVICE="`${grub_probe} --target=device /ucc_root/`"
 GRUB_DEVICE_UUID="`${grub_probe} --device ${GRUB_DEVICE} --target=fs_uuid 2> /dev/null`" || true
 
 # loop-AES arranges things so that /dev/loop/X can be our root device, but
