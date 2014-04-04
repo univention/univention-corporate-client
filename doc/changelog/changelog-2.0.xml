@@ -188,6 +188,24 @@
 </section>
 
 <section>
+  <title>Terminal sessions</title>
+
+  <section>
+	<title>Citrix XenApp</title>
+	<itemizedlist>
+	  <listitem><simpara>
+		A devilspie configuration was integrated into the XenApp session script. The Citrix session
+		is now correctly running in fullscreen if the autologin is used (<ulink
+		url="&ucsbug;30358">Bug 30358</ulink>).
+	  </simpara></listitem>
+	</itemizedlist>
+  </section>
+</section>
+
+
+
+
+<section>
   <title>&ucsUMC; integration</title>
   <itemizedlist>
 	<listitem><simpara>
