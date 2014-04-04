@@ -1,3 +1,11 @@
+univention-ucc-join (2.0.0-2) unstable; urgency=low
+
+  * default listen address for dnsmasq has changed to 
+    127.0.1.1, so we have to change the default nameserver
+    to 127.0.1.1 (Bug #34310)
+
+ -- Felix Botner <botner@univention.de>  Fri, 04 Apr 2014 14:17:34 +0200
+
 univention-ucc-join (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)

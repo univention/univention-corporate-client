@@ -476,8 +476,8 @@ ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 # set interface type to "" ensures that it will be saved persistently. now network-manager can control the interface
 ucr set interfaces/eth0/type="" >>/var/log/univention/join.log 2>&1
 
-# use dnsmasq (127.0.0.1) as default nameserver
-ucr set nameserver1="127.0.0.1" >>/var/log/univention/join.log 2>&1
+# use dnsmasq (127.0.1.1) as default nameserver
+ucr set nameserver1="127.0.1.1" >>/var/log/univention/join.log 2>&1
 
 for var in ldap/server/name \
 	ldap/master \
