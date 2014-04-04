@@ -107,6 +107,18 @@
 		The parsing of several initramfs parameters has been corrected 
 		(<ulink url="&ucsbug;31367">Bug 31367</ulink>).
 	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Obsolte code has been removed from the listener module that creates the PXE configuration files for ucc clients on the ucs server
+		(<ulink url="&ucsbug;30347">Bug 30347</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		A &ucsUCR; Module has been added to immediately apply changes of the ucc/pxe/* variables to all existing PXE 
+		configuration files for ucc clients, e.g. setting ucc/pxe/loglevel changes the loglevel kernel parameter in all
+		PXE configuration files
+		(<ulink url="&ucsbug;29904">Bug 29904</ulink>).
+	  </simpara></listitem>
 	</itemizedlist>
 </section>
 
