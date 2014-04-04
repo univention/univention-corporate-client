@@ -323,6 +323,11 @@
 	  url="&ucsbug;31976">Bug 31976</ulink>, <ulink url="&ucsbug;31976">Bug 31976</ulink>,). More information can be found in the UCS@School user
 	  manual 
 	</simpara></listitem>
+
+    <listitem><simpara>
+      Kernel modesetting has been disabled for the cirrus driver due to a problem initializing the framebuffer
+    <ulink url="&ucsbug;34448">Bug 34448</ulink>.
+    </simpara></listitem>
   </itemizedlist>
 </section>
 
