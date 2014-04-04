@@ -150,6 +150,11 @@
 	<listitem><simpara>
 	  The SSH host keys are now recreated during domain join. They are also tracked as persistent files (<ulink url="&ucsbug;30163">Bug 30163</ulink>).
 	</simpara></listitem>
+
+    <listitem><simpara>
+      The determination of the kerberos key version number of the ucc host account during the join has been fixed
+      (<ulink url="&ucsbug;30471">Bug 30471</ulink>).
+    </simpara></listitem>
   </itemizedlist>
 </section>
 
