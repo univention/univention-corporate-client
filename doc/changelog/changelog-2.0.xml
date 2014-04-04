@@ -165,7 +165,8 @@
 	<title>UCC desktop image</title>
 	<itemizedlist>
 	  <listitem><simpara>
-		The package <package>language-pack-gnome-de</package> has been added, it adds
+		The package <package>language-pack-gnome-*</package> has been added for all languages that are
+		available by default (en, de, es, fr, nl). It adds
 		internalisation for the "Power off" button in the LightDM login manager. Note that this
 		package hasn't been added to the thin client image due to size constraints. It can be added
 		to custom images (<ulink url="&ucsbug;31807">Bug 31807</ulink>).
