@@ -10,3 +10,6 @@ File: etc/apt/apt.conf.d/900-ucc-pre-invoke
 
 Type: file
 File: etc/update-motd.d/91-release-upgrade
+
+Type: file
+File: etc/modprobe.d/ucc-cirrus.conf
