@@ -55,16 +55,17 @@ if is_ucr_true 'citrix/accepteula'; then
 fi
 
 if [ -z "$citrix_windowmanager_disabled" -o "$citrix_windowmanager_disabled" = "no" ]; then
+	/usr/bin/devilspie -a &
 	/usr/bin/metacity &
 fi
 
 if [ ! -e /opt/Citrix/ICAClient ]; then
-	firefox file:///usr/share/ucc/install-citrix-receiver-hint.html
+	firefox -url file:///usr/share/ucc/install-citrix-receiver-hint.html -fullscreen
 	exit 0
 fi
 
 if [ -z "$citrix_webinterface" ]; then
-	firefox file:///usr/share/ucc/configure-website-hint.html
+	firefox -url file:///usr/share/ucc/configure-website-hint.html -fullscreen
 else
 	firefox -url "$citrix_webinterface" -fullscreen
 fi
