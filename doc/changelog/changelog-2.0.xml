@@ -326,7 +326,12 @@
 
     <listitem><simpara>
       Kernel modesetting has been disabled for the cirrus driver due to a problem initializing the framebuffer
-    <ulink url="&ucsbug;34448">Bug 34448</ulink>.
+      <ulink url="&ucsbug;34448">Bug 34448</ulink>.
+    </simpara></listitem>
+
+    <listitem><simpara>
+      A bug in the grub.cfg subtemplate /etc/grub.d/15_ucc from the package <package>univention-ucc-grub</package> has been fixed
+      <ulink url="&ucsbug;32631">Bug 32631</ulink>.
     </simpara></listitem>
   </itemizedlist>
 </section>
