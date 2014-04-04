@@ -34,13 +34,35 @@
 		(<ulink url="&ucsbug;31010">Bug 31010</ulink>).
 	  </simpara></listitem>
 
-	  <listitem><simpara>
-		<command>ucc-image</command> now displays the progress when uncompressing UCC images (<ulink
-		url="&ucsbug;33933">Bug 33933</ulink>).
-	  </simpara></listitem>
+	  <listitem><para>
+		Several improvements and bugfixes were made to <command>ucc-image</command>
+		<itemizedlist>
+			<listitem><simpara>
+				Display the progress when uncompressing UCC images (<ulink url="&ucsbug;33933">Bug 33933</ulink>).
+			</simpara></listitem>
+			<listitem><simpara>
+				Use the same base multiplier when calculating the image size as the initramfs (<ulink url="&ucsbug;30063">Bug 30063</ulink>).
+			</simpara></listitem>
+			<listitem><simpara>
+				Create all files in the workingdir and move them at the end (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
+			</simpara></listitem>
+			<listitem><simpara>
+				Handle the targetdir option correctly (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
+			</simpara></listitem>
+			<listitem><simpara>
+				Increase logfile readability by logging executed commands (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
+			</simpara></listitem>
+			<listitem><simpara>
+				Always install base ucc packages (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
+			</simpara></listitem>
+			<listitem><simpara>
+				Write compression progress to stdout (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
+			</simpara></listitem>
+		</itemizedlist>
+	  </para></listitem>
 
 	  <listitem><simpara>
-		Start the loopback interface on system boot which improves boot times  when the LDAP server is unreachable (<ulink url="&ucsbug;30441">Bug 30441</ulink>).
+		Start the loopback interface on system boot which improves boot times when the LDAP server is unreachable (<ulink url="&ucsbug;30441">Bug 30441</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
