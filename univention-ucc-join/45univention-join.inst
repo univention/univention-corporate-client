@@ -42,7 +42,7 @@ joinscript_init
 eval $(echo "$@" | sed -n 's/.*--binddn \(.*\) --bindpwd \(.*\).*/binddn="\1"\nbindpwd="\2"/p')
 
 # Read kvno from LDAP entry
-kvno="$(ldapsearch -x -D "$binddn" -w "$bindpwd" "(&(objectClass=univentionCorporateClient)(cn=$hostname))" krb5KeyVersionNumber | sed -ne 's|krb5KeyVersionNumber: ||')"
+kvno="$(ldapsearch -x -D "$binddn" -w "$bindpwd" "(&(objectClass=univentionCorporateClient)(cn=$hostname))" krb5KeyVersionNumber | ldapsearch-wrapper | sed -n 's/^krb5KeyVersionNumber: \(.*\)$/\1/p')"
 test -z "$kvno" && kvno=1
 
 unset binddn bindpwd
