@@ -66,9 +66,46 @@ fi
 
 if [ -z "$citrix_webinterface" ]; then
 	firefox -url file:///usr/share/ucc/configure-website-hint.html -fullscreen
-else
-	firefox -url "$citrix_webinterface" -fullscreen
+	exit 0
 fi
+
+firefox -url "$citrix_webinterface" -fullscreen
+
+if is_ucr_true 'lightdm/autologin' && [ "$lightdm_autologin_session" = "XenApp" ]; then
+
+    lang=$(locale | grep LANGUAGE | cut -d= -f2 | cut -d_ -f1 | head -1)
+    UserShutdown="False"
+    Selection="False"
+
+    while [ "$Selection" != "True" ]; do
+
+	if [ "$lang" = "de" ]; then
+	    choice=`zenity --height 300 --width 400 --title "Wie soll die Sitzung fortgeführt werden?" --list --hide-header --column="" --text="Wie soll die Sitzung fortgeführt werden?" "Client ausschalten" "Sitzung neu starten" "Sitzung wechseln"`
+	else
+	    choice=`zenity --height 300 --width 400 --title "How should the session be continued?" --list --hide-header --column="" --text="How should the session be continued?" "Shut down client" "Restart session" "Change session"`
+	fi
+
+	if [ "$choice" = "Client ausschalten" -o "$choice" = "Shut down client" ]; then 
+	    UserShutdown="True" 
+	    Selection="True"
+	fi
+
+	if [ "$choice" = "Sitzung neu starten" -o "$choice" = "Restart session" ]; then 
+		/usr/share/xsessions/XenApp
+		Selection="True"
+	fi
+
+	if [ "$choice" = "Sitzung wechseln" -o "$choice" = "Change session" ]; then 
+	    Selection="True"
+	fi
+    done
+
+    if [ "$UserShutdown" = "True" ]; then 
+	dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop
+    fi
+fi
+
+
 
 
 

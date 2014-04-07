@@ -3,6 +3,8 @@ univention-ucc-session-xenapp (2.0.0-2) unstable; urgency=low
   * Update dependency list for Citrix Receiver 13 (Bug #34452)
   * Add a new UCR variable citrix/eulaaccepted which can be used to accept the Citrix EULA
   * Add a devilspie configuration to enable full screen in auto-login mode (Bug #30358)
+  * Implement a post session menu if XenApp is selected as the automatic session. It allows
+    to restart the session, switch back to LightDM or shutdown the system (Bug #32043) 
 
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 03 Apr 2014 15:20:18 +0200
 
