@@ -30,17 +30,6 @@
 # Debug
 echo "univention-ucc-remote-mount: add_fstab_entry called: options: '$1' '$2' '$3'"|logger
 
-##  if called by udev
-# add_fstab_entry
-# place in /lib/udev
-# $1 = devicename
-# $2 = fstype
-
-## if called by cdpinger
-# $1 = [add|remove]
-# $2 = "cdrom"
-# $3 = "auto" (filesystem?)
-
 # ignoe ram* and loop* devices bug #30468
 blacklist="ram loop"
 for i in $blacklist; do
@@ -48,23 +37,6 @@ for i in $blacklist; do
 		exit 0
 	fi
 done
-
-call_cdpinger(){
-	if [ -z "$(pgrep -f -l "cdpinger $1")" ]; then
-		# speed up device
-		if [ -x "$(which eject)" ]; then
-			max=72
-			max="$(eject -X $1)"
-			eject -x $max $1 || true
-		fi
-		cdpinger $1 &
-		echo "univention-ucc-remote-mount: started cdpinger for $1"|logger
-		return 0
-	else
-		# already running cdpinger for this device
-		return 1
-	fi
-}
 
 . /usr/share/univention-lib/all.sh
 
@@ -93,14 +65,11 @@ if [ "$ID_BUS" != "usb" ] && [ "${ID_TYPE}" != "cd" ]; then
     exit 0
 fi
 
-## handle CDROM devices, which do not produce udev add/remove events
-## start cdpinger for the devices, cdpinger will be killed and restarted
-## in remove_fstab_entry
+# ignore CDROM devices with no media
 if [ "${ID_TYPE}" = "cd" ]; then
-    if call_cdpinger $devicename ; then
-        # started new cdpinger, which will handle the rest
-        exit 0
-    fi
+	if [ "${ID_CDROM_MEDIA}" != "1" ]; then
+		exit 0
+	fi
 fi
 
 if [ -z "$fstype" ]; then

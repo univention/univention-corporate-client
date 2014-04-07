@@ -9,3 +9,9 @@ ACTION=="add", SUBSYSTEM=="block", ENV{ID_TYPE}!="floppy", RUN+="add_fstab_entry
 
 # device removals:
 ACTION=="remove", SUBSYSTEM=="block", RUN+="remove_fstab_entry %k"
+
+# device eject (cdrom)
+ACTION=="change", ENV{DISK_EJECT_REQUEST}=="1", RUN+="remove_fstab_entry %k"
+
+# device change (cdrom)
+ACTION=="change", ENV{DISK_MEDIA_CHANGE}=="1", RUN+="add_fstab_entry %k"
