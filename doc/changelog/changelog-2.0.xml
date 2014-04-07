@@ -226,6 +226,12 @@
 		is now correctly running in fullscreen if the autologin is used (<ulink
 		url="&ucsbug;30358">Bug 30358</ulink>).
 	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Implement a post session menu if XenApp is selected as the automatic session. It allows to
+		restart the session, switch back to LightDM or shutdown the system (<ulink
+		url="&ucsbug;32043">Bug 32043</ulink>).
+	  </simpara></listitem>
 	</itemizedlist>
   </section>
 </section>
