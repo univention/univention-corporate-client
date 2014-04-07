@@ -226,6 +226,12 @@
 	</simpara></listitem>
 
 	<listitem><simpara>
+	  The new UCR variable lightdm/autologin/user allows the configuration of the user under which
+	  the automatic login should occur. If the variable is unset a temporary guest user is used as
+	  before (<ulink url="&ucsbug;30617">Bug 30617</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
 	  The <package>univention-ucc-theme</package> package now depends on <package>libglib2.0-bin</package> (<ulink url="&ucsbug;30579">Bug 30579</ulink>).
 	</simpara></listitem>
 
