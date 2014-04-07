@@ -1,3 +1,9 @@
+univention-lightdm (2.0.0-4) unstable; urgency=low
+
+  * Fix template (Bug #30617)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 07 Apr 2014 13:45:39 +0200
+
 univention-lightdm (2.0.0-3) unstable; urgency=low
 
   * Fix UCR variable registration (Bug #30617)
