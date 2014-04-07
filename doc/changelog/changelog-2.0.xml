@@ -136,6 +136,12 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
+	    The join script 91ucc-pxe-boot.inst from <package>ucc-pxe-boot</package> now ensures that the default-settings
+	    policies/dhcp_boot policy exists
+	    (<ulink url="&ucsbug;3561">Bug 3561</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
 		A &ucsUCR; Module has been added to immediately apply changes of the ucc/pxe/* variables to all existing PXE 
 		configuration files for ucc clients, e.g. setting ucc/pxe/loglevel changes the loglevel kernel parameter in all
 		PXE configuration files
