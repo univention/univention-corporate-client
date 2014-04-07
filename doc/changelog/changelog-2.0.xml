@@ -162,6 +162,12 @@
 		PXE configuration files
 		(<ulink url="&ucsbug;29904">Bug 29904</ulink>).
 	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Old and unused kernel package are automatically removed from ucc clients with univention-ucc-prune-old-kernel-packages.
+        Determination of the package status has been fixed in this script
+		(<ulink url="&ucsbug;32166">Bug 32166</ulink>).
+	  </simpara></listitem>
 	</itemizedlist>
 </section>
 
