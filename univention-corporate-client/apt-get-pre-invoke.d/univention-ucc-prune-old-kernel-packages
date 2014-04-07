@@ -47,7 +47,8 @@ removeOldKernelPackages () {
 	# remove all $kernel_regex packages except
 	# the running kernel
 	for pkg in $(dpkg-query -W -f '${Package}\n' | grep "$kernel_regex" | sort -n); do
-		if [ "$(dpkg-query -W -f='${Status}\n' "$pkg" 2>/dev/null)" = "install ok installed" ]; then
+		stat="$(dpkg-query -W -f='${Status}\n' "$pkg" 2>/dev/null)"
+		if [ "$stat" = "purge ok installed" -o "$stat" = "install ok installed" ]; then
 			kernel_packages="$kernel_packages $pkg"
 			pkg_ver="$(dpkg-query -W -f '${Version}\n' $pkg)"
 			if dpkg --compare-versions "$pkg_ver" gt "$latest_pkg_ver" ; then
@@ -62,7 +63,7 @@ removeOldKernelPackages () {
 		# do not remove running and latest kernel
 		if ! echo "$i" | grep -q "$running_kernel\|$latest_pkg"; then
 			echo "removing kernel as requested in $0"
-			dpkg -P $i || true
+			dpkg -P $i 2>/dev/null || true
 		fi
 	done
 

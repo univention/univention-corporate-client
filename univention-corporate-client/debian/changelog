@@ -1,3 +1,9 @@
+univention-corporate-client (2.0.0-7) unstable; urgency=low
+
+  * fixed univention-ucc-prune-old-kernel-packages (Bug #32166) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 07 Apr 2014 14:12:04 +0200
+
 univention-corporate-client (2.0.0-6) unstable; urgency=low
 
   * added modeset=0 for cirrus driver (Bug #34448) 
