@@ -66,9 +66,15 @@ if [ "$ID_BUS" != "usb" ] && [ "${ID_TYPE}" != "cd" ]; then
 fi
 
 # ignore CDROM devices with no media
+# speed up CDROM device
 if [ "${ID_TYPE}" = "cd" ]; then
 	if [ "${ID_CDROM_MEDIA}" != "1" ]; then
 		exit 0
+	fi
+	if [ -x "$(which eject)" ]; then
+		max=72
+		max="$(eject -X $devicename)"
+		eject -x "$max" "$devicename" || true
 	fi
 fi
 
