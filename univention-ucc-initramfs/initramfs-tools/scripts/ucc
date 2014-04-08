@@ -538,8 +538,8 @@ __get_size_of_file ()
 _check_free_space ()
 {
 	local root_space=$(__get_freespace_of_mp /ucc_tmp/root)
-	# 50 MB buffer
-	local buffer=52428800
+	# 10 MB buffer
+	local buffer=10485760
 	local local_image_size=0
 
 	if [ -e /ucc_tmp/root/local_image ]; then

@@ -168,6 +168,10 @@
         Determination of the package status has been fixed in this script
 		(<ulink url="&ucsbug;32166">Bug 32166</ulink>).
 	  </simpara></listitem>
+
+	  <listitem><simpara>
+	    The local buffer of free space on a ucc root-device for persistent data has been reduced to 10 MB (<ulink url="&ucsbug;32311">Bug 32311</ulink>).
+	  </simpara></listitem>
 	</itemizedlist>
 </section>
 
