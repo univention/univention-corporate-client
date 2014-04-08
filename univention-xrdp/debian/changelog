@@ -10,6 +10,10 @@ univention-xrdp (2.0.0-1) unstable; urgency=low
       and only applicable for the VNC backend)
     - Update template for /etc/xrdp/xrdp.ini (drop xrdp/title and xrdp/imagedir,
       the login screen is implemented in GDI code in the new release)
+    - Update dependencies
+  * Add a session script for UCC KDE, make the session script configurable using
+    the UCR variable xrdp/desktopsession
+  * Make the logo shown during xrdp login configurable with the UCR variable xrdp/logo
 
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 08 Apr 2014 09:01:49 +0200
 

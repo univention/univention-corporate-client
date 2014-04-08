@@ -35,14 +35,10 @@ configure)
 		xrdp/access/users?"Domain Users" \
 		xrdp/access/admins?"Domain Admins" \
 		xrdp/autostart?yes \
-		xrdp/dpi?96 \
-		xrdp/session/sesman-X11rdp/name?"Local RDP session" \
-		xrdp/sessions/max?10 \
-		xrdp/sessions?sesman-X11rdp \
-		xrdp/title?"Login to Univention Corporate Server" \
-		xrdp/imagedir?/usr/share/univention-xrdp \
-		security/packetfilter/package/univention-xrdp/tcp/3389/all/en?"Remote Desktop Protocol (RDP)" \
-		security/packetfilter/package/univention-xrdp/tcp/3389/all?ACCEPT
+		xrdp/session/sesman-X11rdp/name?"Univention Corporate Client" \
+		xrdp/sessions/max?50 \
+		xrdp/desktopsession?UCC-KDE \
+		xrdp/sessions?sesman-X11rdp
 	[ -x /etc/init.d/univention-firewall ] &&
 		invoke-rc.d univention-firewall restart
 	invoke-rc.d xrdp restart

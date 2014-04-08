@@ -26,6 +26,18 @@ Type=int
 Default=10
 Categories=xrdp
 
+[xrdp/desktopsession]
+Description[de]=Hier wird der vollständige Pfadname eines Desktop-Skripts angegeben, das nach erfolgreicher xrdp-Anmeldung aufgerufen wird. Ist die Variable nicht gesetzt, wird /usr/share/univention-xrdp/UCC-KDE aufgerufen.
+Description[en]=The full path name of a desktop script is specified here. It is executed after a successful xrdp login. If the variable is unset, /usr/share/univention-xrdp/UCC-KDE is called.
+Type=str
+Categories=xrdp
+
+[xrdp/logo]
+Description[de]=Hier wird der vollständige Pfadname eines BMP-Bilddatei angegeben, die im xrdp-Anmeldebildschirm angezeigt wird. Ist die Variable nicht gesetzt, wird das Standard-xrdp-Logo angezeigt. Das Logo sollte 240 x 140 Pixel umfassen.
+Description[en]=The full path name of a BMP image file is specified here. It is displayed in the xrdp login screen. If the variable is unset, the default xrdp logo is shown. The logo should consist of 240 x 140 pixels.
+Type=str
+Categories=xrdp
+
 [xrdp/channels]
 Description[de]=Liste der erlaubten RDP Kanäle
 Description[en]=List of allowed RDP channels
