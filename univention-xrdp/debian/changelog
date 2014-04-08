@@ -1,3 +1,10 @@
+univention-xrdp (2.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 2.0 (Bug #29893)
+  * Update copyright
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 08 Apr 2014 09:01:49 +0200
+
 univention-xrdp (1.1.0-2) unstable; urgency=low
 
   * Ticket #2013042921001875
