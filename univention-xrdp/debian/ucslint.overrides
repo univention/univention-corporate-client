@@ -1,0 +1,7 @@
+# Externally defines UCRV
+0004-12: conffiles/etc/pam.d/xrdp-sesman
+# No UCRVs used
+0004-56: conffiles/etc/default/xrdp
+0004-56: conffiles/etc/init.d/xrdp
+# Minor addition is not copyrightable
+0010-2: conffiles/etc/init.d/xrdp

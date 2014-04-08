@@ -1,0 +1,6 @@
+[xrdp]
+description[de]=Remote Desktop Procotol Dienst
+description[en]=Remote Desktop Procotol Service
+start_type=xrdp/autostart
+icon=service/xrdp
+programs=/usr/sbin/xrdp

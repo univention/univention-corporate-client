@@ -1,0 +1,65 @@
+[xrdp/access/users]
+Description[de]=Benutzer Gruppe, die xrdp nutzen dürfen
+Description[en]=User group allowed to access xrdp
+Type=str
+Default=Domain Users
+Categories=xrdp
+
+[xrdp/access/admins]
+Description[de]=Benutzer Gruppe, die xrdp administrieren dürfen
+Description[en]=User group allowed to administer xrdp
+Type=str
+Default=Domain Admins
+Categories=xrdp
+
+[xrdp/autostart]
+Description[de]=Aktiviert/Deaktiviert den automatischen Start von XRDP
+Description[en]=Enable/Disable the automatic of XRDP
+Type=bool
+Default=yes
+Categories=xrdp
+
+[xrdp/dpi]
+Description[de]=Pixeldichte
+Description[en]=Screen pixel density
+Type=int
+Default=96
+Categories=xrdp
+
+[xrdp/sessions/max]
+Description[de]=Maximale Anzahl der gleichzeitigen XRDP-Sitzungen
+Description[en]=Maximum number of concurrent XRDP sessions
+Type=int
+Default=10
+Categories=xrdp
+
+[xrdp/channels]
+Description[de]=Liste der erlaubten RDP Kanäle
+Description[en]=List of allowed RDP channels
+Type=str
+Default=rdpdr rdpsnd drdynvc cliprdr rail xrdpvr
+Categories=xrdp
+
+[xrdp/sessions]
+Description[de]=Spezifiziert die Reihenfolge der erlaubten Sitzungsarten. Leerzeichen separierte Liste
+Description[en]=Specified the order of allowed RDP session types. Space separated list
+Type=str
+Categories=xrdp
+
+[xrdp/session/.*/.*]
+Description[de]=Überschreibt Sitzungseigenschaft
+Description[en]=Overwrite session settings
+Type=str
+Categories=xrdp
+
+[xrdp/title]
+Description[de]=Title für das XRDP Login-Fenster
+Description[en]=Title for the XRDP login window
+Type=str
+Categories=xrdp
+
+[xrdp/imagedir]
+Description[de]=Pfadangabe zu alternativen Bildern für das XRDP Login-Fenster
+Description[en]=File system path for alternative pictures used in the XRDP login window
+Type=str
+Categories=xrdp

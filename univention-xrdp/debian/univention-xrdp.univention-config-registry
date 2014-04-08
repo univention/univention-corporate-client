@@ -1,0 +1,24 @@
+Type: file
+File: etc/xrdp/xrdp.ini
+Variables: xrdp/channels
+Variables: xrdp/sessions
+Variables: xrdp/session/.*
+
+Type: file
+File: etc/xrdp/sesman.ini
+Variables: xrdp/sessions/max
+Variables: xrdp/dpi
+Variables: xrdp/title
+Variables: xrdp/imagedir
+
+Type: file
+File: etc/pam.d/xrdp-sesman
+Variables: auth/xrdp/restrict
+Variables: auth/xrdp/accessfile
+
+Type: file
+File: etc/default/xrdp
+
+Type: file
+File: etc/init.d/xrdp
+Mode: 0755

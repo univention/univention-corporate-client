@@ -1,0 +1,25 @@
+Source: univention-xrdp
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Build-Depends: debhelper (>= 7.0.50~),
+ univention-config-dev,
+ ucslint
+Standards-Version: 3.9.3
+
+Package: univention-xrdp
+Architecture: all
+Depends: ${misc:Depends},
+ univention-base-files,
+ xrdp (>= 0.7.0~20130620git),
+ xserver-x11rdp
+Recommends: univention-kde
+Description: UCS Remote Desktop Protocol (RDP) server integration
+ This package integrades the Remote Desktop Protocol (RDP) X server into the
+ Univention Corporate Server (UCS) by providing additional configuration files
+ and integration into UCR.
+ .
+ It is part of Univention Corporate Server (UCS), an
+ integrated, directory driven solution for managing
+ corporate environments. For more information about UCS,
+ refer to: http://www.univention.de/

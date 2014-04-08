@@ -1,0 +1,46 @@
+univention-xrdp (1.1.0-2) unstable; urgency=low
+
+  * Ticket #2013042921001875
+  * Adapt to new rsakey behaviour.
+
+ -- Philipp Hahn <hahn@univention.de>  Tue, 25 Jun 2013 13:04:46 +0200
+
+univention-xrdp (1.1.0-1) unstable; urgency=low
+
+  * New version (Ticket #2013042921001875)
+  * sessman.ini: Refresh
+  * xrdp.ini:
+    - fix channel names.
+    - add new code property.
+
+ -- Philipp Hahn <hahn@univention.de>  Tue, 25 Jun 2013 12:28:44 +0200
+
+univention-xrdp (1.0.0-4) unstable; urgency=low
+
+  * Add autostart service (Bug #6372)
+  * Only enable X11rdp session by default.
+  * Configure groups for connection.
+  * Add custom images.
+  * Rename local RDP session.
+  * Configure xrdp window title.
+
+ -- Philipp Hahn <hahn@univention.de>  Fri, 25 Jan 2013 16:00:30 +0100
+
+univention-xrdp (1.0.0-3) unstable; urgency=low
+
+  * Recommend: univention-kde (Bug #6372)
+
+ -- Philipp Hahn <hahn@univention.de>  Thu, 24 Jan 2013 17:32:13 +0100
+
+univention-xrdp (1.0.0-2) unstable; urgency=low
+
+  * Open rdesktop TCP port in firewall (Bug #6372)
+  * Restart xrdp to run as root.
+
+ -- Philipp Hahn <hahn@univention.de>  Thu, 24 Jan 2013 09:03:40 +0100
+
+univention-xrdp (1.0.0-1) unstable; urgency=low
+
+  * Initial release (Bug #6372)
+
+ -- Philipp Hahn <hahn@univention.de>  Fri, 18 Jan 2013 15:14:33 +0100
