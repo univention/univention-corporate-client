@@ -186,6 +186,11 @@
       The determination of the kerberos key version number of the ucc host account during the join has been fixed
       (<ulink url="&ucsbug;30471">Bug 30471</ulink>).
     </simpara></listitem>
+    
+    <listitem><simpara>
+      UMC icons for UCC policy objects have been added
+      (<ulink url="&ucsbug;30366">Bug 30366</ulink>).
+    </simpara></listitem>
   </itemizedlist>
 </section>
 
