@@ -19,13 +19,6 @@ Type=bool
 Default=yes
 Categories=xrdp
 
-[xrdp/dpi]
-Description[de]=Pixeldichte
-Description[en]=Screen pixel density
-Type=int
-Default=96
-Categories=xrdp
-
 [xrdp/sessions/max]
 Description[de]=Maximale Anzahl der gleichzeitigen XRDP-Sitzungen
 Description[en]=Maximum number of concurrent XRDP sessions
@@ -49,17 +42,5 @@ Categories=xrdp
 [xrdp/session/.*/.*]
 Description[de]=Überschreibt Sitzungseigenschaft
 Description[en]=Overwrite session settings
-Type=str
-Categories=xrdp
-
-[xrdp/title]
-Description[de]=Title für das XRDP Login-Fenster
-Description[en]=Title for the XRDP login window
-Type=str
-Categories=xrdp
-
-[xrdp/imagedir]
-Description[de]=Pfadangabe zu alternativen Bildern für das XRDP Login-Fenster
-Description[en]=File system path for alternative pictures used in the XRDP login window
 Type=str
 Categories=xrdp

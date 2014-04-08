@@ -5,6 +5,11 @@ univention-xrdp (2.0.0-1) unstable; urgency=low
   * Update for xrdp 0.8 upstream packages:
     - Update file behind /etc/default/xrdp template
     - Drop template for /etc/init.d/xrdp
+    - Update /etc/pam.d/sesman-xrdp for upstream changes
+    - Update template for /etc/xrdp/sesman-rdp.ini (drop xrdp/dpi which is unused
+      and only applicable for the VNC backend)
+    - Update template for /etc/xrdp/xrdp.ini (drop xrdp/title and xrdp/imagedir,
+      the login screen is implemented in GDI code in the new release)
 
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 08 Apr 2014 09:01:49 +0200
 
