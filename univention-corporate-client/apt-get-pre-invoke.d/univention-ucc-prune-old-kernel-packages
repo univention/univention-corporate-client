@@ -33,6 +33,8 @@
 export LC_ALL=C
 export DEBIAN_FRONTEND=noninteractive
 
+logfile="/var/log/univention/univention-ucc-prune-old-kernel-packages.log"
+
 removeOldKernelPackages () {
 
 	local kernel_regex="$1"
@@ -63,7 +65,9 @@ removeOldKernelPackages () {
 		# do not remove running and latest kernel
 		if ! echo "$i" | grep -q "$running_kernel\|$latest_pkg"; then
 			echo "removing kernel as requested in $0"
-			dpkg -P $i 2>/dev/null || true
+			echo "removing kernel as requested in $0" > $logfile
+			date > $logfile
+			dpkg -P $i 1>$logfile 2>$logfile || true
 		fi
 	done
 

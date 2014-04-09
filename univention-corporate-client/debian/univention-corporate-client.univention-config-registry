@@ -13,3 +13,9 @@ File: etc/update-motd.d/91-release-upgrade
 
 Type: file
 File: etc/modprobe.d/ucc-cirrus.conf
+
+Type: file
+File: etc/init/lightdm.conf
+
+Type: file
+File: etc/init/plymouth-stop.conf

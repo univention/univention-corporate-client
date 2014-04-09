@@ -1,3 +1,12 @@
+univention-corporate-client (2.0.0-8) unstable; urgency=low
+
+  * removed univention-upstart dep (Bug #34512)
+  * add new /etc/init/lightdm.conf template (Bug #34512)
+  * don't stop plymouth in plymouth-stop but in 
+    ucc-update (Bug #31126)
+
+ -- Felix Botner <botner@univention.de>  Wed, 09 Apr 2014 13:50:50 +0200
+
 univention-corporate-client (2.0.0-7) unstable; urgency=low
 
   * fixed univention-ucc-prune-old-kernel-packages (Bug #32166) 
