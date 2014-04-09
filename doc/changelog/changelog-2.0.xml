@@ -292,6 +292,10 @@
       UMC icons for UCC policy objects have been added (<ulink url="&ucsbug;30366">Bug 30366</ulink>).
     </simpara></listitem>
 
+    <listitem><simpara>
+      A simplified wizard for the creation of UCC computers has been added (<ulink url="&ucsbug;32942">Bug 32942</ulink>).
+    </simpara></listitem>
+
   </itemizedlist>
 </section>
 
