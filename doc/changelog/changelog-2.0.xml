@@ -123,7 +123,8 @@
 		  </simpara></listitem>
 
 		  <listitem><simpara>
-			Unset kdm/autostart to keep plymouth displaying during software updates
+            The plymouth bootsplash init scripts have been fixed to keep plymouth displaying during software updates
+            (<ulink url="&ucsbug;34512">Bug 34512</ulink>, <ulink url="&ucsbug;31126">Bug 31126</ulink>).
 		  </simpara></listitem>
 		</itemizedlist>
 	  </para>
