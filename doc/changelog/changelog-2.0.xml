@@ -191,10 +191,6 @@
       (<ulink url="&ucsbug;30471">Bug 30471</ulink>).
     </simpara></listitem>
     
-    <listitem><simpara>
-      UMC icons for UCC policy objects have been added
-      (<ulink url="&ucsbug;30366">Bug 30366</ulink>).
-    </simpara></listitem>
   </itemizedlist>
 </section>
 
@@ -289,9 +285,13 @@
   <title>&ucsUMC; integration</title>
   <itemizedlist>
 	<listitem><simpara>
-	  The description of the UCC image module has been fixed (<ulink url="&ucsbug;32515">Bug 32515</ulink>).
-
+	  The description of the UCC image module has been fixed (<ulink url="&ucsbug;32433">Bug 32433</ulink>).
 	</simpara></listitem>
+
+    <listitem><simpara>
+      UMC icons for UCC policy objects have been added (<ulink url="&ucsbug;30366">Bug 30366</ulink>).
+    </simpara></listitem>
+
   </itemizedlist>
 </section>
 
