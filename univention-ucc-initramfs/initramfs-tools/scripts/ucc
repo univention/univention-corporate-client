@@ -655,7 +655,10 @@ _mount_image ()
 		# Use the local image if no image was given via /proc/cmdline
 		local_image="$(cat /ucc_tmp/root/local_image)"
 	else
-		notice "Error: The UCC image was not found."
+		notice "Error: The UCC image assigned to this client (configurable in the UMC computer management module on the 'Images' tab)"
+		notice "could not be found in the directory /var/lib/univention-client-boot on the server distributing the UCC images."
+		notice "If you are using an official UCC image you need to download the image using the UCC image management module in the UMC."
+		notice "If a locally customised image is to be used, it needs to be copied to /var/lib/univention-client-boot."
 		failure
 		return 1
 	fi

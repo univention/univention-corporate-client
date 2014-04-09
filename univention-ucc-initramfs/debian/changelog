@@ -1,3 +1,9 @@
+univention-ucc-initramfs (3.0.0-7) unstable; urgency=low
+
+  * Clarify error message in case an image could not be found (Bug #30994)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 09 Apr 2014 09:27:36 +0200
+
 univention-ucc-initramfs (3.0.0-6) unstable; urgency=low
 
   * Decrease local free-space buffer for persistent data to 10MB (Bug #32311)
