@@ -62,6 +62,9 @@
 			<listitem><simpara>
 				Write compression progress to stdout (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
 			</simpara></listitem>
+			<listitem><simpara>
+				To reduce the required image size for thinclients, <command>ucc-image</command> can be called with the parameter -e. Apt cache directories will then be overlayed with external tmpfs directories during the image build (<ulink url="&ucsbug;31942">Bug 31942</ulink>).
+			</simpara></listitem>
 		</itemizedlist>
 	  </para></listitem>
 
