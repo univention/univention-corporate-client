@@ -1,6 +1,7 @@
 univention-corporate-client (2.0.0-9) unstable; urgency=low
 
   * Set codename to "Ems"
+  * Merge changes from errata update 31 for UCC 1.0 
 
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 10 Apr 2014 09:06:58 +0200
 

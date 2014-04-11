@@ -32,28 +32,45 @@
 . /usr/share/univention-lib/ucr.sh
 
 logfile="/var/log/univention/software-updates.log"
+exec >>"$logfile" 2>&1
+
+update_status_file="$(mktemp univention-ucc-software-update.XXXXXXXXXX)"
+touch $update_status_file
 
 # This script supports software updates for both systems with and without overlayfs
 # If a system with overlaysfs is booted, it is marked for read/write operation and rebooted
-
 export DEBIAN_FRONTEND="noninteractive"
+export LC_ALL=C
+export LANG=C
+
+message() {
+	echo "$(date) $1"
+	plymouth message --text="$1"
+}
 
 apt_get_update() {
-	plymouth message --text="Checking for available software updates"
-	apt-get update 2>>$logfile 1>>$logfile
+	nextupdate=$(expr $(cat "$update_status_file") + 600)
+	if [ $(date +%s) -ge $nextupdate ]; then
+		message "Checking for available software updates"
+		apt-get update
+		date +%s > "$update_status_file"
+	fi
 }
 
 check_for_rw_mount_and_reboot() {
 	# When running on overlayfs, switch to R/W mode
-	if LC_ALL=C mount | grep -q "on /root-ro"; then
-		plymouth message --text="Rebooting to install software updates"
+	if mount | grep -q "on /root-ro"; then
+		message "Rebooting to install software updates"
 		/usr/sbin/univention-ucc-boot-option --write --option mount --value rw
 		/usr/sbin/univention-ucc-boot-option --write --option swinstreset --value true
+		rm -f "$update_status_file"
 		sync
 		reboot
 		exit 0
 	fi
 }
+
+echo "$(date) Starting Univention UCC software update"
 
 update=`get_host_policy_var univentionCorporateClientSoftwareUpdateActivate` 
 if [ "1" = "$update" ]; then
@@ -61,81 +78,84 @@ if [ "1" = "$update" ]; then
 	apt_get_update
 
 	# Test, whether we need to update the installed packages.
-	new=`LANG=C apt-get dist-upgrade --dry-run | grep "packages will be [installed|upgraded]"`
+	new=`apt-get dist-upgrade --dry-run | grep "packages will be [installed|upgraded]"`
 	if [ -n "$new" ]; then
 
 		check_for_rw_mount_and_reboot
 
-		plymouth message --text="Installing available software updates - this may take some time. Do not turn of the computer" 
-		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes -u dist-upgrade 2>>$logfile 1>>$logfile
-		apt-get clean 2>>$logfile 1>>$logfile
+		message "Installing available software updates - this may take some time. Do not turn off the computer" 
+		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes -u dist-upgrade
+		apt-get clean
 	fi
 fi
 
 # Test whether, we need to remove packages. If so, switch to r/w mode if using overlayfs
 
 remove=`get_host_policy_var univentionCorporateClientSoftwareUpdateRemoveList`
-rmneeded=0
+rmneeded=""
 for I in $remove
 do
 	PKGRM=`echo $I | tr -d "="`
 
-	if LC_ALL=C dpkg-query -W  -f='${Status}' $PKGRM | grep -q "installed"; then
-		rmneeded=1
+	if dpkg-query -W  -f='${Status}' $PKGRM | grep -q "installed"; then
+		rmneeded="$rmneeded $I"
 	fi
 done
 
 # Test, whether we need to remove packages
-if [ 1 -eq $rmneeded ]; then
+if [ -n "$rmneeded" ]; then
 
 	check_for_rw_mount_and_reboot
 
-	for I in $remove
+	for I in $rmneeded
 	do
 		PKGRM=`echo $I | tr -d "="`
-		plymouth message --text="Removing package $PKGRM"
-		apt-get --yes remove $PKGRM 2>>$logfile 1>>$logfile
+		message "Removing package $PKGRM"
+		apt-get --yes remove $PKGRM
 	done
 fi
 
 install=`get_host_policy_var univentionCorporateClientSoftwareUpdateInstallList` 
 
 # Test whether, we need to install packages.
-instneeded=0
+instneeded=""
 for I in $install
 do
 	apt_get_update
 	PKGINST=`echo $I | tr -d "="`
 
-	new=`LANG=C apt-get install --dry-run $PKGINST | grep "packages will be [installed|upgraded]"`
+	new=`apt-get install --dry-run $PKGINST | grep "packages will be [installed|upgraded]"`
 	if [ -n "$new" ]; then
-		instneeded=1
+		instneeded="$instneeded $I"
 	fi
 done
 
-if [ 1 -eq $instneeded ]; then
+if [ -n "$instneeded" ]; then
 
 	check_for_rw_mount_and_reboot
 
-	for I in $install
+	for I in $instneeded
 	do
 		PKGINST=`echo $I | tr -d "="`
-		plymouth message --text="Installing package $PKGINST"
-		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGINST 2>>$logfile 1>>$logfile    
+		message "Installing package $PKGINST"
+		apt-get -o DPkg::Options::=--force-confold -o DPkg::Options::=--force-overwrite -o DPkg::Options::=--force-overwrite-dir -y --force-yes install $PKGINST
 	done
 fi
 
 # Reset flag that triggers a r/w mount for systems booted with overlayfs
-if ! LC_ALL=C mount | grep -q "on /root-ro"; then
+if ! mount | grep -q "on /root-ro"; then
 	if is_ucr_true 'ucc/thinclientoverlayfs'; then
 		resetclient=`/usr/sbin/univention-ucc-boot-option --read --option swinstreset`
 		if [[  -n $resetclient  && "true" = $resetclient ]]; then
 			/usr/sbin/univention-ucc-boot-option --write --option swinstreset --delete
 			/usr/sbin/univention-ucc-boot-option --write --option mount --delete
+			rm -f "$update_status_file"
 			sync
 			reboot
 		fi
 	fi
 fi
 
+rm -f "$update_status_file"
+echo "$(date) Finished Univention UCC software update"
 exit 0
