@@ -1,3 +1,10 @@
+univention-ucc-join (2.0.0-4) unstable; urgency=low
+
+  * Stop sshd after recreating ssh-keys. Otherwise the image can not be
+    unmounted after joining in initramfs (Bug #34309) 
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 11 Apr 2014 09:35:44 +0200
+
 univention-ucc-join (2.0.0-3) unstable; urgency=low
 
   * fixed determination of krb5 kvn (Bug #30471) 
