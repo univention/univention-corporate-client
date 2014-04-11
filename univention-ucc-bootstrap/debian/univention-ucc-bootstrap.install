@@ -1,1 +1,1 @@
-libpam-systemd /etc/init.d/
+systemd-logind /etc/init.d/
