@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (2.0.0-3) unstable; urgency=low
+
+  * Add missing dependency on libcurl3 (Bug #34452)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 11 Apr 2014 10:41:10 +0200
+
 univention-ucc-session-xenapp (2.0.0-2) unstable; urgency=low
 
   * Update dependency list for Citrix Receiver 13 (Bug #34452)
