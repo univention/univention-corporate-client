@@ -73,6 +73,9 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
+		A new package <package>univention-ucc-bootstrap</package> was added. It contains stub sysv init scripts to cope with startup failure of packages only shipping Upstart jobs (<ulink url="&ucsbug;33782">Bug 33782</ulink>).
+
+	  <listitem><simpara>
 		Do not backup old initramfs files (<ulink url="&ucsbug;31015">Bug 31015</ulink>).
 	  </simpara></listitem>
 
@@ -401,7 +404,7 @@
     </simpara></listitem>
 
     <listitem><simpara>
-      A bug in the grub.cfg subtemplate /etc/grub.d/15_ucc from the package <package>univention-ucc-grub</package> has been fixed
+      A quoting bug in the grub.cfg subtemplate /etc/grub.d/15_ucc from the package <package>univention-ucc-grub</package> has been fixed
       <ulink url="&ucsbug;32631">Bug 32631</ulink>.
     </simpara></listitem>
   </itemizedlist>
