@@ -1,0 +1,13 @@
+Source: univention-ucc-bootstrap
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper
+
+Package: univention-ucc-bootstrap
+Architecture: all
+Depends: ${misc:Depends}
+Description: UCC - Bootstrap support
+ This package provides some dummy init scripts required during the bootstrap of a
+ Univention Corporate Client.
