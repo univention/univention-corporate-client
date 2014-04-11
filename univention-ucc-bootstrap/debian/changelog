@@ -1,3 +1,9 @@
+univention-ucc-bootstrap (1.0-3) unstable; urgency=low
+
+  * Add more stubs for modemmanager, whoopise and ofono (Bug #33782)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 11 Apr 2014 14:39:13 +0200
+
 univention-ucc-bootstrap (1.0-2) unstable; urgency=low
 
   * Rename from libpam-systemd to systemd-logind (Bug #33782)

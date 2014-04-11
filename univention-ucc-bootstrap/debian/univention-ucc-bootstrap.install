@@ -1,1 +1,4 @@
 systemd-logind /etc/init.d/
+whoopsie /etc/init.d/
+modemmanager /etc/init.d/
+ofono /etc/init.d/
