@@ -1,0 +1,5 @@
+univention-ucc-lxde (1.0-1) unstable; urgency=low
+
+  * Initial release (Bug #34517)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 07 Dec 2012 10:16:47 +0100

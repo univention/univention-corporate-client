@@ -1,0 +1,81 @@
+Source: univention-ucc-i18n
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Standards-Version: 3.8.2
+Build-Depends: debhelper,
+ ucslint
+
+Package: univention-ucc-i18n-de
+Architecture: all
+Depends: ${misc:Depends},
+ language-pack-de, 
+ language-pack-kde-de,
+ language-pack-gnome-de,
+ libreoffice-l10n-de,
+ libreoffice-help-de,
+ mythes-de,
+ mythes-de-ch,
+ thunderbird-locale-de,
+ hyphen-de
+Description: UCC - Translations and localisations for the German desktop image
+ This package integrates the German localisation and internationalisation packages into
+ the Kubuntu desktop provided by Univention Corporate Client.
+
+Package: univention-ucc-i18n-fr
+Architecture: all
+Depends: ${misc:Depends},
+ language-pack-fr,
+ language-pack-kde-fr,
+ language-pack-gnome-fr,
+ hyphen-fr,
+ mythes-fr,
+ libreoffice-help-fr,
+ thunderbird-locale-fr,
+ libreoffice-l10n-fr
+Description: UCC - Translations and localisations for the French desktop image
+ This package integrates the French localisation and internationalisation packages into
+ the Kubuntu desktop provided by Univention Corporate Client.
+
+Package: univention-ucc-i18n-nl
+Architecture: all
+Depends: ${misc:Depends},
+ language-pack-nl,
+ language-pack-kde-nl,
+ language-pack-gnome-nl,
+ libreoffice-help-nl,
+ thunderbird-locale-nl,
+ libreoffice-l10n-nl
+Description: UCC - Translations and localisations for the Dutch desktop image
+ This package integrates the Dutch localisation and internationalisation packages into
+ the Kubuntu desktop provided by Univention Corporate Client.
+
+Package: univention-ucc-i18n-es
+Architecture: all
+Depends: ${misc:Depends},
+ language-pack-es, 
+ language-pack-kde-es,
+ language-pack-gnome-es,
+ libreoffice-help-es,
+ thunderbird-locale-es,
+ libreoffice-l10n-es
+Description: UCC - Translations and localisations for the Spanish desktop image
+ This package integrates the Spanish localisation and internationalisation packages into
+ the Kubuntu desktop provided by Univention Corporate Client.
+
+Package: univention-ucc-i18n-en
+Architecture: all
+Depends: ${misc:Depends},
+ language-pack-en, 
+ language-pack-kde-en,
+ language-pack-gnome-en,
+ mythes-en-us,
+ thunderbird-locale-en,
+ hyphen-en-us
+Description: UCC - Translations and localisations for the English desktop image
+ This package integrates the English localisation and internationalisation packages into
+ the Kubuntu desktop provided by Univention Corporate Client. 
+ 
+ 
+ 
+ 
