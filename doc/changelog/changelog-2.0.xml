@@ -141,8 +141,7 @@
             (<ulink url="&ucsbug;34512">Bug 34512</ulink>, <ulink url="&ucsbug;31126">Bug 31126</ulink>).
 		  </simpara></listitem>
 		</itemizedlist>
-	  </para>
-	  </listitem>
+	  </para></listitem>
 
 	  <listitem><para>
 	    Several improvements were made to <command>ucc-image-set-join-information</command>
@@ -155,8 +154,7 @@
             The parameter handling has been fixed
             (<ulink url="&ucsbug;30601">Bug 30601</ulink>).
           </simpara></listitem>
-
-        </itemizedlist>
+		</itemizedlist>
 	  </para></listitem>
 
 	  <listitem><simpara>
@@ -191,7 +189,8 @@
 	  <listitem><simpara>
 	    The local buffer of free space on a ucc root-device for persistent data has been reduced to 10 MB (<ulink url="&ucsbug;32311">Bug 32311</ulink>).
 	  </simpara></listitem>
-	</itemizedlist>
+	</simpara></listitem>
+  </itemizedlist>
 </section>
 
 <section>
