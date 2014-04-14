@@ -215,6 +215,14 @@
 	<title>UCC desktop image</title>
 	<itemizedlist>
 	  <listitem><simpara>
+		The new mete packages <package>univention-ucc-i18n-de</package>,
+		<package>univention-ucc-i18n-en</package>, <package>univention-ucc-i18n-es</package>,
+		<package>univention-ucc-i18n-fr</package> and <package>univention-ucc-i18n-nl</package>
+		install all dependencies needed for a localised Kubuntu desktop  (<ulink
+		url="&ucsbug;34517">Bug 34517</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
 		The package <package>language-pack-gnome-*</package> has been added for all languages that are
 		available by default (en, de, es, fr, nl). It adds
 		internalisation for the "Power off" button in the LightDM login manager. Note that this
