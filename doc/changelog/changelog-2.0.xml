@@ -69,6 +69,14 @@
 	  </para></listitem>
 
 	  <listitem><simpara>
+		The new package <package>univention-ucc-bootstrap</package> ships dummy init scripts for
+		<emphasis>systemd-logind</emphasis>, <emphasis>modemmanager</emphasis>,
+		<emphasis>whoopsie</emphasis> and <emphasis>ofono</emphasis>. These packages ship Upstart
+		jobs, but no SysV init scripts (which are needed during image creation in chroots) (<ulink
+		url="&ucsbug;33782">Bug 33782</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
 		Start the loopback interface on system boot which improves boot times when the LDAP server is unreachable (<ulink url="&ucsbug;30441">Bug 30441</ulink>).
 	  </simpara></listitem>
 
