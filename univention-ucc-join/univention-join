@@ -166,7 +166,7 @@ if test "$KEEPHOSTKEYS" = "n" && dpkg-query --show --showformat='${Status}\n' op
 	echo -n "Recreating openssh-server hostkeys: "
 	rm /etc/ssh/ssh_host_* >>/var/log/univention/join.log 2>&1
 	dpkg-reconfigure openssh-server >>/var/log/univention/join.log 2>&1
-	invoke-rc.d ssh stop
+	invoke-rc.d ssh stop 2>&1
 	echo -e "\033[60Gdone"
 fi
 

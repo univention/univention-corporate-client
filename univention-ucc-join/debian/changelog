@@ -1,4 +1,4 @@
-univention-ucc-join (2.0.0-4) unstable; urgency=low
+univention-ucc-join (2.0.0-5) unstable; urgency=low
 
   * Stop sshd after recreating ssh-keys. Otherwise the image can not be
     unmounted after joining in initramfs (Bug #34309) 
