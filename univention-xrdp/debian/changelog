@@ -14,6 +14,7 @@ univention-xrdp (2.0.0-1) unstable; urgency=low
   * Add a session script for UCC KDE, make the session script configurable using
     the UCR variable xrdp/desktopsession
   * Make the logo shown during xrdp login configurable with the UCR variable xrdp/logo
+  * Enable xrdp init scripts (it ships an init script, but it's not enabled)
 
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 08 Apr 2014 09:01:49 +0200
 
