@@ -1,0 +1,2 @@
+#!/bin/sh
+# The original script runs a complete apt-get update, which is handled through univention-ucc-software-update in UCC
