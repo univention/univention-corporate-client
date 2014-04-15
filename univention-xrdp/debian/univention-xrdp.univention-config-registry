@@ -17,3 +17,6 @@ Variables: auth/xrdp/accessfile
 
 Type: file
 File: etc/default/xrdp
+
+Type: file
+File: etc/pulse/default.pa

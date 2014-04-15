@@ -25,3 +25,8 @@ You should have received a copy of the GNU Affero General Public
 License with the Debian GNU/Linux or Univention distribution in file
 /usr/share/common-licenses/AGPL-3; if not, see
 <http://www.gnu.org/licenses/>.
+
+
+module-xrdp-sink.so  module-xrdp-source.so and build from the xrdp
+source package according to these instructions:
+http://www.xrdp.org/index.php?option=com_content&view=article&id=19:xrdp-pulse-sink&catid=2:documents&Itemid=7
