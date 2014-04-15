@@ -1,3 +1,9 @@
+univention-xrdp (2.1.0-1) unstable; urgency=low
+
+  * Bump version for UCC (Bug #29893)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 15 Apr 2014 08:00:45 +0200
+
 univention-xrdp (2.0.0-2) unstable; urgency=low
 
   * Add session script (Bug #29893)
