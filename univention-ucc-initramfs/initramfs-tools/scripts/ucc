@@ -657,8 +657,8 @@ _mount_image ()
 	else
         plymouth quit
         echo "Error: The UCC image assigned to this client (configurable in the UMC computer "
-        echo "management module on the 'Images' tab) could not be found in the directory "
-        echo "/var/lib/univention-client-boot on the server $nfsroot"
+        echo "management module on the 'Images' tab) could not be found on the server"
+        echo $nfsroot
         echo
         echo "If you are using an official UCC image you need to download the image using the"
         echo "  UCC image management module in the UMC."
