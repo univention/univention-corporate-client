@@ -38,3 +38,15 @@ grep /dev/$devicename /proc/mounts | while read DEV MOUNTPOINT REST; do
 	umount ${MOUNTPOINT} 2>&1 >/dev/null
 	rmdir ${MOUNTPOINT}
 done
+
+# check for running cdpinger, and restart
+pids="$(pgrep -f "cdpinger $devicename")"
+if [ -n "$pids" ]; then
+	kill -9 $pids
+	if [ -b "/dev/$devicename" ]; then
+		echo "remove_fstab_entry: restart cdpinger for $devicename" | logger
+		cdpinger "$devicename"
+	else
+		echo "remove_fstab_entry: stopping cdpinger for $devicename as device is gone" | logger
+	fi
+fi

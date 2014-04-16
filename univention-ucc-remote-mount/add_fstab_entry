@@ -61,21 +61,40 @@ fi
 
 # ignore non USB or CDROM devices
 if [ "$ID_BUS" != "usb" ] && [ "${ID_TYPE}" != "cd" ]; then
-    echo "univention-ucc-remote-mount: Device is not a USB or CD-ROM device" | logger
-    exit 0
+	echo "univention-ucc-remote-mount: Device is not a USB or CD-ROM device" | logger
+	exit 0
 fi
 
-# ignore CDROM devices with no media
+
+
+# starting cdpinger
 # speed up CDROM device
 if [ "${ID_TYPE}" = "cd" ]; then
+	if [ -z "$(pgrep -f -l "cdpinger $devicename")" ]; then
+		# speed up device
+		if [ -x "$(which eject)" ]; then
+			max=72
+			max="$(eject -X $devicename)"
+			eject -x "$max" "$devicename" || true
+		fi
+		echo "univention-ucc-remote-mount: starting cdpinger for $devicename" | logger
+		cdpinger $1 &
+	else
+		echo "univention-ucc-remote-mount: cdpinger already running for $devicename" | logger
+	fi
+
+	sleep 1
+	# ignore cdroms without media
 	if [ "${ID_CDROM_MEDIA}" != "1" ]; then
+		echo "univention-ucc-remote-mount: no media found in cdrom $devicename, ignoring" | logger
 		exit 0
 	fi
-	if [ -x "$(which eject)" ]; then
-		max=72
-		max="$(eject -X $devicename)"
-		eject -x "$max" "$devicename" || true
-	fi
+fi
+
+# ignore disk devices without a filesystem
+if [ "$ID_TYPE" = "disk" -a -z "$ID_FS_TYPE" ]; then
+	echo "univention-ucc-remote-mount: Device $devicename has no filesystem, ignoring" | logger
+	exit 0
 fi
 
 if [ -z "$fstype" ]; then
