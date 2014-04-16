@@ -79,15 +79,9 @@ if [ "${ID_TYPE}" = "cd" ]; then
 		fi
 		echo "univention-ucc-remote-mount: starting cdpinger for $devicename" | logger
 		cdpinger $1 &
+		exit 0
 	else
 		echo "univention-ucc-remote-mount: cdpinger already running for $devicename" | logger
-	fi
-
-	sleep 1
-	# ignore cdroms without media
-	if [ "${ID_CDROM_MEDIA}" != "1" ]; then
-		echo "univention-ucc-remote-mount: no media found in cdrom $devicename, ignoring" | logger
-		exit 0
 	fi
 fi
 
