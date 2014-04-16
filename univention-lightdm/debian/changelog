@@ -1,3 +1,10 @@
+univention-lightdm (2.0.0-5) unstable; urgency=low
+
+  * Add pam_kwallet to the PAM configuration for lightdm (as done in Kubuntu 14.04)
+    (Bug #34553)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 16 Apr 2014 11:41:11 +0200
+
 univention-lightdm (2.0.0-4) unstable; urgency=low
 
   * Fix template (Bug #30617)
