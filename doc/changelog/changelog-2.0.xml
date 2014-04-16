@@ -138,8 +138,10 @@
 
 		  <listitem><simpara>
             The plymouth bootsplash init scripts have been fixed to keep plymouth displaying during software updates
-            (<ulink url="&ucsbug;34512">Bug 34512</ulink>, <ulink url="&ucsbug;31126">Bug 31126</ulink>).
+            (<ulink url="&ucsbug;34512">Bug 34512</ulink>, <ulink url="&ucsbug;31126">Bug
+			31126</ulink>). Outdated &ucsUCR; templates for the KDE display manager have been removed.
 		  </simpara></listitem>
+
 		</itemizedlist>
 	  </para></listitem>
 
@@ -251,6 +253,10 @@
   <itemizedlist>
 	<listitem><simpara>
 	  The &ucsUCR; variable description of <package>univention-lightdm</package> has been improved (<ulink url="&ucsbug;30933">Bug 30933</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  The PAM configuration of lightdm was updated to include pam_kwallet (<ulink url="&ucsbug;34553">Bug 34553</ulink>).
 	</simpara></listitem>
 
 	<listitem><simpara>
