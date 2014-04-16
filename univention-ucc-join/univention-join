@@ -454,6 +454,9 @@ touch /var/univention-join/joined
 # Clean old join status
 echo >/var/univention-join/status
 
+# update local nss information
+univention-ucc-update-nss
+
 univention-run-join-scripts -dcaccount "$DCACCOUNT" -dcpwd "$DCPWD"
 
 if [ -n "$REMOVE_PWD_FILE" -a -n "$DCPWD" ]; then
@@ -467,9 +470,6 @@ fi
 #configure timeserver
 timeserver=$DCNAME
 univention-config-registry set ucc/timeserver="$timeserver" >>/var/log/univention/join.log 2>&1
-
-# update local nss information
-univention-ucc-update-nss
 
 ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 

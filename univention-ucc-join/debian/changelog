@@ -1,3 +1,9 @@
+univention-ucc-join (2.0.0-6) unstable; urgency=low
+
+  * run univention-ucc-update-nss before univention-run-join-scripts (Bug #30760)
+
+ -- Felix Botner <botner@univention.de>  Wed, 16 Apr 2014 17:06:07 +0200
+
 univention-ucc-join (2.0.0-5) unstable; urgency=low
 
   * Stop sshd after recreating ssh-keys. Otherwise the image can not be
