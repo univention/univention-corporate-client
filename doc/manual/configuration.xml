@@ -149,6 +149,34 @@ apt-get install emacs23
 </para>
 </section>
 
+<section id="config:homeshare">
+<title>Configuration of the CIFS home share</title>
+
+<para>
+  The <package>univention-ucc-cifshome-pam-mount</package> package allows the automatic mount of
+  a CIFS share with home directory of the the user during login. It must be configured using the following
+  &ucsUCR; variables:
+
+  <itemizedlist>
+	<listitem><simpara>
+	  <envar>ucc/mount/cifshome/server</envar>: The name of the server from which the share is
+	  mounted.
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  <envar>ucc/mount/cifshome/share</envar>: The name of the share to be mounted.
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  <envar>ucc/mount/cifshome/options</envar>: This configures a optional list of mount options. The full
+	  list of available options can be found in the <emphasis>mount.cifs</emphasis> manpage.
+	</simpara></listitem>
+  </itemizedlist>
+
+</para>
+</section>
+
+
 <section id="config:time">
 <title>Configuration of the time zone / time server</title>
 <para>
