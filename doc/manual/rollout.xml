@@ -379,9 +379,15 @@
   permanent write access, the Overlayfs can also be disabled by
   adding <emphasis>mount=rw</emphasis> to the <guimenu>Images -> Additional
   boot parameter</guimenu> of the computer object in the computer management
-   module of the &ucsUMC;.
+  module of the &ucsUMC;.
+</para>
+
+<para>
   In addition the &ucsUCR; variable <envar>ucc/thinclientoverlayfs</envar> must
-  be set to <emphasis>false</emphasis>.
+  be set to <emphasis>false</emphasis> on the affected thin clients using a &ucsUCR; policy
+  (see <xref linkend="config:ucr"/>). This variable allows tools such as
+  <command>univention-ucc-software-update</command> to detect whether they are running on a thin
+  client using overlayfs.
 </para>
 
 </section>
