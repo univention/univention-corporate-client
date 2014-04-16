@@ -206,6 +206,11 @@
       The determination of the kerberos key version number of the ucc host account during the join has been fixed
       (<ulink url="&ucsbug;30471">Bug 30471</ulink>).
     </simpara></listitem>
+
+    <listitem><simpara>
+      During the domain join the group and user database is now actualised before running the join scripts
+      (<ulink url="&ucsbug;30760">Bug 30760</ulink>).
+    </simpara></listitem>
     
   </itemizedlist>
 </section>
