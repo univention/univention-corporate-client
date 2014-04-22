@@ -312,7 +312,6 @@ fi
 
 master_version="$(univention-ssh "$DCPWD" "$DCACCOUNT"@"$DCNAME" /usr/sbin/ucr search --brief ^version/version$ | sed -ne 's|^version/version: ||p')"
 
-auth_cmd="-binddn \"$binddn\" -bindpwfile \"$DCPWD\""
 
 # TODO: proper device handling including stuff like wlan0 etc.
 IP=`LANG=C /sbin/ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
@@ -342,9 +341,11 @@ export HNAME
 
 
 echo -n "Join Computer Account: "
-univention-scp "$DCPWD" "$DCPWD" "$DCACCOUNT@$DCNAME:$DCPWD" >>/var/log/univention/join.log 2>&1
+REMOTE_DCPWD="/tmp/$(basename $DCPWD)"
+auth_cmd="-binddn \"$binddn\" -bindpwfile \"$REMOTE_DCPWD\""
+univention-scp "$DCPWD" "$DCPWD" "$DCACCOUNT@$DCNAME:$REMOTE_DCPWD" >>/var/log/univention/join.log 2>&1
 res=`univention-ssh $DCPWD $DCACCOUNT@$DCNAME /usr/share/univention-join/univention-server-join -role ucc -hostname $HNAME -domainname $DOMAINNAME $ip_cmd $mac_cmd $position_cmd $auth_cmd 2>>/var/log/univention/join.log`
-univention-ssh $DCPWD $DCACCOUNT@$DCNAME "rm $DCPWD" >>/var/log/univention/join.log 2>&1
+univention-ssh $DCPWD $DCACCOUNT@$DCNAME "rm $REMOTE_DCPWD" >>/var/log/univention/join.log 2>&1
 res_message=`echo "$res" | sed -n '/^E:/ { s/^E:\s*// p }'`
 if [ -z "$res_message" ]; then
 	echo -e "\033[60Gdone"

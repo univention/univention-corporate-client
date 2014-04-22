@@ -1,3 +1,9 @@
+univention-ucc-join (2.0.0-7) unstable; urgency=low
+
+  * store join pwd file in /tmp on the master during join (Bug #33802)
+
+ -- Felix Botner <botner@univention.de>  Tue, 22 Apr 2014 17:28:57 +0200
+
 univention-ucc-join (2.0.0-6) unstable; urgency=low
 
   * run univention-ucc-update-nss before univention-run-join-scripts (Bug #30760)
