@@ -38,6 +38,14 @@
 		(<ulink url="&ucsbug;31010">Bug 31010</ulink>).
 	  </simpara></listitem>
 
+
+	  <listitem><simpara>
+		A new tool (<command>ucc-image-add-citrix-receiver</command>) has been created which
+		integrates the Citrix Receiver into a UCC image; the necessary dependencies are installed
+		and the Receiver installed afterwards. It is part of ucc-image-toolkit.
+		(<ulink url="&ucsbug;34452">Bug 34452</ulink>).
+	  </simpara></listitem>
+
 	  <listitem><para>
 		Several improvements and bugfixes were made to <command>ucc-image</command>
 		<itemizedlist>
@@ -307,7 +315,16 @@
 		restart the session, switch back to LightDM or shutdown the system (<ulink
 		url="&ucsbug;32043">Bug 32043</ulink>).
 	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Add a new &ucsUCRV; <envar>citrix/accepteula</envar>. If set to <emphasis>true</emphasis>, a
+		configuration file is added to the user's home which accepts the EULA of Citrix Receiver.
+		(<ulink url="&ucsbug;34452">Bug 34452</ulink>).
+	  </simpara></listitem>
+
 	</itemizedlist>
+
+
   </section>
 </section>
 
