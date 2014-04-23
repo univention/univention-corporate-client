@@ -1,3 +1,9 @@
+univention-ucc-initramfs (3.0.0-12) unstable; urgency=low
+
+  * always add cryptsetup to the initrd (Bug #34610) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 23 Apr 2014 14:29:21 +0200
+
 univention-ucc-initramfs (3.0.0-11) unstable; urgency=low
 
   * Fix force_partition boot parameter (Bug #30427)

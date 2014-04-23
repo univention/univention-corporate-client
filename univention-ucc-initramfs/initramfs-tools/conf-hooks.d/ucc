@@ -1,0 +1,4 @@
+# always include cryptsetup
+# https://bugs.launchpad.net/ubuntu/+source/cryptsetup/+bug/1256730
+export CRYPTSETUP=y
+
