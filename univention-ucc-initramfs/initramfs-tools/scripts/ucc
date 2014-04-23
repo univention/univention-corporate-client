@@ -1405,7 +1405,7 @@ check_parameter ()
 			SHARE=${x#share=}
 			;;
 		force_partition)
-			FORCE_PARTITION=true
+			FORCE_PARTITION=yes
 			;;
 		force_partition_timeout=*)
 			FORCE_PARTITION_TIMEOUT=${x#force_partition_timeout=}

@@ -1,3 +1,9 @@
+univention-ucc-initramfs (3.0.0-11) unstable; urgency=low
+
+  * Fix force_partition boot parameter (Bug #30427)
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 23 Apr 2014 13:31:31 +0200
+
 univention-ucc-initramfs (3.0.0-10) unstable; urgency=low
 
   * Add support for ucc=repartition boot option (Bug #30466)
