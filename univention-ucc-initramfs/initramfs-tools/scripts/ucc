@@ -62,6 +62,9 @@
 ##		Start set -x
 ##	- splash
 ##		is not present, plymouth will be terminated
+##      - partition_script=<file>
+##              custom_partition script to use for partitioning, must be placed in 
+##              /var/lib/univention-client-boot/partition-scripts on all ucs ucc boot servers
 
 
 # This message is send to rsyslogd and will be displayed on the console
@@ -889,6 +892,29 @@ ucc_installation()
 		run_scripts /scripts/panic
 	fi
 
+	# copy part scripts
+	if [ -n "$PARTITION_SCRIPT" ]; then
+
+		mkdir /tmp/nfsroot
+		if [ -e "/tmp/nfs_mount_script" ]; then
+			# local boot, run script to mount boot server nfs share
+			sh /tmp/nfs_mount_script
+		else
+			# nfs boot, mount nfsroot and copy part scripts
+			mount -t nfs -o nolock,ro $nfsroot /tmp/nfsroot
+		fi
+		if [ -e "/tmp/nfsroot/partition-scripts/$PARTITION_SCRIPT" ]; then
+			cp "/tmp/nfsroot/partition-scripts/$PARTITION_SCRIPT" /sbin/custom_partition
+			chmod 755 /sbin/custom_partition
+		else
+			notice "Partition $PARTITION_SCRIPT script not found!"
+			failure
+		fi
+		umount /tmp/nfsroot
+	fi
+
+	_verbose_break
+
 	if [ "$continuation_prompt" = "false" ] || [ "$FORCE_PARTITION" = "yes" ]; then
 		if [ -z "$FORCE_PARTITION_TIMEOUT" ]; then
 			FORCE_PARTITION_TIMEOUT=60
@@ -1437,6 +1463,9 @@ check_parameter ()
 		splash*)
 			SPLASH="true"
 			;;
+		partition_script=*)
+			PARTITION_SCRIPT=${x#partition_script=}
+			;;
 		esac
 	done
 }
@@ -1488,6 +1517,7 @@ mountroot()
 					check_parameter /tmp/boot_parameter
 				fi
 				chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script
+				chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_nfs_mount_script >/tmp/nfs_mount_script
 			fi
 			
 			_umount_image

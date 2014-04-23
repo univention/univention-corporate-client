@@ -1,3 +1,10 @@
+univention-ucc-initramfs (3.0.0-13) unstable; urgency=low
+
+  * added partition_script boot option and
+    code to copy the script from the nfs boot server share (Bug #34612) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 23 Apr 2014 15:08:27 +0200
+
 univention-ucc-initramfs (3.0.0-12) unstable; urgency=low
 
   * always add cryptsetup to the initrd (Bug #34610) 
