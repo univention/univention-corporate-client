@@ -173,6 +173,11 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
+		The initramfs parameter force_partition can be used to enforce repartition, without user interaction 
+		(<ulink url="&ucsbug;30427">Bug 30427</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
 		Obsolte code has been removed from the listener module that creates the PXE configuration files for ucc clients on the ucs server
 		(<ulink url="&ucsbug;30347">Bug 30347</ulink>).
 	  </simpara></listitem>
