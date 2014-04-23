@@ -340,6 +340,10 @@
   <title>&ucsUMC; integration</title>
   <itemizedlist>
 	<listitem><simpara>
+	A new boot variant option for repartitioning and initial rollout has been added. The checkbox for repartitioning has been removed (<ulink url="&ucsbug;30466">Bug 30466</ulink>). 
+	</simpara></listitem>
+
+	<listitem><simpara>
 	  The description of the UCC image module has been fixed (<ulink url="&ucsbug;32433">Bug 32433</ulink>).
 	</simpara></listitem>
 
