@@ -1,3 +1,10 @@
+univention-ucc-initramfs (3.0.0-10) unstable; urgency=low
+
+  * Add support for ucc=repartition boot option (Bug #30466)
+  * Remove support repartition=y boot option
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 23 Apr 2014 10:51:06 +0200
+
 univention-ucc-initramfs (3.0.0-9) unstable; urgency=low
 
   * Improve error message in case an image could not be found (Bug #30994)

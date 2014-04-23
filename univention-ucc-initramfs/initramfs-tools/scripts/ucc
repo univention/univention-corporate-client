@@ -44,9 +44,6 @@
 ##		Use this to get a shell and start debugging
 ##		
 ## The following kernel commandline parameter are supported (/proc/cmdline):
-##  - repartition
-##		If repartition is set to y, the local harddisk will be repartitioned. WARNING: local
-##		partitions will be deleted!
 ##	- force_partition # TODO
 ##		If force_partition is given, the auto partition will not ask again.
 ##		This setting overwrites the value from the image.
@@ -1407,9 +1404,6 @@ check_parameter ()
 		share=*)
 			SHARE=${x#share=}
 			;;
-		repartition=*)
-			REPARTITION=${x#repartition=}
-			;;
 		force_partition)
 			FORCE_PARTITION=true
 			;;
@@ -1510,12 +1504,12 @@ mountroot()
 
 	_verbose_break
 
-	if [ "$REPARTITION" = "y" ]; then
+	if [ "$UCC" = "repartition" ]; then
 		notice "Starting repartition"
 		sleep 1 # Give udevadm one more second
 		ucc_installation
-		# Start rollout mode if boot mode was set to rollout
-		test "$UCC" = "rollout" && ucc_rollout
+		# Start rollout
+		ucc_rollout
 	elif [ "$UCC" = "rollout" ]; then
 		notice "Starting UCC rollout mode"
 		ucc_update
