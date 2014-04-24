@@ -271,6 +271,11 @@
 	<title>UCC thin client image</title>
 	<itemizedlist>
 	  <listitem><simpara>
+        Kernel updates on standard thin client image has been disabled by marking the package
+        <package>linux-image-generic</package> as <emphasis>hold</emphasis>. If and what packages
+        should be set to <emphasis>hold</emphasis> can be configured in the ucc image creation 
+        tool config file
+        (<ulink url="&ucsbug;34489">Bug 34489</ulink>).
 	  </simpara></listitem>
 	</itemizedlist>
   </section>
