@@ -91,6 +91,8 @@
 	  <listitem><simpara>
 		A new package <package>univention-ucc-bootstrap</package> was added. It contains stub sysv init scripts to cope with startup failure of packages only shipping Upstart jobs (<ulink url="&ucsbug;33782">Bug 33782</ulink>).
 
+	</simpara></listitem>
+
 	  <listitem><simpara>
 		Do not backup old initramfs files (<ulink url="&ucsbug;31015">Bug 31015</ulink>).
 	  </simpara></listitem>
@@ -204,7 +206,15 @@
 	  <listitem><simpara>
 	    The local buffer of free space on a ucc root-device for persistent data has been reduced to 10 MB (<ulink url="&ucsbug;32311">Bug 32311</ulink>).
 	  </simpara></listitem>
-	</simpara></listitem>
+
+	  <listitem><simpara>
+		The new boot option <emphasis>partition_script</emphasis> for UCC clients has been added. This
+		option defines a script to use for partitioning instead of the partitioning
+		settings from the image. The script must be placed in the
+		<filename>/var/lib/univention-client-boot/partition-scripts</filename>
+		directory on all UCS UCC PXE servers
+		(<ulink url="&ucsbug;34612">Bug 34612</ulink>).
+	  </simpara></listitem>
   </itemizedlist>
 </section>
 
