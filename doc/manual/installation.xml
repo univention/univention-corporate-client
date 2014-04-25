@@ -82,7 +82,7 @@
   the &ucsUMC; server needs to be restarted:
 
   <programlisting>
-univention-add-app ucc_20140115 ucc-management-integration
+univention-add-app --latest ucc ucc-management-integration
 /etc/init.d/univention-management-console-server restart
   </programlisting>
 </para>
