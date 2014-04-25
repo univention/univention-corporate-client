@@ -308,7 +308,7 @@
   UCC supports access to Citrix XenApp terminal servers. This
   documentation refers to Citrix XenApp 6.5 Enterprise on Windows
   Server 2008R2, which uses a Windows 2008R2 domain controller and the
-  Citrix Receiver 12.1.
+  Citrix Receiver 13.
 </para>
 <para>
   Citrix XenApp supports two login methods:
@@ -340,35 +340,20 @@
 <para>
   The Citrix Receiver cannot be supplied with UCC and must be
   downloaded from the Citrix website as a DEB package and installed on
-  the client. <footnote><para><ulink url="http://www.citrix.com/downloads/citrix-receiver/receivers-by-platform/receiver-for-linux-121.html"/></para></footnote>
-  Version 12.1 is needed as the minimum version. The following steps describe how to install the
-  Citrix Receiver package into an existing UCC image. Due to a bug in the Citrix Receiver package
-  these steps need to be performed on a 32 bit system! During the installation of
-  <filename>icaclient</filename> and <filename>ctxusb</filename> the EULA needs to be confirmed.
-
-	<programlisting>
-mkdir /mnt/img
-mount -o loop /var/lib/univention-client-boot/IMAGENAME.img /mnt/img/
-cp ~/icaclient-12.1.0_i386.deb ~/ctxusb-2.2.0_i386.deb /mnt/img
-chroot /mnt/img
-dpkg -i icaclient-12.1.0_i386.deb
-dpkg -i ctxusb-2.2.0_i386.deb
-sync
-exit
-umount /mnt/img
-	</programlisting>
+  the client. <footnote><para><ulink url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-130.html/></para></footnote>.
+  Citrix Receiver 12.x is no longer supported in UCC 2.0.
 </para>
 
 <para>
   The Citrix Receiver uses <filename>/dev/random</filename> as a
   randomness source as standard. <filename>/dev/random</filename> blocks access if insufficient entropy is
   available from hardware sources. This is the case on many thin
-  clients. To avoid login delays, the basic setting on the client thus
-  symlinks <filename>/dev/random</filename> to
-  <filename>/dev/urandom</filename>. If the hardware generates
-  sufficient entropy, this can be prevented by setting the &ucsUCRV;
-  <envar>citrix/linkdevrandom</envar> to <emphasis>false</emphasis>.
+  clients. 
+  If the &ucsUCRV; <envar>citrix/linkdevrandom</envar> is set to <emphasis>true</emphasis>,
+  <filename>/dev/random</filename> is converted to a symbolic link to
+  <filename>/dev/urandom</filename> which prevents these delays.
 </para>
+
 <para>
   If the Citrix web interfaces performs authentication against an
   Active Directory domain separate from UCS, it is possible to
