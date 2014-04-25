@@ -1,3 +1,9 @@
+univention-corporate-client (2.0.0-12) unstable; urgency=low
+
+  * added image update script to update nameserver1 (Bug #34646)
+
+ -- Felix Botner <botner@univention.de>  Fri, 25 Apr 2014 12:53:22 +0200
+
 univention-corporate-client (2.0.0-11) unstable; urgency=low
 
   * Ship a stub file to /etc/update-motd.d/90-updates-available which is irrelevant

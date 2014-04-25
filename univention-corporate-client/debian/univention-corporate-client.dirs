@@ -4,3 +4,4 @@ usr/share/univention-lib
 usr/share/keyrings
 etc/network/if-up.d
 usr/share/univention-corporate-client/apt-get-pre-invoke.d
+var/ucc-update

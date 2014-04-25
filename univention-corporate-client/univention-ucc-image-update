@@ -1,7 +1,5 @@
-#!/bin/bash
-#
+#!/bin/sh
 # Univention Corporate Client
-#  ifup script to update nameserver in resolv.conf
 #
 # Copyright 2013-2014 Univention GmbH
 #
@@ -30,34 +28,17 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-if [ "$METHOD" != "NetworkManager" ]; then
-	exit 0
+set -x
+
+# run only on joined (updated) systems
+if [ -e "/var/univention-join/joined" ]; then
+
+	# default nameserver has changed in UCC 1.0 -> UCC 2.0
+	# update nameserver from 127.0.0.1 to 127.0.1.1
+	if [ "127.0.0.1" = "$(ucr get nameserver1)" ]; then
+		ucr set nameserver1="127.0.1.1"
+	fi
+
 fi
-
-if [ "$IFACE" = lo ]; then
-	exit 0
-fi
-
-# DHCP4_DOMAIN_NAME
-# DHCP4_DOMAIN_NAME_SERVERS | IP4_NAMESERVERS
-# DHCP4_IP_ADDRESS -> ip
-# DHCP4_ROUTERS -> gateway
-# DHCP4_SUBNET_MASK
-# DHCP4_NETWORK_NUMBER
-# DHCP4_BROADCAST_ADDRESS
-# ...
-
-#nscounter=1
-#for NS in $IP4_NAMESERVERS; do
-#	if [ $nscounter -gt 3 ]; then
-#		break
-#	fi
-#	value="${value} nameserver${nscounter}=$NS"
-#	nscounter=$((nscounter+1))
-#done
-#
-#if [ -n "$value" ]; then
-#	ucr set $value
-#fi
 
 exit 0
