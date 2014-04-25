@@ -351,7 +351,8 @@
   the UCR variables <envar>ucc/persistent/files</envar> and
   <envar>ucc/persistent/ucr</envar>. Important standard UCC settings
   are preconfigured automatically and can be expanded for local
-  adaptations.
+  adaptations. Ten megabytes of disk space are reserved for storing the &ucsUCR; settings and the
+  persistent configuration files.
 </para>
 </section>
 
