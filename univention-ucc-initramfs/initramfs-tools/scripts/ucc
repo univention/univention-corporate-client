@@ -508,6 +508,10 @@ _sync_from_persistent ()
 	else
 		debug "$(cat /tmp/ucclog)"
 	fi
+	# run the image update script from the new image
+	if [ -x /root/usr/share/univention-corporate-client/univention-ucc-image-update ]; then
+		chroot /root /usr/share/univention-corporate-client/univention-ucc-image-update >/root/var/log/univention/univention-ucc-image-update.log 2>&1
+	fi
 	mount -o move /root/ucc_root /ucc_tmp/root
 	umount -d /root
 

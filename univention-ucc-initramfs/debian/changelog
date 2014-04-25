@@ -1,3 +1,10 @@
+univention-ucc-initramfs (3.0.0-14) unstable; urgency=low
+
+  * run the image update script from the new image in  
+    _sync_from_persistent (Bug #34646)
+
+ -- Felix Botner <botner@univention.de>  Fri, 25 Apr 2014 12:55:29 +0200
+
 univention-ucc-initramfs (3.0.0-13) unstable; urgency=low
 
   * added partition_script boot option and
