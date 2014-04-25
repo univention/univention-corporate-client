@@ -340,7 +340,7 @@
 <para>
   The Citrix Receiver cannot be supplied with UCC and must be
   downloaded from the Citrix website as a DEB package and installed on
-  the client. <footnote><para><ulink url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-130.html/></para></footnote>.
+  the client. <footnote><para><ulink url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-130.html"/></para></footnote>.
   Citrix Receiver 12.x is no longer supported in UCC 2.0.
 </para>
 

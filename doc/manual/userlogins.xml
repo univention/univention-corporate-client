@@ -69,7 +69,7 @@
   <title>Configuration of an automatic login and session selection</title>
   <para>
 	Instead of an interactive login, it is also possible to configure
-	an automatic login with the guest user. This is useful for a
+	an automatic login. This is useful for a
 	UCC client which is only used for access to terminal services or
 	to a website (e.g., for kiosk systems).
   </para>
@@ -78,6 +78,12 @@
 	and <envar>lightdm/autologin/session</envar> to a session script. The session
 	scripts can be found in the <filename>/usr/share/xsessions</filename> directory, in
 	other words, <emphasis>firefox</emphasis> for example.
+  </para>
+
+  <para>
+	By default a temporary guest user is used for the automatic login. Alternatively, the &ucsUCRV;
+	<envar>lightdm/autologin/user</envar> allows the configuration of the user under which the
+	automatic login should occur. 
   </para>
 
   <para>
