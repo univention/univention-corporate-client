@@ -215,6 +215,12 @@
 		directory on all UCS UCC PXE servers
 		(<ulink url="&ucsbug;34612">Bug 34612</ulink>).
 	  </simpara></listitem>
+
+      <listitem><simpara>
+        During the update to an UCC 2.0 image the &ucsUCRV; <envar>nameserver1</envar> is automatically 
+		set to the new default <emphasis>127.0.1.1</emphasis> if the previous value was the UCC 1.0 default
+		(<ulink url="&ucsbug;34646">Bug 34646</ulink>).
+      </simpara></listitem>
   </itemizedlist>
 </section>
 
