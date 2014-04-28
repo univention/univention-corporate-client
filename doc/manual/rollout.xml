@@ -264,7 +264,8 @@
   These credentials are now saved in the image with the tool
   <command>ucc-image-set-join-information</command>. The parameter
   <emphasis>-i</emphasis> is used to specify an image and the join
-  account and its password are interactively prompted.
+  account and its password are interactively prompted. Alternatively, the account can be specified
+  with <emphasis>-u</emphasis> and the password with <emphasis>-p</emphasis>.
 </para>
 
 <para>
