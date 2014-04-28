@@ -203,21 +203,6 @@
   </para>
 </section>
 
-<section id="imagegen:crypto">
-  <title>Configuring an encrypted disk</title>
-  <para>
-	A script can be mounted for further partitioning steps such as
-	setting up an encrypted hard drive.
-  </para>
-  <para>
-	The <emphasis>ucc-image-toolkit</emphasis> package contains the
-	file <filename>/usr/share/doc/ucc-image-toolkit/example/custom_partition.example</filename>,
-	which can be used to set up an encrypted hard disk partition, for
-	example. The necessary steps for the integration of the script in
-	the initrd can be found at the beginning of the script.
-  </para>
-</section>
-
 <section id="imagegen:modify">
   <title>Modification of existing images</title>
   <para>

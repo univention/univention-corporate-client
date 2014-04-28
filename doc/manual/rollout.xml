@@ -229,9 +229,28 @@
 
 <para>
   It is also possible to perform completely new partitioning schemes - e.g. an encrypted hard drive -
-  with an adapted partitioning script, see <xref linkend="imagegen:crypto"/>).
+  with an adapted partitioning script, see <xref linkend="rollout:crypto"/>).
 </para>
 
+</section>
+
+<section id="rollout:crypto">
+  <title>Custom partition scripts / Configuring an encrypted disk</title>
+  <para>
+	In the standard setting the partitioning scheme is configured in the image configuration. A
+	different partitioning can be configured using partition scripts. Partitioning scripts are
+	stored on the UCS server(s) in the directory
+	<filename>/var/lib/univention-client-boot/partition-scripts</filename>. The file name below that
+	directory needs to be configured in the <guimenu>Additional boot options</guimenu>, see <xref
+	linkend="rollout:imagerollout"/>) using the command
+	<emphasis>partition_script=FILENAME</emphasis>. The filename is specified relative to the
+	directory, e.g. <filename>partition_script=desktop-encrypted.example</filename>.
+  </para>
+
+  <para>
+	An example configuration which configures an encrypted LUKS hard disk for the UCC desktop image is
+	shipped as <filename>desktop-encrypted.example</filename>. 
+  </para>
 </section>
 
 <section id="rollout:automatic">
