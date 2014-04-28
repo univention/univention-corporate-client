@@ -242,7 +242,7 @@
     </simpara></listitem>
 
     <listitem><simpara>
-      The handling of the domain join password file has been fixed
+      The handling of the domain join password file during automated rollouts has been fixed
       (<ulink url="&ucsbug;33802">Bug 33802</ulink>).
     </simpara></listitem>
     
@@ -280,7 +280,7 @@
         Kernel updates on standard thin client image has been disabled by marking the package
         <package>linux-image-generic</package> as <emphasis>hold</emphasis>. If and what packages
         should be set to <emphasis>hold</emphasis> can be configured in the ucc image creation 
-        tool config file
+        tool config file using the parameter <emphasis>packages_hold</emphasis> 
         (<ulink url="&ucsbug;34489">Bug 34489</ulink>).
 	  </simpara></listitem>
 	</itemizedlist>
