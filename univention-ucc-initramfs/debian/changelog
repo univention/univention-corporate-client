@@ -1,3 +1,11 @@
+univention-ucc-initramfs (3.0.0-15) unstable; urgency=low
+
+  * Modified initramfs bootoption handling again to stay 
+    backward compatible (Bug #30466)
+  * Adapted set_boot_option script for backward compatibility
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 28 Apr 2014 11:28:28 +0200
+
 univention-ucc-initramfs (3.0.0-14) unstable; urgency=low
 
   * run the image update script from the new image in  

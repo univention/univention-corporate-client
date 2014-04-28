@@ -1434,6 +1434,9 @@ check_parameter ()
 		share=*)
 			SHARE=${x#share=}
 			;;
+		repartition=*)
+			REPARTITION=${x#repartition=}
+			;;
 		force_partition)
 			FORCE_PARTITION=yes
 			;;
@@ -1538,7 +1541,7 @@ mountroot()
 
 	_verbose_break
 
-	if [ "$UCC" = "repartition" ]; then
+	if [ "$REPARTITION" = "y" ]; then
 		notice "Starting repartition"
 		sleep 1 # Give udevadm one more second
 		ucc_installation

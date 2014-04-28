@@ -54,11 +54,24 @@ if [ -z "$ldap_hostdn" ] || [ ! -e /etc/machine.secret ]; then
 fi
 
 case "$boot_variant" in
-	none | overlayfs | rollout | repartition )
+	none | overlayfs | rollout )
 		/usr/share/univention-join/univention-mod-ldap-object.py --binddn="$ldap_hostdn" --bindpwd="$(</etc/machine.secret)" \
     			--dn "$ldap_hostdn" \
     			--attribute "univentionCorporateClientBootVariant" \
     			--value "$boot_variant" \
+				--replace
+
+		/usr/share/univention-join/univention-mod-ldap-object.py --binddn="$ldap_hostdn" --bindpwd="$(</etc/machine.secret)" \
+			--dn "$ldap_hostdn" \
+			--attribute "univentionCorporateClientBootRepartitioning" \
+			--value "FALSE" \
+				--replace
+		;;
+	repartition)
+		/usr/share/univention-join/univention-mod-ldap-object.py --binddn="$ldap_hostdn" --bindpwd="$(</etc/machine.secret)" \
+			--dn "$ldap_hostdn" \
+			--attribute "univentionCorporateClientBootRepartitioning" \
+			--value "TRUE" \
 				--replace
 		;;
 	*)
