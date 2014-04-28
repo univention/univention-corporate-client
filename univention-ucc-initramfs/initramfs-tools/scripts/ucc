@@ -630,6 +630,9 @@ _check_and_copy_image ()
 				_sync_from_persistent "/ucc_tmp/root/${img}"
 				rm "/ucc_tmp/root/ucc_sync_back_from_persistent"
 			fi
+
+			# The kernel might be upgraded during the image update
+			_update_grub
 		else
 			notice "Do not copy the UCC image to local harddisk. The image was not updated."
 		fi
@@ -814,6 +817,7 @@ _update_grub ()
 {
 	notice "Update grub boot loader"
 
+	_mount_image
 	for d in dev sys proc; do
 		mount -o move /${d} /root/${d}
 	done
@@ -837,7 +841,7 @@ _update_grub ()
 	for d in dev sys proc; do
 		mount -o move /root/${d} /${d}
 	done
-
+	_umount_image
 	_verbose_break
 }
 
@@ -1552,8 +1556,6 @@ mountroot()
 		ucc_update
 		# Copy files from image to local partitions
 		_copy_files
-		# The kernel might be upgraded during the image update
-		_update_grub
 		ucc_rollout
 		set_boot_variant
 	elif [ "$UCC" = "overlayfs" ]; then

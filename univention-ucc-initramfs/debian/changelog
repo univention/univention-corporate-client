@@ -1,3 +1,9 @@
+univention-ucc-initramfs (3.0.0-16) unstable; urgency=low
+
+  * Update grub only if a new image has been rolled out (Bug #30069) 
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 28 Apr 2014 15:50:14 +0200
+
 univention-ucc-initramfs (3.0.0-15) unstable; urgency=low
 
   * Modified initramfs bootoption handling again to stay 
