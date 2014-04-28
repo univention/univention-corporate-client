@@ -244,12 +244,12 @@
 	directory needs to be configured in the <guimenu>Additional boot options</guimenu>, see <xref
 	linkend="rollout:imagerollout"/>) using the command
 	<emphasis>partition_script=FILENAME</emphasis>. The filename is specified relative to the
-	directory, e.g. <filename>partition_script=desktop-encrypted.example</filename>.
+	directory, e.g. <filename>partition_script=desktop_encrypted.example</filename>.
   </para>
 
   <para>
 	An example configuration which configures an encrypted LUKS hard disk for the UCC desktop image is
-	shipped as <filename>desktop-encrypted.example</filename>. 
+	shipped as <filename>desktop_encrypted.example</filename>. 
   </para>
 </section>
 
