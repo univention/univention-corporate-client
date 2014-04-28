@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 #
 # Copyright 2012-2014 Univention GmbH
 #
@@ -31,8 +31,14 @@ eval "$(ucr shell ucc/boot/mount)"
 
 option="$(/usr/sbin/univention-ucc-boot-option --read --option mount)"
 
+if [ $? -ne 0 ]; then
+	echo "Error reading ldap boot option" >&2
+	echo $option >&2
+	option=
+fi
+
 test -z "$option" && option="$ucc_boot_mount"
-test -z "$option" && option="rw"
+test -z "$option" && echo "UCR value ucc/boot/mount not defined" >&2 && option="rw"
 
 echo "$option"
 
