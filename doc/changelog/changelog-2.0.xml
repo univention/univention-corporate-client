@@ -490,6 +490,10 @@
     </simpara></listitem>
 
     <listitem><simpara>
+      A traceback in <filename>ldap-passwd-to-file.py</filename> has been fixed <ulink url="&ucsbug;32958">Bug 32958</ulink>.
+    </simpara></listitem>
+
+    <listitem><simpara>
       A quoting bug in the grub.cfg subtemplate /etc/grub.d/15_ucc from the package <package>univention-ucc-grub</package> has been fixed
       <ulink url="&ucsbug;32631">Bug 32631</ulink>.
     </simpara></listitem>
