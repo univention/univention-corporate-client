@@ -73,7 +73,7 @@ firefox -url "$citrix_webinterface" -fullscreen
 
 if is_ucr_true 'lightdm/autologin' && [ "$lightdm_autologin_session" = "XenApp" ]; then
 
-    lang=$(locale | grep LANGUAGE | cut -d= -f2 | cut -d_ -f1 | head -1)
+    lang=$(locale | grep LANG | cut -d= -f2 | cut -d_ -f1 | head -1)
     UserShutdown="False"
     Selection="False"
 

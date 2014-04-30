@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (2.0.0-4) unstable; urgency=low
+
+  * Fix language detection in post login screen (Bug #32043)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 30 Apr 2014 09:54:18 +0200
+
 univention-ucc-session-xenapp (2.0.0-3) unstable; urgency=low
 
   * Add missing dependency on libcurl3 (Bug #34452)
