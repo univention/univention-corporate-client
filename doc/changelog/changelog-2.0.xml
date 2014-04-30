@@ -397,6 +397,10 @@
       A traceback when creating UCC computer objects has been fixed (<ulink url="&ucsbug;34378">Bug 34378</ulink>).
     </simpara></listitem>
 
+	<listitem><simpara>
+      Nagios support has been added for UCC computer objects (<ulink url="&ucsbug;31276">Bug 31276</ulink>).
+    </simpara></listitem>
+
   </itemizedlist>
 </section>
 
