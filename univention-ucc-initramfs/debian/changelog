@@ -1,3 +1,9 @@
+univention-ucc-initramfs (1.0.19-4) unstable; urgency=low
+
+  * Restrict permissions for directory /ucc_root (Bug #34705) 
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 30 Apr 2014 10:36:45 +0200
+
 univention-ucc-initramfs (1.0.19-3) unstable; urgency=low
 
   * Start the loopback interface on system boot (Bug #30441)
