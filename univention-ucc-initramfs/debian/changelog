@@ -1,3 +1,9 @@
+univention-ucc-initramfs (3.0.0-18) unstable; urgency=low
+
+  * Restrict permissions to directory /ucc_root (Bug #34671) 
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 30 Apr 2014 10:24:57 +0200
+
 univention-ucc-initramfs (3.0.0-17) unstable; urgency=low
 
   * Improve get_boot_mount_option.sh error handling, always output

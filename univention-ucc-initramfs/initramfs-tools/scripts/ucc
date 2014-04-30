@@ -481,6 +481,7 @@ _sync_to_persistent ()
 	mount -o loop "$img" /root/
 	mkdir -p /root/ucc_root
 	mount -o move /ucc_tmp/root /root/ucc_root
+	chmod o-rwx /root/ucc_root
 	if ! chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-persistent >/tmp/ucclog 2>&1; then
 		notice "$(cat /tmp/ucclog)"
 		noitce "ERROR: Failed to sync files to persistent storage"
@@ -501,6 +502,7 @@ _sync_from_persistent ()
 	mount -o loop "$img" /root/
 	mkdir -p /root/ucc_root
 	mount -o move /ucc_tmp/root /root/ucc_root
+	chmod o-rwx /root/ucc_root
 	if ! chroot /root /usr/sbin/univention-ucc-sync-persistent-files --sync-to-ucc >/tmp/ucclog 2>&1; then
 		notice "$(cat /tmp/ucclog)"
 		noitce "ERROR: Failed to sync files from persistent storage"
@@ -682,6 +684,7 @@ _mount_image ()
 		fi
 		mkdir -p /root/ucc_root
 		mount -o move /ucc_tmp/root /root/ucc_root
+		chmod o-rwx /root/ucc_root
 
 		# copy dhcp resolv.conf settings to the image, so we
 		# we have proper dns settings for "chroot /root do something"
@@ -705,6 +708,7 @@ _mount_image ()
 		mount -o move /ucc_tmp/root-rw /root/root-rw
 		mount -o move /ucc_tmp/root-ro /root/root-ro
 		mount -o move /ucc_tmp/root /root/ucc_root
+		chmod o-rwx /root/ucc_root
 		_verbose_break
 		return 0
 	fi
