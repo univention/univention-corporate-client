@@ -392,6 +392,10 @@
     <listitem><simpara>
       A simplified wizard for the creation of UCC computers has been added (<ulink url="&ucsbug;32942">Bug 32942</ulink>).
     </simpara></listitem>
+	
+	<listitem><simpara>
+      A traceback when creating UCC computer objects has been fixed (<ulink url="&ucsbug;34378">Bug 34378</ulink>).
+    </simpara></listitem>
 
   </itemizedlist>
 </section>
