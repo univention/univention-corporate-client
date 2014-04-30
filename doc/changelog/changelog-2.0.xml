@@ -106,6 +106,10 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
+		The access permissions for the directory <filename>/ucc_root</filename> have been restricted (<ulink url="&ucsbug;34671">Bug 34671</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
 		Improved get_boot_mount_option.sh error handling, it always outputs a sensible boot option (<ulink url="&ucsbug;31683">Bug 31683</ulink>).
 	  </simpara></listitem>
 
