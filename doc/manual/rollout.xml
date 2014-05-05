@@ -221,15 +221,6 @@
   The partitioning scheme is specified in the images configuration, see
   <xref linkend="imagegen:params"/>.
 </para>
-<para>
-  The GNU Parted version used in Ubuntu 12.04 has a bug, which means that
-  the <emphasis>bootable</emphasis> flag of the protective MBR disappears when you edit a
-  partition. This can cause boot problems with some BIOS
-  implementations. This bug does not occur during partitioning in UCC
-  as the flag is set manually via a script
-  (<command>set-bootable-flag-on-protective-mbr</command>). As such, manual
-  partitioning should be avoided or the script be executed after partitioning.
-</para>
 
 <para>
   It is also possible to perform completely new partitioning schemes - e.g. an encrypted hard drive -
