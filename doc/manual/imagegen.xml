@@ -77,8 +77,8 @@
 	  <listitem><simpara><emphasis>version</emphasis>: The Ubuntu code
 	  name on which the image is based. It must be taken into account
 	  that the Univention modifications are always only compiled and
-	  tested for a specific release, in the case of UCC 1.0 for Ubuntu 12.04
-	  (precise).</simpara></listitem>
+	  tested for a specific release, in the case of UCC 2.0 for Ubuntu 14.04
+	  (trusty).</simpara></listitem>
 
 	  <listitem><simpara><emphasis>hostname</emphasis>: The standard host
 	  name of an unjoined UCC client. The name is set to the name
@@ -117,7 +117,19 @@
 	  declare recommendations for packages which should be
 	  additionally installed during installation of a package. In
 	  these options, packages can be specified which should be
-	  installed with or without their recommended packages.</simpara></listitem>
+	  installed with or without their recommended packages. <!-- Die folgenden Pakete werden auf jedem -->
+	  <!-- UCC-System mindestens benötigt:  -->
+	  <!-- <itemizedlist> -->
+	  <!-- 	<listitem><simpara>linux-image-generic-pae (für amd64-Images alternativ -->
+	  <!-- 	linux-image-generic): Der Linux-Kernel</simpara></listitem> -->
+	  <!-- 	<listitem><simpara>univention-ucc-bootstrap: Eine Reihe von Dummy-Init-Skripten, die während -->
+	  <!-- 	der Image-Generierung aufgerufen werden</simpara></listitem> -->
+	  <!-- 	<listitem><simpara>univention-ucc-grub: Die Integrationspakete für den Bootloader -->
+	  <!-- 	Grub</simpara></listitem> -->
+	  <!-- 	<listitem><simpara>univention-corporate-client: Dieses Paket integriert die zentralen -->
+	  <!-- 	UCC-Dienste</simpara></listitem> -->
+	  <!-- </itemizedlist> -->
+	  </simpara></listitem>
 
 	  <listitem><simpara><emphasis>ucr_variables</emphasis>: Here one
 	  can define &ucsUCR; variables which are then set directly in the
@@ -131,7 +143,7 @@
 	  image in megabytes.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>filesystem</emphasis>: The file
-	  system used; it is recommended to retain ext4 here.</simpara></listitem>
+	  system used inside the image file; it is recommended to retain ext4 here.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>name</emphasis>: The name of the
 	  image.</simpara></listitem>
