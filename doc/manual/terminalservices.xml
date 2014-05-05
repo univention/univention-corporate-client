@@ -327,43 +327,104 @@
 </para>
 
 
-<section id="terminalservices:citrix:installation">
-<title>Installation</title>
-<para>
-  To set up the session script <emphasis>XenApp</emphasis> on a client, the
-  <emphasis>univention-ucc-session-xenapp</emphasis> package must be
-  installed (see <xref linkend="config:softwareupdates"/>). It also installs some packages required
-  by the Citrix Receiver. Then the &ucsUCRV; <envar>citrix/webinterface</envar> must be set to the
-  URL of the Citrix Farm web interface. The session script then opens the web interface directly in
-  Firefox during login.
-</para>
-<para>
-  The Citrix Receiver cannot be supplied with UCC and must be
-  downloaded from the Citrix website as a DEB package and installed on
-  the client. <footnote><para><ulink url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-130.html"/></para></footnote>.
-  Citrix Receiver 12.x is no longer supported in UCC 2.0.
-</para>
+<section id="terminalservices:citrix:installation:umc">
+  <title>Installation</title>
 
-<para>
-  The Citrix Receiver uses <filename>/dev/random</filename> as a
-  randomness source as standard. <filename>/dev/random</filename> blocks access if insufficient entropy is
-  available from hardware sources. This is the case on many thin
-  clients. 
-  If the &ucsUCRV; <envar>citrix/linkdevrandom</envar> is set to <emphasis>true</emphasis>,
-  <filename>/dev/random</filename> is converted to a symbolic link to
-  <filename>/dev/urandom</filename> which prevents these delays.
-</para>
+  <section id="terminalservices:citrix:setup:umc">
+	<title>Installation über den Setup-Wizard</title>
+	<!-- <para> -->
+	<!--   Zur Einrichtung von Citrix XenApp als Terminal Service muss der <guimenu>UCC Setup</guimenu> -->
+	<!--   Wizard in der &ucsUMC; geöffnet werden. Unter <guimenu>Thin client configuration</guimenu> muss im -->
+	<!--   Untermenü <guimenu>Configuration of terminal services</guimenu> die Option <guimenu>Configure -->
+	<!--   access to a Citrix XenApp terminal server</guimenu> ausgewählt werden. -->
+	<!-- </para> -->
 
-<para>
-  If the Citrix web interfaces performs authentication against an
-  Active Directory domain separate from UCS, it is possible to
-  configure a login-less access to the web interface by setting the
-  &ucsUCRV; <envar>lightdm/autologin/session</envar> to
-  <emphasis>XenApp</emphasis> and the &ucsUCRV;
-  <envar>lightdm/autologin</envar> to <emphasis>yes</emphasis>.
-</para>
+	<!-- <para> -->
+	<!--   Der Citrix Receiver kann aus Lizenzgründen nicht mit Univention Corporate Client ausgeliefert werden und muss über -->
+	<!--   den angebotenen Download-Link als DEB-Datei heruntergeladen werden und in einem lokalen Verzeichnis gespeichert -->
+	<!--   werden. In UCC 2.0 wird nur Citrix Receiver 13.0 unterstützt. -->
+	<!-- </para> -->
 
+	<!-- <para> -->
+	<!--   Im Auswahlfeld <guimenu>Please select the image(..)</guimenu> muss nun das UCC-Thin Client-Image ausgewählt -->
+	<!--   werden, in das der Citrix Receiver installiert werden soll. Nach einem Klick auf -->
+	<!--   <guimenu>Upload</guimenu> wird nun die DEB-Datei des Citrix Receiver ausgewählt und -->
+	<!--   automatisch in das UCC-Image integriert. -->
+	<!-- </para> -->
+
+	<!-- <para> -->
+	<!--   In der Grundeinstellung muss jeder Benutzer des Citrix Terminalservers das End User License -->
+	<!--   Agreement beim ersten Zugriff auf den Terminalserver bestätigen. Wird die Option -->
+	<!--   <guimenu>Confirm the End User License Agreement of Citrix Receiver</guimenu> aktiviert, wird die -->
+	<!--   Lizenz automatisch bestätigt. -->
+	<!-- </para> -->
+
+	<para>
+	  <!-- Mit der Option <guimenu>URL for Citrix farm login</guimenu> wird die URL des Citrix -->
+	  <!-- Web-Interfaces konfiguriert.  -->
+	  The session script then opens the web interface directly in
+	  Firefox during login.
+	</para>
+	
+	<!-- <para> -->
+	<!--   Da die Authentifizierung bei der Citrix-Anmeldung am Webinterface erfolgt und Citrix der einzige -->
+	<!--   Terminalservice ist, ist eine zusätzliche Benutzeranmeldung am Thin Client nicht notwendig. Wird -->
+	<!--   die Option <guimenu>Automatic Linux Desktop login</guimenu> aktiviert, erfolgt eine automatische -->
+	<!--   Anmeldung an LightDM. -->
+	<!-- </para> -->
+	
+  </section>
+
+  <section id="terminalservices:citrix:setup:manually">
+	<title>Installation ohne den UMC-Wizard</title>
+	<!-- <para> -->
+	<!--   Dieser Abschnitt beschreibt in kurzer Form die XenApp-Einrichtung für komplexere Szenarien, in -->
+	<!--   denen der UCC-Setup-Wizard nicht zum Einsatz kommen soll. Für allgemeine Hinweise zu XenApp und -->
+	<!--   UCC siehe <xref linkend="terminalservices:citrix:setup:umc"/> -->
+	<!-- </para> -->
+	
+	<!-- <para> -->
+	<!--   Der Citrix Receiver muss von <ulink -->
+	<!--   url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-130.html"/> -->
+	<!--   als DEB-Datei heruntergeladen werden. -->
+	<!-- </para> -->
+
+	<!-- <para> -->
+	<!--   Mit dem Tool <command>ucc-image-add-citrix-receiver</command> kann der Citrix Receiver in ein -->
+	<!--   UCC-Thin Client-Image installiert werden. Der Parameter <emphasis>-i</emphasis> -->
+	<!--   spezifiziert das UCC-Image und <emphasis>-d</emphasis> die DEB-Datei mit dem Citrix -->
+	<!--   Receiver. Das Metapaket <package>univention-ucc-session-xenapp</package> wird automatisch -->
+	<!--   installiert. -->
+	<!-- </para> -->
+
+	<!-- <para> -->
+	<!--   Wenn die EULA automatisch bestätigt werden soll, muss die &ucsUCRV; -->
+	<!--   <envar>citrix/accepteula</envar> über eine Richtlinie auf <emphasis>true</emphasis> gesetzt -->
+	<!--   werden. Das Web-Interface für den Citrix-Login muss über die Variable -->
+	<!--   <envar>citrix/webinterface</envar> konfiguriert werden. -->
+	<!-- </para> -->
+
+	<para>
+	  To configure a login-less access to the web interface the &ucsUCRV;
+	  <envar>lightdm/autologin/session</envar> must be set to <emphasis>XenApp</emphasis> and the
+	  &ucsUCRV; <envar>lightdm/autologin</envar> to <emphasis>yes</emphasis>.
+	</para>
+  </section>
+
+  <section id="terminalservices:citrix:setup:advanced">
+	<title>Advanced configuration</title>
+
+	<para>
+	  The Citrix Receiver uses <filename>/dev/random</filename> as a
+	  randomness source as standard. <filename>/dev/random</filename> blocks access if insufficient entropy is
+	  available from hardware sources. This is the case on many thin clients. 
+	  If the &ucsUCRV; <envar>citrix/linkdevrandom</envar> is set to <emphasis>true</emphasis>,
+	  <filename>/dev/random</filename> is converted to a symbolic link to
+	  <filename>/dev/urandom</filename> which prevents these delays.
+	</para>
+  </section>
 </section>
+
 
 <section id="terminalservices:citrix:soundusb">
 <title>Sound transmission / Access to USB storage devices on the thin client</title>
