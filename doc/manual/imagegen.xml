@@ -131,6 +131,12 @@
 	  <!-- </itemizedlist> -->
 	  </simpara></listitem>
 
+	  <!-- <listitem><simpara> -->
+	  <!-- 	<emphasis>packages_hold</emphasis>: Eine komma-getrennte Liste von einem oder mehreren -->
+	  <!-- 	Paketen, die nicht aktualisiert werden sollen. Dazu werden die Pakete in der dpkg-Datenbank -->
+	  <!-- 	in den Installationsstatus <emphasis>hold</emphasis> versetzt. -->
+	  <!-- </simpara></listitem> -->
+
 	  <listitem><simpara><emphasis>ucr_variables</emphasis>: Here one
 	  can define &ucsUCR; variables which are then set directly in the
 	  installed image.</simpara></listitem>
