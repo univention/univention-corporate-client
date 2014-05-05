@@ -143,41 +143,57 @@
   UCC clients can be operated in three different installation modes,
   which can be assigned via the <guimenu>Boot variant</guimenu> field:
   <itemizedlist>
-	<listitem><simpara><guimenu>Live boot</guimenu> Here the image is
-	started via PXE and mounted via NFS. The client must be configured
-	for PXE boot in the BIOS. Technically, all UCC systems are always
-	treated as having read/write storage media: If an image is mounted from a
-	source which itself only allows readonly access (from a live DVD or as
-	in this case from a NFS share), an OverlayFS file system is employed:
-	All the write changes are cached in the system memory and are lost when the computer is
-	switched off. Thin clients are also always run with an overlayfs
-	for a local installation, further information can be found under
-	<xref linkend="rollout:overlayfs"/>.</simpara></listitem>
 	<listitem>
-		<para><guimenu>Image boot with update check / Initial
-				installation</guimenu> This mode is used for two purposes:
+	  <simpara><guimenu>Live boot</guimenu> Here the image is
+	  started via PXE and mounted via NFS. The client must be configured
+	  for PXE boot in the BIOS. Technically, all UCC systems are always
+	  treated as having read/write storage media: If an image is mounted from a
+	  source which itself only allows readonly access (from a live DVD or as
+	  in this case from a NFS share), an OverlayFS file system is employed:
+	  All the write changes are cached in the system memory and are lost when the computer is
+	  switched off. Thin clients are also always run with an overlayfs
+	  for a local installation, further information can be found under
+	  <xref linkend="rollout:overlayfs"/>.
+	</simpara></listitem>
+
+	<listitem>
+	  <para>
+		<guimenu>Installation with repartitioning and image rollout</guimenu>: This mode is used for
+		the initial installation of a UCC client. It is also required whenever a UCC client should
+		be installed completely or switched to a different partition scheme. The partitions of the
+		system are setup as configured in the image configuration.A prompt must be
+		confirmed before the partitioning begins. After the installation of the image, the system is
+		joined into the UCS domain.
+	  </para>
+
+	  <caution>
+		<para>
+		  Existing user data on a /home partition on a system are also deleted!
 		</para>
-	<itemizedlist>
-	  <listitem><simpara>The initial installation of a UCC client</simpara></listitem>
-	  <listitem><simpara>For updates of UCC systems to a new UCC image</simpara></listitem>
-	</itemizedlist>
-	<para>
-	If there are no partitions present, the system is partitioned.
-	After the installation of the image, the system is joined into the
-	UCS domain. If this boot variante is used on an existing UCC
-	installation, is is detected whether the installed image differs
-	from the image to be installed. If that is the case, the
-	system, the UCC system partition is overwritten. In this case, no
-	new partitioning occurs.</para>
+	  </caution>
 	</listitem>
-	<listitem><simpara><guimenu>Image boot without update
-	check</guimenu> In this boot mode, the locally installed image
-	is started and no check for a newly available image
-	performed. Following an installation performed with <guimenu>Image boot
-	with update check / Initial installation</guimenu>, the system returns to
-	this boot mode automatically.</simpara></listitem>
+
+	<listitem>
+	  <para>
+		<guimenu>Image boot with update check</guimenu> is used to update an existing UCC
+		installation to a new version. It is detected whether the installed image differs
+		from the image to be installed. If that is the case, the UCC system partition is
+		overwritten. In contrast to the partition option above, no new partitioning occurs.
+	  </para>
+	</listitem>
+
+	<listitem>
+	  <para>
+		<guimenu>Image boot without update check</guimenu>: In this boot mode, the locally installed
+		image is started and no check for a newly available image performed. Following an
+		installation performed with <guimenu>Image boot with update check</guimenu> or
+		<guimenu>Installation with repartitioning and image rollout</guimenu>, the system returns to
+		this boot mode automatically.
+	  </para>
+	</listitem>
   </itemizedlist>
 </para>
+
 <para>
   The <guimenu>Additional boot parameter</guimenu> input field can be
   used to add any parameters to the initial RAM disk, which performs
@@ -205,18 +221,6 @@
   The partitioning scheme is specified in the images configuration, see
   <xref linkend="imagegen:params"/>.
 </para>
-<para>
-  The <guimenu>Repartitioning for installed systems</guimenu> option
-  on the <guimenu>Images</guimenu> tab of a UCC client in the computer
-  management of the &ucsUMC; forces repartitioning of a
-  system. A prompt must be confirmed before the partitioning begins.
-</para>
-<caution>
-	<para>
-	Existing user data on a /home partition on a system are
-	also deleted!
-	</para>
-</caution>
 <para>
   The GNU Parted version used in Ubuntu 12.04 has a bug, which means that
   the <emphasis>bootable</emphasis> flag of the protective MBR disappears when you edit a
