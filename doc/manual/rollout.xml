@@ -161,9 +161,10 @@
 		<guimenu>Installation with repartitioning and image rollout</guimenu>: This mode is used for
 		the initial installation of a UCC client. It is also required whenever a UCC client should
 		be installed completely or switched to a different partition scheme. The partitions of the
-		system are setup as configured in the image configuration.A prompt must be
-		confirmed before the partitioning begins. After the installation of the image, the system is
-		joined into the UCS domain.
+		system are setup as configured in the image configuration. A prompt must be
+		confirmed before the partitioning begins (it can be disabled using the boot option
+		<emphasis>force_partition</emphasis>, see below). After the installation of the image, the
+		system is joined into the UCS domain.
 	  </para>
 
 	  <caution>
@@ -197,15 +198,26 @@
 <para>
   The <guimenu>Additional boot parameter</guimenu> input field can be
   used to add any parameters to the initial RAM disk, which performs
-  the installation/rollout. Two preconfigured options are:
+  the installation/rollout. These preconfigured options exist:
   <itemizedlist>
-	<listitem><simpara><emphasis>debugshell=y</emphasis> : If an error
-	occurs during installation of the image, a shell opens in which
-	the problem can be analysed further.</simpara></listitem>
-	<listitem><simpara><emphasis>verbose=y</emphasis> : The shell scripts
-	of the initial RAM disk are started with the parameter "-x", with
-	which the current control flow can be better monitored (useful
-	for debugging).</simpara></listitem>
+	<listitem><simpara>
+	  <emphasis>debugshell=y</emphasis>: If an error occurs during installation of the image, a
+	shell opens in which the problem can be analysed further.</simpara></listitem>
+
+	<listitem><simpara>
+	  <emphasis>verbose=y</emphasis>: The shell scripts of the initial RAM disk are started with the
+	  parameter "-x", with which the current control flow can be better monitored (useful for
+	  debugging).
+	</simpara></listitem>
+
+	<!-- <listitem><simpara> -->
+	<!--   Wird ein Image ausgerollt und die Option <guimenu>Installation with repartitioning and image -->
+	<!--   rollout</guimenu> verwendet, wird eine Warnmeldung eingeblendet, dass alle Daten auf der -->
+	<!--   Festplatte bei der Neupartitionierung verloren gehen. Diese Warnmeldung muss bestätigt -->
+	<!--   werden. Wird die Boot-Option <emphasis>force_partition</emphasis> übergeben, wird diese -->
+	<!--   Sicherheitsabfrage nicht mehr angezeigt. -->
+	<!-- </simpara></listitem> -->
+
   </itemizedlist>
 </para>
 </section>
