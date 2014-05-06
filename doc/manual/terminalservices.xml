@@ -1,166 +1,198 @@
 <chapter id="terminalservices:chapter">
-<title>Terminal services with UCC</title>
+  <title>Terminal services with UCC</title>
 
-<para>
-  In addition to the operation of stationary UCC clients, UCC also supports
-  access to terminal services. Login is supported to:
-  <itemizedlist>
-	<listitem><simpara>UCC terminal servers</simpara></listitem>
-	<listitem><simpara>Windows terminal services via the RDP protocol</simpara></listitem>
-	<listitem><simpara>Citrix XenApp</simpara></listitem>
-  </itemizedlist>
-</para>
+  <para>
+	In addition to the operation of stationary UCC clients, UCC also supports
+	access to terminal services. Login is supported to:
+	<itemizedlist>
+	  <listitem><simpara>UCC terminal servers</simpara></listitem>
+	  <listitem><simpara>Windows terminal services via the RDP protocol</simpara></listitem>
+	  <listitem><simpara>Citrix XenApp</simpara></listitem>
+	</itemizedlist>
+  </para>
 
-<para>
-  There are three possibilities for configuring access to a terminal service:
-  <itemizedlist>
-	<listitem><simpara>An interactive selection of the session by the
-	user during login to LightDM (see <xref
-	linkend="logins:sessions"/>)</simpara></listitem>
-	<listitem><simpara>A user login to LightDM where a session is
-	forcibly specified by the administrator</simpara></listitem>
-	<listitem><simpara>Automatic session selection where login is
-	performed with a guest user. In this case, no login dialogue is
-	shown.</simpara></listitem>
-  </itemizedlist>
-</para>
-
-
+  <para>
+	There are three possibilities for configuring access to a terminal service:
+	<itemizedlist>
+	  <listitem><simpara>An interactive selection of the session by the
+	  user during login to LightDM (see <xref
+	  linkend="logins:sessions"/>)</simpara></listitem>
+	  <listitem><simpara>A user login to LightDM where a session is
+	  forcibly specified by the administrator</simpara></listitem>
+	  <listitem><simpara>Automatic session selection where login is
+	  performed with a guest user. In this case, no login dialogue is
+	  shown.</simpara></listitem>
+	</itemizedlist>
+  </para>
 
 
-<section id="terminalservices:rdp">
-<title>RDP terminal services</title>
-<para>
-  UCC supports login to Windows 2003-based and Windows 2008R2-based
-  Windows terminal servers via the RDP protocol. The Windows terminal
-  servers can be joined in the UCS domain or alternatively the access
-  can be performed against an external domain.
-</para>
+  <section id="terminalservices:rdp">
+	<title>RDP terminal services</title>
+	<para>
+	  UCC supports login to Windows 2003/2008/2012-based Windows terminal servers via the RDP
+	  protocol. The Windows terminal servers can be joined in the UCS domain or alternatively the access
+	  can be performed against an external domain.
+	</para>
 
-<para>
-  The login is performed via the <emphasis>RDP</emphasis> session script installed as
-  standard, which uses <command>freerdp</command> for the access. The password entered by
-  the user during login to LightDM is cached by a PAM module and
-  automatically provided to Freerdp, i.e., it is not necessary to
-  enter it again when logging in to the terminal server.
-</para>
+	<para>
+	  The login is performed via the <emphasis>RDP</emphasis> session script installed as standard,
+	  which uses <command>freerdp</command> for the access. The password entered by the user during
+	  login to LightDM is cached by a PAM module and automatically provided to Freerdp, i.e., it is
+	  not necessary to enter it again when logging in to the terminal server.
+	</para>
 
-<para>
-  The RDP client Remmina is provided as a client with which an RDP connection can be
-  configured and started on the desktop.
-</para>
+	<para>
+	  The RDP client Remmina is provided as a client with which an RDP connection can be
+	  configured and started on the desktop.
+	</para>
 
-<section id="terminalservices:rdp:assign">
-<title>Assignment of the terminal server and the Windows domain</title>
-<para>
-  The terminal server and the Windows domain of the terminal server
-  can be specified per user via a <emphasis>UCC user
-  session</emphasis> user policy. Alternatively, the server and the
-  domain can also be specified per client by setting the &ucsUCR; variables
-  <envar>rdp/domainname</envar> and
-  <envar>rdp/server</envar>.
-</para>
-<para>
-  <envar>rdp/user</envar> can be used to specify a different user name
-  from the current one during login.
-</para>
-</section>
+	<section id="terminalservices:rdp:setup">
+	  <title>Installation</title>
 
-<section id="terminalservices:rdp:usb">
-<title>Access to USB mass storage devices on the thin client</title>
-<para>
-  A mass storage device mounted on the thin client (see <xref linkend="hardware:usbthin"/>) is
-  mounted in the session if the &ucsUCRV; <envar>rdp/redirectdisk</envar> is set to
-  <emphasis>true</emphasis>. The transmission is performed via a session channel of the RDP
-  protocol.
-</para>
-</section>
+	  <para>
+		Das Session-Skript für RDP (<package>univention-ucc-session-rdp</package>) ist in der
+		Grundeinstellung auf Desktop-Systemen und Thin Clients installiert.
+	  </para>
 
-<section id="terminalservices:rdp:crypto">
-<title>Networklevel authentication / certificate approval</title>
-<para>
-  The RDP client does not use the "Network Level Authentication" (NLA)
-  authentication method as standard. If NLA is enabled on the terminal
-  server, this can be enabled by setting the &ucsUCRV;
-  <envar>rdp/checknla</envar> to <emphasis>true</emphasis>.
-</para>
+	  <section id="terminalservices:rdp:umc">
+		<title>Installation über den Setup-Wizard</title>
 
-<para>
-  Verification of the login certificate is also disabled as
-  standard. It can be enabled by setting the &ucsUCRV;
-  <envar>rdp/ignorecertificate</envar> to <emphasis>true</emphasis>.
-</para>
+		<para>
+		  Zur Einrichtung des RDP-Zugriffs auf RDP Terminalserver muss der <guimenu>UCC
+		  Setup</guimenu> Wizard in der &ucsUMC; geöffnet werden. Unter <guimenu>Thin client
+		  configuration</guimenu> muss im Untermenü <guimenu>Configuration of terminal
+		  services</guimenu> die Option <guimenu>Configure access to a Windows/XRDP terminal
+		  server</guimenu> ausgewählt werden.
+		</para>
 
-<para>
-  In special cases, it may be necessary to disable the TLS encryption
-  of the RDP connection entirely. This is done by setting the
-  &ucsUCRV; <envar>rdp/checktls</envar> to <emphasis>false</emphasis>.
-</para>
-</section>
+		<para>
+		  Der Rechnername des RDP-Terminalservers muss im Eingabefeld <guimenu>Host name of terminal
+		  server</guimenu> eingetragen werden. Wird ein Windows-Terminalserver verwendet, muss der
+		  Domänenname im Eingabefeld <guimenu>Domain name</guimenu> eingetragen werden. Wird XRDP
+		  verwendet, kann das Feld freigelassen werden.
+		</para>
 
-<section id="terminalservices:rdp:sound">
-<title>Sound output in the RDP session</title>
-<para>
-  As standard, the sound output in the RDP session is transmitted via
-  an RDP session channel. The sound output can be disabled by setting
-  the &ucsUCRV; <envar>rdp/disable-sound</envar> to <emphasis>true</emphasis>.
-</para>
-</section>
+		<para>
+		  Soll Sound aus der Terminalsitzung an den zugreifenden Client übertragen werden, muss die
+		  Option <guimenu>Enable sound</guimenu> aktiviert werden.
+		  The sound output in the RDP session is transmitted via an RDP session channel.
+		</para>
 
-<section id="terminalservices:rdp:furtheropts">
-<title>Further options for the RDP session</title>
-<para>
-  The &ucsUCRV; <envar>rdp/keyboard</envar> can be used to configure a
-  different keyboard layout for the RDP session from that of the
-  current client. The layout is specified in the same format as the
-  &ucsUCRV; <envar>xorg/keyboard/options/XkbLayout</envar>.
-</para>
-
-<para>
-  The &ucsUCRV; <envar>rdp/additionaloptions</envar> can be used to
-  provide any additional options to freerdp (e.g., to enable
-  additional plugins).
-</para>
-
-<para>
-  <envar>rdp/geometry</envar> can be used to specify the screen
-  resolution.
-</para>
-
-<para>
-  <envar>rdp/clienthostname</envar> allows you to specify a different
-  host name from the current computer name in the RDP session.
-</para>
-</section>
-</section>
+		<para>
+		  USB-Massenspeicher (USB-Sticks oder CD/DVD-Laufwerke), die an den Thin Client angesteckt
+		  werden, können in die RDP-Sitzung weitergeleitet werden. Dies geschieht durch Aktivieren
+		  der Option <guimenu>Enable USB storage passthrough</guimenu>. Weitere Details zum Mounten
+		  der Geräte findet sich in <xref linkend="hardware:usbthin"/>.
+		  The transmission is performed via a session channel of the RDP protocol.
+		</para>
+	  </section>
 
 
-<section id="terminalservices:citrix">
-<title>Citrix XenApp terminal services</title>
-<para>
-  UCC supports access to Citrix XenApp terminal servers. This
-  documentation refers to Citrix XenApp 6.5 Enterprise on Windows
-  Server 2008R2, which uses a Windows 2008R2 domain controller and the
-  Citrix Receiver 13.
-</para>
-<para>
-  Citrix XenApp supports two login methods:
-  <itemizedlist>
-	<listitem><simpara>Access to the XenApp terminal server is
-	configured by an ICA session file in which the connection
-	parameters are configured.</simpara></listitem>
-	<listitem><simpara>The access is performed via a Citrix Farm web
-	interface the user logs in to. During the login, an ICA file
-	tailored to the user is generated, which is started via a browser
-	plugin in the Citrix Receiver client.</simpara></listitem>
-  </itemizedlist>
-</para>
-<para>
-  UCC only integrates the browser-based login method.
-</para>
+	  <section id="terminalservices:rdp:setup:manually">
+		<title>Installation ohne den UMC-Wizard</title>
+
+		<para>
+		  The terminal server and the Windows domain of the terminal server can be specified per
+		  user via a <emphasis>UCC user session</emphasis> user policy. Alternatively, the server
+		  and the domain can also be specified per client by setting the &ucsUCR; variables
+		  <envar>rdp/domainname</envar> and <envar>rdp/server</envar>. 
+		  Wird ein XRDP-Server als Terminalserver verwendet, kann <envar>rdp/domainname</envar>
+		  freigelassen werden.
+		</para>
+
+		<para>
+		  Mass storage devices mounted on the thin client (see <xref linkend="hardware:usbthin"/>)
+		  is available in the RDP session if the &ucsUCRV; <envar>rdp/redirectdisk</envar> is set to
+		  <emphasis>true</emphasis>. 
+		</para>
+
+		<para>
+		  Sound output is enabled by default. It can be disabled by setting the &ucsUCRV;
+		  <envar>rdp/disable-sound</envar> to <emphasis>true</emphasis>.
+		</para>
+	  </section>
 
 
-<section id="terminalservices:citrix:installation:umc">
+	  <section id="terminalservices:rdp:setup:advanced">
+		<title>Advanced configuration</title>
+
+		<section id="terminalservices:rdp:crypto">
+		  <title>Networklevel authentication / certificate approval</title>
+		  <para>
+			The RDP client does not use the "Network Level Authentication" (NLA) authentication
+			method as standard. If NLA is enabled on the Windows terminal server, this can be
+			enabled by setting the &ucsUCRV; <envar>rdp/checknla</envar> to
+			<emphasis>true</emphasis>.
+		  </para>
+
+		  <para>
+			Verification of the login certificate is also disabled as standard. It can be enabled by
+			setting the &ucsUCRV; <envar>rdp/ignorecertificate</envar> to <emphasis>true</emphasis>.
+		  </para>
+
+		  <para>
+			In special cases, it may be necessary to disable the TLS encryption of the RDP
+			connection entirely. This is done by setting the &ucsUCRV; <envar>rdp/checktls</envar>
+			to <emphasis>false</emphasis>.
+		  </para>
+		</section>
+
+		<section id="terminalservices:rdp:furtheropts">
+		  <title>Further configuration options for the RDP session</title>
+
+		  <para>
+			The &ucsUCRV; <envar>rdp/keyboard</envar> can be used to configure a different keyboard
+			layout for the RDP session from that of the current client. The layout is specified in
+			the same format as the &ucsUCRV; <envar>xorg/keyboard/options/XkbLayout</envar>.
+		  </para>
+
+		  <para>
+			<envar>rdp/user</envar> can be used to specify a different user name from the current
+			one during login.
+		  </para>
+
+		  <para>
+			The &ucsUCRV; <envar>rdp/additionaloptions</envar> can be used to provide any additional
+			options to freerdp (e.g., to enable additional plugins).
+		  </para>
+
+		  <para>
+			<envar>rdp/geometry</envar> can be used to specify the screen resolution.
+		  </para>
+
+		</section>
+
+	  </section>
+	</section>
+  </section>
+
+  <section id="terminalservices:citrix">
+	  <title>Citrix XenApp terminal services</title>
+	  <para>
+		UCC supports access to Citrix XenApp terminal servers. This
+		documentation refers to Citrix XenApp 6.5 Enterprise on Windows
+		Server 2008R2, which uses a Windows 2008R2 domain controller and the
+		Citrix Receiver 13.
+	  </para>
+
+	  <para>
+		Citrix XenApp supports two login methods:
+		<itemizedlist>
+		  <listitem><simpara>Access to the XenApp terminal server is
+		  configured by an ICA session file in which the connection
+		  parameters are configured.</simpara></listitem>
+		  <listitem><simpara>The access is performed via a Citrix Farm web
+		  interface the user logs in to. During the login, an ICA file
+		  tailored to the user is generated, which is started via a browser
+		  plugin in the Citrix Receiver client.</simpara></listitem>
+		</itemizedlist>
+	  </para>
+	  <para>
+		UCC only integrates the browser-based login method.
+	  </para>
+
+
+<section id="terminalservices:citrix:setup">
   <title>Installation</title>
 
   <section id="terminalservices:citrix:setup:umc">
