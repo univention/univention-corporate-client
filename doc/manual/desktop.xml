@@ -1,63 +1,61 @@
 <chapter id="desktop:chapter">
-<title>Univention Corporate Client desktop environment</title>
+  <title>Univention Corporate Client desktop environment</title>
 
-<section id="desktop:intro">
-  <title>Introduction</title>
-  <para>
-	Univention Corporate Client offers a desktop environment based on
-	the KDE Plasma desktop in version 4.8. It offers a compilation of
-	software components suitable for typical business applications.
-  </para>
+  <section id="desktop:intro">
+	<title>Introduction</title>
+	<para>
+	  Univention Corporate Client offers a desktop environment based on the KDE Plasma desktop in
+	  version 4.13. It offers a compilation of software components suitable for typical business
+	  applications.
+	</para>
 
-  <figure><title>Univention Corporate Client desktop</title>
-  <graphic scalefit="1" width="80%" fileref="illustrations/ucc-desktop.png"/>
-  </figure>
+	<figure><title>Univention Corporate Client desktop</title>
+	<graphic scalefit="1" width="80%" fileref="illustrations/ucc-desktop.png"/>
+	</figure>
   
-  <para>
-	Extensive documentation and manuals for all the KDE components can
-	be found at <ulink url="http://docs.kde.org/"/>.
-  </para>
+	<para>
+	  Extensive documentation and manuals for all the KDE components can be found at <ulink
+	  url="http://docs.kde.org/"/>.
+	</para>
 
-  <para>
-	LibreOffice is the core application of the Univention Corporate
-	Client and offers the full scope of functions of a modern Office
-	suite. In addition to standardised, open formats such as the
-	OpenDocument format, OpenOffice.org can also be used to open and
-	edit documents created in other office applications such as
-	Microsoft Office. To ensure uncomplicated distribution, documents can
-	also be easily exported in PDF format.
-  </para>
+	<para>
+	  LibreOffice is the core application of the Univention Corporate Client and offers the full
+	  scope of functions of a modern Office suite. In addition to standardised, open formats such as
+	  the OpenDocument format. It can also be used to open and edit documents created in other
+	  office applications such as Microsoft Office. To ensure uncomplicated distribution, documents
+	  can also be easily exported in PDF format.
+	</para>
 
-  <para>
-	Extensive documentation on Libreoffice can be found at
-	<ulink url="http://www.libreoffice.org/get-help/documentation/"/>.
-  </para>
+	<para>
+	  Extensive documentation on Libreoffice can be found at
+	  <ulink url="http://www.libreoffice.org/get-help/documentation/"/>.
+	</para>
 
-  <para>
-	Mozilla Firefox is also supplied for accessing websites. The Adobe
-	Flash plugin is integrated for the playback of Flash animations.
-  </para>
+	<para>
+	  Mozilla Firefox is also supplied for accessing websites. The Adobe
+	  Flash plugin is integrated for the playback of Flash animations.
+	</para>
 
-  <para>
-	Thin clients only offer a slimmed down desktop environment based on
-	LXDE. LXDE is only provided for simple administrative environments.
-  </para>
-</section>
+	<para>
+	  Thin clients only offer a slimmed down desktop environment based on
+	  LXDE. LXDE is only provided for simple administrative environments.
+	</para>
+  </section>
 
-<section id="desktop:proxy">
-  <title>Configuration of proxy settings for the desktop</title>
-  <para>
-	The proxy settings in Firefox and KDE can be centrally configured via &ucsUCR; variables provide by the package <emphasis>univention-ucc-proxy-settings</emphasis> (see
-	<xref linkend="config:ucr"/>). <envar>ucc/proxy/http</envar> configures a specific proxy, e.g.
-	<emphasis>http://192.168.0.100:3128</emphasis>. Alternatively the URL to a PAC (proxy
-	auto-config) file can be provided with the variable <envar>ucc/proxy/autoconfig/url</envar>.
-  </para>
+  <section id="desktop:proxy">
+	<title>Configuration of proxy settings for the desktop</title>
+	<para>
+	  The proxy settings in Firefox and KDE can be centrally configured via &ucsUCR; variables
+	  provide by the package <emphasis>univention-ucc-proxy-settings</emphasis> (see <xref
+	  linkend="config:ucr"/>). <envar>ucc/proxy/http</envar> configures a specific proxy,
+	  e.g. <emphasis>http://192.168.0.100:3128</emphasis>. Alternatively the URL to a PAC (proxy
+	  auto-config) file can be provided with the variable <envar>ucc/proxy/autoconfig/url</envar>.
+	</para>
 
-  <para>
-	Proxy settings configured with the variables above are immutable for the user. In Firefox the
-	respective dialogues are greyed out. In the system settings of KDE changes can be made in the
-	dialogues, but they are discarded when clicking <guimenu>Apply</guimenu>.
-  </para>
-</section>
-
+	<para>
+	  Proxy settings configured with the variables above are immutable for the user. In Firefox the
+	  respective dialogues are greyed out. In the system settings of KDE changes can be made in the
+	  dialogues, but they are discarded when clicking <guimenu>Apply</guimenu>.
+	</para>
+  </section>
 </chapter>
