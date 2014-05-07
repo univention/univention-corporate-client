@@ -168,13 +168,18 @@
 		  </simpara></listitem>
 
 		  <listitem><simpara>
-            The plymouth bootsplash init scripts have been fixed to keep plymouth displaying during software updates
-            (<ulink url="&ucsbug;34512">Bug 34512</ulink>, <ulink url="&ucsbug;31126">Bug
-			31126</ulink>). Outdated &ucsUCR; templates for the KDE display manager have been removed.
+			Outdated &ucsUCR; templates for the KDE display manager have been removed
+		    (<ulink url="&ucsbug;34512">Bug 34512</ulink>).
 		  </simpara></listitem>
 
 		</itemizedlist>
 	  </para></listitem>
+
+	  <listitem><simpara>
+		The plymouth bootsplash init scripts have been fixed to keep plymouth displaying during software updates
+		and correctly display messages from the filesystem check
+        (<ulink url="&ucsbug;31126">Bug 31126</ulink>, <ulink url="&ucsbug;30575">Bug 30575</ulink>).
+	  </simpara></listitem>
 
 	  <listitem><para>
 	    Several improvements were made to <command>ucc-image-set-join-information</command>
