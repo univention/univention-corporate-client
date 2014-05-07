@@ -210,13 +210,13 @@
 	  debugging).
 	</simpara></listitem>
 
-	<!-- <listitem><simpara> -->
-	<!--   Wird ein Image ausgerollt und die Option <guimenu>Installation with repartitioning and image -->
-	<!--   rollout</guimenu> verwendet, wird eine Warnmeldung eingeblendet, dass alle Daten auf der -->
-	<!--   Festplatte bei der Neupartitionierung verloren gehen. Diese Warnmeldung muss bestätigt -->
-	<!--   werden. Wird die Boot-Option <emphasis>force_partition</emphasis> übergeben, wird diese -->
-	<!--   Sicherheitsabfrage nicht mehr angezeigt. -->
-	<!-- </simpara></listitem> -->
+	<listitem><simpara>
+	  <emphasis>force_partition</emphasis>: If an image is rolled out and the <guimenu>Installation with repartitioning and image
+	  rollout</guimenu> option used, a warning message appears reminding you that all the data on
+	  the hard drive will be lost if the repartitioning is performed. This warning message needs to
+	  be confirmed. If the <emphasis>force_partition</emphasis> boot option is assigned, the
+	  security prompt is not shown any more.
+	</simpara></listitem>
 
   </itemizedlist>
 </para>
