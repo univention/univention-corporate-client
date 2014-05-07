@@ -12,13 +12,6 @@
 </para>
 
 <para>
-  Univention Corporate Client is the successor to Univention Corporate
-  Desktop (UCD) and UCS Thin Client Services (UCS TCS). Notes on
-  upgrading from UCD and TCS can be found in the Univention Wiki under
-  <ulink url="http://wiki.univention.de/index.php?title=Upgrade-TCS-UCD-to-UCC"/>.
-</para>
-
-<para>
   UCC systems are rolled out via an image-based procedure: All the
   user data - and as such also the user settings - are typically saved on a
   separate partition. If a new version of the image is installed, the
@@ -35,8 +28,8 @@
 </para>
 
 <para>
-  Kubuntu is used as the basis for the images (Version 12.04 in UCC
-  1.0). Univention provides two preconfigured: a
+  Kubuntu is used as the basis for the images (Version 14.04 in UCC
+  2.0). Univention provides two preconfigured images: a
   minimal image for thin clients and a larger image for native desktop
   installations. These two images are maintained and tested
   by Univention. It is also possible to create modified or completely
@@ -51,21 +44,20 @@
   integrate into the UCS user management: all the users in a UCS
   domain can log on to UCC clients using their domain password. The
   integration packages are installed via the Univention App
-  Center (UCC requires UCS 3.1).
+  Center (UCC 2.0 requires UCS 3.2).
 </para>
 
 <para>
   UCC support both a local desktop based on KDE Plasma and working on
   terminal servers (RDP, Citrix XenApp and remotely used KDE
-  desktops). Access to web-based services can also be configured.
+  desktops based on xrdp). Access to web-based services can also be configured.
   A UCC desktop system be used both in the company network and in
   mobile use (all user and group information is cached locally for
   that).
 </para>
 
 <para>
-  A UCC system is usually installed over a network using PXE, but can
-  also be setup from local media (DVD ROM or USB stick). The rollout
+  A UCC system is usually installed over a network using PXE. The rollout
   can be performed fully automatic without user interaction (see <xref
   linkend="rollout:automatic"/>).
 </para>
