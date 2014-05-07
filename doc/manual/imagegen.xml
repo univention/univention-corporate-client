@@ -117,18 +117,21 @@
 	  declare recommendations for packages which should be
 	  additionally installed during installation of a package. In
 	  these options, packages can be specified which should be
-	  installed with or without their recommended packages. <!-- Die folgenden Pakete werden auf jedem -->
-	  <!-- UCC-System mindestens benötigt:  -->
-	  <!-- <itemizedlist> -->
-	  <!-- 	<listitem><simpara>linux-image-generic-pae (für amd64-Images alternativ -->
-	  <!-- 	linux-image-generic): Der Linux-Kernel</simpara></listitem> -->
-	  <!-- 	<listitem><simpara>univention-ucc-bootstrap: Eine Reihe von Dummy-Init-Skripten, die während -->
-	  <!-- 	der Image-Generierung aufgerufen werden</simpara></listitem> -->
-	  <!-- 	<listitem><simpara>univention-ucc-grub: Die Integrationspakete für den Bootloader -->
-	  <!-- 	Grub</simpara></listitem> -->
-	  <!-- 	<listitem><simpara>univention-corporate-client: Dieses Paket integriert die zentralen -->
-	  <!-- 	UCC-Dienste</simpara></listitem> -->
-	  <!-- </itemizedlist> -->
+	  installed with or without their recommended packages. The following packages are required on
+	  each UCC system as a minimum: 
+	  <itemizedlist>
+		<listitem><simpara>linux-image-generic-pae (for amd64 images, alternatively
+		linux-image-generic): The Linux kernel</simpara></listitem>
+
+		<listitem><simpara>univention-ucc-bootstrap: A range of dummy init scripts which are run
+		during generation of the image</simpara></listitem>
+
+		<listitem><simpara>univention-ucc-grub: The integration packages for the boot loader
+		Grub</simpara></listitem>
+
+		<listitem><simpara>univention-corporate-client: This package integrates the central UCC
+		services</simpara></listitem>
+	  </itemizedlist>
 	  </simpara></listitem>
 
 	  <!-- <listitem><simpara> -->
