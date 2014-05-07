@@ -196,78 +196,74 @@
   <title>Installation</title>
 
   <section id="terminalservices:citrix:setup:umc">
-	<title>Installation über den Setup-Wizard</title>
-	<!-- <para> -->
-	<!--   Zur Einrichtung von Citrix XenApp als Terminal Service muss der <guimenu>UCC Setup</guimenu> -->
-	<!--   Wizard in der &ucsUMC; geöffnet werden. Unter <guimenu>Thin client configuration</guimenu> muss im -->
-	<!--   Untermenü <guimenu>Configuration of terminal services</guimenu> die Option <guimenu>Configure -->
-	<!--   access to a Citrix XenApp terminal server</guimenu> ausgewählt werden. -->
-	<!-- </para> -->
-
-	<!-- <para> -->
-	<!--   Der Citrix Receiver kann aus Lizenzgründen nicht mit Univention Corporate Client ausgeliefert werden und muss über -->
-	<!--   den angebotenen Download-Link als DEB-Datei heruntergeladen werden und in einem lokalen Verzeichnis gespeichert -->
-	<!--   werden. In UCC 2.0 wird nur Citrix Receiver 13.0 unterstützt. -->
-	<!-- </para> -->
-
-	<!-- <para> -->
-	<!--   Im Auswahlfeld <guimenu>Please select the image(..)</guimenu> muss nun das UCC-Thin Client-Image ausgewählt -->
-	<!--   werden, in das der Citrix Receiver installiert werden soll. Nach einem Klick auf -->
-	<!--   <guimenu>Upload</guimenu> wird nun die DEB-Datei des Citrix Receiver ausgewählt und -->
-	<!--   automatisch in das UCC-Image integriert. -->
-	<!-- </para> -->
-
-	<!-- <para> -->
-	<!--   In der Grundeinstellung muss jeder Benutzer des Citrix Terminalservers das End User License -->
-	<!--   Agreement beim ersten Zugriff auf den Terminalserver bestätigen. Wird die Option -->
-	<!--   <guimenu>Confirm the End User License Agreement of Citrix Receiver</guimenu> aktiviert, wird die -->
-	<!--   Lizenz automatisch bestätigt. -->
-	<!-- </para> -->
+	<title>Installation using the setup wizard</title>
+	<para>
+	  For setting up access to a Citrix XenApp terminal service, the <guimenu>UCC Setup</guimenu>
+	  wizard must be opened in the &ucsUMC;. The <guimenu>Configure access to a Citrix XenApp
+	  terminal server</guimenu> option must be selected under <guimenu>Thin client
+	  configuration</guimenu> in the <guimenu>Configuration of terminal services</guimenu> submenu.
+	</para>
 
 	<para>
-	  <!-- Mit der Option <guimenu>URL for Citrix farm login</guimenu> wird die URL des Citrix -->
-	  <!-- Web-Interfaces konfiguriert.  -->
-	  The session script then opens the web interface directly in
-	  Firefox during login.
+	  For licensing reasons it is not possible to deliver the Citrix Receiver with Univention
+	  Corporate Client. Instead it must be downloaded as a DEB file using the download link provided
+	  and saved in a local directory. Only Citrix Receiver 13.0 is supported in UCC 2.0.
+	</para>
+
+	<para>
+	  The UCC thin client image in which you wish to install the Citrix Receiver must now be
+	  selected in the <guimenu>Please select the image(..)</guimenu> field. Following clicking on
+	  <guimenu>Upload</guimenu>, the DEB file of the Citrix Receiver is selected and automatically
+	  integrated in the UCC image.
+	</para>
+
+	<para>
+	  In the default setting, each user of the Citrix terminal server must confirm the end user
+	  license agreement (EULA) the first time he/she accesses the terminal server. If the
+	  <guimenu>Confirm the End User License Agreement of Citrix Receiver</guimenu> option is
+	  enabled, the license is confirmed automatically.
+	</para>
+
+	<para>
+	  The <guimenu>URL for Citrix farm login</guimenu> option is used to configure the URL of the
+	  Citrix web interface. The session script then opens the web interface directly in Firefox
+	  during login.
 	</para>
 	
-	<!-- <para> -->
-	<!--   Da die Authentifizierung bei der Citrix-Anmeldung am Webinterface erfolgt und Citrix der einzige -->
-	<!--   Terminalservice ist, ist eine zusätzliche Benutzeranmeldung am Thin Client nicht notwendig. Wird -->
-	<!--   die Option <guimenu>Automatic Linux Desktop login</guimenu> aktiviert, erfolgt eine automatische -->
-	<!--   Anmeldung an LightDM. -->
-	<!-- </para> -->
+	<para>
+	  As the authentication during the Citrix login occurs on the web interface and if Citrix is the
+	  only terminal service, it is not necessary for the user to log on to the thin client again. If
+	  the <guimenu>Automatic Linux Desktop login</guimenu> option is enabled, the login to LightDM
+	  occurs automatically.
+	</para>
 	
   </section>
 
   <section id="terminalservices:citrix:setup:manually">
-	<title>Installation ohne den UMC-Wizard</title>
-	<!-- <para> -->
-	<!--   Dieser Abschnitt beschreibt in kurzer Form die XenApp-Einrichtung für komplexere Szenarien, in -->
-	<!--   denen der UCC-Setup-Wizard nicht zum Einsatz kommen soll. Für allgemeine Hinweise zu XenApp und -->
-	<!--   UCC siehe <xref linkend="terminalservices:citrix:setup:umc"/> -->
-	<!-- </para> -->
+	<title>Installation without the UMC wizard</title>
+	<para>
+	  This section provides a brief description of the setting up of the XenApp for complex
+	  scenarios in which the UCC setup wizard should not be used. For general information on XenApp
+	  and UCC, please see <xref linkend="terminalservices:citrix:setup:umc"/>
+	</para>
 	
-	<!-- <para> -->
-	<!--   Der Citrix Receiver muss von <ulink -->
-	<!--   url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-130.html"/> -->
-	<!--   als DEB-Datei heruntergeladen werden. -->
-	<!-- </para> -->
+	<para>
+	  The Citrix Receiver must be downloaded as a DEB file from <ulink
+	  url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-130.html"/>.
+	</para>
 
-	<!-- <para> -->
-	<!--   Mit dem Tool <command>ucc-image-add-citrix-receiver</command> kann der Citrix Receiver in ein -->
-	<!--   UCC-Thin Client-Image installiert werden. Der Parameter <emphasis>-i</emphasis> -->
-	<!--   spezifiziert das UCC-Image und <emphasis>-d</emphasis> die DEB-Datei mit dem Citrix -->
-	<!--   Receiver. Das Metapaket <package>univention-ucc-session-xenapp</package> wird automatisch -->
-	<!--   installiert. -->
-	<!-- </para> -->
+	<para>
+	  The <command>ucc-image-add-citrix-receiver</command> tool can be used to install the Citrix
+	  Receiver in a UCC thin client image. The parameter <emphasis>-i</emphasis> specifies the UCC
+	  image and <emphasis>-d</emphasis> the DEB file with the Citrix Receiver. The
+	  <package>univention-ucc-session-xenapp</package> meta package is installed automatically.
+	</para>
 
-	<!-- <para> -->
-	<!--   Wenn die EULA automatisch bestätigt werden soll, muss die &ucsUCRV; -->
-	<!--   <envar>citrix/accepteula</envar> über eine Richtlinie auf <emphasis>true</emphasis> gesetzt -->
-	<!--   werden. Das Web-Interface für den Citrix-Login muss über die Variable -->
-	<!--   <envar>citrix/webinterface</envar> konfiguriert werden. -->
-	<!-- </para> -->
+	<para>
+	  If the EULA is to be confirmed automatically, the &ucsUCRV; <envar>citrix/accepteula</envar>
+	  must be set to <emphasis>true</emphasis> by means of a policy. The web interface for the
+	  Citrix login must be configured via the <envar>citrix/webinterface</envar> variable.
+	</para>
 
 	<para>
 	  To configure a login-less access to the web interface the &ucsUCRV;
