@@ -1,163 +1,154 @@
 <chapter id="hardware:chapter">
-<title>Hardware configuration of UCC systems</title>
-<section id="hardware:network">
-<title>Network configuration</title>
-<para>
-  The network configuration of UCC clients is generally performed
-  via DHCP. The configuration of MAC and IP addresses, etc., is
-  performed in the UCS management system, see <xref linkend="rollout:administrationumc"/>.
-</para>
+  <title>Hardware configuration of UCC systems</title>
 
-<para>
-  The network interfaces of a joined UCC client are managed via the
-  Network Manager. Here you can also configure additional connections
-  such as a VPN/Wifi access or a static IP address.
-</para>
+  <section id="hardware:network">
+	<title>Network configuration</title>
+	<para>
+	  The network configuration of UCC clients is generally performed via DHCP. The configuration of
+	  MAC and IP addresses, etc., is performed in the UCS management system, see <xref
+	  linkend="umc:manageucc"/>.
+	</para>
 
-<para>
-  During the PXE live boot of a UCC system, the primary interface
-  (eth0) is not managed by Network Manager.
-</para>
+	<para>
+	  The network interfaces of a joined UCC client are managed via the Network Manager. Here you
+	  can also configure additional connections uch as a VPN/Wifi access or a static IP address.
+	</para>
 
-<para>
-  While offline operation is supported for images running the desktop
-  image, thin clients require a permanenent network connection.
-</para>
+	<para>
+	  During the PXE live boot of a UCC system, the primary interface (eth0) is not managed by
+	  Network Manager.
+	</para>
 
-<para>
-  The wireless regulatory domain is set to <emphasis>00</emphasis> as standard. With some
-  access points, it can be necessary to configure this to the national
-  code using the command <command>iw reg set</command>.
-</para>
+	<para>
+	  While offline operation is supported for images running the desktop image, thin clients
+	  require a permanenent network connection.
+	</para>
 
-</section>
+	<para>
+	  The wireless regulatory domain is set to <emphasis>00</emphasis> as standard. With some access
+	  points, it can be necessary to configure this to the national code using the command
+	  <command>iw reg set</command>.
+	</para>
+  </section>
 
-<section id="hardware:usbthin">
-<title>USB mass storage access on thin clients</title>
-<para>
-  The <emphasis>univention-ucc-remote-mount</emphasis> package
-  installed as standard allows access to the USB-CD/DVD drives, hard
-  drives and sticks connected to a UCC thin client. If a USB mass
-  storage device is connected to the client, a local mount is
-  performed via a udev rule. The terminal service solutions then
-  provide this directory through the terminal session. The additional
-  component <command>cdpinger</command> is used for the integration of
-  USB-CDROM/DVDROMs. VFAT, NTFS and ext* file systems are mounted.
-</para>
+  <section id="hardware:usbthin">
+	<title>USB mass storage access on thin clients</title>
+	<para>
+	  The <emphasis>univention-ucc-remote-mount</emphasis> package installed as standard allows
+	  access to the USB-CD/DVD drives, hard drives and sticks connected to a UCC thin client. If a
+	  USB mass storage device is connected to the client, a local mount is performed via a udev
+	  rule. The terminal service solutions then provide this directory through the terminal
+	  session. The additional component <command>cdpinger</command> is used for the integration of
+	  USB-CDROM/DVDROMs. VFAT, NTFS and ext* file systems are mounted.
+	</para>
 
-<para>
-  The local mount points are made available in UCC, Windows terminal
-  server and XenApp terminal server sessions if the option <guimenu>Allow
-  access to local mass storage</guimenu> is activated in the <guimenu>UCC client
-  configuration</guimenu> policy in the UMC computer management.
-</para>
+	<para>
+	  The local mount points are made available in UCC, Windows terminal server and XenApp terminal
+	  server sessions if the option <guimenu>Allow access to local mass storage</guimenu> is
+	  activated in the <guimenu>UCC client configuration</guimenu> policy in the UMC computer
+	  management.
+	</para>
 
-<para>
-  In the standard setting, data on thin clients are cached for up to a
-  tenth of a second before they are written on the USB medium. The
-  behaviour can be adapted with the &ucsUCR; variables
-  <envar>ucc/sysctl/dirtywritebackcentisecs</envar> and
-  <envar>ucc/sysctl/dirtyexpiredcentisecs</envar>.
-</para>
+	<para>
+	  In the standard setting, data on thin clients are cached for up to a tenth of a second before
+	  they are written on the USB medium. The behaviour can be adapted with the &ucsUCR; variables
+	  <envar>ucc/sysctl/dirtywritebackcentisecs</envar> and
+	  <envar>ucc/sysctl/dirtyexpiredcentisecs</envar>.
+	</para>
 
-<para>
-  Setting the &ucsUCRV; <envar>ucc/mount/sync</envar> to
-  <emphasis>true</emphasis> allows all changes to be written
-  directly. This generally leads to considerable performance losses.
-</para>
+	<para>
+	  Setting the &ucsUCRV; <envar>ucc/mount/sync</envar> to <emphasis>true</emphasis> allows all
+	  changes to be written directly. This generally leads to considerable performance losses.
+	</para>
 
-<para>
-  The access to the mounted USB media is described in the
-  corresponding sections on terminal services (see <xref linkend="terminalservices:chapter"/>).
-</para>
-</section>
+	<para>
+	  The access to the mounted USB media is described in the corresponding sections on terminal
+	  services (see <xref linkend="terminalservices:chapter"/>).
+	</para>
+  </section>
 
+  <section id="hardware:sound">
+	<title>Sound support</title>
+	<para>
+	  The sound output is activated in UCC clients as standard. Sound is also output in terminal
+	  sessions:
+	  
+	  <itemizedlist>
+		<listitem><simpara>
+		  In RDP sessions to Windows terminal servers and XRDP terminal servers, audio is
+		  transported via an RDP channel.
+		</simpara></listitem>
 
+		<listitem><simpara>
+		  In Citrix XenApp sessions, sound output is transmitted via the Citrix protocol.
+		</simpara></listitem>
+	  </itemizedlist>
+	</para>
 
+	<para>
+	  Information of the configuration of the sound output in terminal services can be found in
+	  <xref linkend="terminalservices:chapter"/>.
+	</para>
+  </section>
 
-<section id="hardware:sound">
-<title>Sound support</title>
-<para>
-  The sound output is activated in UCC clients as standard. Sound is
-  also output in terminal sessions:
+  <section id="hardware:dualdisplay">
+	<title>Configuration of dual-display setups</title>
+	<para>
+	  UCC uses the Xorg autodetection for the configuration of the graphics adapter. This
+	  automatically determines the suitable driver for the graphics card and the appropriate display
+	  parameters.
+	</para>
 
-  <itemizedlist>
-	<listitem><simpara>In RDP sessions to Windows terminal servers,
-	audio is transported via an RDP channel.</simpara></listitem>
-	<listitem><simpara>In sessions to UCC terminal servers, the remote
-	sound output is redirected via PulseAudio.</simpara></listitem>
-	<listitem><simpara>In Citrix XenApp sessions, sound output is
-	transmitted via the Citrix protocol.</simpara></listitem>
-  </itemizedlist>
-</para>
+	<figure><title>Configuring dual monitor display</title>
+	<graphic scalefit="1" width="60%" fileref="illustrations/ucc-hardware-policy.png"/>
+	</figure>
+	
+	<para>
+	  Dual-display setups can be configured using a <guimenu>UCC client configuration</guimenu>
+	  computer policy in the UCS management system:
+	</para>
 
-<para>
-  Information of the configuration of the sound output in terminal
-  services can be found in <xref linkend="terminalservices:chapter"/>.
-</para>
-</section>
+	<para>
+	  To configure a dual-display setup, at least the position of the primary display relative to
+	  the secondary display must be specified in the <guimenu>Position of secondary display relative
+	  to the primary</guimenu> field:
 
-<section id="hardware:dualdisplay">
-<title>Configuration of dual-display setups</title>
-<para>
-  UCC uses the Xorg autodetection for the configuration of the graphics
-  adapter. This automatically determines the suitable
-  driver for the graphics card and the appropriate display
-  parameters.
-</para>
+	  <itemizedlist>
+		<listitem><simpara>Left of primary display</simpara></listitem>
+		<listitem><simpara>Right of primary display</simpara></listitem>
+		<listitem><simpara>Above primary display</simpara></listitem>
+		<listitem><simpara>Below primary display</simpara></listitem>
+	  </itemizedlist>
+	</para>
 
-<figure><title>Configuring dual monitor display</title>
- <graphic scalefit="1" width="60%" fileref="illustrations/ucc-hardware-policy.png"/>
- </figure>
+	<para>
+	  Setting the resolutions via the <guimenu>Resolution of primary display</guimenu> and
+	  <guimenu>Resolution of secondary display</guimenu> fields is optional: If they are not set,
+	  they are assigned the recommended value (<command>xrandr --auto</command>). The values for
+	  width and height should be separated by an <emphasis>x</emphasis>, e.g.,
+	  <emphasis>1024x768</emphasis>.
+	</para>
 
-<para>
-  Dual-display setups can be configured using a <guimenu>UCC
-  client configuration</guimenu> computer policy in the UCS management
-  system:
-</para>
-<para>
-  To configure a dual-display setup, at least the position of the
-  primary display relative to the secondary display must be specified
-  in the <guimenu>Position of secondary display relative to the primary</guimenu>
-  field:
-  <itemizedlist>
-	<listitem><simpara>Left of primary display</simpara></listitem>
-	<listitem><simpara>Right of primary display</simpara></listitem>
-	<listitem><simpara>Above primary display</simpara></listitem>
-	<listitem><simpara>Below primary display</simpara></listitem>
-  </itemizedlist>
-</para>
-<para>
-  Setting the resolutions via the <guimenu>Resolution of primary
-  display</guimenu> and <guimenu>Resolution of secondary
-  display</guimenu> fields is optional: If they are not set, they are
-  assigned the recommended value (<command>xrandr --auto</command>). The values for
-  width and height should be separated by an <emphasis>x</emphasis>, e.g.,
-  <emphasis>1024x768</emphasis>.
-</para>
-<para>
-  The Xorg-internal names of the displays are also automatically detected and listed
-  alphabetically. In this way, the order is always fixed. If
-  automatic determination of the display names is used, a message like
-  the one below is written in the syslog:
+	<para>
+	  The Xorg-internal names of the displays are also automatically detected and listed
+	  alphabetically. In this way, the order is always fixed. If automatic determination of the
+	  display names is used, a message like the one below is written in the syslog:
 
-  <programlisting>
+	  <programlisting>
 Dec 17 13:12:34 x201 logger: The display settings for x201 were
 queried automatically, if you want to set them through a policy
 use the display names LVDS1 and VGA1
-  </programlisting>
+	  </programlisting>
 
-  These values can then be specified in the <guimenu>Name of primary
-  display</guimenu> and <guimenu>Name of secondary
-  display</guimenu> fields.
-</para>
-<para>
-  For special cases such as the configuration of a third display, a
-  local display setup script can be configured. This is done by
-  setting the UCR variable &ucsUCRV; <envar>ucc/displayscript</envar> to a script,
-  which is then run for the Xorg configuration instead of
-  the standard script.
-</para>
-</section>
+	  These values can then be specified in the <guimenu>Name of primary display</guimenu> and
+	  <guimenu>Name of secondary display</guimenu> fields.
+	</para>
 
+	<para>
+	  For special cases such as the configuration of a third display, a local display setup script
+	  can be configured. This is done by setting the UCR variable &ucsUCRV;
+	  <envar>ucc/displayscript</envar> to a script, which is then run for the Xorg configuration
+	  instead of the standard script.
+	</para>
+  </section>
 </chapter>
