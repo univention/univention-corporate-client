@@ -134,11 +134,11 @@
 	  </itemizedlist>
 	  </simpara></listitem>
 
-	  <!-- <listitem><simpara> -->
-	  <!-- 	<emphasis>packages_hold</emphasis>: Eine komma-getrennte Liste von einem oder mehreren -->
-	  <!-- 	Paketen, die nicht aktualisiert werden sollen. Dazu werden die Pakete in der dpkg-Datenbank -->
-	  <!-- 	in den Installationsstatus <emphasis>hold</emphasis> versetzt. -->
-	  <!-- </simpara></listitem> -->
+	  <listitem><simpara>
+		<emphasis>packages_hold</emphasis>: A list separated by commas of one or more packages which
+		are not to be updated. To this end, the packages are set to the <emphasis>hold</emphasis>
+		installation status in the dpkg database.
+	  </simpara></listitem>
 
 	  <listitem><simpara><emphasis>ucr_variables</emphasis>: Here one
 	  can define &ucsUCR; variables which are then set directly in the
