@@ -5,6 +5,7 @@
 	  <!ENTITY introduction SYSTEM "introduction.xml">
       <!ENTITY bibliography SYSTEM "ucc-bibliography.xml">
 	  <!ENTITY installation SYSTEM "installation.xml">
+	  <!ENTITY umc SYSTEM "umc.xml">
 	  <!ENTITY rollout SYSTEM "rollout.xml">
 	  <!ENTITY userlogins SYSTEM "userlogins.xml">
 	  <!ENTITY imagegen SYSTEM "imagegen.xml">
@@ -49,6 +50,7 @@ feedback@univention.de
 
   &introduction;
   &installation;
+  &umc;
   &rollout;
   &configuration;
   &hardware;

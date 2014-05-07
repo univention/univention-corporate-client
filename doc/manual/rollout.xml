@@ -1,123 +1,16 @@
 <chapter id="rollout:chapter">
-<title>Management, rollout and updates of UCC systems</title>
+<title>Rollout of UCC systems</title>
 <para>
-  UCC systems are rolled out via an image-based procedure. The
-  recommended rollout procedure is creating the UCC systems in the
-  &ucsUMC; in advance. When the image is installed, the image installation tool then
-  checks whether there is already a computer account available for the
-  client and uses it. If the computer name is not stored in advance,
-  the name can be specified interactively during the installation.
-</para>
-
-<section id="rollout:administrationumc">
-<title>Administration of UCC systems in the &ucsUMC;</title>
-<para>
-  UCC systems are registered and administrated with the system role
-  <emphasis>Univention Corporate Client</emphasis> in the computer
-  management module of the &ucsUMC;.
+  UCC systems are rolled out via an image-based procedure. The recommended rollout procedure is
+  creating the UCC systems in the &ucsUMC; in advance. See <xref linkend="umc:chapter"/> for more
+  information on managing UCC systems in the &ucsUMC;.
 </para>
 
 <para>
-  In the command line frontend Univention Directory Manager, clients
-  are managed with the <emphasis>computers/ucc</emphasis> module.
+  When the image is installed, the image installation tool then checks whether there is already a
+  computer account available for the client and uses it. If the computer name is not stored in
+  advance, the name can be specified interactively during the installation.
 </para>
-<para>
-  The following settings must be configured for every UCC client as a minimum:
-  <itemizedlist>
-	<listitem><simpara>The <emphasis>name</emphasis> of the client
-	(composed of lowercase and uppercase letters, numbers, hyphens and
-	underscores).</simpara></listitem>
-	<listitem><simpara>The <emphasis>MAC address</emphasis> of the
-	client in the notation XX:XX:XX:XX:XX:XX</simpara></listitem>
-	<listitem><simpara>The <emphasis>IP address</emphasis> of the client</simpara></listitem>
-  </itemizedlist>
-</para>
-
-<figure><title>Management of a UCC system in the UMC</title>
- <graphic scalefit="1" width="100%" fileref="illustrations/ucc-client-umc.png"/>
- </figure>
-
-<para>
-  A forward and reverse zone for DNS resolution should be assigned under
-  <guimenu>DNS Forward and Reverse Lookup Zone</guimenu>. These zones
-  are created automatically in the scope of the installation of the
-  &ucsMaster;. The name and the IP address of the UCC client can thus
-  also be resolved in the UCS DNS service.
-</para>
-<para>
-  The network configuration of UCC clients is managed through DHCP in
-  the default setting. A DHCP service must also be assigned under
-  <guimenu>DHCP</guimenu>. These are also created automatically in the
-  scope of the installation of the domain controller master. The UCC
-  client is then registered for the DHCP server and the configured IP
-  address is assigned to the DHCP.
-</para>
-
-<para>
-  UCS offers you the possibility of centrally managing the IP
-  addresses and DNS/DHCP settings of a network in a network
-  object in the LDAP. This can considerably facilitate the management of
-  UCC clients by selecting the network object in
-  <guimenu>Network</guimenu> input field: The next free IP address of
-  the network and the DNS and DHCP settings are then adopted automatically.
-</para>
-
-<figure><title>Management of IP addresses through a network object</title>
- <graphic scalefit="1" width="80%" fileref="illustrations/umc-network.png"/>
- </figure>
-
-<para>
-  During the installation of an UCS system, a network object with the
-  name <emphasis>default</emphasis> is saved as standard, which can
-  usually be used in normal cases. If, for example, several sites are
-  to be managed, additional networks can be defined using the
-  <guimenu>Networks</guimenu> wizard in the &ucsUMC;.
-</para>
-<para>
-  The DHCP configuration is then also performed via the UMC. The
-  network properties of UCC clients can be centrally specified per
-  subnetwork. The settings can be set via the UMC's
-  <guimenu>DHCP</guimenu> wizard. The DHCP service of the current
-  domain must be selected. The selection list which opens then shows
-  the subnetwork object, which can be opened with a click. The
-  following properties can be specified under
-  <guimenu>Policies</guimenu> amongst others:
-  <itemizedlist>
-	<listitem><simpara><emphasis>DNS</emphasis> allows the assignment
-	of one or more name servers</simpara></listitem>
-	<listitem><simpara><emphasis>Routing</emphasis> allows the
-	assignment of a default gateway. This must be set to ensure proper routing!</simpara></listitem>
-	<listitem><simpara><emphasis>Lease time</emphasis> allows
-	configuration of a lease time for an IP address</simpara></listitem>
-  </itemizedlist>
-</para>
-<para>
-  In the default setting, fixed IP addresses are assigned and only to
-  clients registered in the LDAP.
-</para>
-<para>
-  The DHCP administration also offers numerous, extensive configuration options,
-  which are generally, however, not required in UCC
-  client operation. They are described in the DHCP section in the UCS
-  manual <biblioref linkend="ucs-manual"/>.
-</para>
-</section>
-
-
-<section id="rollout:bootpolicy">
-<title>Configuration of the PXE server in a multi-server environment</title>
-<para>
-  The rollout of UCC systems usually occurs via PXE (see <xref linkend="rollout:imagerollout"/>). If
-  UCC is operated in a single server environment the server distributing the IP adresses to the
-  clients is identical to the PXE server providing the UCC images for installation.
-</para>
-<para>
-  If UCC is used in a distributed environment, there may be DHCP servers not serving as PXE servers. In
-  that case the UCS server distributing the UCC images needs to be configured through a
-  <guimenu>DHCP Boot</guimenu> policy. Please see the UCS manual for additional information
-  <biblioref linkend="ucs-manual-pxeboot"/>.
-</para>
-</section>
 
 <section id="rollout:imagerollout">
 <title>Rollout of images</title>
