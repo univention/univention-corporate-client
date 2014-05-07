@@ -92,10 +92,9 @@
   </itemizedlist>
 </para>
 
-<!-- <para> -->
-<!--   Auf Thin Clients ist kein Update des Kernels möglich, hier muss stattdessen ein neues Image -->
-<!--   ausgerollt werden. -->
-<!-- </para> -->
+<para>
+  It is not possible to update the kernel on thin clients; a new image must be rolled out instead.
+</para>
 
 <para>
   The installation/updates are logged in
