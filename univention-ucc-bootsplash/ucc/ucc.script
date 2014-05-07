@@ -38,6 +38,8 @@ u.opacity_angle = 0;
 # internal status
 status = "normal";
 
+line_height = Image.Text("AfpqtM").GetHeight();
+
 # to determine the mode of operation plymouth was started in use Plymouth.GetMode 
 # which returns a string of one of: "boot", "shutdown", "suspend", "resume" or unknown. 
 #status = Plymouth.GetMode ();
@@ -119,6 +121,41 @@ fun StringLength(string) {
 	str = String(string);
 	while(str.CharAt(index)) index++;
 	return index;
+}
+
+# This is the equivalent for strstr()
+fun StringString(string, substring) {
+	start = 0;
+	while (String(string).CharAt (start)) {
+		walk = 0;
+		while (String(substring).CharAt (walk) == String(string).CharAt (start + walk) ) {
+			walk++;
+			if (!String(substring).CharAt (walk)) return start;
+		}
+		start++;
+	}
+	return NULL;
+}
+
+fun StringCopy (source, beginning, end) {
+	local.destination = "";
+	for (index = beginning; ( ( (end == NULL) || (index <= end) ) && (String(source).CharAt(index)) ); index++) {
+		local.destination += String(source).CharAt(index);
+	}
+	return local.destination;
+}
+
+# it makes sense to use it only for
+# numbers up to 100
+fun StringToInteger (str) {
+    int = -1;
+    for (i=0; i<=100; i++) {
+        if (i+"" == str) {
+            int = i;
+            break;
+        }
+    }
+    return int;
 }
 
 # ask-question dialog
@@ -309,19 +346,37 @@ fun display_password_callback (prompt, bullets) {
 Plymouth.SetDisplayPasswordFunction(display_password_callback);
 
 ##########
-# status # disabled
+# status #
 ##########
 
 statusmsg.sprite = Sprite();
-statusmsg.sprite.SetPosition(10, 30, 10000);
+statusmsg.sprite.SetX(Window.GetX() + Window.GetWidth()  / 2 - box.image.GetWidth()  / 2 + 5);
+statusmsg.sprite.SetY(Window.GetY() + Window.GetHeight() / 2 + box.image.GetHeight() / 2);
 
-fun update_status_callback (string) {
-	local.image = Image.Text(string, 1, 1, 1);
-	statusmsg.sprite.SetImage(image);
+fun update_status_callback (text) {
+	local.image = Image.Text(text, 1, 1, 1);
+	string_it = 0;
+	update_strings[string_it] = "";
+	for (i=0; (String(text).CharAt(i) != ""); i++) {
+		local.temp_char = String(text).CharAt(i);
+		if (temp_char != ":")
+			update_strings[string_it] += temp_char;
+		else
+			update_strings[++string_it] = "";
+	}
+	if ((string_it >= 2) && (update_strings[0] == "fsck")) {
+		local.device = update_strings[1];
+		local.progress = update_strings[2];
+		if (StringToInteger(progress) >= 100)
+			image = Image.Text("", 1, 1, 1);
+		else
+			image = Image.Text("Checking disk " + device + " (" + progress + "% complete)", 1, 1, 1);
+	}
+	statusmsg.sprite.SetImage(image);	
 }
 
 # the callback function is called with the new boot status string
-#Plymouth.SetUpdateStatusFunction(update_status_callback);
+Plymouth.SetUpdateStatusFunction(update_status_callback);
     
 ########
 # quit #
@@ -370,14 +425,31 @@ message.sprite = Sprite();
 message.sprite.SetPosition(10, 5, 10000);
 message.maxLength = 100;
 
+# fsck action line
+message_action.sprite = Sprite();
+message_action.sprite.SetPosition(10, 30, 10000);
+message_action.maxLength = 100;
+
 fun message_callback (text) {
+
+	local.substring = "keys:";
+
+	# Look for the "keys:" prefix
+	local.keys = StringString(text, local.substring);
+
+	if (keys != NULL)
+		text = StringCopy(text, keys + StringLength(local.substring), NULL);
+
 	if (StringLength(text) > message.maxLength) {
 		text = text.SubString(0, message.maxLength - 3);
 		text += "...";
 	}
+
 	local.image = Image.Text(text, 1, 1, 1);
-	message.sprite.SetImage(image);
-	bg.sprite.SetImage(resized.bg.image);
+	if (keys != NULL)
+		message_action.sprite.SetImage(image);
+	else
+		message.sprite.SetImage(image);
 }
 
 # he callback function is called when new message should be displayed. 

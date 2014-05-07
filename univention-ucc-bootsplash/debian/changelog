@@ -1,3 +1,9 @@
+univention-ucc-bootsplash (2.0.1-1) unstable; urgency=low
+
+  * fixed fsck messages (Bug #30575)
+
+ -- Felix Botner <botner@univention.de>  Wed, 07 May 2014 16:13:03 +0200
+
 univention-ucc-bootsplash (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)
