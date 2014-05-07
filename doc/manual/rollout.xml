@@ -276,6 +276,23 @@
 </para>
 </section>
 
+<section id="rollout:bootpolicy">
+<title>Configuration of the PXE server in a multi-server environment</title>
+<para>
+  The rollout of UCC systems usually occurs via PXE (see <xref linkend="rollout:imagerollout"/>). If
+  UCC is operated in a single server environment the server distributing the IP adresses to the
+  clients is identical to the PXE server providing the UCC images for installation.
+</para>
+<para>
+  If UCC is used in a distributed environment, there may be DHCP servers not serving as PXE servers. In
+  that case the UCS server distributing the UCC images needs to be configured through a
+  <guimenu>DHCP Boot</guimenu> policy. Please see the UCS manual for additional information
+  <biblioref linkend="ucs-manual-pxeboot"/>.
+</para>
+</section>
+
+
+
 <section id="rollout:overlayfs">
 <title>OverlayFS on thin clients</title>
 <para>

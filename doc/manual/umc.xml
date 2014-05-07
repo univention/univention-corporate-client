@@ -1,114 +1,118 @@
 <chapter id="umc:chapter">
-<title>Management of UCC systems in the &ucsUMC;</title>
+  <title>Management of UCC systems in the &ucsUMC;</title>
 
-<section id="rollout:administrationumc">
-<title>Administration of UCC systems in the &ucsUMC;</title>
-<para>
-  UCC systems are registered and administrated with the system role
-  <emphasis>Univention Corporate Client</emphasis> in the computer
-  management module of the &ucsUMC;.
-</para>
+  <section id="umc:initialsetup">
+	<title>Initiale Einrichtung einer UCC-Umgebung</title>
+	<!-- <para> -->
+	<!--   Für die initiale Einrichtung von Univention Corporate Client wird ein Einrichtungsassistent -->
+	<!--   bereitgestellt. Dieser führt durch die grundlegende Einrichtung einer UCC-Umgebung mit Thin -->
+	<!--   Clients oder Desktop-Clients. Es werden verschiedene Standard-Richtlinien angelegt und -->
+	<!--   konfiguriert. Der Einrichtungs-Wizard eignet sich für kleine bis mittlere Umgebungen. Für -->
+	<!--   komplexere Anforderungen in denen unterschiedliche Richtlinien für verschiedene Teilbereiche -->
+	<!--   des LDAP-Verzeichnisses angewendet werden sollen, können die Richtlinien in der &ucsUMC; -->
+	<!--   manuell konfiguriert werden. Die benötigten Richtlinien sind in Kapitel TODOREF dokumentiert. -->
+	<!-- </para> -->
 
-<para>
-  In the command line frontend Univention Directory Manager, clients
-  are managed with the <emphasis>computers/ucc</emphasis> module.
-</para>
-<para>
-  The following settings must be configured for every UCC client as a minimum:
-  <itemizedlist>
-	<listitem><simpara>The <emphasis>name</emphasis> of the client
-	(composed of lowercase and uppercase letters, numbers, hyphens and
-	underscores).</simpara></listitem>
-	<listitem><simpara>The <emphasis>MAC address</emphasis> of the
-	client in the notation XX:XX:XX:XX:XX:XX</simpara></listitem>
-	<listitem><simpara>The <emphasis>IP address</emphasis> of the client</simpara></listitem>
-  </itemizedlist>
-</para>
+	<!-- <para> -->
+	<!--   Der Einrichtung-Wizard wird über das &ucsUMC;-Modul <guimenu>UCC Setup</guimenu> gestartet. Im -->
+	<!--   Hauptmenü zuerst kann ausgewählt werden, ob Thin Clients und/oder Desktop-Systeme eingerichtet werden -->
+	<!--   sollen. Je nach Auswahl wird anschließend das oder die passende UCC-Image heruntergeladen. -->
+	<!-- </para> -->
 
-<figure><title>Management of a UCC system in the UMC</title>
- <graphic scalefit="1" width="100%" fileref="illustrations/ucc-client-umc.png"/>
- </figure>
+	<para>
+	  UCS offers you the possibility of centrally managing the IP addresses and DNS/DHCP settings of
+	  a network in a network object in the LDAP. This can considerably facilitates the management of
+	  IP addresses: When creating a UCC client the next free IP address of the network is selected
+	  automatically. Also, DNS and DHCP settings are configured automatically.
+	</para>
 
-<para>
-  A forward and reverse zone for DNS resolution should be assigned under
-  <guimenu>DNS Forward and Reverse Lookup Zone</guimenu>. These zones
-  are created automatically in the scope of the installation of the
-  &ucsMaster;. The name and the IP address of the UCC client can thus
-  also be resolved in the UCS DNS service.
-</para>
-<para>
-  The network configuration of UCC clients is managed through DHCP in
-  the default setting. A DHCP service must also be assigned under
-  <guimenu>DHCP</guimenu>. These are also created automatically in the
-  scope of the installation of the domain controller master. The UCC
-  client is then registered for the DHCP server and the configured IP
-  address is assigned to the DHCP.
-</para>
+	<para>
+	  <!-- Im Dialog <guimenu>Network configuration</guimenu> kann nun ein bestehendes Netzwerk-Objekt -->
+	  <!-- ausgewählt werden oder ein neues erzeugt werden. -->
+	  During the installation of an UCS system, a network object with the name
+	  <emphasis>default</emphasis> is created as standard.
+	  <!-- Es verwendet das Netzwerk des &ucsMaster;. Wenn nur ein bestimmter IP-Bereich für die -->
+	  <!-- UCC-Systeme verwendet werden soll, kann mit dem Dialog <guimenu>Specify a new IP -->
+	  <!-- segment</guimenu> ein neues Netzwerk-Objekt angelegt werden. Sollen beispielsweise die -->
+	  <!-- IP-Adressen 192.168.100.100 bis 192.168.100.200 für UCC-Systeme verwendet werden, muss als -->
+	  <!-- <guimenu>Network address</guimenu> <emphasis>192.168.100.0</emphasis> eingetragen werden, als -->
+	  <!-- <guimenu>Netmask</guimenu> <emphasis>24</emphasis> und als <guimenu>First IP address / Last IP -->
+	  <!-- address</guimenu> <emphasis>192.168.100.100</emphasis> -->
+	  <!-- bzw. <emphasis>192.168.100.200</emphasis>. -->
+	</para>
 
-<para>
-  UCS offers you the possibility of centrally managing the IP
-  addresses and DNS/DHCP settings of a network in a network
-  object in the LDAP. This can considerably facilitate the management of
-  UCC clients by selecting the network object in
-  <guimenu>Network</guimenu> input field: The next free IP address of
-  the network and the DNS and DHCP settings are then adopted automatically.
-</para>
+	<para>
+	  The network configuration of UCC clients is managed through DHCP in nearly all cases (the only
+	  exception are UCC terminal servers). 
+	  <!-- Der Wizard prüft, ob ein Default Gateway über DHCP -->
+	  <!-- zugewiesen wird. Ist das nicht der Fall, wird ein Dialog angezeigt, in dem das Gateway -->
+	  <!-- konfiguriert werden kann. -->
+	  In the default setting, fixed IP addresses are assigned and only to
+	  clients registered in the LDAP.
+	</para>
+	
+  </section>
 
-<figure><title>Management of IP addresses through a network object</title>
- <graphic scalefit="1" width="80%" fileref="illustrations/umc-network.png"/>
- </figure>
+  <section id="umc:manageucc">
+	 <title>Managing UCC systems in the &ucsUMC;</title>
 
-<para>
-  During the installation of an UCS system, a network object with the
-  name <emphasis>default</emphasis> is saved as standard, which can
-  usually be used in normal cases. If, for example, several sites are
-  to be managed, additional networks can be defined using the
-  <guimenu>Networks</guimenu> wizard in the &ucsUMC;.
-</para>
-<para>
-  The DHCP configuration is then also performed via the UMC. The
-  network properties of UCC clients can be centrally specified per
-  subnetwork. The settings can be set via the UMC's
-  <guimenu>DHCP</guimenu> wizard. The DHCP service of the current
-  domain must be selected. The selection list which opens then shows
-  the subnetwork object, which can be opened with a click. The
-  following properties can be specified under
-  <guimenu>Policies</guimenu> amongst others:
-  <itemizedlist>
-	<listitem><simpara><emphasis>DNS</emphasis> allows the assignment
-	of one or more name servers</simpara></listitem>
-	<listitem><simpara><emphasis>Routing</emphasis> allows the
-	assignment of a default gateway. This must be set to ensure proper routing!</simpara></listitem>
-	<listitem><simpara><emphasis>Lease time</emphasis> allows
-	configuration of a lease time for an IP address</simpara></listitem>
-  </itemizedlist>
-</para>
-<para>
-  In the default setting, fixed IP addresses are assigned and only to
-  clients registered in the LDAP.
-</para>
-<para>
-  The DHCP administration also offers numerous, extensive configuration options,
-  which are generally, however, not required in UCC
-  client operation. They are described in the DHCP section in the UCS
-  manual <biblioref linkend="ucs-manual"/>.
-</para>
-</section>
+	 <para>
+	   UCC systems are registered and administrated with the system role <emphasis>Univention
+	   Corporate Client</emphasis> in the computer management module of the &ucsUMC;. 
+	   <!-- Der UCC-Setup-Wizard legt automatisch zwei Computer-Container für Thin Clients -->
+	   <!-- (<emphasis>cn=computers, cn=ucc-thinclients</emphasis>) und Desktop-Systeme -->
+	   <!-- (<emphasis>cn=computers, cn=ucc-desktops</emphasis>) an. Diese sollten im Eingabefeld -->
+	   <!-- <guimenu>Container</guimenu> je nach Art des UCC-Clients ausgewählt werden. -->
+	 </para>
 
+	 <!-- <para> -->
+	 <!--   In der Grundeinstellung zeigt der Dialog zum Anlegen eines UCC-Systems nur die wichtigsten -->
+	 <!--   Eingabefelder an. Mit einem Klick auf <guimenu>Advanced</guimenu> werden alle Optionen -->
+	 <!--   angezeigt. Dies ist aber nur in Ausnahmefällen nötig. -->
+	 <!-- </para> -->
 
-<section id="rollout:bootpolicy">
-<title>Configuration of the PXE server in a multi-server environment</title>
-<para>
-  The rollout of UCC systems usually occurs via PXE (see <xref linkend="rollout:imagerollout"/>). If
-  UCC is operated in a single server environment the server distributing the IP adresses to the
-  clients is identical to the PXE server providing the UCC images for installation.
-</para>
-<para>
-  If UCC is used in a distributed environment, there may be DHCP servers not serving as PXE servers. In
-  that case the UCS server distributing the UCC images needs to be configured through a
-  <guimenu>DHCP Boot</guimenu> policy. Please see the UCS manual for additional information
-  <biblioref linkend="ucs-manual-pxeboot"/>.
-</para>
-</section>
+	 <para>
+	   The following settings must be configured for every UCC client as a minimum:
+
+	   <itemizedlist>
+		 <listitem><simpara>
+		   The <guiname>Hostname</guiname> of the client (composed of lowercase and uppercase
+		 letters, numbers, hyphens and underscores).
+		 </simpara></listitem>
+
+		 <listitem><simpara>
+		   The <emphasis>MAC address</emphasis> of the client in the notation XX:XX:XX:XX:XX:XX. It
+		   is required for DHCP.
+		 </simpara></listitem>
+		 
+		 <!-- <listitem><simpara> -->
+		 <!--   Ein <guimenu>Network</guimenu> muss ausgewählt werden, in der Regel das Netzwerk, das im -->
+		 <!--   UCC Setup Wizard angelegt werden. Die <guimenu>IP address</guimenu> wird automatisch -->
+		 <!--   vorgeschlagen und kann ggf. angepasst werden. -->
+		 <!-- </simpara></listitem> -->
+	   </itemizedlist>
+	 </para>
+
+	 <!-- <para> -->
+	 <!--   Jeder UCC-Client muss im DNS und DHCP registriert sein. Das Netzwerk-Objekt weist diese -->
+	 <!--   Einträge automatisch zu. Wird ein UCC-Client ohne Netzwerk-Objekt angelegt (was nur in -->
+	 <!--   Ausnahmefällen sinnvoll ist), muss darauf geachtet werden, das Einträge für die <guimenu>Forward zone for -->
+	 <!--   DNS entry</guimenu>, <guimenu>Reverse zone for DNS entry</guimenu> und <guimenu>DHCP -->
+	 <!--   service</guimenu> konfiguriert sind. -->
+	 <!-- </para> -->
+
+	 <!-- <para> -->
+	 <!--   Der zugewiesene Nameserver ist automatisch vorkonfiguriert. Wenn der zugewiesene Server -->
+	 <!--   angepasst werden soll muss dazu die <emphasis>default-settings</emphasis>-Richtlinie von Typ -->
+	 <!--   <guimenu>DHCP DNS</guimenu> editiert werden. -->
+	 <!-- </para> -->
+
+	 <!-- <para> -->
+	 <!--   Ein Klick auf <guimenu>Next</guimenu> führt zur Konfiguration des zugewiesenen UCC-Images und -->
+	 <!--   der Boot-Variante. Die Boot-Varianten sind in <xref linkend="rollout:imagerollout"/> -->
+	 <!--   dokumentiert. -->
+	 <!-- </para> -->
+
+  </section>
 
 </chapter>
