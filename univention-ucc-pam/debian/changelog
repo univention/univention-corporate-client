@@ -1,3 +1,9 @@
+univention-ucc-pam (2.0.0-3) unstable; urgency=low
+
+  * changed default umask to 0066 for pam_mkhomedir.so (Bug #31303) 
+
+ -- Felix Botner <botner@univention.de>  Thu, 08 May 2014 11:56:06 +0200
+
 univention-ucc-pam (2.0.0-2) unstable; urgency=low
 
   * Added pam_systemd.so to common-session (Bug #34442) 
