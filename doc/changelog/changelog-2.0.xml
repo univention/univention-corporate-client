@@ -272,6 +272,12 @@
       (<ulink url="&ucsbug;33802">Bug 33802</ulink>).
     </simpara></listitem>
     
+    <listitem><simpara>
+      An unjoin script for <package>univention-corporate-client-schema</package> has been added, which
+      unregisters all UCC images from LDAP
+      (<ulink url="&ucsbug;30852">Bug 30852</ulink>).
+    </simpara></listitem>
+
   </itemizedlist>
 </section>
 
