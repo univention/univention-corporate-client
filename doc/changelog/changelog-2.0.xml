@@ -352,6 +352,11 @@
 	  A bug was fixed that deleted the LightDM PAM configuration during updates (<ulink
 	  url="&ucsbug;32119">Bug 32119</ulink>).
 	</simpara></listitem>
+
+    <listitem><simpara>
+      The default umask for pam_mkhomedir has been changed to 0066 
+      (<ulink url="&ucsbug;31303">Bug 31303</ulink>).
+    </simpara></listitem>
   </itemizedlist>
 </section>
 
