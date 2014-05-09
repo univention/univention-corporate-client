@@ -1,3 +1,9 @@
+univention-ucc-bootsplash (2.0.1-2) unstable; urgency=low
+
+  * changed action message color (Bug #30575) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 09 May 2014 16:50:47 +0200
+
 univention-ucc-bootsplash (2.0.1-1) unstable; urgency=low
 
   * fixed fsck messages (Bug #30575)

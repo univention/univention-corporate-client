@@ -445,11 +445,14 @@ fun message_callback (text) {
 		text += "...";
 	}
 
-	local.image = Image.Text(text, 1, 1, 1);
-	if (keys != NULL)
+	if (keys != NULL) {
+		local.image = Image.Text(text, 0, 0, 0);
 		message_action.sprite.SetImage(image);
-	else
+	}
+	else {
+		local.image = Image.Text(text, 1, 1, 1);
 		message.sprite.SetImage(image);
+	}
 }
 
 # he callback function is called when new message should be displayed. 
