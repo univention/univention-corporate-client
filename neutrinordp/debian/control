@@ -7,7 +7,7 @@ Standards-Version: 3.9.3
 
 Package: neutrinordp
 Architecture: any
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, libfreerdp1, libfreerdp-plugins-standard
 Conflicts: freerdp-x11
 Description: neutrinordp RDP client
  NeutrinoRDP is a fork of freerdp 1.0.1.

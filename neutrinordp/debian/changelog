@@ -1,3 +1,9 @@
+neutrinordp (1.1.0.20140505-2) unstable; urgency=low
+
+  * Add dependencies on plugin packages (Bug #34274)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 09 May 2014 14:28:35 +0200
+
 neutrinordp (1.1.0.20140505-1) unstable; urgency=low
 
   * Bump version to 1.1.0 to have a higher version number than xfreerdp
