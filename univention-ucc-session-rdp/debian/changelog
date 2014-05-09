@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (2.0.1-1) unstable; urgency=low
+
+  * replaced xfreerdp with neutrinordp (Bug #34274) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 09 May 2014 11:38:03 +0200
+
 univention-ucc-session-rdp (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)

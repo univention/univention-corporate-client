@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 
 Package: univention-ucc-session-rdp
 Architecture: all
-Depends: x11-utils, freerdp-x11, libfreerdp-plugins-standard, remmina, univention-config, metacity
+Depends: x11-utils, neutrinordp, remmina, univention-config, metacity
 Description: UCC session script for RDP
  This package provides the logon scripts to Windows terminal servers
  over RDP.
