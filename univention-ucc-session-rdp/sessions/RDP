@@ -55,6 +55,7 @@ function cleanup_and_exit {
 eval "$(/usr/sbin/univention-config-registry shell)"
 
 params=(-f)
+params=+(--ignore-certificate)
 
 if is_ucr_true 'rdp/checknla'; then
     echo "By default NLA validation is enabled"
@@ -193,7 +194,7 @@ fi
 messageFile=$(mktemp)
 echo "Could not contact terminal server" "$server"  > "$messageFile:"
 
-/usr/bin/xfreerdp "${params[@]}" $server 1>> "$messageFile"
+/usr/bin/neutrinordp "${params[@]}" $server 1>> "$messageFile"
 ret=$?
 
 if [ $ret == 131 ]; then
