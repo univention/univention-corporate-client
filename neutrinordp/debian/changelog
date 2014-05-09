@@ -4,7 +4,6 @@ neutrinordp (1.1.0.20140505-1) unstable; urgency=low
   * Update packaging to include additonal binaries: libfreerdp1, 
     libfreerdp-plugins-standard and libfreerdp-dev. They are needed to use
     programs like Remmmina which use freerdp as a library
-  * Bump debian/compat for multiarch	
     (Bug #34274)
 
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 09 May 2014 13:53:57 +0200
