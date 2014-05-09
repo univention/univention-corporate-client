@@ -36,6 +36,10 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
+		An additional boot option 'local boot' is available, which tells the client's PXE environment to exit and resume the normal boot order.	(<ulink url="&ucsbug;32114">Bug 32114</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
 		Added DEBIAN_FRONTEND=noninteractive to <command>univention-ucc-software-update</command>
 		(<ulink url="&ucsbug;31010">Bug 31010</ulink>).
 	  </simpara></listitem>
