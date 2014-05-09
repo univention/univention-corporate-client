@@ -2,7 +2,7 @@ Source: neutrinordp
 Section: univention
 Priority: optional
 Maintainer: Univention GmbH <packages@univention.de>
-Build-Depends: debhelper, cmake, libssl-dev, libx11-dev, libxext-dev, libxinerama-dev, libxcursor-dev, libxdamage-dev, libxv-dev, libxkbfile-dev, libasound2-dev, libcups2-dev, libxml2, libxml2-dev, libxrandr-dev, libgstreamer0.10-dev, libgstreamer-plugins-base0.10-dev, libavutil-dev, libavcodec-dev, libavformat-dev
+Build-Depends: debhelper, cmake, libssl-dev, libx11-dev, libxext-dev, libxinerama-dev, libxcursor-dev, libxdamage-dev, libxv-dev, libxkbfile-dev, libasound2-dev, libcups2-dev, libxml2, libxml2-dev, libxrandr-dev, libgstreamer0.10-dev, libgstreamer-plugins-base0.10-dev, libavutil-dev, libavcodec-dev, libavformat-dev, autotools-dev, libpcsclite-dev, libpulse-dev, xmlto
 Standards-Version: 3.9.3
 
 Package: neutrinordp
@@ -11,3 +11,35 @@ Depends: ${misc:Depends}
 Conflicts: freerdp-x11
 Description: neutrinordp RDP client
  NeutrinoRDP is a fork of freerdp 1.0.1.
+
+Package: libfreerdp1
+Architecture: any
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Multi-Arch: same
+Description: RDP client for Windows Terminal Services (library)
+ NeutrinoRDP is a fork of freerdp 1.0.1.
+ .
+ This package contains the shared library.
+
+Package: libfreerdp-plugins-standard
+Architecture: any
+Section: libs
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Multi-Arch: same
+Description: RDP client for Windows Terminal Services (plugins)
+ NeutrinoRDP is a fork of freerdp 1.0.1.
+ .
+ This package contains the plugins available to the Channel Manager extending
+ the RDP core functionality, such as sounds, clipboard synchronisation,
+ disk/printer redirection, etc.
+
+Package: libfreerdp-dev
+Section: libdevel
+Architecture: any
+Depends:
+ ${misc:Depends}, libfreerdp1 (= ${binary:Version}), libfreerdp-plugins-standard (= ${binary:Version})
+Description: RDP client for Windows Terminal Services (development)
+ NeutrinoRDP is a fork of freerdp 1.0.1.
+ .
+ This package contains the development files.

@@ -31,5 +31,14 @@
 	dh $@
 
 override_dh_auto_build:
-	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX:PATH=/usr -DWITH_SSE2=ON 
-	make
+	dh_auto_configure -- -DWITH_PULSEAUDIO=ON -DWITH_SSE2=ON 
+#	cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX:PATH=/usr -DWITH_SSE2=ON 
+#	make
+
+override_dh_install:
+	# Removing unused files
+	rm -f debian/tmp/usr/lib/*.la
+	rm -f debian/tmp/usr/lib/freerdp/*.la
+	rm -rf debian/tmp/usr/share/freerdp/keymaps
+	mv debian/tmp/usr/bin/xfreerdp debian/tmp/usr/bin/neutrinordp
+	dh_install

@@ -1,3 +1,14 @@
+neutrinordp (1.1.0.20140505-1) unstable; urgency=low
+
+  * Bump version to 1.1.0 to have a higher version number than xfreerdp
+  * Update packaging to include additonal binaries: libfreerdp1, 
+    libfreerdp-plugins-standard and libfreerdp-dev. They are needed to use
+    programs like Remmmina which use freerdp as a library
+  * Bump debian/compat for multiarch	
+    (Bug #34274)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 09 May 2014 13:53:57 +0200
+
 neutrinordp (1.0.1.20140505-1) unstable; urgency=low
 
   * Update the git snapshot, this includes a variant of my patch to compile
