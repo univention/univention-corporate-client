@@ -1,3 +1,10 @@
+neutrinordp (1.0.1.20140505-1) unstable; urgency=low
+
+  * Update the git snapshot, this includes a variant of my patch to compile
+    with libav from Ubuntu 14.04 (Bug #34274)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 09 May 2014 13:50:11 +0200
+
 neutrinordp (1.0.1.20140424-3) unstable; urgency=low
 
   * Initial release of neutrinordp based on the git checkout on 2014-04-24 
