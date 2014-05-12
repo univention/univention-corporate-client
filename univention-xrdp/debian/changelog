@@ -6,6 +6,7 @@ univention-xrdp (2.1.0-3) unstable; urgency=low
     - etc/cron.dunivention-nss-* 
     - lib/*py
     - listener/*py
+  * Add a join script which registers the xrdp service
 
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 15 Apr 2014 12:36:07 +0200
 

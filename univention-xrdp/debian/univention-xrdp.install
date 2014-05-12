@@ -1,4 +1,5 @@
 images/*.bmp usr/share/univention-xrdp/
+50univention-xrdp.inst usr/lib/univention-install/
 UCC-KDE etc/xrdp
 pulseaudio/module-xrdp-sink.so usr/lib/pulse-4.0/modules/
 pulseaudio/module-xrdp-source.so usr/lib/pulse-4.0/modules/
