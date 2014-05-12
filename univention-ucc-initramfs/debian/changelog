@@ -1,3 +1,9 @@
+univention-ucc-initramfs (3.0.0-19) unstable; urgency=low
+
+  * set_boot_variant only if a new image has been rolled out (Bug #34762) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 12 May 2014 10:05:43 +0200
+
 univention-ucc-initramfs (3.0.0-18) unstable; urgency=low
 
   * Restrict permissions to directory /ucc_root (Bug #34671) 

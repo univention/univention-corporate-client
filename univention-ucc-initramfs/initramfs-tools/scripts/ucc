@@ -62,9 +62,9 @@
 ##		Start set -x
 ##	- splash
 ##		is not present, plymouth will be terminated
-##      - partition_script=<file>
-##              custom_partition script to use for partitioning, must be placed in 
-##              /var/lib/univention-client-boot/partition-scripts on all ucs ucc boot servers
+##	- partition_script=<file>
+##		custom_partition script to use for partitioning, must be placed in 
+##		/var/lib/univention-client-boot/partition-scripts on all ucs ucc boot servers
 
 
 # This message is send to rsyslogd and will be displayed on the console
@@ -635,6 +635,8 @@ _check_and_copy_image ()
 
 			# The kernel might be upgraded during the image update
 			_update_grub
+			# revert boot variant to none
+			touch /tmp/updated
 		else
 			notice "Do not copy the UCC image to local harddisk. The image was not updated."
 		fi
@@ -1549,19 +1551,24 @@ mountroot()
 
 	_verbose_break
 
+	# INSTALLATION
 	if [ "$REPARTITION" = "y" ]; then
 		notice "Starting repartition"
 		sleep 1 # Give udevadm one more second
 		ucc_installation
 		# Start rollout
 		ucc_rollout
+	# IMAGE UPDATE
 	elif [ "$UCC" = "rollout" ]; then
 		notice "Starting UCC rollout mode"
 		ucc_update
 		# Copy files from image to local partitions
 		_copy_files
 		ucc_rollout
-		set_boot_variant
+		if [ -e /tmp/updated ]; them
+			set_boot_variant
+		fi
+	# LIVE SYSTEM
 	elif [ "$UCC" = "overlayfs" ]; then
 		notice "Starting UCC overlayfs mode"
 		ucc_image_ro
