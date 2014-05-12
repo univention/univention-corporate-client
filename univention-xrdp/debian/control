@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Univention GmbH <packages@univention.de>
 Build-Depends: debhelper,
  univention-config-dev,
- ucslint
+ ucslint,
+ pulseaudio
 Standards-Version: 3.9.3
 
 Package: univention-xrdp
