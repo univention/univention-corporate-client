@@ -344,7 +344,7 @@
 	</simpara></listitem>
 
 	<listitem><simpara>
-	  The PAM configuration of lightdm was updated to include pam_kwallet (<ulink url="&ucsbug;34553">Bug 34553</ulink>).
+	  pam_mkhomedir was not executed under all circumstances, this has been fixed (<ulink url="&ucsbug;34790">Bug 34790</ulink>).
 	</simpara></listitem>
 
 	<listitem><simpara>
