@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (2.0.0-5) unstable; urgency=low
+
+  * create homedir in univention-copy-region-info with mkhomedir_helper (Bug #34790) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 12 May 2014 12:42:39 +0200
+
 univention-ucc-session-xenapp (2.0.0-4) unstable; urgency=low
 
   * Fix language detection in post login screen (Bug #32043)
