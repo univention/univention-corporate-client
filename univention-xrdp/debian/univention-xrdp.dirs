@@ -1,0 +1,4 @@
+usr/bin
+usr/lib/univention-install
+usr/lib/univention-directory-listener/system
+usr/lib/univention-ucc-application-server

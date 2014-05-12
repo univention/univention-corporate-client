@@ -3,7 +3,9 @@ univention-xrdp (2.1.0-3) unstable; urgency=low
   * Depend on pulseaudio (Bug #29893)
   * Move the code to update NSS data from univention-ucc-application-server to
     univention-xrdp: (Bug #33871)
-    - /etc/cron.dunivention-nss-* 
+    - etc/cron.dunivention-nss-* 
+    - lib/*py
+    - listener/*py
 
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 15 Apr 2014 12:36:07 +0200
 
