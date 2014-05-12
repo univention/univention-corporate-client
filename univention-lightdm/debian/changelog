@@ -1,3 +1,10 @@
+univention-lightdm (2.0.0-6) unstable; urgency=low
+
+  * removed auth optional pam_kwallet.so as this breaks
+    pam_mkhomedir (Bug #34790) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 12 May 2014 12:45:09 +0200
+
 univention-lightdm (2.0.0-5) unstable; urgency=low
 
   * Add pam_kwallet to the PAM configuration for lightdm (as done in Kubuntu 14.04)
