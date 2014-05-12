@@ -1,3 +1,9 @@
+univention-xrdp (2.1.0-4) unstable; urgency=low
+
+  * Configure the thin client drive name to thinclient_drives (Bug #29893)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 12 May 2014 14:59:18 +0200
+
 univention-xrdp (2.1.0-3) unstable; urgency=low
 
   * Depend on pulseaudio (Bug #29893)
