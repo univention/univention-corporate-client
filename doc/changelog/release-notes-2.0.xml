@@ -88,21 +88,34 @@
 
     <chapter>
 	  <title>Notes on selected packages</title>
-	  <para>
-		Switching from one non-root user account to another non-root user account with the
-		<command>su</command> command doesn't work. Switching to the root account is not affected.
-		The underlying bug cannot be easily fixed as it would lead to invasive changes. As a
-		workaround it is possible to first switch to root and then switch to the user account, e.g.
 
-		<programlisting>
+	  <section>
+		<title>User switches using <command>su</command></title>
+		<para>
+		  Switching from one non-root user account to another non-root user account with the
+		  <command>su</command> command doesn't work. Switching to the root account is not affected.
+		  The underlying bug cannot be easily fixed as it would lead to invasive changes. As a
+		  workaround it is possible to first switch to root and then switch to the user account, e.g.
+
+		  <programlisting>
 $ su root
 $ su testuser
-		</programlisting>
+		  </programlisting>
 
-		More information can be found at <ulink url="https://forge.univention.org/bugzilla/show_bug.cgi?id=30243"/>.
-	  </para>
+		  More information can be found at <ulink url="https://forge.univention.org/bugzilla/show_bug.cgi?id=30243"/>.
+		</para>
+	  </section>
+
+	  <!-- <section> -->
+	  <!-- 	<title>Terminalservices auf Basis von X11-Forwarding</title> -->
+	  <!-- 	<para> -->
+	  <!-- 	  Terminaldienste auf Basis von X-Forwarding werden nicht weiter unterstützt. Die -->
+	  <!-- 	  entsprechende &ucsUMC;-Richtlinie besteht weiterhin, wird aber nur noch was UCC 1.0-Systemen -->
+	  <!-- 	  verwendet. In einer späteren UCC-Version wird diese Richtlinie dann entfernt werden. -->
+	  <!-- 	</para> -->
+	  <!-- </section> -->
+
 	</chapter>
-
 
     <chapter>
 	  <title>Changelog</title>
