@@ -1565,7 +1565,7 @@ mountroot()
 		# Copy files from image to local partitions
 		_copy_files
 		ucc_rollout
-		if [ -e /tmp/updated ]; them
+		if [ -e /tmp/updated ]; then
 			set_boot_variant
 		fi
 	# LIVE SYSTEM
