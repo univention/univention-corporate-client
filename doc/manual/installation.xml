@@ -20,9 +20,8 @@
   A UCC environment is made up of three components:
   <itemizedlist>
 	<listitem><simpara>
-	  The integration in the UCS management system (UMC modules and LDAP schema extensions). 
-	  <!-- Sie werden durch das Univention App Center auf dem &ucsMaster; und allen &ucsBackup; -->
-	  <!-- installiert. -->
+	  The integration in the UCS management system (UMC modules and LDAP schema extensions). They
+	  are installed on the &ucsMaster; and all &ucsBackup; via the Univention App Center.
 	</simpara></listitem>
 
 	<listitem><simpara>
@@ -30,7 +29,7 @@
 	  images used for the installation of UCC systems are loaded from the Univention mirror using
 	  &ucsUMC; module and then distributed locally to the clients. 
 	  UCC servers can be installed in all UCS server roles (&ucsMaster;, &ucsBackup;, &ucsSlave; and
-	&ucsMember;). It is possible to employ more than one UCC server in an environment.
+	  &ucsMember;). It is possible to employ more than one UCC server in an environment.
 	</simpara></listitem>
 
 	<listitem><simpara>
@@ -44,9 +43,8 @@
 <section id="installation:singleserver">
   <title>Installation in a single-server environment</title>
   <para>
-	<!-- Der UCC-Server kann auf einer beliebigen UCS-Serverrolle installiert werden (&ucsMaster;, -->
-	<!-- &ucsBackup;, &ucsSlave; und &ucsMember;). -->
-	All available errata updates should be installed on that system.
+	The UCC server can be installed on any UCS server role (&ucsMaster;, &ucsBackup;, &ucsSlave; or
+	&ucsMember;). All available errata updates should be installed on that system.
   </para>
 
   <para>
@@ -139,15 +137,14 @@ univention-add-app --latest ucc ucc-management-integration
 	  also be used, see <xref linkend="installation:imagemanagement:mirror"/>.
 	</para>
 
-	<!-- <para> -->
-	<!--   Der Download der Pakete erfolgt durch das &ucsUMC;-Modul <guimenu>UCCC image -->
-	<!--   download</guimenu>. -->
-	<!-- The proxy settings of a UCS system are taken into account. -->
-	<!-- </para> -->
+	<para>
+	  The packages are downloaded via the &ucsUMC; module <guimenu>UCC image download</guimenu>. The
+	  proxy settings of a UCS system are taken into account.
+	</para>
 
 	<para>
-	  <!-- Alternativ können Images auch über Kommandozeilen-Tools verwaltet werden: Mit  -->
-	  <!-- <command>ucc-image-download</command> werden Images heruntergeladen. -->
+	  Alternatively, images can also be managed via command line tools:
+	  <command>ucc-image-download</command> can be used to download images.
 	  The individual files of the image are referenced via a spec file containing the file names and
 	  SHA256 hashes. The hash values are checked as part of the download procedure in order to
 	  detect erroneous transmissions. The parameter <emphasis>-s</emphasis> is used to provide the
@@ -206,7 +203,7 @@ ucc-image-root-password -i ucc-1.0-rev2-desktop-image.img -p
   <para>
 	The desktop client image offers a KDE Plasma desktop and support for terminal sessions to Windows
 	and UCC terminal servers (support for Citrix XenApp can be subsequently installed).
-	<!-- Das Desktop-Image ist außerdem die Basis für den Betrieb eines XRDP Terminal-Servers. -->
+	In addition, the desktop image is also the basis for the operation of an XRDP terminal server.
   </para>
 
   <para>

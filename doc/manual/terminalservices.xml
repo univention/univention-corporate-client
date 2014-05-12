@@ -49,55 +49,54 @@
 	<section id="terminalservices:rdp:setup">
 	  <title>Installation</title>
 
-	  <!-- <para> -->
-	  <!-- 	Das Session-Skript für RDP (<package>univention-ucc-session-rdp</package>) ist in der -->
-	  <!-- 	Grundeinstellung auf Desktop-Systemen und Thin Clients installiert. -->
-	  <!-- </para> -->
+	  <para>
+		The session script for RDP (<package>univention-ucc-session-rdp</package>) is installed on
+		desktop systems and thin clients in the default setting.
+	  </para>
 
 	  <section id="terminalservices:rdp:umc">
-		<title>Installation über den Setup-Wizard</title>
-
-		<!-- <para> -->
-		<!--   Zur Einrichtung des RDP-Zugriffs auf RDP Terminalserver muss der <guimenu>UCC -->
-		<!--   Setup</guimenu> Wizard in der &ucsUMC; geöffnet werden. Unter <guimenu>Thin client -->
-		<!--   configuration</guimenu> muss im Untermenü <guimenu>Configuration of terminal -->
-		<!--   services</guimenu> die Option <guimenu>Configure access to a Windows/XRDP terminal -->
-		<!--   server</guimenu> ausgewählt werden. -->
-		<!-- </para> -->
-
-		<!-- <para> -->
-		<!--   Der Rechnername des RDP-Terminalservers muss im Eingabefeld <guimenu>Host name of terminal -->
-		<!--   server</guimenu> eingetragen werden. Wird ein Windows-Terminalserver verwendet, muss der -->
-		<!--   Domänenname im Eingabefeld <guimenu>Domain name</guimenu> eingetragen werden. Wird XRDP -->
-		<!--   verwendet, kann das Feld freigelassen werden. -->
-		<!-- </para> -->
+		<title>Installation using the setup wizard</title>
 
 		<para>
-		  <!-- Soll Sound aus der Terminalsitzung an den zugreifenden Client übertragen werden, muss die -->
-		  <!-- Option <guimenu>Enable sound</guimenu> aktiviert werden. -->
-		  The sound output in the RDP session is transmitted via an RDP session channel.
+		  For setting up the RDP access to RDP terminal servers, the <guimenu>UCC Setup</guimenu>
+		  wizard must be opened in the &ucsUMC;. The <guimenu>Configure access to a Windows/XRDP
+		  terminal server</guimenu> option must be selected under <guimenu>Thin client
+		  configuration</guimenu> in the <guimenu>Configuration of terminal services</guimenu>
+		  submenu.
 		</para>
 
 		<para>
-		  <!-- USB-Massenspeicher (USB-Sticks oder CD/DVD-Laufwerke), die an den Thin Client angesteckt -->
-		  <!-- werden, können in die RDP-Sitzung weitergeleitet werden. Dies geschieht durch Aktivieren -->
-		  <!-- der Option <guimenu>Enable USB storage passthrough</guimenu>. Weitere Details zum Mounten -->
-		  <!-- der Geräte findet sich in <xref linkend="hardware:usbthin"/>. -->
-		  The transmission is performed via a session channel of the RDP protocol.
+		  The host name of the RDP terminal server must be entered in the <guimenu>Host name of
+		  terminal server</guimenu> input field. If a Windows terminal server is used, the domain
+		  name must be entered in the <guimenu>Domain name</guimenu> input field. If XRDP is used,
+		  the field may be left blank.
+		</para>
+
+		<para>
+		  If sound is to be transmitted to the accessing client from the terminal session, the
+		  <guimenu>Enable sound</guimenu> option must be enabled. The sound output in the RDP
+		  session is transmitted via an RDP session channel.
+		</para>
+
+		<para>
+		  USB storage devices (USB sticks or CD/DVD drives), which can be inserted in the thin
+		  client, can be passed through to the RDP session. This is done by enabling the
+		  <guimenu>Enable USB storage passthrough</guimenu> option. Further details on the mounting
+		  of devices can be found in <xref linkend="hardware:usbthin"/>. The transmission is
+		  performed via a session channel of the RDP protocol.
 		</para>
 	  </section>
 
 
 	  <section id="terminalservices:rdp:setup:manually">
-		<title>Installation ohne den UMC-Wizard</title>
+		<title>Installation without the UMC wizard</title>
 
 		<para>
 		  The terminal server and the Windows domain of the terminal server can be specified per
 		  user via a <emphasis>UCC user session</emphasis> user policy. Alternatively, the server
 		  and the domain can also be specified per client by setting the &ucsUCR; variables
-		  <envar>rdp/domainname</envar> and <envar>rdp/server</envar>. 
-		  <!-- Wird ein XRDP-Server als Terminalserver verwendet, kann <envar>rdp/domainname</envar> -->
-		  <!-- freigelassen werden. -->
+		  <envar>rdp/domainname</envar> and <envar>rdp/server</envar>. If an XRDP server is used as
+		  the terminal server, the <envar>rdp/domainname</envar> can be left blank.
 		</para>
 
 		<para>

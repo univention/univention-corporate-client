@@ -2,22 +2,22 @@
   <title>Management of UCC systems in the &ucsUMC;</title>
 
   <section id="umc:initialsetup">
-	<title>Initiale Einrichtung einer UCC-Umgebung</title>
-	<!-- <para> -->
-	<!--   Für die initiale Einrichtung von Univention Corporate Client wird ein Einrichtungsassistent -->
-	<!--   bereitgestellt. Dieser führt durch die grundlegende Einrichtung einer UCC-Umgebung mit Thin -->
-	<!--   Clients oder Desktop-Clients. Es werden verschiedene Standard-Richtlinien angelegt und -->
-	<!--   konfiguriert. Der Einrichtungs-Wizard eignet sich für kleine bis mittlere Umgebungen. Für -->
-	<!--   komplexere Anforderungen in denen unterschiedliche Richtlinien für verschiedene Teilbereiche -->
-	<!--   des LDAP-Verzeichnisses angewendet werden sollen, können die Richtlinien in der &ucsUMC; -->
-	<!--   manuell konfiguriert werden. Die benötigten Richtlinien sind in Kapitel TODOREF dokumentiert. -->
-	<!-- </para> -->
+	<title>Initial setting up of a UCC environment</title>
+	<para>
+	  A setup wizard is provided for the initial configuration of a UCC environment. This guides you
+	  through the basic setting up of a UCC environment with thin clients or desktop
+	  clients. Different standard policies are created and configured. The setup wizard is suitable
+	  for small to medium-sized environments. The policies can also be manually configured in the
+	  &ucsUMC; for more complex requirements in which different policies are to be used for
+	  different containers of the LDAP directory or multiple DHCP subnets are to be operated. The
+	  policies required for each option is listed in the respective chapters.
+	</para>
 
-	<!-- <para> -->
-	<!--   Der Einrichtung-Wizard wird über das &ucsUMC;-Modul <guimenu>UCC Setup</guimenu> gestartet. Im -->
-	<!--   Hauptmenü zuerst kann ausgewählt werden, ob Thin Clients und/oder Desktop-Systeme eingerichtet werden -->
-	<!--   sollen. Je nach Auswahl wird anschließend das oder die passende UCC-Image heruntergeladen. -->
-	<!-- </para> -->
+	<para>
+	  The setup wizard is started via the &ucsUMC; module <guimenu>UCC Setup</guimenu>. In the main
+	  menu, you can firstly select whether to set up thin clients and/or desktop systems. The UCC
+	  image(s) is/are then downloaded depending on the selection.
+	</para>
 
 	<para>
 	  UCS offers you the possibility of centrally managing the IP addresses and DNS/DHCP settings of
@@ -27,18 +27,17 @@
 	</para>
 
 	<para>
-	  <!-- Im Dialog <guimenu>Network configuration</guimenu> kann nun ein bestehendes Netzwerk-Objekt -->
-	  <!-- ausgewählt werden oder ein neues erzeugt werden. -->
-	  During the installation of an UCS system, a network object with the name
-	  <emphasis>default</emphasis> is created as standard.
-	  <!-- Es verwendet das Netzwerk des &ucsMaster;. Wenn nur ein bestimmter IP-Bereich für die -->
-	  <!-- UCC-Systeme verwendet werden soll, kann mit dem Dialog <guimenu>Specify a new IP -->
-	  <!-- segment</guimenu> ein neues Netzwerk-Objekt angelegt werden. Sollen beispielsweise die -->
-	  <!-- IP-Adressen 192.168.100.100 bis 192.168.100.200 für UCC-Systeme verwendet werden, muss als -->
-	  <!-- <guimenu>Network address</guimenu> <emphasis>192.168.100.0</emphasis> eingetragen werden, als -->
-	  <!-- <guimenu>Netmask</guimenu> <emphasis>24</emphasis> und als <guimenu>First IP address / Last IP -->
-	  <!-- address</guimenu> <emphasis>192.168.100.100</emphasis> -->
-	  <!-- bzw. <emphasis>192.168.100.200</emphasis>. -->
+	  It is now possible to select an existing network object in the <guimenu>Network
+	  configuration</guimenu> dialogue or create a new one. During the installation of an UCS
+	  system, a network object with the name <emphasis>default</emphasis> is created as standard.
+	  It uses the network of the &ucsMaster;. If only a certain IP segment is to be used for the UCC
+	  systems, a new network object can be created with the <guimenu>Specify a new IP
+	  segment</guimenu> dialogue. For example, if the IP addresses 192.168.100.100 to
+	  192.168.100.200 are used for UCC systems, <emphasis>192.168.100.0</emphasis> must be entered
+	  as the <guimenu>Network address</guimenu>, <emphasis>24</emphasis> as the
+	  <guimenu>Netmask</guimenu> and <emphasis>192.168.100.100</emphasis> /
+	  <emphasis>192.168.100.200</emphasis> entered as the <guimenu>First IP address / Last IP
+	  address</guimenu>.
 	</para>
 
 	<para>
@@ -59,10 +58,10 @@
 	 <para>
 	   UCC systems are registered and administrated with the system role <emphasis>Univention
 	   Corporate Client</emphasis> in the computer management module of the &ucsUMC;. 
-	   <!-- Der UCC-Setup-Wizard legt automatisch zwei Computer-Container für Thin Clients -->
-	   <!-- (<emphasis>cn=computers, cn=ucc-thinclients</emphasis>) und Desktop-Systeme -->
-	   <!-- (<emphasis>cn=computers, cn=ucc-desktops</emphasis>) an. Diese sollten im Eingabefeld -->
-	   <!-- <guimenu>Container</guimenu> je nach Art des UCC-Clients ausgewählt werden. -->
+	   The UCC setup wizard automatically creates two computer containers for thin clients
+	   (<emphasis>cn=computers, cn=ucc-thinclients</emphasis>) and desktop systems
+	   (<emphasis>cn=computers, cn=ucc-desktops</emphasis>). These should be selected in the
+	   <guimenu>Container</guimenu> input field depending on the type of the UCC client.
 	 </para>
 
 	 <!-- <para> -->
