@@ -68,11 +68,10 @@
 	The following parameters can be used. The configuration files can
 	be commented with a hash (#):
 	<itemizedlist>
-	  <listitem><simpara><emphasis>arch</emphasis>: The system
-	  architecture, i386 or amd64. The official UCC images are
-	  provided as i386. When building an image for amd64
-	  <emphasis>linux-image-generic</emphasis> needs to be used as the
-	  kernel package.</simpara></listitem>
+	  <listitem><simpara>
+		<emphasis>arch</emphasis>: The system architecture, i386 or amd64. The official UCC images
+		are provided as i386.
+	  </simpara></listitem>
 
 	  <listitem><simpara><emphasis>version</emphasis>: The Ubuntu code
 	  name on which the image is based. It must be taken into account
