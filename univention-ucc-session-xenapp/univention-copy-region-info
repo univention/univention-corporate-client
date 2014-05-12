@@ -34,7 +34,7 @@
 # The Citrix Receiver requires some region configuration to setup the
 # client. Copy them during session setup.
 
-/sbin/mkhomedir_helper "$USER" 022 /etc/skel/
+/sbin/mkhomedir_helper "$USER" 0066 /etc/skel/
 
 if [ ! -e "$HOME/.ICAClient" ]; then
 	mkdir -p "$HOME"/.ICAClient
