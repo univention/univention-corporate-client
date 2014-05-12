@@ -1,3 +1,2 @@
 session [success=ok ignore=ignore module_unknown=ignore default=bad] pam_selinux.so open
 session optional pam_gnome_keyring.so auto_start
-session optional pam_kwallet.so auto_start
