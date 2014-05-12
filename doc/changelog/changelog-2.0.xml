@@ -81,6 +81,9 @@
 				not into the image. Then the installed system is copied into the image
 				(<ulink url="&ucsbug;31942">Bug 31942</ulink>).
 			</simpara></listitem>
+			<listitem><simpara>
+				Temporarily set the nameserver during image build. This fixes build errors on UCS member servers(<ulink url="&ucsbug;30286">Bug 30286</ulink>).
+			</simpara></listitem>
 		</itemizedlist>
 	  </para></listitem>
 
