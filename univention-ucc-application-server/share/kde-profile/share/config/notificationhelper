@@ -1,5 +1,0 @@
-[Event][$i]
-hideApportNotifier=true
-hideHookNotifier=true
-hideInstallNotifier=true
-hideRestartNotifier=true

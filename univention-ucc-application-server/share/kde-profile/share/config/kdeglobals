@@ -1,7 +1,0 @@
-# no effects
-[KDE-Global GUI Settings][$i]
-GraphicEffectsLevel=1
-
-[KDE][$i]
-ShowIconsInMenuItems=false
-ShowIconsOnPushButtons=false
