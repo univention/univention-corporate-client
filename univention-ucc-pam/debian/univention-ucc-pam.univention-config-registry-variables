@@ -9,3 +9,9 @@ Description[de]=Standardmäßig kopiert univention-ucc-update-nss /var/cache/ucc
 Description[en]=By default, univention-ucc-update-nss copies /var/cache/ucc/group and /var/cache/ucc/passwd from the UCS LDAP server. If this variable is set to true, /var/cache/ucc/$hostname.group and /var/cache/ucc/$hostname.passwd are copied instead. (default: false)
 Type=str
 Categories=system-base
+
+[ucc/nss/update/force]
+Description[de]=Standardmäßig kopiert univention-ucc-update-nss die NSS Daten nur, wenn der Benutzer noch nicht bekannt ist. Wenn ucc/nss/update/force auf true gesetzt wird, wird dieser Test übergangen.
+Description[en]=By default, univention-ucc-update-nss copies the nss data only if the user is not already known. If ucc/nss/update/force is set to true this test is ignored.
+Type=str
+Categories=system-base
