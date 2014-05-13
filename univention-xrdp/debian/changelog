@@ -1,3 +1,9 @@
+univention-xrdp (2.1.0-5) unstable; urgency=low
+
+  * Fix postinst (Bug #29893)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 13 May 2014 13:32:41 +0200
+
 univention-xrdp (2.1.0-4) unstable; urgency=low
 
   * Configure the thin client drive name to thinclient_drives (Bug #29893)
