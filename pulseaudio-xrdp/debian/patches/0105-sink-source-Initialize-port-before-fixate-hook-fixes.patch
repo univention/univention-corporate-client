@@ -1,0 +1,102 @@
+From e0e6bf687573ea8ee3b6b53f8e44bcb30f4914ec Mon Sep 17 00:00:00 2001
+From: David Henningsson <david.henningsson@canonical.com>
+Date: Fri, 21 Mar 2014 10:19:19 +0100
+Subject: [PATCH] sink/source: Initialize port before fixate hook (fixes
+ volume/mute not saved)
+
+In case a port has not yet been saved, which is e g often the case
+if a sink/source has only one port, reading volume/mute will be done
+without port, whereas writing volume/mute will be done with port.
+
+Work around this by setting a default port before the fixate hook,
+so module-device-restore can read volume/mute for the correct port.
+
+BugLink: https://bugs.launchpad.net/bugs/1289515
+Signed-off-by: David Henningsson <david.henningsson@canonical.com>
+---
+ src/pulsecore/device-port.c | 27 +++++++++++++++++++++++++++
+ src/pulsecore/device-port.h |  2 ++
+ src/pulsecore/sink.c        | 27 ++++++++++-----------------
+ src/pulsecore/source.c      | 28 ++++++++++------------------
+ 4 files changed, 49 insertions(+), 35 deletions(-)
+
+Index: pulseaudio-4.0/src/pulsecore/device-port.c
+===================================================================
+--- pulseaudio-4.0.orig/src/pulsecore/device-port.c	2014-04-04 07:02:30.760172855 +0200
++++ pulseaudio-4.0/src/pulsecore/device-port.c	2014-04-04 07:02:30.756172855 +0200
+@@ -123,3 +123,30 @@
+     pa_subscription_post(core, PA_SUBSCRIPTION_EVENT_CARD|PA_SUBSCRIPTION_EVENT_CHANGE, p->card->index);
+     pa_hook_fire(&core->hooks[PA_CORE_HOOK_PORT_LATENCY_OFFSET_CHANGED], p);
+ }
++
++pa_device_port *pa_device_port_find_best(pa_hashmap *ports)
++{
++    void *state;
++    pa_device_port *p, *best = NULL;
++
++    if (!ports)
++        return NULL;
++
++    /* First run: skip unavailable ports */
++    PA_HASHMAP_FOREACH(p, ports, state) {
++        if (p->available == PA_AVAILABLE_NO)
++            continue;
++
++        if (!best || p->priority > best->priority)
++            best = p;
++    }
++
++    /* Second run: if only unavailable ports exist, still suggest a port */
++    if (!best) {
++        PA_HASHMAP_FOREACH(p, ports, state)
++            if (!best || p->priority > best->priority)
++                best = p;
++    }
++
++    return best;
++}
+Index: pulseaudio-4.0/src/pulsecore/device-port.h
+===================================================================
+--- pulseaudio-4.0.orig/src/pulsecore/device-port.h	2014-04-04 07:02:30.760172855 +0200
++++ pulseaudio-4.0/src/pulsecore/device-port.h	2014-04-04 07:02:30.756172855 +0200
+@@ -70,4 +70,6 @@
+ 
+ void pa_device_port_set_latency_offset(pa_device_port *p, int64_t offset);
+ 
++pa_device_port *pa_device_port_find_best(pa_hashmap *ports);
++
+ #endif
+Index: pulseaudio-4.0/src/pulsecore/sink.c
+===================================================================
+--- pulseaudio-4.0.orig/src/pulsecore/sink.c	2014-04-04 07:02:30.760172855 +0200
++++ pulseaudio-4.0/src/pulsecore/sink.c	2014-04-04 07:02:30.756172855 +0200
+@@ -236,6 +236,12 @@
+     pa_device_init_icon(data->proplist, TRUE);
+     pa_device_init_intended_roles(data->proplist);
+ 
++    if (!data->active_port) {
++        pa_device_port *p = pa_device_port_find_best(data->ports);
++        if (p)
++            pa_sink_new_data_set_port(data, p->name);
++    }
++
+     if (pa_hook_fire(&core->hooks[PA_CORE_HOOK_SINK_FIXATE], data) < 0) {
+         pa_xfree(s);
+         pa_namereg_unregister(core, name);
+Index: pulseaudio-4.0/src/pulsecore/source.c
+===================================================================
+--- pulseaudio-4.0.orig/src/pulsecore/source.c	2014-04-04 07:02:30.760172855 +0200
++++ pulseaudio-4.0/src/pulsecore/source.c	2014-04-04 07:02:30.756172855 +0200
+@@ -222,6 +222,12 @@
+     pa_device_init_icon(data->proplist, FALSE);
+     pa_device_init_intended_roles(data->proplist);
+ 
++    if (!data->active_port) {
++        pa_device_port *p = pa_device_port_find_best(data->ports);
++        if (p)
++            pa_source_new_data_set_port(data, p->name);
++    }
++
+     if (pa_hook_fire(&core->hooks[PA_CORE_HOOK_SOURCE_FIXATE], data) < 0) {
+         pa_xfree(s);
+         pa_namereg_unregister(core, name);

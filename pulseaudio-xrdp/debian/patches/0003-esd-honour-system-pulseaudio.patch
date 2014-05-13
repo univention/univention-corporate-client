@@ -1,0 +1,17 @@
+diff -urN pulseaudio-0.9.14/src/daemon/esdcompat.in pulseaudio-0.9.14.new/src/daemon/esdcompat.in
+--- pulseaudio-0.9.14/src/daemon/esdcompat.in	2009-03-27 10:24:57.000000000 +1100
++++ pulseaudio-0.9.14.new/src/daemon/esdcompat.in	2009-03-27 10:30:36.000000000 +1100
+@@ -24,6 +24,13 @@
+     exit 1
+ }
+ 
++PULSEAUDIO_SYSTEM_START=0
++test -f /etc/default/pulseaudio && . /etc/default/pulseaudio
++
++if [ ! $PULSEAUDIO_SYSTEM_START -eq 0 ]; then
++	exit 0
++fi
++
+ ARGS=" --log-target=syslog"
+ 
+ while [ "$#" -gt "0" ]; do

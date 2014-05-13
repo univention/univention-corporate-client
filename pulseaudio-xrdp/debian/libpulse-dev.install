@@ -1,0 +1,7 @@
+usr/lib/*/cmake
+usr/lib/*/libpulse.so
+usr/lib/*/libpulse-simple.so
+usr/lib/*/libpulse-mainloop-glib.so
+usr/lib/*/pkgconfig/*
+usr/include/pulse/*
+usr/share/vala/vapi

@@ -1,0 +1,1 @@
+pulseaudio-module-bluetooth: binary-or-shlib-defines-rpath * /usr/lib/*/pulseaudio:/usr/lib/pulse-*/modules

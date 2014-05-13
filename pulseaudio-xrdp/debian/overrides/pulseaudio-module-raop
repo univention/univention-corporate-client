@@ -1,0 +1,2 @@
+pulseaudio-module-raop: binary-or-shlib-defines-rpath * /usr/lib/pulse-*/modules:/usr/lib/*/pulseaudio
+pulseaudio-module-raop: binary-or-shlib-defines-rpath * /usr/lib/*/pulseaudio:/usr/lib/pulse-*/modules

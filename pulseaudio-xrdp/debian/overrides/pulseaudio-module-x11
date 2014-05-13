@@ -1,0 +1,2 @@
+pulseaudio-module-x11: desktop-entry-lacks-main-category /etc/xdg/autostart/pulseaudio-module-xsmp.desktop
+pulseaudio-module-x11: binary-or-shlib-defines-rpath * /usr/lib/*/pulseaudio:/usr/lib/pulse-*/modules

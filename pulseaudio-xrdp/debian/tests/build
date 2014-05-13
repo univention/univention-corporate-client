@@ -1,0 +1,30 @@
+#!/bin/sh
+# autopkgtest check: Build and run a program against pulseaudio, to verify that the
+# headers and pkg-config file are installed correctly
+# (C) 2013 Canonical Ltd.
+# Author: Martin Pitt <martin.pitt@ubuntu.com>
+# Author: David Henningsson <david.henningsson@canonical.com>
+
+set -e
+
+WORKDIR=$(mktemp -d)
+trap "rm -rf $WORKDIR" 0 INT QUIT ABRT PIPE TERM
+cd $WORKDIR
+cat <<EOF > buildtest.c
+#include <pulse/pulseaudio.h>
+#include <assert.h>
+
+int main()
+{
+    pa_mainloop * ml = pa_mainloop_new();
+    assert(ml);
+    pa_mainloop_free(ml);
+    return 0;
+}
+EOF
+
+gcc -o buildtest buildtest.c $(pkg-config --cflags --libs libpulse)
+echo "build: OK"
+[ -x buildtest ]
+./buildtest
+echo "run: OK"

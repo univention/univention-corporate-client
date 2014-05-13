@@ -1,0 +1,46 @@
+.TH paplay 1 User Manuals
+.SH NAME
+paplay \- Play back audio files on a PulseAudio sound server
+.SH SYNOPSIS
+\fBpaplay [\fIoptions\fB] \fIFILE\fB
+
+paplay --help\fB
+
+paplay --version\fB
+\f1
+.SH DESCRIPTION
+\fIpaplay\f1 is a simple tool for playing back audio files on a PulseAudio sound server. It understands all audio file formats supported by \fIlibsndfile\f1.
+.SH OPTIONS
+.TP
+\fB-h | --help\f1
+Show help.
+.TP
+\fB--version\f1
+Show version information.
+.TP
+\fB-v | --verbose\f1
+Enable verbose operation. Dumps the current playback time to STDERR during playback.
+.TP
+\fB-s | --server\f1\fI=SERVER\f1
+Choose the server to connect to.
+.TP
+\fB-d | --device\f1\fI=SINK\f1
+Specify the symbolic name of the sink to play this file on.
+.TP
+\fB-n | --client-name\f1\fI=NAME\f1
+Specify the client name \fIpaplay\f1 shall pass to the server when connecting.
+.TP
+\fB--stream-name\f1\fI=NAME\f1
+Specify the stream name \fIpaplay\f1 shall pass to the server when creating the stream.
+.TP
+\fB--volume\f1\fI=VOLUME\f1
+Specify the initial playback volume to use. Choose a value between 0 (silent) and 65536 (100% volume).
+.TP
+\fB--channel-map\f1\fI=CHANNELMAP\f1
+Explicitly choose a channel map when playing back this stream. The argument should be a comma separated list of channel names: \fIfront-left\f1, \fIfront-right\f1, \fImono\f1, \fIfront-center\f1, \fIrear-left\f1, \fIrear-right\f1, \fIrear-center\f1, \fIlfe\f1, \fIfront-left-of-center\f1, \fIfront-right-of-center\f1, \fIside-left\f1, \fIside-right\f1, \fItop-center\f1, \fItop-front-center\f1, \fItop-front-left\f1, \fItop-front-right\f1, \fItop-rear-left\f1, \fItop-rear-right\f1, \fItop-rear-center\f1, or any of the 32 auxiliary channel names \fIaux0\f1 to \fIaux31\f1.
+.SH LIMITATIONS
+Due to a limitation in \fIlibsndfile\f1 \fIpaplay\f1 currently does not always set the correct channel mapping for playback of multichannel (i.e. surround) audio files, even if the channel mapping information is available in the audio file.
+.SH AUTHORS
+The PulseAudio Developers <pulseaudio-discuss (at) lists (dot) freedesktop (dot) org>; PulseAudio is available from \fBhttp://pulseaudio.org/\f1
+.SH SEE ALSO
+\fBpulseaudio(1)\f1, \fBpacat(1)\f1

@@ -1,0 +1,47 @@
+Date: Tue, 25 Feb 2014 15:56:49 -0000
+From: David Henningsson <1284415@bugs.launchpad.net>
+Subject: [Bug 1284415] [PATCH] suspend-on-idle: Ensure we still time out if a
+ stream remains corked
+
+If a stream is started corked and remains corked, the sink/source
+remained idle without being properly suspended. This patch fixes
+that issue.
+
+BugLink: https://bugs.launchpad.net/bugs/1284415
+Tested-by: Ricardo Salveti <ricardo.salveti@canonical.com>
+Signed-off-by: David Henningsson <david.henningsson@canonical.com>
+
+Index: pulseaudio-4.0/src/modules/module-suspend-on-idle.c
+===================================================================
+--- pulseaudio-4.0.orig/src/modules/module-suspend-on-idle.c	2013-04-14 01:42:35.000000000 -0300
++++ pulseaudio-4.0/src/modules/module-suspend-on-idle.c	2014-02-25 16:35:08.743208917 -0300
+@@ -147,10 +147,14 @@
+ 
+     /* We need to resume the audio device here even for
+      * PA_SINK_INPUT_START_CORKED, since we need the device parameters
+-     * to be fully available while the stream is set up. */
++     * to be fully available while the stream is set up. In that case,
++     * make sure we close the sink again after the timeout interval. */
+ 
+-    if ((d = pa_hashmap_get(u->device_infos, data->sink)))
++    if ((d = pa_hashmap_get(u->device_infos, data->sink))) {
+         resume(d);
++        if (d->sink && pa_sink_check_suspend(d->sink) <= 0)
++            restart(d);
++    }
+ 
+     return PA_HOOK_OK;
+ }
+@@ -167,8 +171,11 @@
+     else
+         d = pa_hashmap_get(u->device_infos, data->source);
+ 
+-    if (d)
++    if (d) {
+         resume(d);
++        if (d->source && pa_source_check_suspend(d->source) <= 0)
++            restart(d);
++    }
+ 
+     return PA_HOOK_OK;
+ }

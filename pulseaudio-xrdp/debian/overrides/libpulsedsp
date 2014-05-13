@@ -1,0 +1,3 @@
+libpulsedsp: shlib-without-versioned-soname */libpulsedsp.so libpulsedsp.so
+libpulsedsp: no-shlibs-control-file */libpulsedsp.so
+libpulsedsp: postinst-must-call-ldconfig */libpulsedsp.so

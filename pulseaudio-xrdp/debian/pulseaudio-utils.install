@@ -1,0 +1,11 @@
+usr/bin/pacat
+usr/bin/pacmd
+usr/bin/pactl
+usr/bin/paplay
+usr/bin/pamon
+usr/bin/parec
+usr/bin/parecord
+usr/bin/padsp
+usr/bin/pax11publish
+usr/bin/pasuspender
+etc/bash_completion.d/pulseaudio-bash-completion.sh

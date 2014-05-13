@@ -1,0 +1,1 @@
+libpulsecore 0 pulseaudio (= ${binary:Version})

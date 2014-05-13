@@ -1,0 +1,13 @@
+Index: pulseaudio-3.0/src/daemon/default.pa.in
+===================================================================
+--- pulseaudio-3.0.orig/src/daemon/default.pa.in	2013-02-07 16:26:41.294373681 +1100
++++ pulseaudio-3.0/src/daemon/default.pa.in	2013-02-07 16:28:26.502372678 +1100
+@@ -66,7 +66,7 @@
+ ### Automatically load driver modules depending on the hardware available
+ ifelse(@HAVE_UDEV@, 1, [dnl
+ .ifexists module-udev-detect@PA_SOEXT@
+-load-module module-udev-detect
++load-module module-udev-detect use_ucm=0
+ .else
+ ], [dnl
+ .ifexists module-detect@PA_SOEXT@

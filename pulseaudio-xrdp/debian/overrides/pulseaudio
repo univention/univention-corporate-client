@@ -1,0 +1,4 @@
+pulseaudio: script-not-executable ./etc/pulse/default.pa
+pulseaudio: description-starts-with-package-name
+pulseaudio: shlib-in-multi-arch-foreign-package usr/lib/libpulsecore-*.so
+pulseaudio: binary-or-shlib-defines-rpath * /usr/lib/*/pulseaudio:/usr/lib/pulse-*/modules

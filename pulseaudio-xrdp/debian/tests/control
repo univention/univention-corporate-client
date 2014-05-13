@@ -1,0 +1,2 @@
+Tests: build
+Depends: libpulse-dev, build-essential

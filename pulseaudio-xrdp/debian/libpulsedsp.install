@@ -1,0 +1,2 @@
+usr/lib/*/pulseaudio/libpulsedsp.so
+usr/share/lintian/overrides/libpulsedsp
