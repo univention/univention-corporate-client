@@ -288,6 +288,12 @@
       (<ulink url="&ucsbug;30852">Bug 30852</ulink>).
     </simpara></listitem>
 
+	<listitem><simpara>
+	  By default, univention-ucc-update-nss copies the nss user data from the UCS server only if the user is not already known.
+	  This test can be disabled by setting the &ucsUCRV; <envar>ucc/nss/update/force</envar> to true
+	  (<ulink url="&ucsbug;31864">Bug 31864</ulink>).
+	</simpara></listitem>
+
   </itemizedlist>
 </section>
 
