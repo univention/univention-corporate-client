@@ -13,7 +13,8 @@ Architecture: all
 Depends: ${misc:Depends},
  univention-base-files,
  xrdp (>= 0.8),
- x11rdp
+ x11rdp,
+ pulseaudio-xrdp
 Description: xrdp integration package
  This package integrades the Remote Desktop Protocol (RDP) X server into the
  Univention Corporate Client (UCC) by providing additional configuration files
