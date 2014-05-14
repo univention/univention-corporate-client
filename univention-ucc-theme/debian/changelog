@@ -1,3 +1,10 @@
+univention-ucc-theme (2.0.0-2) unstable; urgency=low
+
+  * Update UCC wallpaper to divert the new Elarun theme instead of Ariya
+    (Bug #34538)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 14 May 2014 10:45:25 +0200
+
 univention-ucc-theme (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)

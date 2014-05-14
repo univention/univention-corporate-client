@@ -31,7 +31,7 @@
 
 #DEBHELPER#
 
-wallpaper_src_dir=/usr/share/wallpapers/Ariya
+wallpaper_src_dir=/usr/share/wallpapers/Elarun
 ksplash_src_dir=/usr/share/kde4/apps/ksplash/Themes/Default
 
 # remove kde wallpapers (on desktop image)
