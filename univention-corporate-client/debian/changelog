@@ -1,3 +1,10 @@
+univention-corporate-client (2.0.0-13) unstable; urgency=low
+
+  * Add an option to univention-ucc-software-update to force an update of a UCC
+    system (Bug #32296)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 15 May 2014 13:06:16 +0200
+
 univention-corporate-client (2.0.0-12) unstable; urgency=low
 
   * added image update script to update nameserver1 (Bug #34646)
