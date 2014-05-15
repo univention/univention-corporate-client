@@ -54,7 +54,7 @@ function cleanup_and_exit {
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
-params=(-f)
+params=()
 params+=(--ignore-certificate)
 
 if is_ucr_true 'rdp/checknla'; then
@@ -97,6 +97,8 @@ fi
 
 if [ -n "$rdp_geometry" ]; then
     params+=(-g "$rdp_geometry")
+else
+    params+=(-f)
 fi
 
 if [ -n "$rdp_clienthostname" ]; then
