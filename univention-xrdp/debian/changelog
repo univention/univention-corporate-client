@@ -1,3 +1,10 @@
+univention-xrdp (2.1.0-6) unstable; urgency=low
+
+  * Set the KDEVARTMP to ~/.kde-cache in the UCC-KDE startup script. Otherwise
+    /var/tmp/kdecache-* gets filled up pretty fast on a terminal server (Bug #31863)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 15 May 2014 10:14:39 +0200
+
 univention-xrdp (2.1.0-5) unstable; urgency=low
 
   * Fix postinst (Bug #29893)

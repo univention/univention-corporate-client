@@ -41,6 +41,9 @@ if [ -n "$ucclogon" ]; then
 	done
 fi
 
+mkdir -p ~/.kde-cache
+export KDEVARTMP=~/.kde-cache
+
 # kde
 echo "start remote kde session for user $USER" | logger
 # export QT_GRAPHICSSYSTEM="native"
