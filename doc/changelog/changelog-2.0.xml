@@ -45,6 +45,7 @@
 	  </simpara></listitem>
 
 
+
 	  <listitem><simpara>
 		A new tool (<command>ucc-image-add-citrix-receiver</command>) has been created which
 		integrates the Citrix Receiver into a UCC image; the necessary dependencies are installed
@@ -411,9 +412,19 @@
 	  </simpara></listitem>
 
 	</itemizedlist>
-
-
   </section>
+
+  <section>
+	<title>RDP</title>
+	<itemizedlist>
+	  <listitem><simpara>
+		The handling of the &ucsUCRV; <envar>rdp/geometry</envar> has been fixed (<ulink url="&ucsbug;31951">Bug 31951</ulink>).
+	  </simpara></listitem>
+
+
+	</itemizedlist>
+  </section>
+
 </section>
 
 
