@@ -42,11 +42,9 @@
 
 	<para>
 	  The network configuration of UCC clients is managed through DHCP in nearly all cases (the only
-	  exception are UCC terminal servers). 
-	  <!-- Der Wizard prüft, ob ein Default Gateway über DHCP -->
-	  <!-- zugewiesen wird. Ist das nicht der Fall, wird ein Dialog angezeigt, in dem das Gateway -->
-	  <!-- konfiguriert werden kann. -->
-	  In the default setting, fixed IP addresses are assigned and only to
+	  exception are UCC terminal servers). The wizard checks whether a default gateway is assigned
+	  via DHCP. If this is not the case, a dialogue window opens in which the gateway can be
+	  configured. In the default setting, fixed IP addresses are assigned and only to
 	  clients registered in the LDAP.
 	</para>
 	
@@ -64,11 +62,11 @@
 	   <guimenu>Container</guimenu> input field depending on the type of the UCC client.
 	 </para>
 
-	 <!-- <para> -->
-	 <!--   In der Grundeinstellung zeigt der Dialog zum Anlegen eines UCC-Systems nur die wichtigsten -->
-	 <!--   Eingabefelder an. Mit einem Klick auf <guimenu>Advanced</guimenu> werden alle Optionen -->
-	 <!--   angezeigt. Dies ist aber nur in Ausnahmefällen nötig. -->
-	 <!-- </para> -->
+	 <para>
+	   In the default setting, the dialogue window for creating a UCC system only shows the most
+	   important input fields. Clicking on <guimenu>Advanced</guimenu> shows all the options. This
+	   is only necessary in exceptional cases.
+	 </para>
 
 	 <para>
 	   The following settings must be configured for every UCC client as a minimum:
@@ -84,33 +82,32 @@
 		   is required for DHCP.
 		 </simpara></listitem>
 		 
-		 <!-- <listitem><simpara> -->
-		 <!--   Ein <guimenu>Network</guimenu> muss ausgewählt werden, in der Regel das Netzwerk, das im -->
-		 <!--   UCC Setup Wizard angelegt werden. Die <guimenu>IP address</guimenu> wird automatisch -->
-		 <!--   vorgeschlagen und kann ggf. angepasst werden. -->
-		 <!-- </simpara></listitem> -->
+		 <listitem><simpara>
+		   A <guimenu>Network</guimenu> needs to be selected: generally the network created in the UCC
+		   Setup wizard. The <guimenu>IP address</guimenu> is suggested automatically and can be
+		   adjusted if necessary.
+		 </simpara></listitem>
 	   </itemizedlist>
 	 </para>
 
-	 <!-- <para> -->
-	 <!--   Jeder UCC-Client muss im DNS und DHCP registriert sein. Das Netzwerk-Objekt weist diese -->
-	 <!--   Einträge automatisch zu. Wird ein UCC-Client ohne Netzwerk-Objekt angelegt (was nur in -->
-	 <!--   Ausnahmefällen sinnvoll ist), muss darauf geachtet werden, das Einträge für die <guimenu>Forward zone for -->
-	 <!--   DNS entry</guimenu>, <guimenu>Reverse zone for DNS entry</guimenu> und <guimenu>DHCP -->
-	 <!--   service</guimenu> konfiguriert sind. -->
-	 <!-- </para> -->
+	 <para>
+	   Each UCC client must be registered in the DNS and DHCP. The network object assigns these
+	   entries automatically. If a UCC client is created without a network object (which is only
+	   needed in exceptional cases), it is important to ensure that the entries for the
+	   <guimenu>Forward zone for DNS entry</guimenu>, <guimenu>Reverse zone for DNS entry</guimenu>
+	   and <guimenu>DHCP service</guimenu> are configured.
+	 </para>
 
-	 <!-- <para> -->
-	 <!--   Der zugewiesene Nameserver ist automatisch vorkonfiguriert. Wenn der zugewiesene Server -->
-	 <!--   angepasst werden soll muss dazu die <emphasis>default-settings</emphasis>-Richtlinie von Typ -->
-	 <!--   <guimenu>DHCP DNS</guimenu> editiert werden. -->
-	 <!-- </para> -->
+	 <para>
+	   The assigned name server is preconfigured automatically. If it is necessary to adjust the
+	   assigned server, the <guimenu>DHCP DNS</guimenu> <emphasis>default-settings</emphasis> policy
+	   must be edited.
+	 </para>
 
-	 <!-- <para> -->
-	 <!--   Ein Klick auf <guimenu>Next</guimenu> führt zur Konfiguration des zugewiesenen UCC-Images und -->
-	 <!--   der Boot-Variante. Die Boot-Varianten sind in <xref linkend="rollout:imagerollout"/> -->
-	 <!--   dokumentiert. -->
-	 <!-- </para> -->
+	 <para>
+	   Clicking on <guimenu>Next</guimenu> configures the assigned UCC image and the boot
+	   version. The boot versions are documented in <xref linkend="rollout:imagerollout"/>.
+	 </para>
 
   </section>
 

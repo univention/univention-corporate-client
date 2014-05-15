@@ -215,23 +215,23 @@
   <section id="logins:firefox">
 	<title>Firefox session script</title>
 	<para>
-	  The Firefox session script starts a Firefox web browser in a fullscreen session.
-	  <!-- Sie kann z.B. verwendet werden, um von Thin Clients direkt einen Zugriff auf eine -->
-	  <!-- Intranet-Seite oder einen Groupware-Web-Client zu konfigurieren. -->
+	  The Firefox session script starts a Firefox web browser in a fullscreen session. It can be
+	  used, for example, to access an intranet page directly from thin clients or to configure a
+	  groupware web client.
 	</para>
 
-	<!-- <para> -->
-	<!--   Zur Einrichtung des Firefox-Zugriffs auf eine Webseite muss der <guimenu>UCC Setup</guimenu> Wizard in der &ucsUMC; geöffnet werden. Unter <guimenu>Thin client -->
-	<!--   configuration</guimenu> muss im Untermenü <guimenu>Configuration of terminal -->
-	<!--   services</guimenu> die Option <guimenu>Configure direct web browser access to a -->
-	<!--   preconfigured web site</guimenu> ausgewählt werden. -->
-	<!-- </para> -->
+	<para>
+	  For setting up the Firefox access to a website, the <guimenu>UCC Setup</guimenu> wizard must
+	  be opened in the &ucsUMC;. The <guimenu>Configure direct web browser access to a preconfigured
+	  web site</guimenu> option must be selected under <guimenu>Thin client configuration</guimenu>
+	  in the <guimenu>Configuration of terminal services</guimenu> submenu.
+	</para>
 
-	<!-- <para> -->
-	<!--   Die Webseite, auf die zugegriffen werden soll muss im Eingabefeld <guimenu>Automatically -->
-	<!--   connect to this web site</guimenu> eingetragen werden. Wird der Wizard nicht verwendet, muss -->
-	<!--   die &ucsUCRV; <envar>firefox/startsite</envar> konfiguriert werden. -->
-	<!-- </para> -->
+	<para>
+	  The website to be accessed should be entered in the <guimenu>Automatically connect to this web
+	  site</guimenu> input field. If the wizard is not used, the &ucsUCRV;
+	  <envar>firefox/startsite</envar> must be configured.
+	</para>
   </section>
 
 </chapter>
