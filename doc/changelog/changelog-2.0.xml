@@ -491,6 +491,11 @@
       <ulink url="&ucsbug;31749">Bug 31749</ulink>).
     </simpara></listitem>
 
+	<listitem><simpara>
+	  The lightdm startup script for multimonitor setup has been fixed
+	  <ulink url="&ucsbug;30402">Bug 30402</ulink>).
+	</simpara></listitem>
+
   </itemizedlist>
 </section>
 
