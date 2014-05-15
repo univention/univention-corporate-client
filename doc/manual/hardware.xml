@@ -91,6 +91,19 @@
 	</para>
   </section>
 
+  <section id="hardware:kernelmodules">
+	<title>Managing drivers/kernel modules</title>
+	<para>
+	  The drivers to be used are recognised automatically during system start and loaded via the
+	  udev device manager. At this point, the necessary device links are also created under
+	  <filename>/dev/</filename>. If drivers are not detected, kernel modules to be loaded can be
+	  added via the &ucsUCRV; <envar>kernel/modules</envar>. If more than one kernel module is to be
+	  loaded, these must be separated by a semicolon. The &ucsUCRV; <envar>kernel/blacklist</envar>
+	  can be used to configure a list of one or more kernel modules for which automatic loading
+	  should be prevented. Multiple entries must also be separated by a semicolon.
+	</para>
+  </section>
+
   <section id="hardware:dualdisplay">
 	<title>Configuration of dual-display setups</title>
 	<para>
