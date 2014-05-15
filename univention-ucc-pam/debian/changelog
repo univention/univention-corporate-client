@@ -1,3 +1,9 @@
+univention-ucc-pam (2.0.0-5) unstable; urgency=low
+
+  * Activate user_readenv to fix parsing the .ucc-environment file (Bug #31863)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 15 May 2014 10:09:24 +0200
+
 univention-ucc-pam (2.0.0-4) unstable; urgency=low
 
   * added ucc/nss/update/force to univention-ucc-update-nss
