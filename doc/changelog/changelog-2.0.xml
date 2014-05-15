@@ -32,6 +32,11 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
+		An update run of <command>univention-ucc-software-update</command> can now be forced with
+		the new option <emphasis>--force</emphasis> (<ulink url="&ucsbug;32296">Bug 32296</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
 		Clarify error message in case an image could not be found (<ulink url="&ucsbug;30994">Bug 30994</ulink>).
 	  </simpara></listitem>
 
