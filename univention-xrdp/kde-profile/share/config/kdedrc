@@ -1,0 +1,8 @@
+[Module-bluedevil
+autoload[$i]=false
+
+[Module-device_automounter]
+autoload[$i]=false
+
+[Module-muon-notifier]
+autoload[$i]=false
