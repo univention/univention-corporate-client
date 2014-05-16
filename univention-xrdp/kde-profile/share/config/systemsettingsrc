@@ -1,5 +1,0 @@
-[MainWindow]
-MenuBar[$i]=Disabled
-ToolBarsMovable[$i]=Disabled
-ShowToolTips[$i]=false
-

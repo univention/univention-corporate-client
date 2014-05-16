@@ -47,9 +47,9 @@ export KDEVARTMP=~/.kde-cache
 # kde
 echo "start remote kde session for user $USER" | logger
 # export QT_GRAPHICSSYSTEM="native"
-# if [ -n "$ucc_session_remote_profile" -a "$ucc_session_remote_profile" = "true" ]; then
-# 	export KDEDIRS=/usr/share/univention-ucc-application-server/kde-profile
-# fi
+if [ -n "$xrdp_kde_profile" -a "$xrdp_kde_profile" = "true" ]; then
+	export KDEDIRS="/usr/share/univention-xrdp/kde-profile"
+fi
 startkde
 
 # logout/terminate

@@ -32,6 +32,12 @@ Description[en]=The full path name of a desktop script is specified here. It is 
 Type=str
 Categories=xrdp
 
+[xrdp/kde/profile]
+Description[de]=Konfiguriert, ob für eine xrdp Session ein angepasstes KDE Profil verwendet wird.
+Description[en]=Configures whether the xrdp session is started with a customized KDE profile.
+Type=str
+Categories=xrdp
+
 [xrdp/logo]
 Description[de]=Hier wird der vollständige Pfadname eines BMP-Bilddatei angegeben, die im xrdp-Anmeldebildschirm angezeigt wird. Ist die Variable nicht gesetzt, wird das Standard-xrdp-Logo angezeigt. Das Logo sollte 240 x 140 Pixel umfassen.
 Description[en]=The full path name of a BMP image file is specified here. It is displayed in the xrdp login screen. If the variable is unset, the default xrdp logo is shown. The logo should consist of 240 x 140 pixels.

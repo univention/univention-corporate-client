@@ -1,3 +1,9 @@
+univention-xrdp (2.1.0-8) unstable; urgency=low
+
+  * added kde profile (Bug #34500) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 16 May 2014 12:44:49 +0200
+
 univention-xrdp (2.1.0-7) unstable; urgency=low
 
   * added kde profile (Bug #34500)
