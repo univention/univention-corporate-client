@@ -423,7 +423,11 @@
 	<title>RDP</title>
 	<itemizedlist>
 	  <listitem><simpara>
-		The handling of the &ucsUCRV; <envar>rdp/geometry</envar> has been fixed (<ulink url="&ucsbug;31951">Bug 31951</ulink>).
+		The handling of the &ucsUCRV;<envar>rdp/geometry</envar> has been fixed (<ulink url="&ucsbug;31951">Bug 31951</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The handling of the &ucsUCRV;<envar>rdp/additionaloptions</envar> has been fixed (<ulink url="&ucsbug;31717">Bug 31717</ulink>).
 	  </simpara></listitem>
 
 
