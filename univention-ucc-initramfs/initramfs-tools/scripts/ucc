@@ -1452,7 +1452,8 @@ remote_logging ()
 		else
 			#Disable the global redirect since it does not work in the default shell
 			#exec 3>&1 > >(tee -a /dev/fd/3 | logger -n "$syslogserver") 2>&1
-			echo "*.*	@$syslogserver:514" >>/etc/rsyslog.conf
+			echo '$ModLoad omrelp' >>/etc/rsyslog.conf
+			echo "*.*	:omrelp:$syslogserver:514" >>/etc/rsyslog.conf
 		fi
 		mkdir -p /var/run/ /var/spool/rsyslog
 		rsyslogd -c 4 >>/dev/tty2 2>&1

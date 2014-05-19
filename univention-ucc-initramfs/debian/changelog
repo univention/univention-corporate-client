@@ -1,3 +1,9 @@
+univention-ucc-initramfs (3.0.2-1) unstable; urgency=medium
+
+  * use Reliable Event Logging Protocol for log shipping to master (Bug #34863)
+
+ -- Janek Walkenhorst <walkenhorst@univention.de>  Mon, 19 May 2014 17:55:08 +0200
+
 univention-ucc-initramfs (3.0.1-2) unstable; urgency=medium
 
   * support EFI installation (Bug #33978)

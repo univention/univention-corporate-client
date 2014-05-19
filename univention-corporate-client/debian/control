@@ -21,6 +21,7 @@ Depends: univention-config,
  univention-lightdm,
  alsa-utils,
  ntpdate,
+ rsyslog-relp,
  network-manager
 Recommends: univention-ucc-printerconfig,
  univention-ucc-proxy-settings,
