@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (2.0.1-4) unstable; urgency=low
+
+  * Fix handling of rdp/additionaloptions (Bug #31717)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 19 May 2014 09:32:04 +0200
+
 univention-ucc-session-rdp (2.0.1-3.1) unstable; urgency=low
 
   * Only enable fullscreen if rdp/geometry is set (Bug #31951)

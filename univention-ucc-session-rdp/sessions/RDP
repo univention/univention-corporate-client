@@ -148,6 +148,10 @@ fi
 fi
 
 
+if [ -n "$rdp_additionaloptions" ]; then
+       params+=($rdp_additionaloptions)
+fi
+
 if is_ucr_true 'rdp/redirectdisk'; then
     params+=(--plugin rdpdr --data disk:local-drives:/run/drives --)
 else
@@ -158,10 +162,6 @@ else
 	fi
 fi
 	
-if [ -n "$rdp_additionaloptions" ]; then
-       params+=("$rdp_additionaloptions")
-fi
-
 policy_windows_ts=`get_user_policy_var univentionCorporateClientUserWindowsTerminalserver` 
 
 server=""
