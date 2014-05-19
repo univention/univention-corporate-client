@@ -1,0 +1,5 @@
+The xrdp and x11rdp packages are built using X11RDP-o-matic:
+
+git clone https://github.com/scarygliders/X11RDP-o-Matic.git
+cd X11RDP-o-Matic
+sudo ./X11rdp-o-matic.sh --branch v0.8 --noinstall

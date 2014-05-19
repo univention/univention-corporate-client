@@ -59,6 +59,8 @@ if [ -n "$(pidof univention-directory-listener)" ]; then
 	initctl restart univention-directory-listener
 fi
 
+update-rc.d xrdp defaults
+
 service dbus reload
 invoke-rc.d xrdp restart
 
