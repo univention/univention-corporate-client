@@ -13,9 +13,10 @@
 
 	  <listitem><simpara>
 		Patches applied to UCC 1.0 were migrated to UCC 2.0 (if applicable) (<ulink
-		url="&ucsbug;33760">Bug 33760</ulink>). The UCS packages imported in UCC were updated to the
-		versions in UCS 3.2-1. Among other improvements this allows blacklisting kernel modules
-		using the &ucsUCRV; <envar>kernel/blacklist</envar> (<ulink url="&ucsbug;30177">Bug 30177</ulink>).
+		url="&ucsbug;33760">Bug 33760</ulink>, <ulink url="&ucsbug;33760">Bug 33760</ulink>).
+		The UCS packages imported in UCC were updated to the versions in UCS 3.2-1.
+		Among other improvements this allows blacklisting kernel modules using the &ucsUCRV; 
+		<envar>kernel/blacklist</envar> (<ulink url="&ucsbug;30177">Bug 30177</ulink>).
 	  </simpara></listitem>
 
 	</itemizedlist>
