@@ -41,6 +41,13 @@
 		Clarify error message in case an image could not be found (<ulink url="&ucsbug;30994">Bug 30994</ulink>).
 	  </simpara></listitem>
 
+
+	  <listitem><simpara>
+		<command>rdate</command> has been added to the dependencies of
+		<package>univention-ucc-join</package>. This ensures that the system time is synchronised
+		correctly (<ulink url="&ucsbug;34869">Bug 34869</ulink>).
+	  </simpara></listitem>
+
 	  <listitem><simpara>
 		An additional boot option 'local boot' is available, which tells the client's PXE environment to exit and resume the normal boot order.	(<ulink url="&ucsbug;32114">Bug 32114</ulink>).
 	  </simpara></listitem>
