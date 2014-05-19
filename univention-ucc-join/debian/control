@@ -18,6 +18,7 @@ Depends: ${misc:Depends},
  python-univention-lib,
  auth-client-config,
  univention-ucc-pam,
- python-univention-heimdal
+ python-univention-heimdal,
+ rdate
 Description: UCC - UCS domain join
  univention-join integrates an UCC client into a UCS domain.
