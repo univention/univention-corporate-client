@@ -795,16 +795,15 @@ _install_grub ()
 	echo "cp /usr/share/grub/unicode.pf2 /boot/" >>/root/grub-inst.sh
 	echo "fi" >>/root/grub-inst.sh
 
-	if _parse_fstab_field 2 < /root/etc/fstab | grep -qs "^/boot$"; then
-		echo "update-grub >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
-	fi
+	echo "update-grub >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 	if _parse_fstab_field 2 < /root/etc/fstab | grep -qs "^/boot/efi$"; then
-		echo "grub-install $device >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 		echo 'if [ "$(uname -m)" = "x86_64" ]; then' >>/root/grub-inst.sh
 		echo "grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub --recheck >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 		echo 'else' >>/root/grub-inst.sh
 		echo "grub-install --target=i386-efi --efi-directory=/boot/efi --bootloader-id=grub --recheck >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 		echo 'fi' >>/root/grub-inst.sh
+	else
+		echo "grub-install $device >>/var/log/ucc-installation.log 2>&1" >>/root/grub-inst.sh
 		echo "/usr/share/univention-ucc-initramfs/scripts/set-bootable-flag-on-protective-mbr -p $device 2>&1" >>/root/grub-inst.sh
 	fi
 

@@ -1,8 +1,8 @@
-univention-ucc-initramfs (3.0.1-1) unstable; urgency=medium
+univention-ucc-initramfs (3.0.1-2) unstable; urgency=medium
 
   * support EFI installation (Bug #33978)
 
- -- Janek Walkenhorst <walkenhorst@univention.de>  Tue, 13 May 2014 18:00:13 +0200
+ -- Janek Walkenhorst <walkenhorst@univention.de>  Mon, 19 May 2014 17:44:28 +0200
 
 univention-ucc-initramfs (3.0.0-20) unstable; urgency=low
 
