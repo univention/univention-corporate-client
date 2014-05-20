@@ -41,7 +41,7 @@ fi
 
 # check if ucc_nss_update_force is true, if so don't
 # check if user already exists
-if ! is_ucr_true "$ucc_nss_update_force"; then 
+if ! is_ucr_true "ucc/nss/update/force"; then 
 	# if USERNAME is set and known in passwd, we don't 
 	# need to update the passwd/group information
 	if [ -n "$USERNAME" ]; then
