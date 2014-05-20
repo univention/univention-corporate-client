@@ -523,10 +523,16 @@
 	  31685</ulink>, <ulink url="&ucsbug;31713">Bug 31713</ulink>).
 	</simpara></listitem>
 
-    <listitem><simpara>
-      Obsolete tools and code has been removed from udev handling for CDROM devices
-      <ulink url="&ucsbug;31749">Bug 31749</ulink>).
-    </simpara></listitem>
+	<listitem><simpara>
+	  Obsolete tools and code has been removed from udev handling for CDROM devices
+	  <ulink url="&ucsbug;31749">Bug 31749</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  <command>univention-ucc-remote-mount</command> automounter directory cleanup has been improved.
+	  It now removes directories in more cases, even if file handles are still open after a drive has been removed.
+	  (<ulink url="&ucsbug;34878">Bug 34878</ulink>). 
+	</simpara></listitem>
 
 	<listitem><simpara>
 	  The lightdm startup script for multimonitor setup has been fixed
