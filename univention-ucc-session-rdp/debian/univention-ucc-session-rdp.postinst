@@ -38,6 +38,7 @@ ucr set \
 	rdp/checknla?true \
 	rdp/disable-bmp-cache?true \
 	rdp/ignorecertificate?true \
-	lightdm/sessiondefault?RDP
+	lightdm/sessiondefault?RDP \
+	rdp/tlsencryption?true
 
 exit 0

@@ -28,7 +28,7 @@ Description[en]=Keyboard layout for freerdp (a list of available layouts can be 
 Type=str
 Categories=system-desktop
 
-[rdp/checktls]
+[rdp/tlsencryption]
 Description[de]=Ist diese Variable auf yes gesetzt, wird die TLS-Verschlüsselung der RDP-Sitzung aktiviert
 Description[en]=If this variable is set to yes, TLS encryption of the RDP session is enabled
 Type=str

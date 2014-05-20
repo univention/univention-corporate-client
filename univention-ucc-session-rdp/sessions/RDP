@@ -55,7 +55,13 @@ function cleanup_and_exit {
 eval "$(/usr/sbin/univention-config-registry shell)"
 
 params=()
-params+=(--ignore-certificate)
+
+if is_ucr_true 'rdp/ignorecertificate'; then
+    echo "By default certificate validation is disabled"
+    params+=(--ignore-certificate)
+else
+    echo "Enabling certificate validation"
+fi
 
 if is_ucr_true 'rdp/checknla'; then
     echo "By default NLA validation is enabled"
@@ -64,10 +70,10 @@ else
     params+=(--no-nla)
 fi
 
-if is_ucr_true 'rdp/checktls'; then
-    echo "By default TLS validation is enabled"
+if is_ucr_true 'rdp/tlsencryption'; then
+    echo "By default TLS encryption is enabled"
 else
-    echo "Disabling TLS validation"
+    echo "Disabling TLS encryption"
     params+=(--no-tls)
 fi
 
@@ -203,5 +209,4 @@ if [ $ret == 131 ]; then
     xmessage -file "$messageFile"
 fi
 
-#cleanup_and_exit
-
+cleanup_and_exit

@@ -1,3 +1,11 @@
+univention-ucc-session-rdp (2.0.2-2) unstable; urgency=low
+
+  * Fixed handling of UCRV rdp/ignorecertificate (Bug #34874)
+  * Renamed rdp/checktls to rdp/tlsencryption, default value set to true
+  * Fixed call to cleanup function 
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 20 May 2014 11:46:10 +0200
+
 univention-ucc-session-rdp (2.0.2-1) unstable; urgency=low
 
   * added rdp_colordepth (Bug #34274) 
