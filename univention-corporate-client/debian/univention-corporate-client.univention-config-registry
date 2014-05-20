@@ -9,7 +9,7 @@ Type: file
 File: etc/apt/apt.conf.d/900-ucc-pre-invoke
 
 Type: file
-File: etc/apt/sources.list.d/ucc
+File: etc/apt/sources.list.d/ucc.list
 Variables: ucc/apt/.*
 
 Type: file
