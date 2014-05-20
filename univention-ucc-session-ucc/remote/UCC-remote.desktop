@@ -1,8 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Name=UCC-remote
-Comment=UCC remote session
-Comment[de]=UCC remote Sitzung
-Exec=/usr/share/xsessions/UCC-remote
-# Icon=
-Type=Application

@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (2.0.0-2) unstable; urgency=low
+
+  * Remove old session scripts used for SSH-based X11 forwarding (Bug #33871)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Tue, 20 May 2014 12:17:06 +0200
+
 univention-ucc-session-ucc (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)

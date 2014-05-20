@@ -16,15 +16,3 @@ Description: UCC session script
  an integrated, directory driven solution for managing
  corporate environments. For more information about UCS,
  refer to: http://www.univention.de/
-
-Package: univention-ucc-session-ucc-remote
-Architecture: all
-Depends: ${shlib:Depends}, openssh-client, xauth, ${misc:Depends}
-Description: UCC terminal server session script
- This package provides x session scripts for the
- ucc terminal server session.
- .
- This package is part of Univention Corporate Server (UCS),
- an integrated, directory driven solution for managing
- corporate environments. For more information about UCS,
- refer to: http://www.univention.de/
