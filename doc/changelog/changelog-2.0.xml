@@ -531,6 +531,11 @@
 	</simpara></listitem>
 
 	<listitem><simpara>
+	  The logging on UCC clients is now using the RELP protocol instead of UDP. This ensures that
+	  logfiles are more complete (<ulink url="&ucsbug;34863">Bug 34863</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
 	  The &ucsUCR; template for the <filename>krb5.conf</filename> config file now also supports the
 	  <emphasis>dns_lookup_kdc</emphasis> option (<ulink url="&ucsbug;32080">Bug 32080</ulink>).
 	</simpara></listitem>
