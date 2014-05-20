@@ -590,6 +590,11 @@
 	  url="&ucsbug;32056">Bug 32056</ulink>).
 	</simpara></listitem>
 
+	<listitem><simpara>
+	  New &ucsUCR; variables have been added to configure the APT sources:
+	  The content of all &ucsUCR; variables of the format <envar>ucc/apt/ID</envar> (whereby "ID" can be anything) are written to the file <filename>/etc/apt/sources.list.d/ucc.list</filename>.
+	  (<ulink url="&ucsbug;30748">Bug 30748</ulink>)
+	</simpara></listitem>
   </itemizedlist>
 </section>
 
