@@ -446,6 +446,27 @@
 	</itemizedlist>
   </section>
 
+
+  <section>
+	<title>XRDP</title>
+	<itemizedlist>
+	  <listitem><simpara>
+		<package>univention-xrdp</package> provides integration of remote UCC terminal services
+		based on XRDP (<ulink url="&ucsbug;29893">Bug 29893</ulink>). The terminal services based on
+		X11 forwarding have been removed (<ulink url="&ucsbug;33871">Bug 33871</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The temporary KDE directory is now stored in <filename>.kde-cache</filename> in the user's
+		home directory instead of <filename>/var/tmp/kdecache-*</filename>. This prevents filling up
+		the <filename>/var</filename> partition on terminal servers with many users <ulink
+		url="&ucsbug;31863">Bug 31863</ulink>).
+	  </simpara></listitem>
+
+	</itemizedlist>
+  </section>
+
+
 </section>
 
 
