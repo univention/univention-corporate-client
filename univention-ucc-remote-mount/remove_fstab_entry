@@ -36,7 +36,7 @@ grep /dev/$devicename /proc/mounts | while read DEV MOUNTPOINT REST; do
 	echo "remove_fstab_entry: umount ${DEV} (${MOUNTPOINT})" | logger
 	umount -l ${DEV} 2>&1 >/dev/null # might fail for cdrom devices
 	umount ${MOUNTPOINT} 2>&1 >/dev/null
-	rmdir ${MOUNTPOINT}
+	rm -r ${MOUNTPOINT}
 done
 
 # check for running cdpinger, and restart
