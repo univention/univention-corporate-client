@@ -42,6 +42,13 @@
 	  USB-CDROM/DVDROMs. VFAT, NTFS and ext* file systems are mounted.
 	</para>
 
+	<!-- <para> -->
+	<!--   Das Mounten der Mass Storage-Geräte ist auf Desktop-Systemen deaktiviert (da im KDE-Desktop -->
+	<!--   Massenspeicher ohnehin automatisch eingebunden werden). Wenn die Funktonalität in -->
+	<!--   Ausnahmefällen trotzdem aktiviert werden soll kann das erfolgen in dem die &ucsUCRV -->
+	<!--   <envar>ucc/mount</envar> auf <emphasis>true</emphasis> gesetzt wird. -->
+	<!-- </para> -->
+
 	<para>
 	  The local mount points are made available in UCC, Windows terminal server and XenApp terminal
 	  server sessions if the option <guimenu>Allow access to local mass storage</guimenu> is
