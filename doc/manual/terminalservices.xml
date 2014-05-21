@@ -112,8 +112,8 @@
 
 	<para>
 	  The login is performed via the <emphasis>RDP</emphasis> session script installed as standard,
-	  which uses <command>freerdp</command> for the access. The password entered by the user during
-	  login to LightDM is cached by a PAM module and automatically provided to Freerdp, i.e., it is
+	  which uses <command>neutrinordp</command> (a fork of the freerdp code base) for the access. The password entered by the user during
+	  login to LightDM is cached by a PAM module and automatically provided to NeutrinoRDP, i.e., it is
 	  not necessary to enter it again when logging in to the terminal server.
 	</para>
 
@@ -227,7 +227,7 @@
 
 		  <para>
 			The &ucsUCRV; <envar>rdp/additionaloptions</envar> can be used to provide any additional
-			options to freerdp (e.g., to enable additional plugins).
+			options to neutrinordp (e.g., to enable additional plugins).
 		  </para>
 
 		  <para>
