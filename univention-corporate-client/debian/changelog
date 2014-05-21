@@ -1,3 +1,10 @@
+univention-corporate-client (2.0.3-1) unstable; urgency=low
+
+  * Stop plymouth in plymouth-stop, but wait for lightdm start (Bug #34814)
+  * Revert: Stop plymouth in ucc-update upstart script
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 21 May 2014 14:54:45 +0200
+
 univention-corporate-client (2.0.2-3) unstable; urgency=low
 
   * Remove stray code (Bug #32296)
