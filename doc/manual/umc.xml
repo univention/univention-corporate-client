@@ -74,7 +74,7 @@
 
 	   <itemizedlist>
 		 <listitem><simpara>
-		   The <guiname>Hostname</guiname> of the client (composed of lowercase and uppercase
+		   The <guimenu>Hostname</guimenu> of the client (composed of lowercase and uppercase
 		 letters, numbers, hyphens and underscores).
 		 </simpara></listitem>
 
