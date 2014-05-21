@@ -194,10 +194,9 @@
 		<section id="terminalservices:rdp:crypto">
 		  <title>Networklevel authentication / certificate approval</title>
 		  <para>
-			The RDP client does not use the "Network Level Authentication" (NLA) authentication
-			method as standard. If NLA is enabled on the Windows terminal server, this can be
-			enabled by setting the &ucsUCRV; <envar>rdp/checknla</envar> to
-			<emphasis>true</emphasis>.
+			The RDP client uses the "Network Level Authentication" (NLA) authentication
+			method as standard. This can be disabled by setting the &ucsUCRV; <envar>rdp/checknla</envar> to
+			<emphasis>false</emphasis>.
 		  </para>
 
 		  <para>
