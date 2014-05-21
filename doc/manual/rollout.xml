@@ -159,7 +159,7 @@
   The rollout of UCC systems can be completely automated so that user
   interaction is no longer necessary. Once all the clients to be
   rolled out have been created in the UCS management system (see
-  <xref linkend="rollout:administrationumc"/>), the following steps
+  <xref linkend="umc:manageucc"/>), the following steps
   are necessary:
 </para>
 
@@ -235,7 +235,7 @@
 </para>
 <para>
   The client to be installed should be created in the UMC computer
-  management first (see <xref linkend="rollout:administrationumc"/>).
+  management first (see <xref linkend="umc:manageucc"/>).
 </para>
 <para>
   After the image has been written to disk and the boot medium is

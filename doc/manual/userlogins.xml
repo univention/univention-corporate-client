@@ -43,8 +43,7 @@
 		<itemizedlist>
 		  <listitem><simpara>
 			Univention Corporate Client based on KDE (on a local system and to a XRDP terminal server)
-			(<xref linkend="terminalservices:ucc"/>, <xref
-			linkend="desktop:chapter"/>)
+			(<xref linkend="terminalservices:xrdp"/>, <xref linkend="desktop:chapter"/>)
 		  </simpara></listitem>
 
 		  <listitem><simpara>
@@ -236,6 +235,16 @@
 	  The website to be accessed should be entered in the <guimenu>Automatically connect to this web
 	  site</guimenu> input field. If the wizard is not used, the &ucsUCRV;
 	  <envar>firefox/startsite</envar> must be configured.
+	</para>
+  </section>
+
+  <section id="logins:sessionobjects">
+	<title>Registration of sessions in the Univention Management Console</title>
+	<para>
+	  Sessions are registered in the &ucsUMC;. New sessions can be
+	  created by selecting the UMC module <guimenu>LDAP
+	  directory</guimenu> and adding a <guimenu>UCC session
+	  script</guimenu> object below <emphasis>cn=univention,cn=UCC,dc=Session</emphasis>.
 	</para>
   </section>
 
