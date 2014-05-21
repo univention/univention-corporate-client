@@ -43,6 +43,8 @@ fi
 mkdir -p ~/.kde-cache
 export KDEVARTMP=~/.kde-cache
 
+# Needed to configure the language used on the XRDP terminal server
+. /etc/profile
 
 echo "Starting XRDP KDE session for user $USER" | logger
 

@@ -1,3 +1,10 @@
+univention-xrdp (2.1.0-11) unstable; urgency=low
+
+  * Source /etc/profile in the UCC-KDE session script so that the language setting
+    on the terminal server is adopted in the session (Bug #29893)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 21 May 2014 10:05:26 +0200
+
 univention-xrdp (2.1.0-10) unstable; urgency=low
 
   * Remove some leftovers (Bug #29893)
