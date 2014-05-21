@@ -1,3 +1,9 @@
+univention-corporate-client (2.0.2-3) unstable; urgency=low
+
+  * Remove stray code (Bug #32296)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 21 May 2014 10:42:07 +0200
+
 univention-corporate-client (2.0.2-2) unstable; urgency=medium
 
   * add ucc/apt/.* UCRV to support sources.list entries via UCR (Bug #30748)

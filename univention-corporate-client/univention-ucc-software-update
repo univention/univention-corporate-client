@@ -31,18 +31,6 @@
 . /usr/share/univention-lib/ucc.sh
 . /usr/share/univention-lib/ucr.sh
 
-if [ -n "$rmneeded" ]; then
-
-	check_for_rw_mount_and_reboot
-
-	for I in $rmneeded
-	do
-		PKGRM=`echo $I | tr -d "="`
-		message "Removing package $PKGRM"
-		apt-get --yes remove $PKGRM
-	done
-fi
-
 echo "The software update settings are configured through a 'UCC software settings' policy in the Univention Management Console."
 echo "You can use --force to enforce an update for this system."
 
