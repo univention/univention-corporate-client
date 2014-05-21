@@ -202,7 +202,7 @@
 	  <listitem><simpara>
 		The plymouth bootsplash init scripts have been fixed to keep plymouth displaying during software updates
 		and correctly display messages from the filesystem check
-        (<ulink url="&ucsbug;31126">Bug 31126</ulink>, <ulink url="&ucsbug;30575">Bug 30575</ulink>).
+        (<ulink url="&ucsbug;31126">Bug 31126</ulink>, <ulink url="&ucsbug;34814">Bug 34814</ulink>, <ulink url="&ucsbug;30575">Bug 30575</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><para>
