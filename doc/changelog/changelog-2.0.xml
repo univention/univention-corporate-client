@@ -367,6 +367,10 @@
 	</simpara></listitem>
 
 	<listitem><simpara>
+	  The deprecated &ucsUCR; variable <package>lightdm/wallpaper</package> has been removed(<ulink url="&ucsbug;30426">Bug 30426</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
 	  pam_mkhomedir was not executed under all circumstances, this has been fixed (<ulink url="&ucsbug;34790">Bug 34790</ulink>).
 	</simpara></listitem>
 
