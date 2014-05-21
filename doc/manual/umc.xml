@@ -56,9 +56,10 @@
 	 <para>
 	   UCC systems are registered and administrated with the system role <emphasis>Univention
 	   Corporate Client</emphasis> in the computer management module of the &ucsUMC;. 
-	   The UCC setup wizard automatically creates two computer containers for thin clients
-	   (<emphasis>cn=computers, cn=ucc-thinclients</emphasis>) and desktop systems
-	   (<emphasis>cn=computers, cn=ucc-desktops</emphasis>). These should be selected in the
+	   The UCC setup wizard automatically creates three computer containers for thin clients
+	   (<emphasis>cn=computers, cn=ucc-thinclients</emphasis>), desktop systems
+	   (<emphasis>cn=computers, cn=ucc-desktops</emphasis>) and XRDP terminal servers
+	   (<emphasis>cn=computers, cn=ucc-xrdpserver</emphasis>). These should be selected in the
 	   <guimenu>Container</guimenu> input field depending on the type of the UCC client.
 	 </para>
 

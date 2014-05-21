@@ -26,6 +26,82 @@
   </para>
 
 
+  <section id="terminalservices:xrdp">
+	<title>UCC terminal services based on XRDP</title>
+	<!-- <para> -->
+	<!--   UCC integriert Terminal Services, die über XRDP bereitgestellt werden, d.h. der -->
+	<!--   KDE-Linux-Desktop wird über das RDP-Protokoll bereitgestellt.  -->
+	<!-- </para> -->
+
+	<section id="terminalservices:xrdp:installation">
+	  <title>Installation</title>
+
+	  <para>
+	  </para>
+
+	  <!-- <para> -->
+	  <!-- 	UCC-Terminalserver werden mit dem UCC-Desktop-Image installiert. Die Einrichtung ist in -->
+	  <!-- 	<xref linkend="umc:manageucc"/> beschrieben. Auf dem Desktop-Image muss -->
+	  <!-- 	zusätzlich das Paket <package>univention-xrdp</package> installiert werden. An den Container -->
+	  <!-- 	<emphasis>cn=computers, cn=ucc-xrdpserver</emphasis> ist eine UCC-Software-Richtlinie -->
+	  <!-- 	gebunden (siehe <xref linkend="config:softwareupdates"/>), d.h. wenn das Rechnerobjekt in -->
+	  <!-- 	dem Container angelegt wird, wird das Paket während des Rollouts automatisch installiert. -->
+	  <!-- </para> -->
+
+	  <!-- <caution> -->
+	  <!-- 	<para> -->
+	  <!-- 	  Ein XRDP-Terminalserver muss nach der Installation einmalig neu gestartet werden, um -->
+	  <!-- 	  zusätzliche Pulseaudio-Treiber korrekt initialisieren zu können! -->
+	  <!-- 	</para> -->
+	  <!-- </caution> -->
+	</section>
+
+	<section id="terminalservices:xrdp:access">
+	  <title>Zugriff auf XRDP terminal services</title>
+
+	  <para>
+	  </para>
+
+	  <!-- <para> -->
+	  <!-- 	Der Zugriff auf einen XRDP-Terminalserver von einem UCC Thin Client über das RDP-Protokoll -->
+	  <!-- 	wird in <xref linkend="terminalservices:rdp"/> beschrieben. -->
+	  <!-- </para> -->
+
+	  <!-- <para> -->
+	  <!-- 	Ist die Weiterleitung von Storage Devices aktiviert, erscheinen diese im Heimatverzeichnis -->
+	  <!-- 	des Benutzers im Verzeichnis <filename>.~/thinclient-drives</filename>. Die Weiterleitung -->
+	  <!-- 	von Soundausgabe in der Terminalsitzung ist ebenfalls möglich. Auf dem XRDP-Terminalserver -->
+	  <!-- 	muss dazu eine Soundkarte vorhanden sein oder emuliert werden. -->
+	  <!-- </para> -->
+
+	  <!-- <para> -->
+	  <!-- 	Der Zugriff auf den XRDP-Terminalserver ist auch von externen Geräten aus unterstützt -->
+	  <!-- 	(z.B. Windows-PCs, Mac OS X oder Thin Clients mit fremden Betriebssystemen). In diesen -->
+	  <!-- 	Clients reicht es die IP-Adresse oder Rechnername des XRDP-Servers zu konfigurieren und eine -->
+	  <!-- 	Anmeldung mit einem Benutzer aus der UCS-Domäne durchzuführen. Bei der Anmeldungen von -->
+	  <!-- 	externen Geräten wird ein eigener Login-Manager angezeigt. Die Angabe einer Domäne ist bei -->
+	  <!-- 	der Anmeldung an einem XRDP-Terminalserver nicht notwendig. -->
+	  <!-- </para> -->
+
+	  <!-- <para> -->
+	  <!-- 	Bei der Anmeldung von einem externen Gerät werden Passwortwechsel aktuell noch nicht -->
+	  <!-- 	unterstützt, bei einem abgelaufenen Passwort schlägt die Anmeldung fehl. Bei der Anmeldung -->
+	  <!-- 	von UCC-Thin Clients wird die Passwortänderung im Login Manager umgesetzt. -->
+	  <!-- </para> -->
+	</section>
+
+
+	<section id="terminalservices:xrdp:kdeprofile">
+	  <title>KDE desktop in UCC terminal services</title>
+	  <para>
+		As standard, UCC uses a KDE profile optimised for remote operation on terminal servers. It
+		disables e.g. update notifications. The use of this profile can be disabled per UCC terminal
+		server by setting the &ucsUCRV; <envar>ucc/session/remote/profile</envar> to
+		<emphasis>false</emphasis>.
+	  </para>
+	</section>
+  </section>
+
   <section id="terminalservices:rdp">
 	<title>RDP terminal services</title>
 	<para>
@@ -131,7 +207,7 @@
 
 		  <para>
 			In special cases, it may be necessary to disable the TLS encryption of the RDP
-			connection entirely. This is done by setting the &ucsUCRV; <envar>rdp/checktls</envar>
+			connection entirely. This is done by setting the &ucsUCRV; <envar>rdp/tlsencryption</envar>
 			to <emphasis>false</emphasis>.
 		  </para>
 		</section>
