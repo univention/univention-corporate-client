@@ -120,73 +120,12 @@ univention-add-app --latest ucc ucc-management-integration
 </section>
 
 
-<section id="installation:imagemanagement">
-  <title>Management of UCC images</title>
-
-  <section id="installation:imagemanagement:download">
-	<title>Downloading/removing UCC images</title>
-	<para>
-	  The UCC images are not delivered in the Debian package format; the
-	  Debian package format is not best suited to files in the gigabyte
-	  range.
-	</para>
-
-	<para>
-	  The images are available at <ulink
-	  url="http://ucc-images.software-univention.de/download/ucc-images/"/>. A local UCC mirror can
-	  also be used, see <xref linkend="installation:imagemanagement:mirror"/>.
-	</para>
-
-	<para>
-	  The packages are downloaded via the &ucsUMC; module <guimenu>UCC image download</guimenu>. The
-	  proxy settings of a UCS system are taken into account.
-	</para>
-
-	<para>
-	  Alternatively, images can also be managed via command line tools:
-	  <command>ucc-image-download</command> can be used to download images.
-	  The individual files of the image are referenced via a spec file containing the file names and
-	  SHA256 hashes. The hash values are checked as part of the download procedure in order to
-	  detect erroneous transmissions. The parameter <emphasis>-s</emphasis> is used to provide the
-	  name of the spec file on the mirror. The full list of available parameters can be queried with
-	  the <emphasis>-h</emphasis> option. The <command>ucc-image-remove -l</command> command can be
-	  used to output an overview of the available images. An image can be deleted using the
-	  parameter <emphasis>-r</emphasis> and specifying a spec file.
-	</para>
-  </section>
-
-  <section id="installation:imagemanagement:rootpw">
-	<title>Setting the initial root password for UCC images</title>
-	<para>
-	  The root password of the installed UCC system is initially specified in the image. To avoid
-	  there being an identical root password on all UCC systems operated with the official
-	  Univention images, the root password is "personalised" during the image download: the root
-	  password of the UCS server is set as the root password on the images.  For existing images,
-	  the root password can be set subsequently with the command
-	  <command>ucc-image-root-password</command>, e.g.
-
-	  <programlisting>
-ucc-image-root-password -i ucc-1.0-rev2-desktop-image.img -p
-	  </programlisting>
-	</para>
-  </section>
-
-  <section id="installation:imagemanagement:mirror">
-	<title>Operating a local UCC image mirror</title>
-	<para>
-	  If you are running a number of UCC servers or an infrastructure completely disconnected from
-	  the Internet, you can also operate a local UCC mirror. In this case, the images need to be
-	  stored on an HTTP server. Then the &ucsUCRV; <envar>ucc/image/download/url</envar> on the UCC
-	  servers needs to be set to the download path.
-	</para>
-  </section>
-</section>
-
 <section id="installation:officialimages">
   <title>Official UCC images</title>
   <para>
 	Univention provides two preconfigured UCC images: a minimal image for thin clients and a larger
 	image for native desktop installations. These two images are maintained and tested by Univention.
+	<!-- Die Images werden über ein &ucsUMC;-Modul verwaltet, siehe <xref linkend="installation:imagemanagement:download"/>. -->
   </para>
 
   <para>
@@ -212,5 +151,68 @@ ucc-image-root-password -i ucc-1.0-rev2-desktop-image.img -p
 	also be initiated through a policy (see <xref linkend="config:softwareupdates"/>)
   </para>
 </section>
+
+<section id="installation:imagemanagement:download">
+  <title>Downloading/removing UCC images</title>
+
+  <!-- <para> -->
+  <!-- 	UCC-Images können über das &ucsUMC;-Modul <guimenu>UCC Images</guimenu> heruntergeladen -->
+  <!-- 	werden. Nach dem Start des Moduls wird eine Liste aller verfügbaren Images abgezeigt. Bereits -->
+  <!-- 	geladene Images werden als <guimenu>installed</guimenu> angezeigt, nicht installierte Images als -->
+  <!-- 	<guimenu>available</guimenu>. Jedes Image ist mit einer Versionsnummer versehen; die offiziellen -->
+  <!-- 	UCC-Images werden regelmässig aktualisiert und - wenn verfügbar - mit einer aktuelleren -->
+  <!-- 	Versionsnummer angezeigt. Über die Optionen <guimenu>Download</guimenu> und -->
+  <!-- 	<guimenu>Remove</guimenu> können images hinzugefügt oder entfernt werden. -->
+  <!-- </para> -->
+
+  <para>
+	The UCC images are not delivered in the Debian package format; the Debian package format is not
+	best-suited to files in the gigabyte range.
+  </para>
+
+  <para>
+	The images are downloaded from <ulink url="http://ucc-images.software-univention.de/download/ucc-images/"/>. A local UCC mirror can
+	also be used, see <xref linkend="installation:imagemanagement:mirror"/>.
+  </para>
+
+  <para>
+	Alternatively, images can also be managed via command line tools:
+	<command>ucc-image-download</command> can be used to download images. The individual files of
+	the image are referenced via a spec file containing the file names and SHA256 hashes. The hash
+	values are checked as part of the download procedure in order to detect erroneous
+	transmissions. The parameter <emphasis>-s</emphasis> is used to provide the name of the spec
+	file on the mirror. The full list of available parameters can be queried with the
+	<emphasis>-h</emphasis> option. The <command>ucc-image-remove -l</command> command can be used
+	to output an overview of the available images. An image can be deleted using the parameter
+	<emphasis>-r</emphasis> and specifying a spec file.
+  </para>
+
+  <section id="installation:imagemanagement:rootpw">
+	<title>Setting the initial root password for UCC images</title>
+	<para>
+	  The root password of the installed UCC system is initially specified in the image. To avoid
+	  there being an identical root password on all UCC systems operated with the official
+	  Univention images, the root password is "personalised" during the image download: the root
+	  password of the UCS server is set as the root password on the images.  For existing images,
+	  the root password can be set subsequently with the command
+	  <command>ucc-image-root-password</command>, e.g.
+
+	  <programlisting>
+ucc-image-root-password -i ucc-2.0-desktop-image.img -p
+	  </programlisting>
+	</para>
+  </section>
+
+  <section id="installation:imagemanagement:mirror">
+	<title>Operating a local UCC image mirror</title>
+	<para>
+	  If you are running a number of UCC servers or an infrastructure completely disconnected from
+	  the Internet, you can also operate a local UCC mirror. In this case, the images need to be
+	  stored on an HTTP server. Then the &ucsUCRV; <envar>ucc/image/download/url</envar> on the UCC
+	  servers needs to be set to the download path.
+	</para>
+  </section>
+</section>
+
 
 </chapter>
