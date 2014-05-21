@@ -428,6 +428,12 @@
 		(<ulink url="&ucsbug;34452">Bug 34452</ulink>).
 	  </simpara></listitem>
 
+	<listitem><simpara>
+	  The new &ucsUCRV; <envar>citrix/pulseaudio</envar> has been added. If set to <emphasis>true</emphasis>,
+	  the xenapp session script starts the pulseaudio daemon
+	  (<ulink url="&ucsbug;34227">Bug 34227</ulink>).
+	</simpara></listitem>
+
 	</itemizedlist>
   </section>
 
