@@ -188,6 +188,11 @@
 	  </itemizedlist>
 	</para>
 
+	<!-- <para> -->
+	<!--   Wird die &ucsUCRV; <envar>ucc/nss/update/force</envar> auf <emphasis>true</emphasis> gesetzt, -->
+	<!--   werden die Benutzer- und Gruppen-Informationen bei jeder Anmeldung bezogen. -->
+	<!-- </para> -->
+
 	<para>
 	  As standard, all of the users in the domain are always copied to the client. For special cases
 	  - such as notebooks, on which only a few users should be present - the &ucsUCRV;
