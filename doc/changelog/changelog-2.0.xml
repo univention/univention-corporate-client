@@ -480,7 +480,15 @@
   <title>&ucsUMC; integration</title>
   <itemizedlist>
 	<listitem><simpara>
-	A new boot variant option for repartitioning and initial rollout has been added. The checkbox for repartitioning has been removed (<ulink url="&ucsbug;30466">Bug 30466</ulink>). 
+	  A UMC module to download and manage UCC images has been added (<ulink url="&ucsbug;30379">Bug 30379</ulink>). 
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  A configuration wizard for thin clients as well as desktop clients has been added to facilitate the initial configuration of UCC (<ulink url="&ucsbug;34360">Bug 34360</ulink>). 
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  A new boot variant option for repartitioning and initial rollout has been added. The checkbox for repartitioning has been removed (<ulink url="&ucsbug;30466">Bug 30466</ulink>). 
 	</simpara></listitem>
 
 	<listitem><simpara>
@@ -494,7 +502,7 @@
     <listitem><simpara>
       A simplified wizard for the creation of UCC computers has been added (<ulink url="&ucsbug;32942">Bug 32942</ulink>).
     </simpara></listitem>
-	
+
 	<listitem><simpara>
       A traceback when creating UCC computer objects has been fixed (<ulink url="&ucsbug;34378">Bug 34378</ulink>).
     </simpara></listitem>
