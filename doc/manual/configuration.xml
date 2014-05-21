@@ -116,6 +116,20 @@
 	</para>
 
 	<para>
+	  <!-- In der Grundeinstellung sind nur die UCC-Repositorys als Paketquellen eingebunden. Über -->
+	  <!-- &ucsUCR;-Richtlinien können neuen Paket-Quellen eingebunden werden (siehe <xref -->
+	  <!-- linkend="config:ucr"/>). Die Variablen müssen dabei in der Form <envar>ucc/apt/ID1</envar> = -->
+	  <!-- <emphasis>apt source entry</emphasis> angegeben werden, z.B. wie im folgenden Screenshot -->
+	  <!-- dargestellt. -->
+
+	  <figure>
+		<title>Example UCR policy for configuring an apt source</title>
+		<graphic scalefit="1" width="80%" fileref="illustrations/ucc-apt.png"/>
+	  </figure>
+
+	</para>
+
+	<para>
 	  Thin clients employ an OverlayFS (see <xref linkend="rollout:overlayfs"/>). For this reason,
 	  the installation of updates is performed in several stages on thin clients: The client is
 	  restarted to change to the writeable mode and then following installation of the updates
@@ -123,7 +137,7 @@
 	</para>
 
 	<para>
-	  Additional software packages can be installed on the command line using
+	  Additional software packages can also be installed on the command line using
 	  <command>apt-get</command>:
 
 	  <programlisting>
