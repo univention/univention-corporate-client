@@ -1,3 +1,10 @@
+univention-lightdm (2.0.0-9) unstable; urgency=low
+
+  * Removed deprecated UCR variable lightdm/wallpaper and template
+    lightdm-gtk-greeter.conf (Bug #30426)
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 21 May 2014 15:31:04 +0200
+
 univention-lightdm (2.0.0-8) unstable; urgency=low
 
   * fixed univention-ucc-setup-multimonitor (Bug #30402) 

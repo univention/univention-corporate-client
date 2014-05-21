@@ -6,10 +6,6 @@ Variables: lightdm/autologin/session
 Variables: lightdm/sessiondefault
 Variables: lightdm/xserver/allowtcp
 
-Type: file
-File: etc/lightdm/lightdm-gtk-greeter.conf
-Variables: lightdm/wallpaper
-
 Type: multifile
 Multifile: etc/pam.d/lightdm
 
