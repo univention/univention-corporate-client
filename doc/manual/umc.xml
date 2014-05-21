@@ -112,4 +112,21 @@
 
   </section>
 
+  <section id="umc:nagios">
+	<title>Monitoring UCC systems with Nagios;</title>
+
+	<para>
+	  &ucsUCS; integriert Nagios für die Überwachung von Systemen und Diensten. Auch UCC-Systeme
+	  können in das Nagios-Monitoring integriert werden. Dazu muss für die zu überwachenden Systeme
+	  am Rechnerobjekt in der &ucsUMC; unter <guimenu>Options</guimenu> die Option <guimenu>Nagios
+	  support</guimenu> aktiviert werden.
+	</para>
+
+	<para>
+	  In der Grundeinstellung ist der NRPE-Dienst nicht auf UCC-Systemen installiert. Das bedeutet,
+	  dass nur Remote-Nagios-Prüfungen angewendet werden können.
+	</para>
+
+  </section>
+
 </chapter>
