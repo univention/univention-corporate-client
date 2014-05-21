@@ -1,3 +1,6 @@
+The xrdp integration is based on the 0.8 branch in xrdp git:
+https://github.com/neutrinolabs/xrdp/tree/v0.8
+
 The xrdp and x11rdp packages are built using X11RDP-o-matic:
 
 git clone https://github.com/scarygliders/X11RDP-o-Matic.git
