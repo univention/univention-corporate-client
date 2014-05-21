@@ -31,7 +31,6 @@
 
 eval "$(/usr/sbin/ucr shell)"
 
-# login script
 if [ -n "$ucclogon" ]; then
 	for file in $ucclogon; do
 		if [ -x "$file" ]; then
@@ -44,24 +43,17 @@ fi
 mkdir -p ~/.kde-cache
 export KDEVARTMP=~/.kde-cache
 
-# kde
-echo "start remote kde session for user $USER" | logger
-# export QT_GRAPHICSSYSTEM="native"
+
+echo "Starting XRDP KDE session for user $USER" | logger
+
 if [ -n "$xrdp_kde_profile" -a "$xrdp_kde_profile" = "true" ]; then
 	export KDEDIRS="/usr/share/univention-xrdp/kde-profile"
 fi
+
 startkde
 
-# logout/terminate
-echo "terminate remote kde session for user $USER" | logger
-# qdbus org.freedesktop.Akonadi.Control /ControlManager shutdown
-# qdbus org.kde.kuiserver /MainApplication quit
-# qdbus org.kde.NepomukServer /nepomukserver quit
-# if ! test -z "$DISPLAY"; then
-# 	. /usr/share/univention-ucc-application-server/kill-process-by-display
-# fi
+echo "Closing XRDP KDE session for user $USER" | logger
 
-# logout script
 if [ -n "$ucclogout" ]; then
 	for file in $ucclogout; do
 		if [ -x "$file" ]; then
