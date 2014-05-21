@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (2.0.0-7) unstable; urgency=low
+
+  * added citrix/pulseaudio (Bug #34227) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 21 May 2014 16:08:39 +0200
+
 univention-ucc-session-xenapp (2.0.0-6) unstable; urgency=low
 
   * fixed umask for mkhomedir_helper (Bug #34790) 

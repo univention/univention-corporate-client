@@ -69,6 +69,10 @@ if [ -z "$citrix_webinterface" ]; then
 	exit 0
 fi
 
+if is_ucr_true 'citrix/pulseaudio'; then
+    pulseaudio &
+fi
+
 firefox -url "$citrix_webinterface" -fullscreen
 
 if is_ucr_true 'lightdm/autologin' && [ "$lightdm_autologin_session" = "XenApp" ]; then
