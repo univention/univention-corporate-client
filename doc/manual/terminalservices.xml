@@ -383,8 +383,7 @@
   playback of Flash videos: instead of streaming the video on the
   server and transmitting every image, the video is transmitted to the
   client and played locally in the terminal session. This requires
-  the installation of the Flash plugin on the UCC client (included in
-  the default settings).
+  the installation of the Flash plugin on the UCC client.
 </para>
 </section>
 

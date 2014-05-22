@@ -330,4 +330,47 @@
 
 </section>
 
+<section id="rollout:uefi">
+  <title>Rollout von UEFI-Systemen</title>
+  <!-- <para> -->
+  <!-- 	In der Grundeinstellung verwendet Univention Corporate Client einen BIOS-basierten -->
+  <!-- 	Systemstart. Für Systeme, die keinen BIOS-Boot mehr unterstützen besteht alternativ die -->
+  <!-- 	Möglichkeit UCC-Images zu generieren, mit denen der Rollout und der Betrieb über den -->
+  <!-- 	<emphasis>Unified Extensible Firmware Interface</emphasis>-Standard durchgeführt wird. -->
+  <!-- </para> -->
+
+  <!-- <para> -->
+  <!-- 	Nicht alle UEFI-fähigen Systeme unterstützen auch den UEFI-Boot über PXE. Dies sollte vorab -->
+  <!-- 	geprüft werden und ein Update der UEFI-Firmware in Erwägung gezogen werden. -->
+  <!-- </para> -->
+
+  <!-- <para> -->
+  <!-- 	Für UEFI-Systeme wird eine Image-Konfiguration mit dem Image-Build-Tool ausgeliefert: -->
+  <!-- 	<filename>/usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg.gz</filename>. Hinweise -->
+  <!-- 	zum Bau eines Images finden sich in <xref linkend="imagegen:toolkit"/>. -->
+  <!-- </para> -->
+
+  <!-- <para> -->
+  <!-- 	Standardmässig wird für den Rollout von BIOS-Systemen der Bootloader -->
+  <!-- 	<filename>pxelinux.0</filename> verwendet und über eine <guimenu>DHCP Boot</guimenu> Richtlinie -->
+  <!-- 	in der &ucsUMC; zugewiesen. Für den UEFI-Rollout muss ein UEFI-kompatibler Bootloader über eine -->
+  <!-- 	solche Richtlinie zugewiesen werden. Als <guimenu>Boot filename</guimenu> muss für i386-Systeme -->
+  <!-- 	<filename>syslinux.efi32</filename> und für amd64-Systeme <filename>syslinux.efi64</filename> -->
+  <!-- 	zugewiesen werden. -->
+  <!-- </para> -->
+	
+  <!-- <para> -->
+  <!-- 	Wenn ein UEFI-kompatibles Image generiert wurde und die DHCP-Boot-Richtlinie definiert wurde, -->
+  <!-- 	unterscheidet sich der Rollout eines UEFI-Systems dann nicht weiter von dem Standard-Rollout -->
+  <!-- 	über das BIOS. -->
+  <!-- </para> -->
+
+</section>
+
+
+
+
+
+
+
 </chapter>
