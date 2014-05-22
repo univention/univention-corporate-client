@@ -85,6 +85,22 @@
 		this boot mode automatically.
 	  </para>
 	</listitem>
+
+	<!-- <listitem> -->
+	<!--   <para> -->
+	<!-- 	<guimenu>Local boot</guimenu>: Mit den Boot-Varianten <guimenu>Image boot without update -->
+	<!-- 	check</guimenu> und <guimenu>Image boot with update check</guimenu> wird das UCC-System über -->
+	<!-- 	PXE gestartet und nach der Update-Prüfung das lokal installierte System gestartet. -->
+	<!-- 	Wird diese Option aktiviert, wird eine besondere PXE-Konfiguration für den Rechner erzeugt, -->
+	<!-- 	mit der die PXE-Firmware des Systems keinen PXE-Boot durchführt, sondern direkt das lokal -->
+	<!-- 	installierte System startet. Dies ist in etwa vergleichbar, als wenn im BIOS des Systems die -->
+	<!-- 	Boot-Reihenfolge auf eine lokale Platte umgestellt würde, erfordert aber keine Anpassung am -->
+	<!-- 	BIOS. -->
+	<!--   </para> -->
+	<!-- </listitem> -->
+
+
+
   </itemizedlist>
 </para>
 

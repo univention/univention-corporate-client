@@ -307,7 +307,7 @@
 	<para>
 	  As the authentication during the Citrix login occurs on the web interface and if Citrix is the
 	  only terminal service, it is not necessary for the user to log on to the thin client again. If
-	  the <guimenu>Automatic Linux Desktop login</guimenu> option is enabled, the login to LightDM
+	  the <guimenu>Automatic thin client login</guimenu> option is enabled, the login to LightDM
 	  occurs automatically.
 	</para>
 	
