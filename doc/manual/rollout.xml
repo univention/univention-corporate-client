@@ -380,6 +380,7 @@
   <!-- 	unterscheidet sich der Rollout eines UEFI-Systems dann nicht weiter von dem Standard-Rollout -->
   <!-- 	über das BIOS. -->
   <!-- </para> -->
+</section>
 
 <section id="rollout:gptfix">
   <title>Rolloutprobleme bei nachträglich vergrösserten Festplatten</title>
