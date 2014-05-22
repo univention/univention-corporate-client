@@ -241,6 +241,27 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
+		  The package <package>ucc-pxe-boot</package> now contains the files
+		  <filename>/var/lib/univention-client-boot/ldlinux.e32</filename>
+		  <filename>/var/lib/univention-client-boot/ldlinux.e64</filename>
+		  <filename>/var/lib/univention-client-boot/syslinux.efi32</filename>
+		  <filename>/var/lib/univention-client-boot/syslinux.efi64</filename>
+		  which enable UEFI-PXE booting by selecting the syslinux.efi64 (or syslinux.efi32) as the "boot_filename" (UDM module "policies/dhcp_boot") (<ulink url="&ucsbug;33978">Bug 33978</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		  The package <package>ucc-image-toolkit</package> now contains the file
+		  <filename> /usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg</filename>
+		  as an example configuration for UEFI partitioning (<ulink url="&ucsbug;33978">Bug 33978</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		  The package <package>univention-ucc-initramfs</package> now detects "esp" partitions and
+		  correctly formats them. Also GRUB is installed for the correct UEFI-architecture if an
+		  ESP is detected (<ulink url="&ucsbug;33978">Bug 33978</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
 		A &ucsUCR; Module has been added to immediately apply changes of the ucc/pxe/* variables to all existing PXE 
 		configuration files for ucc clients, e.g. setting ucc/pxe/loglevel changes the loglevel kernel parameter in all
 		PXE configuration files
