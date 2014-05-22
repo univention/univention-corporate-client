@@ -381,6 +381,27 @@
   <!-- 	über das BIOS. -->
   <!-- </para> -->
 
+<section id="rollout:gptfix">
+  <title>Rolloutprobleme bei nachträglich vergrösserten Festplatten</title>
+  <!-- <para> -->
+  <!-- 	Wird eine Festplatte nachträglich vergrössert - typischerweise wenn eine virtualisiert Festplatte -->
+  <!-- 	verwendet wird, die nachträglich vergrössert wird - kann es vorkommen, dass der Rollout -->
+  <!-- 	GPT-Partitionierungsdaten des vorherigen Installationsvorgangs vorfindet, die nicht mehr zur -->
+  <!-- 	aktuellen Größe der Festplatte passen. Generell ist es empfehlenswert bei einem virtualisierten -->
+  <!-- 	System zur Vergrösserung des Speicherplatzes eher eine weitere Festplatte einzufügen. -->
+  <!-- </para> -->
+
+  <!-- <para> -->
+  <!-- 	Als Workaround kann das System mit der Boot-Option <emphasis>debugshell=y</emphasis> gestartet -->
+  <!-- 	werden (siehe <xref linkend="rollout:imagerollout"/> und mit dem folgenden Befehl die -->
+  <!-- 	GPT-Tabelle neu geschrieben werden: -->
+
+  <para>
+	<programlisting>
+parted -s PARTITIONDEVICE mklabel GPT
+	</programlisting>
+  </para>
+
 </section>
 
 
