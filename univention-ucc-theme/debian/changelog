@@ -1,3 +1,9 @@
+univention-ucc-theme (2.0.0-3) unstable; urgency=low
+
+  * Update wallpaper, regenerated from original PSD file
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Thu, 22 May 2014 11:30:31 +0200
+
 univention-ucc-theme (2.0.0-2) unstable; urgency=low
 
   * Update UCC wallpaper to divert the new Elarun theme instead of Ariya
