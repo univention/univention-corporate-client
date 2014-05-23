@@ -84,7 +84,7 @@
 	systems. After installation the &ucsUMC; server needs to be restarted:
 
 	<programlisting>
-univention-add-app --latest ucc ucc-management-integration
+univention-add-app --latest ucc ucc-server
 /etc/init.d/univention-management-console-server restart
 	</programlisting>
   </para>
