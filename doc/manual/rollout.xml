@@ -7,7 +7,7 @@
 </para>
 
 <para>
-  When the image is installed, the image installation tool then checks whether there is already a
+  When the image is installed, the image installation tool checks whether there is already a
   computer account available for the client and uses it. If the computer name is not stored in
   advance, the name can be specified interactively during the installation.
 </para>
@@ -17,7 +17,7 @@
 <para>
   The image with which a UCC client is operated is configured in the
   &ucsUMC; in the <guimenu>Images</guimenu> tab on UCC computer
-  objects. All the UCC images registered in the UCS management
+  objects. All UCC images registered in the UCS management
   system are available for selection. The registration is effected
   with join scripts during the installation of the image, see <xref
   linkend="installation:imagemanagement:download"/>.
@@ -33,16 +33,16 @@
  </figure>
 
 <para>
-  UCC clients can be operated in three different installation modes,
-  which can be assigned via the <guimenu>Boot variant</guimenu> field:
+  UCC clients can be operated in five different modes,
+  which can be assigned via the <guimenu>Boot variant</guimenu> field. 
+  The client must be configured for PXE boot in the BIOS.
   <itemizedlist>
 	<listitem>
 	  <simpara><guimenu>Live boot</guimenu> Here the image is
-	  started via PXE and mounted via NFS. The client must be configured
-	  for PXE boot in the BIOS. Technically, all UCC systems are always
+	  started via PXE and mounted via NFS. Technically, all UCC systems are always
 	  treated as having read/write storage media: If an image is mounted from a
 	  source which itself only allows readonly access (from a live DVD or as
-	  in this case from a NFS share), an OverlayFS file system is employed:
+	  in this case from an NFS share), an OverlayFS file system is employed:
 	  All the write changes are cached in the system memory and are lost when the computer is
 	  switched off. Thin clients are also always run with an overlayfs
 	  for a local installation, further information can be found under
@@ -53,7 +53,7 @@
 	  <para>
 		<guimenu>Installation with repartitioning and image rollout</guimenu>: This mode is used for
 		the initial installation of a UCC client. It is also required whenever a UCC client should
-		be installed completely or switched to a different partition scheme. The partitions of the
+		be reinstalled completely or switched to a different partition scheme. The partitions of the
 		system are setup as configured in the image configuration. A prompt must be
 		confirmed before the partitioning begins (it can be disabled using the boot option
 		<emphasis>force_partition</emphasis>, see below). After the installation of the image, the
@@ -71,15 +71,15 @@
 	  <para>
 		<guimenu>Image boot with update check</guimenu> is used to update an existing UCC
 		installation to a new version. It is detected whether the installed image differs
-		from the image to be installed. If that is the case, the UCC system partition is
-		overwritten. In contrast to the partition option above, no new partitioning occurs.
+		from the image to be installed. If that is the case, the UCC image on the system is replaced.
+		In contrast to the partition option above, no new partitioning occurs.
 	  </para>
 	</listitem>
 
 	<listitem>
 	  <para>
 		<guimenu>Image boot without update check</guimenu>: In this boot mode, the locally installed
-		image is started and no check for a newly available image performed. Following an
+		image is started and no check for a newly available image performed. Following a successful
 		installation performed with <guimenu>Image boot with update check</guimenu> or
 		<guimenu>Installation with repartitioning and image rollout</guimenu>, the system returns to
 		this boot mode automatically.
