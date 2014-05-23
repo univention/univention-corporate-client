@@ -45,7 +45,7 @@
 	<para>
 	  The mounting of mass storage devices is disabled on desktop systems (as mass storage devices
 	  are automatically mounted in the KDE desktop anyway). If you still wish to enable the function
-	  in exceptional cases, this can be done by setting the &ucsUCRV <envar>ucc/mount</envar> to
+	  in exceptional cases, this can be done by setting the &ucsUCRV; <envar>ucc/mount</envar> to
 	  <emphasis>true</emphasis>.
 	</para>
 
