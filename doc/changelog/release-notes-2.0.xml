@@ -106,14 +106,14 @@ $ su testuser
 		</para>
 	  </section>
 
-	  <!-- <section> -->
-	  <!-- 	<title>Terminalservices auf Basis von X11-Forwarding</title> -->
-	  <!-- 	<para> -->
-	  <!-- 	  Terminaldienste auf Basis von X-Forwarding werden nicht weiter unterstützt. Die -->
-	  <!-- 	  entsprechende &ucsUMC;-Richtlinie besteht weiterhin, wird aber nur noch was UCC 1.0-Systemen -->
-	  <!-- 	  verwendet. In einer späteren UCC-Version wird diese Richtlinie dann entfernt werden. -->
-	  <!-- 	</para> -->
-	  <!-- </section> -->
+	  <section>
+	  	<title>Terminal services based on X11 forwarding</title>
+	  	<para>
+		  Terminal services based on X11 forwarding are no longer supported. The corresponding
+		  &ucsUMC; policy still exists, but is now only used by UCC 1.0 systems. This policy will be
+		  removed in a subsequent UCC version.
+	  	</para>
+	  </section>
 
 	</chapter>
 
