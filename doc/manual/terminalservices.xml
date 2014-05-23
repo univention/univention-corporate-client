@@ -58,10 +58,7 @@
 	</section>
 
 	<section id="terminalservices:xrdp:access">
-	  <title>Zugriff auf XRDP terminal services</title>
-
-	  <para>
-	  </para>
+	  <title>Accessing XRDP terminal services</title>
 
 	  <para>
 		The accessing of an XRDP terminal server from a UCC thin client via the RDP protocol is
@@ -264,6 +261,13 @@
 		UCC only integrates the browser-based login method.
 	  </para>
 
+	  <!-- <para> -->
+	  <!-- 	Der Zugriff auf einen Citrix-Terminalservice erfolgt über das Session-Skript -->
+	  <!-- 	<emphasis>XenApp</emphasis>. Es öffnet eine Firefox-Fullscreen-Session mit der -->
+	  <!-- 	Login-Weboberfläche der Citrix-Installation. Wird der Browser geschlossen, wird ein Menü -->
+	  <!-- 	angezeigt, das dem anbietet sich erneut an Citrix anzumelden, den Thin Client -->
+	  <!-- 	herunterzufahren oder eine andere Sitzung auszuwählen. -->
+	  <!-- </para> -->
 
 <section id="terminalservices:citrix:setup">
   <title>Installation</title>
