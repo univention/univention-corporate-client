@@ -116,11 +116,11 @@
 	  declare recommendations for packages which should be
 	  additionally installed during installation of a package. In
 	  these options, packages can be specified which should be
-	  installed with or without their recommended packages. The following packages are required on
+	  installed with or without their recommended packages. 
+	  Multiple packages need to be separated by newlines. The following packages are required on
 	  each UCC system as a minimum: 
 	  <itemizedlist>
-		<listitem><simpara>linux-image-generic-pae (for amd64 images, alternatively
-		linux-image-generic): The Linux kernel</simpara></listitem>
+		<listitem><simpara>linux-image-generic: The Linux kernel</simpara></listitem>
 
 		<listitem><simpara>univention-ucc-bootstrap: A range of dummy init scripts which are run
 		during generation of the image</simpara></listitem>
@@ -134,7 +134,7 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		<emphasis>packages_hold</emphasis>: A list separated by commas of one or more packages which
+		<emphasis>packages_hold</emphasis>: A list separated by newlines of one or more packages which
 		are not to be updated. To this end, the packages are set to the <emphasis>hold</emphasis>
 		installation status in the dpkg database.
 	  </simpara></listitem>
