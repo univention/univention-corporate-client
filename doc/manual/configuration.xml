@@ -116,11 +116,10 @@
 	</para>
 
 	<para>
-	  <!-- In der Grundeinstellung sind nur die UCC-Repositorys als Paketquellen eingebunden. Über -->
-	  <!-- &ucsUCR;-Richtlinien können neuen Paket-Quellen eingebunden werden (siehe <xref -->
-	  <!-- linkend="config:ucr"/>). Die Variablen müssen dabei in der Form <envar>ucc/apt/ID1</envar> = -->
-	  <!-- <emphasis>apt source entry</emphasis> angegeben werden, z.B. wie im folgenden Screenshot -->
-	  <!-- dargestellt. -->
+	  In the default setting, only the UCC repositories are used as package sources. &ucsUCR;
+	  policies can be used to add new package sources (see <xref linkend="config:ucr"/>). The
+	  variables must be specified in the form <envar>ucc/apt/ID1</envar> = <emphasis>apt source
+	  entry</emphasis>, e.g., as shown in the following screenshot:
 
 	  <figure>
 		<title>Example UCR policy for configuring an apt source</title>
