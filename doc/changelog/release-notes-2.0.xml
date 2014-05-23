@@ -115,6 +115,20 @@ $ su testuser
 	  	</para>
 	  </section>
 
+	  <!-- <section> -->
+	  <!-- 	<title>RDP logins and PAM home mounts after a password change at LightDM</title> -->
+	  <!-- 	<para> -->
+	  <!-- 	  Wenn das Benutzerpasswort während der Anmeldung am LightDM Login Manager geändert wurde -->
+	  <!-- 	  (z.B. weil die Benutzeroption <guimenu>Change password on next login</guimenu> aktiviert -->
+	  <!-- 	  wurde oder weil ein Passwort abgelaufen ist, erfolgt die Passwortänderung über -->
+	  <!-- 	  Kerberos. Diese Passwortänderung ist für Module, die im PAM-Stack später aufgerufen werden -->
+	  <!-- 	  nicht sichtbar. Das RDP-Session-Skript und das PAM-Modul zur Einbindung des Home -->
+	  <!-- 	  Directorys über CIFS greifen aber auf das zwischengespeicherte Passwort zu und die -->
+	  <!-- 	  Anmeldung schlägt in der Folge einmalig fehl. Bei einer erneuten Anmeldung ist das -->
+	  <!-- 	  korrekte Passwort dann vorhanden. -->
+	  <!-- 	</para> -->
+
+	  </section>
 	</chapter>
 
     <chapter>
