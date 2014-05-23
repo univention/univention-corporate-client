@@ -119,7 +119,12 @@
 	  In the default setting, only the UCC repositories are used as package sources. &ucsUCR;
 	  policies can be used to add new package sources (see <xref linkend="config:ucr"/>). The
 	  variables must be specified in the form <envar>ucc/apt/ID1</envar> = <emphasis>apt source
-	  entry</emphasis>, e.g., as shown in the following screenshot:
+	  entry</emphasis>, e.g.:
+
+	  <programlisting>
+ucc/apt/cs1=deb http://example.com/ application/all/	
+ucc/apt/cs2=deb http://example.com/ application/i386/		
+	  </programlisting>
 
 	  <figure>
 		<title>Example UCR policy for configuring an apt source</title>
@@ -141,7 +146,7 @@
 
 	  <programlisting>
 apt-get update
-apt-get install emacs23
+apt-get install emacs24
 	  </programlisting>
 	</para>
   </section>
