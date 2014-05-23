@@ -127,8 +127,8 @@ $ su testuser
 	  <!-- 	  Anmeldung schlägt in der Folge einmalig fehl. Bei einer erneuten Anmeldung ist das -->
 	  <!-- 	  korrekte Passwort dann vorhanden. -->
 	  <!-- 	</para> -->
+	  <!-- </section> -->
 
-	  </section>
 	</chapter>
 
     <chapter>
