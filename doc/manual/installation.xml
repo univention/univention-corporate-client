@@ -125,7 +125,7 @@ univention-add-app --latest ucc ucc-server
   <para>
 	Univention provides two preconfigured UCC images: a minimal image for thin clients and a larger
 	image for native desktop installations. These two images are maintained and tested by Univention.
-	<!-- Die Images werden über ein &ucsUMC;-Modul verwaltet, siehe <xref linkend="installation:imagemanagement:download"/>. -->
+	The images are managed via a &ucsUMC; module, see <xref linkend="installation:imagemanagement:download"/>.
   </para>
 
   <para>
@@ -155,15 +155,14 @@ univention-add-app --latest ucc ucc-server
 <section id="installation:imagemanagement:download">
   <title>Downloading/removing UCC images</title>
 
-  <!-- <para> -->
-  <!-- 	UCC-Images können über das &ucsUMC;-Modul <guimenu>UCC Images</guimenu> heruntergeladen -->
-  <!-- 	werden. Nach dem Start des Moduls wird eine Liste aller verfügbaren Images abgezeigt. Bereits -->
-  <!-- 	geladene Images werden als <guimenu>installed</guimenu> angezeigt, nicht installierte Images als -->
-  <!-- 	<guimenu>available</guimenu>. Jedes Image ist mit einer Versionsnummer versehen; die offiziellen -->
-  <!-- 	UCC-Images werden regelmässig aktualisiert und - wenn verfügbar - mit einer aktuelleren -->
-  <!-- 	Versionsnummer angezeigt. Über die Optionen <guimenu>Download</guimenu> und -->
-  <!-- 	<guimenu>Remove</guimenu> können images hinzugefügt oder entfernt werden. -->
-  <!-- </para> -->
+  <para>
+	UCC images can be downloaded via the &ucsUMC; module <guimenu>UCC Images</guimenu>. A list of
+	all available images is shown when the module is started. Already downloaded images are shown as
+	<guimenu>installed</guimenu>; not yet installed images as <guimenu>available</guimenu>. Each
+	image is furnished with a version number; the official UCC images are updated regularly and -
+	if available - shown with an updated version number. The <guimenu>Download</guimenu> and
+	<guimenu>Remove</guimenu> options can be used to add and remove images.
+  </para>
 
   <para>
 	The UCC images are not delivered in the Debian package format; the Debian package format is not
