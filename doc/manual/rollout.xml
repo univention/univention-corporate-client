@@ -381,21 +381,20 @@
 </section>
 
 <section id="rollout:gptfix">
-  <title>Rolloutprobleme bei nachträglich vergrösserten Festplatten</title>
-  <!-- <para> -->
-  <!-- 	Wird eine Festplatte nachträglich vergrössert - typischerweise wenn eine virtualisiert Festplatte -->
-  <!-- 	verwendet wird, die nachträglich vergrössert wird - kann es vorkommen, dass der Rollout -->
-  <!-- 	GPT-Partitionierungsdaten des vorherigen Installationsvorgangs vorfindet, die nicht mehr zur -->
-  <!-- 	aktuellen Größe der Festplatte passen. Generell ist es empfehlenswert bei einem virtualisierten -->
-  <!-- 	System zur Vergrösserung des Speicherplatzes eher eine weitere Festplatte einzufügen. -->
-  <!-- </para> -->
-
-  <!-- <para> -->
-  <!-- 	Als Workaround kann das System mit der Boot-Option <emphasis>debugshell=y</emphasis> gestartet -->
-  <!-- 	werden (siehe <xref linkend="rollout:imagerollout"/> und mit dem folgenden Befehl die -->
-  <!-- 	GPT-Tabelle neu geschrieben werden: -->
+  <title>Rollout problems with subsequently enlarged hard disks</title>
+  <para>
+	If a hard disk has been subsequently enlarged - typically if a virtualized disk is used, which
+	is then subsequently enlarged - the rollout may encounter GPT partition data from the previous
+	installation procedure, which no longer correspond to the current size of the disk. Generally
+	speaking, when enlarging the memory of a virtualized system, it is more advisable to add an
+	additional disk.
+  </para>
 
   <para>
+	As a workaround, the system can be started with the <emphasis>debugshell=y</emphasis> boot
+	option (see <xref linkend="rollout:imagerollout"/> and the GPT table rewritten with the
+	following command:
+
 	<programlisting>
 parted -s PARTITIONDEVICE mklabel GPT
 	</programlisting>
