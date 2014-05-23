@@ -245,12 +245,12 @@ apt-get install emacs23
 	  against the UCC PXE server.
 	</para>
 
-	<!-- <para> -->
-	<!--   Die Logdateien werden im Verzeichnis <filename>/var/log/univention/ucc-clients</filename> -->
-	<!--   gespeichert. Pro Client wird eine separate Logdatei gepflegt. Die Logdateien werden außerdem -->
-	<!--   mit Logrotate rotiert, z.B. <filename>syslog-client01.log</filename>, -->
-	<!--   <filename>syslog-client01.log.1</filename> etc. -->
-	<!-- </para> -->
+	<para>
+	  The log files are stored in the <filename>/var/log/univention/ucc-clients</filename>
+	  directory. A separate log file is maintained for each client. The log files are also rotated
+	  with Logrotate, e.g., <filename>syslog-client01.log</filename>,
+	  <filename>syslog-client01.log.1</filename>, etc.
+	</para>
 
 	<para>
 	  The &ucsUCRV; <envar>ucc/pxe/append</envar> can be adapted to deactivate the remote logging
