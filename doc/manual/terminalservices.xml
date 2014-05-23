@@ -280,14 +280,14 @@
 
 	<para>
 	  For licensing reasons it is not possible to deliver the Citrix Receiver with Univention
-	  Corporate Client. Instead it must be downloaded as a DEB file using the download link provided
+	  Corporate Client. Instead, it must be downloaded as a DEB file using the download link provided
 	  and saved in a local directory. Only Citrix Receiver 13.0 is supported in UCC 2.0.
 	</para>
 
 	<para>
 	  The UCC thin client image in which you wish to install the Citrix Receiver must now be
-	  selected in the <guimenu>Please select the image(..)</guimenu> field. Following clicking on
-	  <guimenu>Upload</guimenu>, the DEB file of the Citrix Receiver is selected and automatically
+	  selected in the <guimenu>Please select the image(..)</guimenu> field. After clicking on
+	  <guimenu>Upload</guimenu> and selecting the DEB file of the Citrix Receiver, it will be automatically
 	  integrated in the UCC image.
 	</para>
 
