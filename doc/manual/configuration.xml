@@ -72,8 +72,8 @@
 	  Every UCC image comes with a predefined software package selection. A computer policy in the
 	  UCS management system can be used to install available software updates and install/uninstall
 	  software packages. This check is performed every time the system is started.
-	  <!-- Die Aktualisierung kann durch Aufruf des Befehls <command>univention-ucc-software-update force -->
-	  <!-- </command> auch manuell gestartet werden. -->
+	  The update can also be started manually by running the <command>univention-ucc-software-update
+	  --force</command> command.
 	</para>
 
 	<para>
