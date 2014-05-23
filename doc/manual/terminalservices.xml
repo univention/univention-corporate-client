@@ -28,10 +28,10 @@
 
   <section id="terminalservices:xrdp">
 	<title>UCC terminal services based on XRDP</title>
-	<!-- <para> -->
-	<!--   UCC integriert Terminal Services, die über XRDP bereitgestellt werden, d.h. der -->
-	<!--   KDE-Linux-Desktop wird über das RDP-Protokoll bereitgestellt.  -->
-	<!-- </para> -->
+	<para>
+	  UCC integrates terminal services provided via XRDP, i.e., the KDE Linux desktop is provided
+	  via the RDP protocol. 
+	</para>
 
 	<section id="terminalservices:xrdp:installation">
 	  <title>Installation</title>
@@ -39,21 +39,22 @@
 	  <para>
 	  </para>
 
-	  <!-- <para> -->
-	  <!-- 	UCC-Terminalserver werden mit dem UCC-Desktop-Image installiert. Die Einrichtung ist in -->
-	  <!-- 	<xref linkend="umc:manageucc"/> beschrieben. Auf dem Desktop-Image muss -->
-	  <!-- 	zusätzlich das Paket <package>univention-xrdp</package> installiert werden. An den Container -->
-	  <!-- 	<emphasis>cn=computers, cn=ucc-xrdpserver</emphasis> ist eine UCC-Software-Richtlinie -->
-	  <!-- 	gebunden (siehe <xref linkend="config:softwareupdates"/>), d.h. wenn das Rechnerobjekt in -->
-	  <!-- 	dem Container angelegt wird, wird das Paket während des Rollouts automatisch installiert. -->
-	  <!-- </para> -->
+	  <para>
+		UCC terminal servers are installed with the UCC desktop image. The setup is described in
+		<xref linkend="umc:manageucc"/>. The <package>univention-xrdp</package> package must also be
+		installed on the desktop image. There is a UCC software policy linked to the container
+		<emphasis>cn=computers, cn=ucc-xrdpserver</emphasis> (see <xref
+		linkend="config:softwareupdates"/>), i.e., if the computer object is created in the container,
+		the package is installed automatically during the rollout of the UCC system.
+	  </para>
 
-	  <!-- <caution> -->
-	  <!-- 	<para> -->
-	  <!-- 	  Ein XRDP-Terminalserver muss nach der Installation einmalig neu gestartet werden, um -->
-	  <!-- 	  zusätzliche Pulseaudio-Treiber korrekt initialisieren zu können! -->
-	  <!-- 	</para> -->
-	  <!-- </caution> -->
+	  <caution>
+	  	<para>
+		  An XRDP terminal server needs to be restarted once following the installation to be able
+		  to initialise additional PulseAudio drivers correctly!
+	  	</para>
+	  </caution>
+
 	</section>
 
 	<section id="terminalservices:xrdp:access">
@@ -62,32 +63,32 @@
 	  <para>
 	  </para>
 
-	  <!-- <para> -->
-	  <!-- 	Der Zugriff auf einen XRDP-Terminalserver von einem UCC Thin Client über das RDP-Protokoll -->
-	  <!-- 	wird in <xref linkend="terminalservices:rdp"/> beschrieben. -->
-	  <!-- </para> -->
+	  <para>
+		The accessing of an XRDP terminal server from a UCC thin client via the RDP protocol is
+		described in <xref linkend="terminalservices:rdp"/>. 
+	  </para>
 
-	  <!-- <para> -->
-	  <!-- 	Ist die Weiterleitung von Storage Devices aktiviert, erscheinen diese im Heimatverzeichnis -->
-	  <!-- 	des Benutzers im Verzeichnis <filename>.~/thinclient-drives</filename>. Die Weiterleitung -->
-	  <!-- 	von Soundausgabe in der Terminalsitzung ist ebenfalls möglich. Auf dem XRDP-Terminalserver -->
-	  <!-- 	muss dazu eine Soundkarte vorhanden sein oder emuliert werden. -->
-	  <!-- </para> -->
+	  <para>
+		If the forwarding of storage devices is enabled, they appear in the user's home directory in
+		the <filename>.~/xrdp_client</filename> directory. Forwarding of sound output is also
+		possible in terminal sessions. This requires a sound card to be present or emulated on the
+		XRDP terminal server.
+	  </para>
 
-	  <!-- <para> -->
-	  <!-- 	Der Zugriff auf den XRDP-Terminalserver ist auch von externen Geräten aus unterstützt -->
-	  <!-- 	(z.B. Windows-PCs, Mac OS X oder Thin Clients mit fremden Betriebssystemen). In diesen -->
-	  <!-- 	Clients reicht es die IP-Adresse oder Rechnername des XRDP-Servers zu konfigurieren und eine -->
-	  <!-- 	Anmeldung mit einem Benutzer aus der UCS-Domäne durchzuführen. Bei der Anmeldungen von -->
-	  <!-- 	externen Geräten wird ein eigener Login-Manager angezeigt. Die Angabe einer Domäne ist bei -->
-	  <!-- 	der Anmeldung an einem XRDP-Terminalserver nicht notwendig. -->
-	  <!-- </para> -->
+	  <para>
+		Access to the XRDP terminal server from other devices is also supported (e.g., Windows PCs,
+		Mac OS X or thin clients with third-party operating systems). For these clients it is
+		sufficient to configure the IP address or hostname of the XDRP server and perform a login
+		with a user from the UCS domain. An XRDP login screen is provided for the login from
+		external devices. It is not necessary to specify a domain when logging on to an XDRP
+		terminal server.
+	  </para>
 
-	  <!-- <para> -->
-	  <!-- 	Bei der Anmeldung von einem externen Gerät werden Passwortwechsel aktuell noch nicht -->
-	  <!-- 	unterstützt, bei einem abgelaufenen Passwort schlägt die Anmeldung fehl. Bei der Anmeldung -->
-	  <!-- 	von UCC-Thin Clients wird die Passwortänderung im Login Manager umgesetzt. -->
-	  <!-- </para> -->
+	  <para>
+		Password changes are currently not yet supported when logging in from an external device. If
+		the password has expired, the login will fail. Password changes are performed in the login
+		Manager LightDM when logging in from UCC thin clients.
+	  </para>
 	</section>
 
 
