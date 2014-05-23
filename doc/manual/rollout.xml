@@ -347,39 +347,37 @@
 </section>
 
 <section id="rollout:uefi">
-  <title>Rollout von UEFI-Systemen</title>
-  <!-- <para> -->
-  <!-- 	In der Grundeinstellung verwendet Univention Corporate Client einen BIOS-basierten -->
-  <!-- 	Systemstart. Für Systeme, die keinen BIOS-Boot mehr unterstützen besteht alternativ die -->
-  <!-- 	Möglichkeit UCC-Images zu generieren, mit denen der Rollout und der Betrieb über den -->
-  <!-- 	<emphasis>Unified Extensible Firmware Interface</emphasis>-Standard durchgeführt wird. -->
-  <!-- </para> -->
+  <title>Rollout of UEFI systems</title>
+  <para>
+	In the default setting, Univention Corporate Client uses a BIOS-based boot. Alternatively, for
+	systems which no longer support a BIOS boot, there is the possibility of generating UCC images
+	with which the rollout and operation can be performed via the <emphasis>Unified Extensible
+	Firmware Interface</emphasis> standard.
+  </para>
 
-  <!-- <para> -->
-  <!-- 	Nicht alle UEFI-fähigen Systeme unterstützen auch den UEFI-Boot über PXE. Dies sollte vorab -->
-  <!-- 	geprüft werden und ein Update der UEFI-Firmware in Erwägung gezogen werden. -->
-  <!-- </para> -->
+  <para>
+	Not all UEFI-compatible systems also support UEFI booting via PXE. This should be checked in
+	advance and consideration given to updating the UEFI firmware.
+  </para>
 
-  <!-- <para> -->
-  <!-- 	Für UEFI-Systeme wird eine Image-Konfiguration mit dem Image-Build-Tool ausgeliefert: -->
-  <!-- 	<filename>/usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg.gz</filename>. Hinweise -->
-  <!-- 	zum Bau eines Images finden sich in <xref linkend="imagegen:toolkit"/>. -->
-  <!-- </para> -->
+  <para>
+	An image configuration is delivered with the image build tool for UEFI systems:
+	<filename>/usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg.gz</filename>. Information
+	on building an image can be found in <xref linkend="imagegen:toolkit"/>.
+  </para>
 
-  <!-- <para> -->
-  <!-- 	Standardmässig wird für den Rollout von BIOS-Systemen der Bootloader -->
-  <!-- 	<filename>pxelinux.0</filename> verwendet und über eine <guimenu>DHCP Boot</guimenu> Richtlinie -->
-  <!-- 	in der &ucsUMC; zugewiesen. Für den UEFI-Rollout muss ein UEFI-kompatibler Bootloader über eine -->
-  <!-- 	solche Richtlinie zugewiesen werden. Als <guimenu>Boot filename</guimenu> muss für i386-Systeme -->
-  <!-- 	<filename>syslinux.efi32</filename> und für amd64-Systeme <filename>syslinux.efi64</filename> -->
-  <!-- 	zugewiesen werden. -->
-  <!-- </para> -->
+  <para>
+	As standard, the <filename>pxelinux.0</filename> boot loader is used for the rollout of BIOS-based
+	systems and assigned in the &ucsUMC; via a <guimenu>DHCP Boot</guimenu> policy. A
+	UEFI-compatible boot loader must be assigned via this type of policy for the UEFI
+	rollout. <filename>syslinux.efi32</filename> must be assigned as the <guimenu>Boot
+	filename</guimenu> for i386 systems and <filename>syslinux.efi64</filename> for amd64 systems.
+  </para>
 	
-  <!-- <para> -->
-  <!-- 	Wenn ein UEFI-kompatibles Image generiert wurde und die DHCP-Boot-Richtlinie definiert wurde, -->
-  <!-- 	unterscheidet sich der Rollout eines UEFI-Systems dann nicht weiter von dem Standard-Rollout -->
-  <!-- 	über das BIOS. -->
-  <!-- </para> -->
+  <para>
+	If a UEFI-compatible image has been generated and the DHCP boot policy defined, the rollout of
+	a UEFI system is then no different from the standard rollout via the BIOS.
+  </para>
 </section>
 
 <section id="rollout:gptfix">
