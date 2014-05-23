@@ -20,6 +20,13 @@
   <releaseinfo><ulink url="http://docs.univention.de/manual-3.1.html#computers%3AExecuting_recurring_actions_with_Cron"/></releaseinfo>
 </biblioentry>
 
+<biblioentry id="ucs-manual-nagios">
+  <publishername>Univention GmbH</publishername>
+  <pubdate>2014</pubdate>
+  <title>Univention Corporate Server - Manual for users and administrators</title>
+  <releaseinfo><ulink url="http://docs.univention.de/manual-3.2.html#nagios::general"/></releaseinfo>
+</biblioentry>
+
 <biblioentry id="ucs-manual-pxeboot">
   <publishername>Univention GmbH</publishername>
   <pubdate>2013</pubdate>
