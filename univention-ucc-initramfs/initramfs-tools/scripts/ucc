@@ -1616,16 +1616,18 @@ mountroot()
 	fi
 
 	# mount the image ro if requested
-	mount_option="$(get_boot_mount_option)"
-	if [ -n "$mount_option" ]; then
-		if mount | grep -q "on /root-ro"; then
-			if [ "$mount_option" = "rw" ]; then
+	if [ "$UCC" != "overlayfs" ]; then
+		mount_option="$(get_boot_mount_option)"
+		if [ -n "$mount_option" ]; then
+			if mount | grep -q "on /root-ro"; then
+				if [ "$mount_option" = "rw" ]; then
+					_umount_image
+					_mount_image rw
+				fi
+			elif [ "$mount_option" = "ro" ]; then
 				_umount_image
-				_mount_image rw
+				_mount_image ro
 			fi
-		elif [ "$mount_option" = "ro" ]; then
-			_umount_image
-			_mount_image ro
 		fi
 	fi
 
