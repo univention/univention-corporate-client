@@ -39,6 +39,14 @@
   </itemizedlist>
 </para>
 
+<!-- <para> -->
+<!--   UCC-Clients verwenden die 32-Bit-Intel Architektur (i386). Es wird empfohlen den UCS-Server -->
+<!--   ebenfalls mit der i386-Architektur zu installieren. Hintergrund ist, das für den Bau angepasster -->
+<!--   UCC-Images (siehe <xref linkend="imagegen:chapter"/>) ein System mit eben dieser Architektur -->
+<!--   benötigt wird. Werden nur die offiziellen UCC-Images verwendet (oder wenn der Bau der UCC-Images -->
+<!--   auf einem anderen System erfolgt) kann der UCS-Server auf mit der amd64-Architektur installiert -->
+<!--   werden. -->
+<!-- </para> -->
 
 <section id="installation:singleserver">
   <title>Installation in a single-server environment</title>
