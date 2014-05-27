@@ -48,7 +48,7 @@
 <!--   werden. -->
 <!-- </para> -->
 
-<section id="installation:singleserver">
+<section id="installation:installation">
   <title>Installation</title>
   <para>
 	The UCC server can be installed on any UCS server role (&ucsMaster;, &ucsBackup;, &ucsSlave; or
@@ -74,6 +74,12 @@
   <!-- </para> -->
 
   <!-- <para> -->
+  <!-- 	Nach der Installation erfolgt die initiale Konfiguration über einen Wizard in der &ucsUMC; -->
+  <!-- 	(siehe <xref linkend="umc:initialsetup"/>) oder über manuell konfigurierte Richtlinien. Für -->
+  <!-- 	kleine bis mittlere Installation wird der UCS-Wizard für die Ersteinrichtung empfohlen. -->
+  <!-- </para> -->
+
+  <!-- <para> -->
   <!-- 	UCC kann auf mehr als einem Server installiert werden, z.B. wenn an zwei Standorten UCC-Clients -->
   <!-- 	betrieben werden sollen. Der PXE-Server, der für ein DHCP-Segment zuständig sein soll, kann über -->
   <!-- 	eine <emphasis>DHCP Boot</emphasis> policy konfiguriert werden (über das Eingabefeld -->
@@ -89,7 +95,7 @@
   <para>
 	Univention provides two preconfigured UCC images: a minimal image for thin clients and a larger
 	image for native desktop installations. These two images are maintained and tested by Univention.
-	The images are managed via a &ucsUMC; module, see <xref linkend="installation:imagemanagement:download"/>.
+	The images are downloaded via a &ucsUMC; module, see <xref linkend="installation:imagemanagement:download"/>.
   </para>
 
   <para>
@@ -106,7 +112,8 @@
   <para>
 	The desktop client image offers a KDE Plasma desktop and support for terminal sessions to Windows
 	and UCC terminal servers (support for Citrix XenApp can be subsequently installed).
-	In addition, the desktop image is also the basis for the operation of an XRDP terminal server.
+	In addition, the desktop image is also the basis for the operation of an XRDP terminal server
+	(see <xref linkend="terminalservices:xrdp"/>).
   </para>
 
   <para>
@@ -120,7 +127,8 @@
   <title>Downloading/removing UCC images</title>
 
   <para>
-	UCC images can be downloaded via the &ucsUMC; module <guimenu>UCC Images</guimenu>. A list of
+	The UCC images are not delivered in the Debian package format (the format is not best-suited to
+	files in the gigabyte range). Instead, UCC images can be downloaded via the &ucsUMC; module <guimenu>UCC Images</guimenu>. A list of
 	all available images is shown when the module is started. Already downloaded images are shown as
 	<guimenu>installed</guimenu>; not yet installed images as <guimenu>available</guimenu>. Each
 	image is furnished with a version number; the official UCC images are updated regularly and -
@@ -129,8 +137,6 @@
   </para>
 
   <para>
-	The UCC images are not delivered in the Debian package format; the Debian package format is not
-	best-suited to files in the gigabyte range.
   </para>
 
   <para>

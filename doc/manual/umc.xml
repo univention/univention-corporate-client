@@ -2,10 +2,10 @@
   <title>Management of UCC systems in the &ucsUMC;</title>
 
   <section id="umc:initialsetup">
-	<title>Initial setting up of a UCC environment</title>
+	<title>Initial setup of a UCC environment</title>
 	<para>
-	  A setup wizard is provided for the initial configuration of a UCC environment. This guides you
-	  through the basic setting up of a UCC environment with thin clients or desktop
+	  A &ucsUMC; wizard is provided for the initial configuration of a UCC environment. It guides you
+	  through the basic setting up of a UCC environment with thin clients and/or desktop
 	  clients. Different standard policies are created and configured. The setup wizard is suitable
 	  for small to medium-sized environments. The policies can also be manually configured in the
 	  &ucsUMC; for more complex requirements in which different policies are to be used for
@@ -20,14 +20,14 @@
 	</para>
 
 	<para>
-	  UCS offers you the possibility of centrally managing the IP addresses and DNS/DHCP settings of
+	  UCS offers the possibility of centrally managing the IP addresses and DNS/DHCP settings of
 	  a network in a network object in the LDAP. This can considerably facilitates the management of
 	  IP addresses: When creating a UCC client the next free IP address of the network is selected
 	  automatically. Also, DNS and DHCP settings are configured automatically.
 	</para>
 
 	<para>
-	  It is now possible to select an existing network object in the <guimenu>Network
+	  In the UCC wizard it is now possible to select an existing network object in the <guimenu>Network
 	  configuration</guimenu> dialogue or create a new one. During the installation of an UCS
 	  system, a network object with the name <emphasis>default</emphasis> is created as standard.
 	  It uses the network of the &ucsMaster;. If only a certain IP segment is to be used for the UCC
@@ -48,6 +48,33 @@
 	  clients registered in the LDAP.
 	</para>
 	
+	<!-- <para> -->
+	<!--   Im nächsten Menü-Punkt kann ausgewählt werden, ob Desktop und/oder Thin Clients konfiguriert -->
+	<!--   werden sollen. Für Linux-Desktop-Systeme/XRDP-Terminalserver ist keine weitere -->
+	<!--   Vorkonfiguration nötig. Die Assistenten zur Einrichtung des Thin Client-Zugriffs auf -->
+	<!--   Terminaldienste ist in den folgenden Kapiteln beschrieben: -->
+
+	<!--    <itemizedlist> -->
+	<!-- 	 <listitem><simpara> -->
+	<!-- 	   Thin Client-Zugriff auf Windows-Terminalserver (<xref linkend="terminalservices:rdp"/>) -->
+	<!-- 	   und XRDP-Terminalserver (<xref linkend="terminalservices:xrdp"/>) -->
+	<!-- 	 </simpara></listitem> -->
+
+	<!-- 	 <listitem><simpara> -->
+	<!-- 	   Thin Client-Zugriff auf Citrix-Terminalserver (<xref linkend="terminalservices:citrix"/>) -->
+	<!-- 	 </simpara></listitem> -->
+
+	<!-- 	 <listitem><simpara> -->
+	<!-- 	   Thin Client-Zugriff auf eine Webseite (<xref linkend="logins:firefox"/>) -->
+	<!-- 	 </simpara></listitem> -->
+	<!--    </itemizedlist> -->
+	<!-- </para> -->
+
+	<!-- <para> -->
+	<!--   Nach Abschluss des Assistenten müssen die UCC-Clients nun in der &ucsUMC; registriert -->
+	<!--   werden. Dies ist in (<xref linkend="umc:manageucc"/>) beschrieben. -->
+	<!-- </para> -->
+
   </section>
 
   <section id="umc:manageucc">
