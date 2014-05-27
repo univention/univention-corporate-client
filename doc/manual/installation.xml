@@ -21,7 +21,7 @@
   <itemizedlist>
 	<listitem><simpara>
 	  The integration in the UCS management system (UMC modules and LDAP schema extensions). They
-	  are installed on the &ucsMaster; and all &ucsBackup; via the Univention App Center.
+	  are automatically installed on the &ucsMaster; and all &ucsBackup; via the Univention App Center.
 	</simpara></listitem>
 
 	<listitem><simpara>
@@ -49,7 +49,7 @@
 <!-- </para> -->
 
 <section id="installation:singleserver">
-  <title>Installation in a single-server environment</title>
+  <title>Installation</title>
   <para>
 	The UCC server can be installed on any UCS server role (&ucsMaster;, &ucsBackup;, &ucsSlave; or
 	&ucsMember;). All available errata updates should be installed on that system.
@@ -57,74 +57,30 @@
 
   <para>
 	In the Univention App Center, select the <emphasis>Univention Corporate Client</emphasis>
-	application and click on <guimenu>Install</guimenu>.
+	application and click on <guimenu>Install</guimenu>. The integration in the UCS management
+	system (UMC modules and LDAP schema extensions) are are automatically installed on the
+	&ucsMaster; and all &ucsBackup; via the Univention App Center.
   </para>
 
   <para>
 	Once the component is installed, click on <guimenu>Restart</guimenu>.
   </para>
 
-  <para>
-	It is recommended to restart the system before the rollout of UCC clients.
-  </para>
+  <!-- <para> -->
+  <!-- 	Auf &ucsMaster;- und &ucsBackup;-Systemen werden die Join-Skript automatisch während der -->
+  <!-- 	Installation der UCC-App aufgerufen. Auf &ucsSlave;- und &ucsMember;-Installationen muss das -->
+  <!-- 	<guimenu>Domain join</guimenu>-UMC-Modul aufgerufen werden und dort die Option <guimenu>Execute -->
+  <!-- 	all pending join scripts</guimenu> aufgerufen werden, damit der UCC-Server einsatzbereit ist. -->
+  <!-- </para> -->
 
-</section>
+  <!-- <para> -->
+  <!-- 	UCC kann auf mehr als einem Server installiert werden, z.B. wenn an zwei Standorten UCC-Clients -->
+  <!-- 	betrieben werden sollen. Der PXE-Server, der für ein DHCP-Segment zuständig sein soll, kann über -->
+  <!-- 	eine <emphasis>DHCP Boot</emphasis> policy konfiguriert werden (über das Eingabefeld -->
+  <!-- 	<guimenu>Boot server</guimenu>. Weitere Hinweise zu dieser Richtlinie und ihrer Anwendung finden -->
+  <!-- 	sich im UCS-Handbuch (<xref linkend="ucs-manual-pxeboot"/>). -->
+  <!-- </para> -->
 
-<section id="installation:distributed">
-  <title>Installation in a distributed environment</title>
-  <para>
-	When UCC is installed in an environment with more than one server,
-	the installation is performed in two stages:
-  </para>
-
-  <para>
-	All available errata updates should be installed on both the
-	&ucsMaster; and the additional server.
-  </para>
-
-  <para>
-	1. Installation of the UMC modules and LDAP schema expansions:
-  </para>
-
-  <para>
-	Log on to the &ucsMaster; as the <emphasis>root</emphasis> user and  run the following
-	command. If &ucsBackup; systems are in use, the  command must also be run on all of these
-	systems. After installation the &ucsUMC; server needs to be restarted:
-
-	<programlisting>
-univention-add-app --latest ucc ucc-server
-/etc/init.d/univention-management-console-server restart
-	</programlisting>
-  </para>
-
-  <para>
-	2. Installation of the UCC server(s)
-  </para>
-
-  <para>
-	UCC servers can be installed in all UCS server roles. The UMC module <guimenu>Univention App
-	Center</guimenu> must be opened on all the systems on which you wish to install a UCC server.
-  </para>
-
-  <para>
-	In the Univention App Center, select the <emphasis>Univention Corporate Client</emphasis>
-	application and click on <guimenu>Install</guimenu>.
-  </para>
-
-  <para>
-	Once the component is installed, click on <guimenu>Restart</guimenu>.
-  </para>
-
-  <para>
-	Finally the join scripts need to be executed on the UCC server:
-	<programlisting>
-	  univention-run-join-scripts
-	</programlisting>
-  </para>
-
-  <para>
-	It is recommended to restart the system before the rollout of UCC clients.
-  </para>
 </section>
 
 

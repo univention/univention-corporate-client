@@ -12,14 +12,14 @@
 </para>
 
 <para>
-  UCC systems are rolled out via an image-based procedure: All the
-  user data - and as such also the user settings - are typically saved on a
+  UCC systems are rolled out via an image-based approach: All the
+  user data - and as such also the user settings - are stored on a
   separate partition. If a new version of the image is installed, the
   complete operating system installation is overwritten.
 </para>
 
 <para>
-  UCC clients need to be joined into a UCS domain. The clients are
+  UCC clients are part of a UCS domain. The clients are
   entirely managed through settings from the LDAP. As a result, a UCC
   system is directly configured after an upgrade or an
   installation. Features configured from the LDAP include network
@@ -30,12 +30,12 @@
 <para>
   Kubuntu is used as the basis for the images (Version 14.04 in UCC
   2.0). Univention provides two preconfigured images: a
-  minimal image for thin clients and a larger image for native desktop
+  minimal image for thin clients and a larger image for desktop
   installations. These two images are maintained and tested
   by Univention. It is also possible to create modified or completely
   new images with a minimum of effort using the included image toolkit
   (see <xref linkend="imagegen:toolkit"/>). In contrast to the
-  existing integration of Ubuntu clients in UCS, UCC clients work out
+  integration of Ubuntu clients in UCS, UCC clients work out
   of the box and require no further modification.
 </para>
 
@@ -44,16 +44,21 @@
   integrate into the UCS user management: all the users in a UCS
   domain can log on to UCC clients using their domain password. The
   integration packages are installed via the Univention App
-  Center (UCC 2.0 requires UCS 3.2).
+  Center.
 </para>
 
 <para>
-  UCC support both a local desktop based on KDE Plasma and working on
-  terminal servers (RDP, Citrix XenApp and remotely used KDE
-  desktops based on xrdp). Access to web-based services can also be configured.
-  A UCC desktop system be used both in the company network and in
-  mobile use (all user and group information is cached locally for
-  that).
+  UCC integrates terminal services provided via XRDP, i.e., the KDE Linux desktop is provided via
+  the RDP protocol.
+  <!-- Auf den KDE-Desktop kann entweder von UCC-Thin Clients oder beliebigen anderen RDP-Clients -->
+  <!-- zugegriffen werden. -->
+</para>
+
+<para>
+  UCC supports both a local desktop based on KDE Plasma and working on terminal servers (RDP, Citrix
+  XenApp and remotely used KDE desktops based on xrdp). Access to web-based services can also be
+  configured using a full-screen Firefox browser session. A UCC desktop system be used both in the
+  company network and in mobile use (all user and group information is cached locally for that).
 </para>
 
 <para>
