@@ -251,16 +251,6 @@
   The client to be installed should be created in the UMC computer
   management first (see <xref linkend="umc:manageucc"/>).
 </para>
-<para>
-  After the image has been written to disk and the boot medium is
-  started, a boot menu appears. Here, <guimenu>UCC - Image boot with
-  update check / Initial installation</guimenu> needs to be selected
-  and the <emphasis>e</emphasis> key pressed. Then the boot options need to
-  be modified from <emphasis>ucc=update</emphasis> to
-  <emphasis>ucc=rollout</emphasis>. If the client already contains a
-  partitioning, which needs to be replaced
-  <emphasis>repartition=y</emphasis> needs to be added.
-</para>
 
 <section id="rollout:iso:xen">
 <title>UCC installation as Xen Guest</title>
