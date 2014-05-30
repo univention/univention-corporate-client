@@ -1,15 +1,19 @@
 <chapter id="rollout:chapter">
-<title>Rollout of UCC systems</title>
+  <title>Rollout of UCC systems</title>
+
 <para>
-  UCC systems are rolled out via an image-based procedure. The recommended rollout procedure is
-  creating the UCC systems in the &ucsUMC; in advance. See <xref linkend="umc:chapter"/> for more
-  information on managing UCC systems in the &ucsUMC;.
+  UCC systems are rolled out via an image-based approach: All the
+  user data - and as such also the user settings - are stored on a
+  separate partition. If a new version of the image is installed, the
+  complete operating system installation is overwritten.
 </para>
 
 <para>
   When the image is installed, the image installation tool checks whether there is already a
   computer account available for the client and uses it. If the computer name is not stored in
-  advance, the name can be specified interactively during the installation.
+  advance, the name can be specified interactively during the installation. The recommended rollout procedure is
+  creating the UCC systems in the &ucsUMC; in advance. See <xref linkend="umc:chapter"/> for more
+  information on managing UCC systems in the &ucsUMC;.
 </para>
 
 <section id="rollout:imagerollout">
@@ -31,6 +35,15 @@
 <figure><title>Assigning the desktop image to a UCC client</title>
  <graphic scalefit="1" width="60%" fileref="illustrations/ucc-assign-image.png"/>
  </figure>
+
+ <para>
+   On UCC systems, user-specific data such as the home of the users must be stored separately from
+   the system data on another partition. This is the case in the default partition
+   configuration. The partitioning scheme is specified in the images configuration, see <xref
+   linkend="imagegen:params"/>. It is also possible to perform completely new partitioning schemes -
+   e.g. an encrypted hard drive - with an adapted partitioning script, see <xref
+   linkend="rollout:crypto"/>).
+ </para>
 
 <para>
   UCC clients can be operated in five different modes,
@@ -62,7 +75,7 @@
 
 	  <caution>
 		<para>
-		  Existing user data on a /home partition on a system are also deleted!
+		  Existing user data on a /home partition of a system are also deleted!
 		</para>
 	  </caution>
 	</listitem>
@@ -104,7 +117,7 @@
 
 <para>
   The <guimenu>Additional boot parameter</guimenu> input field can be
-  used to add any parameters to the initial RAM disk, which performs
+  used to add arbitrary parameters to the initial RAM disk, which performs
   the installation/rollout. These preconfigured options exist:
   <itemizedlist>
 	<listitem><simpara>
@@ -129,30 +142,12 @@
 </para>
 </section>
 
-<section id="rollout:partitioning">
-<title>Partitioning / separation of user and system data</title>
-<para>
-  On the systems installed with images, user-specific data such as the
-  home of the users must be stored separately from the system data on
-  another partition. This is the case in the default partition configuration.
-</para>
-<para>
-  The partitioning scheme is specified in the images configuration, see
-  <xref linkend="imagegen:params"/>.
-</para>
-
-<para>
-  It is also possible to perform completely new partitioning schemes - e.g. an encrypted hard drive -
-  with an adapted partitioning script, see <xref linkend="rollout:crypto"/>).
-</para>
-
-</section>
 
 <section id="rollout:crypto">
   <title>Custom partition scripts / Configuring an encrypted disk</title>
   <para>
 	In the standard setting the partitioning scheme is configured in the image configuration. A
-	different partitioning can be configured using partition scripts. Partitioning scripts are
+	different partitioning can be configured using partition scripts. They are
 	stored on the UCS server(s) in the directory
 	<filename>/var/lib/univention-client-boot/partition-scripts</filename>. The file name below that
 	directory needs to be configured in the <guimenu>Additional boot options</guimenu>, see <xref
@@ -165,47 +160,6 @@
 	An example configuration which configures an encrypted LUKS hard disk for the UCC desktop image is
 	shipped as <filename>desktop_encrypted.example</filename>. 
   </para>
-</section>
-
-<section id="rollout:automatic">
-<title>Configuration of a fully automated rollout</title>
-<para>
-  The rollout of UCC systems can be completely automated so that user
-  interaction is no longer necessary. Once all the clients to be
-  rolled out have been created in the UCS management system (see
-  <xref linkend="umc:manageucc"/>), the following steps
-  are necessary:
-</para>
-
-<para>
-  An image must be generated in which the interactive confirmation of
-  the partitioning is disabled. This can be achieved by setting the
-  option <emphasis>continuation_prompt</emphasis> to
-  <emphasis>false</emphasis> (see <xref
-  linkend="imagegen:params"/>).
-</para>
-
-<para>
-  Then the credentials of a user need to be stored in the image,
-  which is authorised to join clients in the domain (the user must be
-  a member of the <emphasis>Domain Admins</emphasis> and <emphasis>DC Backup Hosts</emphasis> groups for
-  this). For security reasons, this user should only be created during
-  the rollout and then removed or disabled after the rollout.
-</para>
-
-<para>
-  These credentials are now saved in the image with the tool
-  <command>ucc-image-set-join-information</command>. The parameter
-  <emphasis>-i</emphasis> is used to specify an image and the join
-  account and its password are interactively prompted. Alternatively, the account can be specified
-  with <emphasis>-u</emphasis>, the domain with <emphasis>-d</emphasis> and the password with <emphasis>-p</emphasis>.
-</para>
-
-<para>
-  The clients are then rolled out fully automatically without user
-  interaction.
-</para>
-
 </section>
 
 <section id="rollout:domainjoins">
@@ -222,19 +176,52 @@
   join can also be subsequently performed by
   running <command>univention-join</command>. The subsequent domain join
   cannot be performed via SSH, but should instead be run via a
-  local login or, if virtualization is employed, via VNC. The system
-  must be restarted after the join.
-</para>
-
-<para>
-  UCS installations, in which the &ucsMaster; was installed in a release older than 2.3 still use
-  MD5 as the hashing algorithm for the SSL certificates. Later releases use SHA1 as the hashing
-  algorithm. UCC clients cannot join a domain still using MD5 hashes. The necessary steps to migrate
-  a UCS domain from MD5 to SHA1 are documented in the Univention Support Database (<ulink
-  url="http://sdb.univention.de/1150"/>).
+  local login or, if virtualization is employed, via VNC.
 </para>
 
 </section>
+
+
+<section id="rollout:automatic">
+<title>Configuration of a fully automated rollout</title>
+<para>
+  <!-- In der Grundeinstellung muss wahrend des Domänenbeitritts ein Benutzername und Passwort angegeben -->
+  <!-- werden, mit dem der Domänenbeitritt durchgeführt. -->
+  The rollout of UCC systems can also be completely automated so that user
+  interaction is no longer necessary. Once all the clients to be
+  rolled out have been created in the UCS management system (see
+  <xref linkend="umc:manageucc"/>), the following steps
+  are necessary:
+
+  <itemizedlist>
+	<listitem><simpara>
+	  An image must be generated in which the interactive confirmation of he partitioning is
+	  disabled. This can be achieved by setting the option <emphasis>continuation_prompt</emphasis>
+	  to <emphasis>false</emphasis> (see <xref linkend="imagegen:params"/>).
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  Then the credentials of a user need to be stored in the image, which is authorised to join
+	  clients in the domain (the user must be a member of the <emphasis>Domain Admins</emphasis> and
+	  <emphasis>DC Backup Hosts</emphasis> groups for this). For security reasons, this user should
+	  only be created during the rollout and then removed or disabled after the rollout.
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  These credentials are now saved in the image with the tool
+	  <command>ucc-image-set-join-information</command>. The parameter <emphasis>-i</emphasis> is
+	  used to specify an image and the join account and its password are interactively
+	  prompted. Alternatively, the account can be specified with <emphasis>-u</emphasis>, the domain
+	  with <emphasis>-d</emphasis> and the password with <emphasis>-p</emphasis>.
+	</simpara></listitem>
+
+	<listitem><simpara>
+	  The clients are then rolled out fully automatically without user interaction.
+	</simpara></listitem>
+  </itemizedlist>
+</para>
+</section>
+
 
 <section id="rollout:iso">
 <title>Rollouts using an ISO image</title>
@@ -251,6 +238,8 @@
   The client to be installed should be created in the UMC computer
   management first (see <xref linkend="umc:manageucc"/>).
 </para>
+</section>
+
 
 <section id="rollout:iso:xen">
 <title>UCC installation as Xen Guest</title>
@@ -264,13 +253,12 @@
   about pvops can be found at <ulink url="http://wiki.xen.org/wiki/Paravirtualization_%28PV%29"/>.
 </para>
 </section>
-</section>
 
 <section id="rollout:persistent">
 <title>Persistently stored system settings</title>
 <para>
-  System data which must be preserved during an update (e.g., the join
-  status) are saved separately from the system data and automatically restored
+  System data which must be preserved during a UCC update (e.g., the join
+  status) are stored separately from the system data and automatically restored
   after updates. These files and selected &ucsUCR; variables are registered in
   the UCR variables <envar>ucc/persistent/files</envar> and
   <envar>ucc/persistent/ucr</envar>. Important standard UCC settings
@@ -305,7 +293,7 @@
 </para>
 
 <para>
-  Thin clients are thus started in UCC with an OverlayFS file system
+  In UCC thin clients are thus started with an OverlayFS file system
   so that all write accesses on the storage media of a booted system
   are only performed in the system memory and not written to the hard
   drive. All the write changes are thus lost once the thin client is

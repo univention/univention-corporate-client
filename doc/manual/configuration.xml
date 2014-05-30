@@ -9,8 +9,26 @@
 	</para>
 
 	<para>
-	  The UCC Setup Wizard creates two &ucsUCR; policies automatically, which are linked to the
-	  containers for thin clients and desktops: These policies can be edited directly.
+	  The UCC setup wizard (see <xref linkend="umc:initialsetup"/>) creates three &ucsUCR; policies
+	  automatically, which are linked to the containers for thin clients and desktops: These
+	  policies can be edited directly:
+
+	  <!-- <itemizedlist> -->
+	  <!-- 	<listitem><simpara> -->
+	  <!-- 	  <emphasis>ucc-common-settings</emphasis> ist an den Container -->
+	  <!-- 	  <emphasis>cn=computers</emphasis> gebunden, gilt also für Thin clients und Desktops. -->
+	  <!-- 	</simpara></listitem> -->
+
+	  <!-- 	<listitem><simpara> -->
+	  <!-- 	  <emphasis>ucc-thinclient-settings</emphasis> ist an den Container -->
+	  <!-- 	  <emphasis>cn=computers,cn=ucc-thinclients</emphasis> gebunden, gilt also für nur für Thin clients. -->
+	  <!-- 	</simpara></listitem> -->
+
+	  <!-- 	<listitem><simpara> -->
+	  <!-- 	  <emphasis>ucc-desktop-settings</emphasis> ist an den Container -->
+	  <!-- 	  <emphasis>cn=computers,cn=ucc-desktops</emphasis> gebunden, gilt also für nur für Desktops. -->
+	  <!-- 	</simpara></listitem> -->
+	  <!-- </itemizedlist> -->
 	</para>
 	  
 	<para>
@@ -44,29 +62,6 @@
 
   <section id="config:softwareupdates">
 	<title>Software updates / Installing additional software</title>
-	<caution>
-	  <para>
-		Always test UCC software updates on the target platform before updating all clients. UCC
-		Updates have been tested on official UCC images. If individual images have been created for
-		an environment a number of things should be considered before updating.
-
-		<itemizedlist>
-		  <listitem><simpara>
-			Is there enough free space to perform the update?
-			</simpara></listitem>
-
-			<listitem><simpara>
-			  How long does the update take on the target platform? Large packages take a
-			  considerable amount of time to download. Slow hardware can prolong the update when
-			  e.g. the initramfs has to be recreated.
-			</simpara></listitem>
-
-			<listitem><simpara>
-			  Does all hardware still work after a kernel update?
-			</simpara></listitem>
-		</itemizedlist>
-	  </para>
-	</caution>
 
 	<para>
 	  Every UCC image comes with a predefined software package selection. A computer policy in the
@@ -105,9 +100,43 @@
 	  </itemizedlist>
 	</para>
 
+	<caution>
+	  <para>
+		Always test UCC software updates on a test system before updating all clients. UCC
+		updates have been tested on official UCC images; if individual images have been created for
+		an environment a number of things should be considered before updating.
+
+		<itemizedlist>
+		  <listitem><simpara>
+			Is there enough free space to perform the update?
+			</simpara></listitem>
+
+			<listitem><simpara>
+			  How long does the update take on the target platform? Large packages take a
+			  considerable amount of time to download. Slow hardware can prolong the update when
+			  e.g. the initramfs has to be recreated.
+			</simpara></listitem>
+
+			<listitem><simpara>
+			  Does all hardware still work after a kernel update?
+			</simpara></listitem>
+		</itemizedlist>
+	  </para>
+	</caution>
+
 	<para>
 	  It is not possible to update the kernel on thin clients; a new image must be rolled out
 	  instead.
+	</para>
+
+	<para>
+	  Additional software packages can also be installed on the command line using
+	  <command>apt-get</command>:
+
+	  <programlisting>
+apt-get update
+apt-get install emacs24
+	  </programlisting>
 	</para>
 
 	<para>
@@ -140,22 +169,13 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 	  restarted again to change to the OverlayFS mode.
 	</para>
 
-	<para>
-	  Additional software packages can also be installed on the command line using
-	  <command>apt-get</command>:
-
-	  <programlisting>
-apt-get update
-apt-get install emacs24
-	  </programlisting>
-	</para>
   </section>
 
   <section id="config:keyboardlocale">
 	<title>Configuration of the keyboard layout / locale</title>
 	<para>
-	  In the standard setting, the keyboard layout and the language setting (locale) of the UCC PXE
-	  server is also employed on the UCC clients. If UCC systems are not installed using PXE, the
+	  In the standard setting, the keyboard layout and the language setting (locale) of the UCS
+	  system acting as PXE server is also employed on the UCC clients. If UCC systems are not installed using PXE, the
 	  &ucsUCR; variables specified below need to be set via a policy:
 	</para>
 
@@ -183,8 +203,9 @@ apt-get install emacs24
 
 	<para>
 	  The <package>univention-ucc-cifshome-pam-mount</package> package allows the automatic mount of
-	  a CIFS share with home directory of the the user during login. It must be configured using the
-	  following &ucsUCR; variables:
+	  a CIFS share with the user's home directory during login. It must be configured using the
+	  following &ucsUCR; variables. Further information on configuring &ucsUCR; variables can be
+	  found in  <xref linkend="config:ucr"/>.
 
 	  <itemizedlist>
 		<listitem><simpara>
@@ -208,7 +229,7 @@ apt-get install emacs24
   <section id="config:time">
 	<title>Configuration of the time zone / time server</title>
 	<para>
-	  In the standard setting, the time zone of the UCC PXE server is also employed on the UCC
+	  In the standard setting, the time zone of the UCS system acting as PXE server is also employed on the UCC
 	  clients. If UCC systems are not installed using PXE, the time zone needs to be set via a
 	  policy:
 	</para>
@@ -216,14 +237,16 @@ apt-get install emacs24
 	<para>
 	  The &ucsUCRV; <envar>ucc/timezone</envar> can be used to set a different time zone. The
 	  available time zones can be found in the <filename>/usr/share/zoneinfo/</filename> directory,
-	  for example <emphasis>Europe/Berlin</emphasis>.
+	  for example <emphasis>Europe/Berlin</emphasis>. Further information on configuring &ucsUCR; variables can be
+	  found in  <xref linkend="config:ucr"/>.
 	</para>
 
 	<para>
 	  Authentication in UCC is performed through Kerberos. For this reason, synchronised time
 	  sources are essential. When a UCC client joins a domain, the &ucsMaster; of the domain is set
 	  as the time server. The &ucsUCRV; <envar>ucc/timeserver</envar> can be used to configure a
-	  different server.
+	  different server. Further information on configuring &ucsUCR; variables can be
+	  found in  <xref linkend="config:ucr"/>.
 	</para>
 
 	<para>
@@ -237,7 +260,8 @@ apt-get install emacs24
 	<para>
 	  UCC can use one or several print servers from the UCS domain. The &ucsUCRV;
 	  <envar>ucc/cups/server</envar> configures the server(s) to use;  multiple servers need to be
-	  separated by a blank character.
+	  separated by a blank character. Further information on configuring &ucsUCR; variables can be
+	  found in  <xref linkend="config:ucr"/>.
 	</para>
   </section>
 
@@ -246,7 +270,7 @@ apt-get install emacs24
 	<para>
 	  In addition to local logging, the system logging (syslog) of UCC clients can also be performed
 	  remotely against a central log host based on rsyslog. As standard, the logging is performed
-	  against the UCC PXE server.
+	  against the UCS system acting as PXE server.
 	</para>
 
 	<para>
@@ -276,12 +300,12 @@ apt-get install emacs24
   <section id="config:bootsplash">
 	<title>Bootsplash startup animation</title>
 	<para>
-	  A startup animation (bootsplash) is displayed when a UCC client is started. This can be hidden
+	  A startup animation (bootsplash) is displayed when a UCC client is started. It can be hidden
 	  by pressing the Escape key to diagnose the startup in full details.
 	</para>
 
 	<para>
-	  The &ucsUCRV; <envar>ucc/pxe/bootsplash</envar> on the UCC PXE server can be set to
+	  The &ucsUCRV; <envar>ucc/pxe/bootsplash</envar> on the UCS syste acting as PXE server can be set to
 	  <emphasis>no</emphasis> to deactivate it completely.
 	</para>
   </section>

@@ -79,13 +79,11 @@
   <!-- 	kleine bis mittlere Installation wird der UCS-Wizard für die Ersteinrichtung empfohlen. -->
   <!-- </para> -->
 
-  <!-- <para> -->
-  <!-- 	UCC kann auf mehr als einem Server installiert werden, z.B. wenn an zwei Standorten UCC-Clients -->
-  <!-- 	betrieben werden sollen. Der PXE-Server, der für ein DHCP-Segment zuständig sein soll, kann über -->
-  <!-- 	eine <emphasis>DHCP Boot</emphasis> policy konfiguriert werden (über das Eingabefeld -->
-  <!-- 	<guimenu>Boot server</guimenu>. Weitere Hinweise zu dieser Richtlinie und ihrer Anwendung finden -->
-  <!-- 	sich im UCS-Handbuch (<xref linkend="ucs-manual-pxeboot"/>). -->
-  <!-- </para> -->
+  <para>
+  	<!-- UCC kann auf mehr als einem Server installiert werden, z.B. wenn an zwei Standorten UCC-Clients -->
+  	<!-- betrieben werden sollen.  -->
+	Additional information can be found in <xref linkend="rollout:bootpolicy"/>.
+  </para>
 
 </section>
 

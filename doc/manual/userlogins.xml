@@ -7,10 +7,14 @@
 	  <title>Session selection</title>
 	  <para>
 		UCC uses LightDM as its login manager. When the UCC client is started, a login mask is
-		shown. If the UCC client is not yet joined or in live boots, an automatic login is performed with a temporary
-		guest user. The user can choose between different session types. LightDM can optionally also
-		be configured in such a way that a session is started automatically without additional user
-		login, see <xref linkend="logins:autologin"/>
+		shown. The user can choose between different session types using the
+		<guimenu>Session</guimenu> menu.
+	  </para>
+
+	  <para>
+		If the UCC client is not yet joined or in live boots, an automatic login is performed with a
+		temporary guest user. Such an automatic login can also be configured for joined systems, see
+		<xref linkend="logins:autologin"/>
 	  </para>
 
 	  <figure><title>User login at LightDM</title>
@@ -72,6 +76,8 @@
 		&ucsUCRV; <envar>lightdm/sessiondefault</envar> must contain the name of one of the session
 		scripts in <filename>/usr/share/xsessions</filename>. For subsequent logins on a client the
 		last chosen session is cached on a per user basis.
+		<!-- Wurde die UCC-Umgebung über den UCC setup wizard konfiguriert (siehe (<xref -->
+		<!-- linkend="umc:initialsetup"/>), ist die Einstellung schon vorkonfiguriert. -->
 	  </para>
 	</section>
 
@@ -97,7 +103,7 @@
 	  </para>
 
 	  <para>
-		In the case described above, the LightDM login dialogue is no longer shown. The session can
+		If an automatic login is configured, the LightDM login dialogue is no longer shown. The session can
 		alternatively also be specified in the user management of the &ucsUMC;. This is performed in
 		the <guimenu>Force this session for user logins</guimenu> input field in the <emphasis>UCC
 		user session</emphasis> policy: Independently of the selection of the session script during
@@ -110,7 +116,7 @@
 	  <title>Session scripts</title>
 	  <para>
 		Scripts can be run at different times during session setup and when exiting the session. All
-		the scripts which can be run in the following directories are run alphabetically with root
+		executable scripts in the following directories are run alphabetically with root
 		rights:
 
 		<itemizedlist>

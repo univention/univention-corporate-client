@@ -5,7 +5,7 @@
 	<title>Network configuration</title>
 	<para>
 	  The network configuration of UCC clients is generally performed via DHCP. The configuration of
-	  MAC and IP addresses, etc., is performed in the UCS management system, see <xref
+	  MAC and IP addresses, etc., occurs in the UCS management system, see <xref
 	  linkend="umc:manageucc"/>.
 	</para>
 
@@ -77,7 +77,7 @@
   <section id="hardware:sound">
 	<title>Sound support</title>
 	<para>
-	  The sound output is activated in UCC clients as standard. Sound is also output in terminal
+	  The sound output is activated in UCC clients as standard. Sound is also available in terminal
 	  sessions:
 	  
 	  <itemizedlist>
@@ -101,7 +101,7 @@
   <section id="hardware:kernelmodules">
 	<title>Managing drivers/kernel modules</title>
 	<para>
-	  The drivers to be used are recognised automatically during system start and loaded via the
+	  The drivers to be used are detected automatically during system start and loaded via the
 	  udev device manager. At this point, the necessary device links are also created under
 	  <filename>/dev/</filename>. If drivers are not detected, kernel modules to be loaded can be
 	  added via the &ucsUCRV; <envar>kernel/modules</envar>. If more than one kernel module is to be
@@ -126,6 +126,8 @@
 	<para>
 	  Dual-display setups can be configured using a <guimenu>UCC client configuration</guimenu>
 	  computer policy in the UCS management system:
+	  <!-- Dies ist in erster Linie für Thin Clients relevant; auf Desktop-Systemen können die Benutzer -->
+	  <!-- über die KDE-Systemeinstellungen auch eigenständig konfigurieren. -->
 	</para>
 
 	<para>

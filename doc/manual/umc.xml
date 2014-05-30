@@ -111,7 +111,7 @@
 		 </simpara></listitem>
 		 
 		 <listitem><simpara>
-		   A <guimenu>Network</guimenu> needs to be selected: generally the network created in the UCC
+		   A <guimenu>Network</guimenu> needs to be selected: generally the network configured in the UCC
 		   Setup wizard. The <guimenu>IP address</guimenu> is suggested automatically and can be
 		   adjusted if necessary.
 		 </simpara></listitem>
