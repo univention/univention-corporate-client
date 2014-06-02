@@ -3,35 +3,21 @@
 <section id="imagegen:toolkit">
   <title>Image toolkit</title>
   <para>
-	Beside the official UCC images provided by Univention it is
-	also possible to build local images. These images are generated
-	via a toolkit run on a UCS server installed on a UCS domain controller. The image generation requires a
-	considerable amount of space; we recommend ensuring that there
-	are at least 100 GB of free disk space available on the system.
+	Beside the official UCC images provided by Univention it is also possible to build custom
+	images. These images are generated via a toolkit run on a UCS server with the UCC app
+	installed. The image generation requires a considerable amount of disk space; we recommend
+	ensuring that there are at least 100 GB of free disk space available on the system.
   </para>
 
   <para>
-	On systems on which an image is integrated, two conditions
-	currently need to be fulfilled as otherwise disruptions might
-	occur in the image build:
-
-	<itemizedlist>
-	  <listitem><simpara>Bind must be installed. This is the case as
-	  standard on UCS domain controllers.</simpara></listitem>
-	  <listitem><simpara>A DNS forwarder must be configured with the
-	  &ucsUCRV; <envar>dns/forwarder1</envar>.</simpara></listitem>
-	</itemizedlist>
+	Image generation is performed with the <command>ucc-image</command> tool in the
+	<emphasis>ucc-image-toolkit</emphasis> package. The images are defined via a configuration
+	file (see <xref linkend="imagegen:params"/>). In addition to the image, the image toolkit also creates an initial ram disk (initrd) and
+	a kernel. An ISO image can also optionally be created. In addition, a spec file is generated,
+	which is used when downloading a UCC image (see <xref
+	linkend="installation:imagemanagement:download"/>).
   </para>
 
-  <para>
-	Image generation is performed with the
-	<command>ucc-image</command> tool in the
-	<emphasis>ucc-image-toolkit</emphasis> package. The images are
-	defined via a configuration file. In addition to the image, the
-	image toolkit also creates an initial ram disk (initrd) and a kernel. An ISO image
-	can also optionally be created. In addition, a spec file is
-	generated, which is used when downloading a UCC image (see <xref linkend="installation:imagemanagement:download"/>).
-  </para>
   <para>
 	The configurations of the two official UCC images are also
 	provided in this package and can be used as templates for your own
@@ -39,20 +25,34 @@
 	<itemizedlist>
 	  <listitem><simpara><filename>/usr/share/doc/ucc-image-toolkit/example/ucc-desktop.cfg</filename></simpara></listitem>
 	  <listitem><simpara><filename>/usr/share/doc/ucc-image-toolkit/example/ucc-thinclient.cfg</filename></simpara></listitem>
+	  <listitem><simpara><filename>/usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg</filename></simpara></listitem>
 	</itemizedlist>
   </para>
+
   <para>
 	The images are created with the <command>ucc-image</command>
-	command as the <emphasis>root</emphasis> user.
+	command as the <emphasis>root</emphasis> user:
+
+	<itemizedlist>
+	  <listitem><simpara>
+		The parameter <emphasis>-c</emphasis> must be used to specify a configuration file. 
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		If the parameter <emphasis>--compress</emphasis> is set, the image is compressed with
+		xz.
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The option <emphasis>-t</emphasis> can be used to specify a target directory.
+	  </simpara></listitem>
+	</itemizedlist>
   </para>
+
   <para>
-	The parameter <emphasis>-c</emphasis> must be used to specify a
-	configuration file. If the parameter <emphasis>--compress</emphasis> is set, the image
-	is compressed with xz. The option <emphasis>-t</emphasis> can be used to specify a
-	target directory. After image generation the images need to be copied to the directory
-	<filename>/var/lib/univention-client-boot/</filename> on the UCC servers. The join script
-	needs to be copied to
-	<filename>/usr/lib/univention-install</filename>. After that,
+	After image generation the images need to be copied to the directory
+	<filename>/var/lib/univention-client-boot/</filename> on the UCC servers. The join script needs
+	to be copied to <filename>/usr/lib/univention-install</filename>. After that,
 	<command>univention-run-join-script</command> needs to be executed.
   </para>
 
@@ -64,9 +64,12 @@
 
 <section id="imagegen:params">
   <title>Overview of image parameters</title>
+
   <para>
-	The following parameters can be used. The configuration files can
-	be commented with a hash (#):
+	The following configuration settings can be used to build a custom UCC image.
+	<!-- Es wird empfohlen eine der Standard-Konfigurationsdateien als Vorlage zu nehmen.  -->
+	<!-- Die Konfigurationsdatei wird dann vom Image-Toolkit verarbeitet, siehe <xref linkend="imagegen:toolkit"/>). -->
+	The configuration files can be commented with a hash (#):
 	<itemizedlist>
 	  <listitem><simpara>
 		<emphasis>arch</emphasis>: The system architecture, i386 or amd64. The official UCC images
@@ -75,13 +78,13 @@
 
 	  <listitem><simpara><emphasis>version</emphasis>: The Ubuntu code
 	  name on which the image is based. It must be taken into account
-	  that the Univention modifications are always only compiled and
+	  that the Univention modifications are only built and
 	  tested for a specific release, in the case of UCC 2.0 for Ubuntu 14.04
 	  (trusty).</simpara></listitem>
 
 	  <listitem><simpara><emphasis>hostname</emphasis>: The standard host
 	  name of an unjoined UCC client. The name is set to the name
-	  configured in the LDAP in the scope of the domain join.</simpara></listitem>
+	  configured in the LDAP during the domain join.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>domainname</emphasis>: The standard
 	  domain name of an unjoined UCC client. The domain is set in the
@@ -89,17 +92,20 @@
 
 	  <listitem><simpara><emphasis>root_password</emphasis>: The
 	  SHA-512 hash of the standard root password. If the official
-	  image is loaded from the Univention server, it is adapted during
+	  image is downloaded from the Univention server, it is adapted during
 	  the download, see <xref linkend="installation:imagemanagement:download"/>. To generate an individual hash, the
 	  <emphasis>whois</emphasis> package must be installed. The command <command>mkpasswd -H sha-512
 	  PASSWORD</command> can be used to generate the hash
 	  value.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>mirror</emphasis>: Configures the
-	  mirror from which the Ubuntu packages are downloaded.</simpara></listitem>
+	  mirror from which the Ubuntu packages are downloaded.</simpara></listitem>.
+	  <!-- Von der Verwendung eines Standard-Ubuntu-Mirrors wird abgeraten; in UCC werden einige Pakete  -->
+	  <!-- in abgewandelter Form gebaut. Bei Verwendung eines Nicht-Univention-Mirrors ist nicht sichergestellt  -->
+	  <!-- das diese Pakete bei Aktualisierungen von Ubuntu-Paketen aktualisiert werden. -->
 
 	  <listitem><simpara><emphasis>updates, security,
-	  backports</emphasis>: Here, true/false can be used to specify
+	  backports</emphasis>: Here, <emphasis>true/false</emphasis> can be used to specify
 	  whether, in addition to the standard release, updated bugfix
 	  packages (updates), security updates or backports should also be
 	  integrated into the image.</simpara></listitem>
@@ -109,7 +115,10 @@
 	  from Ubuntu, see <biblioref linkend="ubuntu-repositories"/> for details.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>sources_list</emphasis>: Additional
-	  apt sources can be integrated here.</simpara></listitem>
+	  apt sources can be integrated here.</simpara></listitem>.
+	  <!-- Weitere Quellen können für einen installierten Client auch über &ucsUCR; eingebunden werden (siehe  -->
+	  <!-- <xref linkend="config:softwareupdates"/>). Dieser Parameter wird u.a. benötigt um apt-Quellen schon  -->
+	  <!-- bei der Image-Generierung zu integrieren. -->
 
 	  <listitem><simpara><emphasis>packages_no_recommends,
 	  packages</emphasis>: In the Debian package format, packages can
@@ -143,8 +152,7 @@
 	  can define &ucsUCR; variables which are then set directly in the
 	  installed image.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>version</emphasis>: Here one can
-	  specify a version for the image which, among other things, is
+	  <listitem><simpara><emphasis>version</emphasis>: A version for the image which, among other things, is
 	  also displayed in the image selection in the &ucsUMC;.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>size</emphasis>: The size of the
@@ -161,12 +169,13 @@
 	  in the initrd.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>kernel, initrd</emphasis>: The Linux
-	  kernel of a UCC system is saved separately from the image. The
+	  kernel of a UCC system is stored separately from the image. The
 	  file names are defined here.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>iso</emphasis>: If a name of a file
-	  is defined here, a bootable ISO image is also generated with
-	  which can be booted from USB or a DVD drive.</simpara></listitem>
+	  is defined here, a bootable ISO image is generated
+	  which can be booted from USB or a DVD drive, see <xref linkend="rollout:iso"/>.
+	  </simpara></listitem>
 
 	  <listitem><simpara><emphasis>device</emphasis>: Specifies which
 	  device should be partitioned, e.g., hda or sda. <emphasis>auto</emphasis> establishes
@@ -174,7 +183,9 @@
 
 	  <listitem><simpara><emphasis>continuation_prompt</emphasis> If
 	  this option is set to true, a prompt appears to verify whether
-	  partitioning should be performed.</simpara></listitem>
+	  partitioning should be performed.
+	  <!-- Dies kann mit der Boot-Option <emphasis>force_partition</emphasis> vermieden werden, siehe <xref linkend="rollout:imagerollout"/>. -->
+	  </simpara></listitem>
 
 	  <listitem><simpara><emphasis>continuation_message_top,
 	  continuation_message, continuation_dialog,
@@ -246,8 +257,8 @@ umount /mnt/img
 	whether a rolled-out image has been modified:
 
 	<programlisting>
-md5sum /var/lib/univention-client-boot/ucc-1.0-rev3-desktop-image.img \
-> /var/lib/univention-client-boot/ucc-1.0-rev2-desktop-image.img.md5
+md5sum /var/lib/univention-client-boot/ucc-2.0-desktop-image.img \
+> /var/lib/univention-client-boot/ucc-2.0-desktop-image.img.md5
 	</programlisting>
   </para>
 
