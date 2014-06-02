@@ -1,3 +1,11 @@
+univention-ucc-italc (2:2.0.0-5) unstable; urgency=low
+
+  * Include upstream patch to fix italc crash with recent GCC version.
+    iTalc does no longer crash when an external connection is 
+    established (Bug #34927)
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 02 Jun 2014 13:32:09 +0200
+
 univention-ucc-italc (2:2.0.0-4) unstable; urgency=low
 
   * Make installation path for library package multiarch compliant (Bug #34393)
