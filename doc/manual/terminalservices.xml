@@ -360,14 +360,13 @@
 	  <filename>/dev/urandom</filename> which prevents these delays.
 	</para>
 
-	<!-- <para> -->
-	<!--   In der Grundeinstellung greift der Citrix Receiver über die ALSA-Schnittstelle auf die -->
-	<!--   Soundkarte(n) des Thin Clients zu. Für besondere Fälle - etwa Systeme mit mehreren -->
-	<!--   Soundkarten - kann die &ucsUCRV; <envar>citrix/pulseaudio</envar> auf -->
-	<!--   <emphasis>true</emphasis> gesetzt werden. Dies führt dazu, dass im XenApp Session-Skript der -->
-	<!--   Pulseaudio-Sounddaemon gestartet wird (dieser sorgt beispielsweise für die Zuordnung einer -->
-	<!--   primären Soundkarte). -->
-	<!-- </para> -->
+	<para>
+	  In the default setting, the Citrix Receiver accesses the thin client's sound card(s) via the
+	  ALSA interface. For special cases - e.g., systems with multiple sound cards - the &ucsUCRV;
+	  <envar>citrix/pulseaudio</envar> can be set to <emphasis>true</emphasis>. The result of this
+	  is that the PulseAudio sound daemon is started in the XenApp session script (this e.g.
+	  ensures the assignment of a primary sound card).
+	</para>
 
   </section>
 </section>
