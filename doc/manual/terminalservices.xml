@@ -261,13 +261,12 @@
 		UCC only integrates the browser-based login method.
 	  </para>
 
-	  <!-- <para> -->
-	  <!-- 	Der Zugriff auf einen Citrix-Terminalservice erfolgt über das Session-Skript -->
-	  <!-- 	<emphasis>XenApp</emphasis>. Es öffnet eine Firefox-Fullscreen-Session mit der -->
-	  <!-- 	Login-Weboberfläche der Citrix-Installation. Wird der Browser geschlossen, wird ein Menü -->
-	  <!-- 	angezeigt, das dem anbietet sich erneut an Citrix anzumelden, den Thin Client -->
-	  <!-- 	herunterzufahren oder eine andere Sitzung auszuwählen. -->
-	  <!-- </para> -->
+	  <para>
+		Access to a Citrix terminal service is performed via the <emphasis>XenApp</emphasis> session
+		script. This opens a fullscreen Firefox session with the login web interface of the Citrix
+		installation. If the browser is closed, a menu opens in which you are offered the
+		possibility to log in to Citrix again, shutdown the thin client or select another session.
+	  </para>
 
 <section id="terminalservices:citrix:setup">
   <title>Installation</title>
