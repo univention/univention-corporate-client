@@ -48,32 +48,32 @@
 	  clients registered in the LDAP.
 	</para>
 	
-	<!-- <para> -->
-	<!--   Im nächsten Menü-Punkt kann ausgewählt werden, ob Desktop und/oder Thin Clients konfiguriert -->
-	<!--   werden sollen. Für Linux-Desktop-Systeme/XRDP-Terminalserver ist keine weitere -->
-	<!--   Vorkonfiguration nötig. Die Assistenten zur Einrichtung des Thin Client-Zugriffs auf -->
-	<!--   Terminaldienste ist in den folgenden Kapiteln beschrieben: -->
+	<para>
+	  The next menu item allows you to select whether desktops and/or thin clients should be
+	  configured. No additional configuration is required for Linux desktop systems / XRDP terminal
+	  servers. The wizards for setting up the thin client access on terminal services are described
+	  in the following sections:
 
-	<!--    <itemizedlist> -->
-	<!-- 	 <listitem><simpara> -->
-	<!-- 	   Thin Client-Zugriff auf Windows-Terminalserver (<xref linkend="terminalservices:rdp"/>) -->
-	<!-- 	   und XRDP-Terminalserver (<xref linkend="terminalservices:xrdp"/>) -->
-	<!-- 	 </simpara></listitem> -->
+	   <itemizedlist>
+		 <listitem><simpara>
+		   Thin client access to Windows terminal servers (<xref linkend="terminalservices:rdp"/>)
+		   and XRDP terminal servers (<xref linkend="terminalservices:xrdp"/>)
+		 </simpara></listitem>
 
-	<!-- 	 <listitem><simpara> -->
-	<!-- 	   Thin Client-Zugriff auf Citrix-Terminalserver (<xref linkend="terminalservices:citrix"/>) -->
-	<!-- 	 </simpara></listitem> -->
+		 <listitem><simpara>
+		   Thin client access to Citrix terminal servers (<xref linkend="terminalservices:citrix"/>)
+		 </simpara></listitem>
 
-	<!-- 	 <listitem><simpara> -->
-	<!-- 	   Thin Client-Zugriff auf eine Webseite (<xref linkend="logins:firefox"/>) -->
-	<!-- 	 </simpara></listitem> -->
-	<!--    </itemizedlist> -->
-	<!-- </para> -->
+		 <listitem><simpara>
+		   Thin client access to a website (<xref linkend="logins:firefox"/>)
+		 </simpara></listitem>
+	   </itemizedlist>
+	</para>
 
-	<!-- <para> -->
-	<!--   Nach Abschluss des Assistenten müssen die UCC-Clients nun in der &ucsUMC; registriert -->
-	<!--   werden. Dies ist in (<xref linkend="umc:manageucc"/>) beschrieben. -->
-	<!-- </para> -->
+	<para>
+	  Once the wizard is finished, the UCC clients now need to be registered in the &ucsUMC;. This
+	  is described in <xref linkend="umc:manageucc"/>.
+	</para>
 
   </section>
 
