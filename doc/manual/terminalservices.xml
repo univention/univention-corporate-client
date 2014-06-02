@@ -5,7 +5,7 @@
 	In addition to the operation of stationary UCC clients, UCC also supports
 	access to terminal services. Login is supported to:
 	<itemizedlist>
-	  <listitem><simpara>UCC terminal servers</simpara></listitem>
+	  <listitem><simpara>UCC terminal servers via the RDP protocol (based on xrdp)</simpara></listitem>
 	  <listitem><simpara>Windows terminal services via the RDP protocol</simpara></listitem>
 	  <listitem><simpara>Citrix XenApp</simpara></listitem>
 	</itemizedlist>
@@ -14,17 +14,17 @@
   <para>
 	There are three possibilities for configuring access to a terminal service:
 	<itemizedlist>
-	  <listitem><simpara>An interactive selection of the session by the
-	  user during login to LightDM (see <xref
-	  linkend="logins:sessions"/>)</simpara></listitem>
-	  <listitem><simpara>A user login to LightDM where a session is
-	  forcibly specified by the administrator</simpara></listitem>
-	  <listitem><simpara>Automatic session selection where login is
-	  performed with a guest user. In this case, no login dialogue is
-	  shown.</simpara></listitem>
+	  <listitem><simpara>
+		An interactive selection of the session by the user during login to LightDM (see <xref
+		linkend="logins:sessions"/>)
+	  </simpara></listitem>
+	  
+	  <listitem><simpara>
+		Automatic session selection where login is performed with a guest user. In this case, no
+		login dialogue is shown (see <xref linkend="logins:autologin"/>).
+	  </simpara></listitem>
 	</itemizedlist>
   </para>
-
 
   <section id="terminalservices:xrdp">
 	<title>UCC terminal services based on XRDP</title>
