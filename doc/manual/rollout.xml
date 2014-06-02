@@ -322,8 +322,8 @@
 <section id="rollout:uefi">
   <title>Rollout of UEFI systems</title>
   <para>
-	In the default setting, Univention Corporate Client uses a BIOS-based boot. Alternatively, for
-	systems which no longer support a BIOS boot, there is the possibility of generating UCC images
+	Univention Corporate Client uses a BIOS-based boot by default. Alternatively, for
+	systems which no longer support a BIOS boot, it is possible to generate UCC images
 	with which the rollout and operation can be performed via the <emphasis>Unified Extensible
 	Firmware Interface</emphasis> standard.
   </para>
@@ -348,8 +348,8 @@
   </para>
 	
   <para>
-	If a UEFI-compatible image has been generated and the DHCP boot policy defined, the rollout of
-	a UEFI system is then no different from the standard rollout via the BIOS.
+	If an UEFI-compatible image has been generated and the DHCP boot policy defined, the rollout of
+	an UEFI system is not different from the standard rollout via the BIOS.
   </para>
 </section>
 
