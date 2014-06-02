@@ -125,9 +125,9 @@
 	
 	<para>
 	  Dual-display setups can be configured using a <guimenu>UCC client configuration</guimenu>
-	  computer policy in the UCS management system:
-	  <!-- Dies ist in erster Linie für Thin Clients relevant; auf Desktop-Systemen können die Benutzer -->
-	  <!-- über die KDE-Systemeinstellungen auch eigenständig konfigurieren. -->
+	  computer policy in the UCS management system: This is primarily only relevant for thin
+	  clients; on desktop systems, the users can also configure autonomously via the KDE system
+	  settings.
 	</para>
 
 	<para>

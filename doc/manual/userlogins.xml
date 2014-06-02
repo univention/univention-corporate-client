@@ -75,9 +75,9 @@
 		To configure the default session that is set for a user's first login on a client, the
 		&ucsUCRV; <envar>lightdm/sessiondefault</envar> must contain the name of one of the session
 		scripts in <filename>/usr/share/xsessions</filename>. For subsequent logins on a client the
-		last chosen session is cached on a per user basis.
-		<!-- Wurde die UCC-Umgebung über den UCC setup wizard konfiguriert (siehe (<xref -->
-		<!-- linkend="umc:initialsetup"/>), ist die Einstellung schon vorkonfiguriert. -->
+		last chosen session is cached on a per user basis. If the UCC environment was configured via
+		the UCC setup wizard (see (<xref linkend="umc:initialsetup"/>), the setting is already
+		preconfigured.
 	  </para>
 	</section>
 

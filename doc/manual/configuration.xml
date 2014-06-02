@@ -13,22 +13,25 @@
 	  automatically, which are linked to the containers for thin clients and desktops: These
 	  policies can be edited directly:
 
-	  <!-- <itemizedlist> -->
-	  <!-- 	<listitem><simpara> -->
-	  <!-- 	  <emphasis>ucc-common-settings</emphasis> ist an den Container -->
-	  <!-- 	  <emphasis>cn=computers</emphasis> gebunden, gilt also für Thin clients und Desktops. -->
-	  <!-- 	</simpara></listitem> -->
+	  <itemizedlist>
+	  	<listitem><simpara>
+		  <emphasis>ucc-common-settings</emphasis> is linked to the
+		  <emphasis>cn=computers</emphasis> container, and thus applies for thin clients and
+		  desktops.
+	  	</simpara></listitem>
 
-	  <!-- 	<listitem><simpara> -->
-	  <!-- 	  <emphasis>ucc-thinclient-settings</emphasis> ist an den Container -->
-	  <!-- 	  <emphasis>cn=computers,cn=ucc-thinclients</emphasis> gebunden, gilt also für nur für Thin clients. -->
-	  <!-- 	</simpara></listitem> -->
+	  	<listitem><simpara>
+		  <emphasis>ucc-thinclient-settings</emphasis> is linked to the
+		  <emphasis>cn=computers,cn=ucc-thinclients</emphasis> container, and thus only applies for
+		  thin clients.
+	  	</simpara></listitem>
 
-	  <!-- 	<listitem><simpara> -->
-	  <!-- 	  <emphasis>ucc-desktop-settings</emphasis> ist an den Container -->
-	  <!-- 	  <emphasis>cn=computers,cn=ucc-desktops</emphasis> gebunden, gilt also für nur für Desktops. -->
-	  <!-- 	</simpara></listitem> -->
-	  <!-- </itemizedlist> -->
+	  	<listitem><simpara>
+		  <emphasis>ucc-desktop-settings</emphasis> is linked to the
+		  <emphasis>cn=computers,cn=ucc-desktops</emphasis> container, and thus only applies for
+		  desktops.
+	  	</simpara></listitem>
+	  </itemizedlist>
 	</para>
 	  
 	<para>

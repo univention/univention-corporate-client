@@ -185,13 +185,10 @@
 <section id="rollout:automatic">
 <title>Configuration of a fully automated rollout</title>
 <para>
-  <!-- In der Grundeinstellung muss wahrend des Domänenbeitritts ein Benutzername und Passwort angegeben -->
-  <!-- werden, mit dem der Domänenbeitritt durchgeführt. -->
-  The rollout of UCC systems can also be completely automated so that user
-  interaction is no longer necessary. Once all the clients to be
-  rolled out have been created in the UCS management system (see
-  <xref linkend="umc:manageucc"/>), the following steps
-  are necessary:
+  In the default setting, a user name and password must be specified when joining the domain. The
+  rollout of UCC systems can also be completely automated so that user interaction is no longer
+  necessary. Once all the clients to be rolled out have been created in the UCS management system
+  (see <xref linkend="umc:manageucc"/>), the following steps are necessary:
 
   <itemizedlist>
 	<listitem><simpara>

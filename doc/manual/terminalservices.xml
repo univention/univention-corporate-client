@@ -61,19 +61,18 @@
 	  <title>Accessing XRDP terminal services</title>
 
 	  <para>
-		The accessing of an XRDP terminal server from a UCC thin client via the RDP protocol is
+		The access of an XRDP terminal server from a UCC thin client via the RDP protocol is
 		described in <xref linkend="terminalservices:rdp"/>. 
 	  </para>
 
 	  <para>
 		If the forwarding of storage devices is enabled, they appear in the user's home directory in
-		the <filename>.~/xrdp_client</filename> directory. Forwarding of sound output is also
-		possible in terminal sessions. This requires a sound card to be present or emulated on the
-		XRDP terminal server.
+		the <filename>.~/xrdp_client</filename> directory. Forwarding of sound output in terminal sessions is also
+		possible. This requires a sound card to be present or emulated on the XRDP terminal server.
 	  </para>
 
 	  <para>
-		Access to the XRDP terminal server from other devices is also supported (e.g., Windows PCs,
+		Access to the XRDP terminal server from other clients is also supported (e.g., Windows PCs,
 		Mac OS X or thin clients with third-party operating systems). For these clients it is
 		sufficient to configure the IP address or hostname of the XDRP server and perform a login
 		with a user from the UCS domain. An XRDP login screen is provided for the login from
@@ -94,14 +93,14 @@
 	  <para>
 		As standard, UCC uses a KDE profile optimised for remote operation on terminal servers. It
 		disables e.g. update notifications. The use of this profile can be disabled per UCC terminal
-		server by setting the &ucsUCRV; <envar>ucc/session/remote/profile</envar> to
-		<emphasis>false</emphasis>.
+		server by setting the &ucsUCRV; on the XRDP terminal server <envar>ucc/session/remote/profile</envar> to
+		<emphasis>false</emphasis> (see <xref linkend="config:ucr"/>). 
 	  </para>
 	</section>
   </section>
 
   <section id="terminalservices:rdp">
-	<title>RDP terminal services</title>
+	<title>Windows terminal services (RDP)</title>
 	<para>
 	  UCC supports login to Windows 2003/2008/2012-based Windows terminal servers via the RDP
 	  protocol. The Windows terminal servers can be joined in the UCS domain or alternatively the access
@@ -109,10 +108,10 @@
 	</para>
 
 	<para>
-	  The login is performed via the <emphasis>RDP</emphasis> session script installed as standard,
-	  which uses <command>neutrinordp</command> (a fork of the freerdp code base) for the access. The password entered by the user during
-	  login to LightDM is cached by a PAM module and automatically provided to NeutrinoRDP, i.e., it is
-	  not necessary to enter it again when logging in to the terminal server.
+	  The login is performed via the <emphasis>RDP</emphasis> session script which uses the
+	  NeutrinoRDP client (a fork of the freerdp code base). The password entered
+	  by the user during login to LightDM is cached by a PAM module and automatically provided to
+	  NeutrinoRDP, i.e., it is not necessary to enter it again when logging in to the terminal server.
 	</para>
 
 	<para>
@@ -282,7 +281,7 @@
 
 	<para>
 	  For licensing reasons it is not possible to deliver the Citrix Receiver with Univention
-	  Corporate Client. Instead, it must be downloaded as a DEB file using the download link provided
+	  Corporate Client. Instead, it must be downloaded for the 32 bit Intel archictecture as a DEB file using the download link provided
 	  and saved in a local directory. Only Citrix Receiver 13.0 is supported in UCC 2.0.
 	</para>
 
@@ -324,7 +323,7 @@
 	</para>
 	
 	<para>
-	  The Citrix Receiver must be downloaded as a DEB file from <ulink
+	  The Citrix Receiver for 32 bit systems must be downloaded as a DEB file from <ulink
 	  url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-130.html"/>.
 	</para>
 
