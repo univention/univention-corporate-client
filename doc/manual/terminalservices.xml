@@ -83,7 +83,7 @@
 	  <para>
 		Password changes are currently not yet supported when logging in from an external device. If
 		the password has expired, the login will fail. Password changes are performed in the login
-		Manager LightDM when logging in from UCC thin clients.
+		manager LightDM when logging in from UCC thin clients.
 	  </para>
 	</section>
 
