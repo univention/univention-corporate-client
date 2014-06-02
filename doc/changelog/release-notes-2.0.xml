@@ -62,6 +62,58 @@
 
 		<itemizedlist>
 		  <listitem><para>
+			The underlying Ubuntu base has been updated to Kubuntu 14.04. Consequently, a great deal
+			of software components have been renewed: KDE 4.13, Linux kernel 3.13, Libreoffice
+			4.2.3, Xorg 15. All the Univention packages imported from UCS have been updated to the
+			version of UCS 3.2-2.
+		  </para></listitem>
+
+		  <listitem><para>
+			The initial configuration of Univention Corporate Client is now performed via a wizard
+			in the &ucsUMC;. This considerably simplifies the initial setup. In addition, the UCC images
+			can now be administrated in their own UMC module.
+		  </para></listitem>
+
+		  <listitem><para>
+			Support for xrdp has been integrated: A KDE-Linux desktop is provided via the RDP
+			protocol. In addition to access from UCC thin clients, this also allows access from
+			Windows, MacOS X computers or thin clients with their own operating system
+			possible. The RDP access is very bandwidth efficient.
+		  </para></listitem>
+
+		  <listitem><para>
+			For licensing reasons, it is not possible to distribute the Citrix Receiver with
+			UCC. The installation is now integrated in the &ucsUMC;, reducing the installation
+			efforts to just a few clicks.
+		  </para></listitem>
+			
+		  <listitem><para>
+			A great number of improvements have been made to the UCC image build system, and as such
+			the generated images are now more compact, among other things. 
+		  </para></listitem>
+
+		  <listitem><para>
+			UCC now also supports the rollout of systems in the UEFI boot standard.
+		  </para></listitem>
+
+		  <listitem><para>
+			The operation of UCC systems with an encrypted hard drive has been considerably
+			facilitated; the corresponding option can now be configured simply in the &ucsUMC;.
+		  </para></listitem>
+
+		  <listitem><para>
+			UCC systems can now be configured to avoid PXE boots and start directly from their local
+			storage. This reduces the bootup time.
+		  </para></listitem>
+
+		  <listitem><para>
+			UCS now uses NeutrinoRDP as its standard RDP client. Among other things, this offers
+			support for multi-monitor operation.
+		  </para></listitem>
+
+		  <listitem><para>
+			A whole range of bug fixes and smaller improvements have been integrated. UCC can now
+			also be monitored with Nagios, for example.
 		  </para></listitem>
 		</itemizedlist>
 
@@ -83,6 +135,11 @@
     <chapter>
 	  <title>Postprocessing of the update</title>
 	  <para>
+		UCS installations, in which the &ucsMaster; was installed in a release older than 2.3 still
+		use MD5 as the hashing algorithm for the SSL certificates. Later releases use SHA1 as the
+		hashing algorithm. UCC clients cannot join a domain still using MD5 hashes. The necessary
+		steps to migrate a UCS domain from MD5 to SHA1 are documented in the Univention Support
+		Database (<ulink url="http://sdb.univention.de/1150"/>).
 	  </para>
 	</chapter>
 
@@ -115,19 +172,18 @@ $ su testuser
 	  	</para>
 	  </section>
 
-	  <!-- <section> -->
-	  <!-- 	<title>RDP logins and PAM home mounts after a password change at LightDM</title> -->
-	  <!-- 	<para> -->
-	  <!-- 	  Wenn das Benutzerpasswort während der Anmeldung am LightDM Login Manager geändert wurde -->
-	  <!-- 	  (z.B. weil die Benutzeroption <guimenu>Change password on next login</guimenu> aktiviert -->
-	  <!-- 	  wurde oder weil ein Passwort abgelaufen ist, erfolgt die Passwortänderung über -->
-	  <!-- 	  Kerberos. Diese Passwortänderung ist für Module, die im PAM-Stack später aufgerufen werden -->
-	  <!-- 	  nicht sichtbar. Das RDP-Session-Skript und das PAM-Modul zur Einbindung des Home -->
-	  <!-- 	  Directorys über CIFS greifen aber auf das zwischengespeicherte Passwort zu und die -->
-	  <!-- 	  Anmeldung schlägt in der Folge einmalig fehl. Bei einer erneuten Anmeldung ist das -->
-	  <!-- 	  korrekte Passwort dann vorhanden. -->
-	  <!-- 	</para> -->
-	  <!-- </section> -->
+	  <section>
+	  	<title>RDP logins and PAM home mounts after a password change at LightDM</title>
+	  	<para>
+		  If the user password is changed during the login on the LightDM Login Manager (e.g.,
+		  because the <guimenu>Change password on next login</guimenu> user option is activated or
+		  because a password has expired, the password change is effected via Kerberos. This
+		  Kerberos password change is not "visible" for PAM modules executed after authentication. 
+		  The RDP session script and the PAM module for mounting the home directory via CIFS,
+		  however, access the cached password and, as a result, the login fails the first time. The
+		  correct password is then available for the second login attempt.
+	  	</para>
+	  </section>
 
 	</chapter>
 
