@@ -348,8 +348,8 @@
   </para>
 	
   <para>
-	If an UEFI-compatible image has been generated and the DHCP boot policy defined, the rollout of
-	an UEFI system is not different from the standard rollout via the BIOS.
+	If a UEFI-compatible image has been generated and the DHCP boot policy defined, the rollout of
+	a UEFI system is not different from the standard rollout via the BIOS.
   </para>
 </section>
 
