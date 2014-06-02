@@ -39,14 +39,13 @@
   </itemizedlist>
 </para>
 
-<!-- <para> -->
-<!--   UCC-Clients verwenden die 32-Bit-Intel Architektur (i386). Es wird empfohlen den UCS-Server -->
-<!--   ebenfalls mit der i386-Architektur zu installieren. Hintergrund ist, das für den Bau angepasster -->
-<!--   UCC-Images (siehe <xref linkend="imagegen:chapter"/>) ein System mit eben dieser Architektur -->
-<!--   benötigt wird. Werden nur die offiziellen UCC-Images verwendet (oder wenn der Bau der UCC-Images -->
-<!--   auf einem anderen System erfolgt) kann der UCS-Server auf mit der amd64-Architektur installiert -->
-<!--   werden. -->
-<!-- </para> -->
+<para>
+  UCC clients use the 32-bit Intel architecture (i386). We recommend also installing the UCS server
+  with the i386 architecture. The reasoning for this is that a system with the same architecture is
+  required for the build of adapted UCC images (see <xref linkend="imagegen:chapter"/>). If only the
+  official UCC images are used (or if the UCC images are built on another system), the UCS server
+  can also be installed with the amd64 architecture.
+</para>
 
 <section id="installation:installation">
   <title>Installation</title>
@@ -66,23 +65,22 @@
 	Once the component is installed, click on <guimenu>Restart</guimenu>.
   </para>
 
-  <!-- <para> -->
-  <!-- 	Auf &ucsMaster;- und &ucsBackup;-Systemen werden die Join-Skript automatisch während der -->
-  <!-- 	Installation der UCC-App aufgerufen. Auf &ucsSlave;- und &ucsMember;-Installationen muss das -->
-  <!-- 	<guimenu>Domain join</guimenu>-UMC-Modul aufgerufen werden und dort die Option <guimenu>Execute -->
-  <!-- 	all pending join scripts</guimenu> aufgerufen werden, damit der UCC-Server einsatzbereit ist. -->
-  <!-- </para> -->
-
-  <!-- <para> -->
-  <!-- 	Nach der Installation erfolgt die initiale Konfiguration über einen Wizard in der &ucsUMC; -->
-  <!-- 	(siehe <xref linkend="umc:initialsetup"/>) oder über manuell konfigurierte Richtlinien. Für -->
-  <!-- 	kleine bis mittlere Installation wird der UCS-Wizard für die Ersteinrichtung empfohlen. -->
-  <!-- </para> -->
+  <para>
+	The join scripts are automatically run on &ucsMaster; and &ucsBackup; systems during the
+	installation of the UCC app. The <guimenu>Domain join</guimenu> UMC module must be run on
+	&ucsSlave; and &ucsMember; installations and the <guimenu>Execute all pending join
+	scripts</guimenu> option selected for the UCC server to be ready for use.
+  </para>
 
   <para>
-  	<!-- UCC kann auf mehr als einem Server installiert werden, z.B. wenn an zwei Standorten UCC-Clients -->
-  	<!-- betrieben werden sollen.  -->
-	Additional information can be found in <xref linkend="rollout:bootpolicy"/>.
+	Following the installation, the initial configuration is performed via a wizard in the &ucsUMC;
+	(see <xref linkend="umc:initialsetup"/>) or via manually configured policies. The UCS wizard is
+	recommended for the initial setup for small to medium-sized installations.
+  </para>
+
+  <para>
+	UCC can be installed on more than one server, e.g., if UCC clients are to be operated at more
+	than one site. Further information can be found in <xref linkend="rollout:bootpolicy"/>.
   </para>
 
 </section>

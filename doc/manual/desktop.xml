@@ -19,15 +19,11 @@
 	</para>
 
 	<para>
-	  LibreOffice is the core application of the Univention Corporate Client and offers the full
+	  LibreOffice is a core application of the Univention Corporate Client and offers the full
 	  scope of functions of a modern Office suite. In addition to standardised, open formats such as
-	  the OpenDocument format. It can also be used to open and edit documents created in other
+	  the OpenDocument format it can also be used to open and edit documents created in other
 	  office applications such as Microsoft Office. To ensure uncomplicated distribution, documents
-	  can also be easily exported in PDF format.
-	</para>
-
-	<para>
-	  Extensive documentation on Libreoffice can be found at
+	  can also be easily exported in PDF format. Extensive documentation on Libreoffice can be found at
 	  <ulink url="http://www.libreoffice.org/get-help/documentation/"/>.
 	</para>
 

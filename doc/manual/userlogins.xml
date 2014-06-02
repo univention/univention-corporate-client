@@ -151,15 +151,12 @@
 	  </para>
 
 	  <para>
-		The settings set via the <guimenu>Desktop logon scripts</guimenu> and <guimenu>Desktop
+		The scripts set via the <guimenu>Desktop logon scripts</guimenu> and <guimenu>Desktop
 		logout scripts</guimenu> settings are run before and after the user login with the rights of
-		the accessing user.
-	  </para>
-
-	  <para>
-		The scripts must be specified as absolute file names and must not contain any spaces. Also,
+		the accessing user. They must be specified as absolute file names and must not contain any spaces. Also,
 		the scripts must be executable.
 	  </para>
+
 	</section>
   </section>
 
@@ -178,7 +175,7 @@
 	</para>
 
 	<para>
-	  These files are read from UCC systems via an NSS module (libnss-extrausers). The user and
+	  These files are read from UCC systems via an NSS module (<package>libnss-extrausers</package>). The user and
 	  group data are downloaded in two ways:
 
 	  <itemizedlist>
@@ -216,7 +213,7 @@
 	</para>
 
 	<para>
-	  In addition, successful login attempts are cached via the PAM module pam_ccreds, i.e., if a
+	  In addition, successful login attempts are cached via the PAM module <package>pam_ccreds</package>, i.e., if a
 	  user has successfully logged in once with an active network connection, she can also continue
 	  to log in with this password when working offline.
 	</para>

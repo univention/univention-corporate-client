@@ -49,9 +49,7 @@
 
 <para>
   UCC integrates terminal services provided via XRDP, i.e., the KDE Linux desktop is provided via
-  the RDP protocol.
-  <!-- Auf den KDE-Desktop kann entweder von UCC-Thin Clients oder beliebigen anderen RDP-Clients -->
-  <!-- zugegriffen werden. -->
+  the RDP protocol. The KDE desktop can be accessed from UCC thin clients or any other RDP clients.
 </para>
 
 <para>
