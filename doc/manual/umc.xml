@@ -5,23 +5,23 @@
 	<title>Initial setup of a UCC environment</title>
 	<para>
 	  A &ucsUMC; wizard is provided for the initial configuration of a UCC environment. It guides you
-	  through the basic setting up of a UCC environment with thin clients and/or desktop
+	  through the basic setup of a UCC environment with thin clients and/or desktop
 	  clients. Different standard policies are created and configured. The setup wizard is suitable
 	  for small to medium-sized environments. The policies can also be manually configured in the
 	  &ucsUMC; for more complex requirements in which different policies are to be used for
 	  different containers of the LDAP directory or multiple DHCP subnets are to be operated. The
-	  policies required for each option is listed in the respective chapters.
+	  policies required for each option are listed in the respective chapters.
 	</para>
 
 	<para>
 	  The setup wizard is started via the &ucsUMC; module <guimenu>UCC Setup</guimenu>. In the main
-	  menu, you can firstly select whether to set up thin clients and/or desktop systems. The UCC
-	  image(s) is/are then downloaded depending on the selection.
+	  menu, you can first select whether to set up thin clients and/or desktop systems. UCC
+	  images will be downloaded if required.
 	</para>
 
 	<para>
 	  UCS offers the possibility of centrally managing the IP addresses and DNS/DHCP settings of
-	  a network in a network object in the LDAP. This can considerably facilitates the management of
+	  a network in a network object in the LDAP. This can considerably facilitate the management of
 	  IP addresses: When creating a UCC client the next free IP address of the network is selected
 	  automatically. Also, DNS and DHCP settings are configured automatically.
 	</para>
@@ -44,7 +44,7 @@
 	  The network configuration of UCC clients is managed through DHCP in nearly all cases (the only
 	  exception are UCC terminal servers). The wizard checks whether a default gateway is assigned
 	  via DHCP. If this is not the case, a dialogue window opens in which the gateway can be
-	  configured. In the default setting, fixed IP addresses are assigned and only to
+	  configured. In the default setting, fixed IP addresses are assigned only to
 	  clients registered in the LDAP.
 	</para>
 	
