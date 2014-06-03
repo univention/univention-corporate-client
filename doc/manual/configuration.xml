@@ -64,8 +64,9 @@
 
 	<para>
 	  Cron jobs can also be used to execute commands during system startup using the
-	  <emphasis>@reboot</emphasis> option. The following &ucsUCR; variables configure the execution
-	  of /usr/bin/example during the system boot. COMMAND1 can be replaced with arbitrary identifiers:
+	  <emphasis>@reboot</emphasis> option. The following &ucsUCR; variables (see <xref
+	  linkend="config:ucr"/>) configure the execution of <command>/usr/bin/example</command> during the system
+	  boot. COMMAND1 can be replaced with arbitrary identifiers:
 
 	  <programlisting>
 cron/COMMAND1/command=/usr/bin/example		
