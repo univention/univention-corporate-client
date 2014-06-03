@@ -45,6 +45,8 @@
 
 	  <listitem><simpara>
 		The option <emphasis>-t</emphasis> can be used to specify a target directory.
+		If no target directory has been specified, a temporary directory is created under
+		<filename>/tmp</filename>.
 	  </simpara></listitem>
 	</itemizedlist>
   </para>
@@ -67,8 +69,8 @@
 
   <para>
 	The following configuration settings can be used to build a custom UCC image.
-	<!-- Es wird empfohlen eine der Standard-Konfigurationsdateien als Vorlage zu nehmen.  -->
-	<!-- Die Konfigurationsdatei wird dann vom Image-Toolkit verarbeitet, siehe <xref linkend="imagegen:toolkit"/>). -->
+	We recommend using one of the standard configuration files as a template. The configuration file
+	is then processed by the image toolkit, see <xref linkend="imagegen:toolkit"/>).
 	The configuration files can be commented with a hash (#):
 	<itemizedlist>
 	  <listitem><simpara>
@@ -98,11 +100,11 @@
 	  PASSWORD</command> can be used to generate the hash
 	  value.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>mirror</emphasis>: Configures the
-	  mirror from which the Ubuntu packages are downloaded.</simpara></listitem>.
-	  <!-- Von der Verwendung eines Standard-Ubuntu-Mirrors wird abgeraten; in UCC werden einige Pakete  -->
-	  <!-- in abgewandelter Form gebaut. Bei Verwendung eines Nicht-Univention-Mirrors ist nicht sichergestellt  -->
-	  <!-- das diese Pakete bei Aktualisierungen von Ubuntu-Paketen aktualisiert werden. -->
+	  <listitem><simpara><emphasis>mirror</emphasis>: Configures the mirror from which the Ubuntu
+	  packages are downloaded. We advise against using a standard Ubuntu mirror; some packages are
+	  built with patches in UCC. When a non-Univention mirror is used, it is not possible to
+	  guarantee that these packages will be updated when Ubuntu packages are updated.
+	  </simpara></listitem>.
 
 	  <listitem><simpara><emphasis>updates, security,
 	  backports</emphasis>: Here, <emphasis>true/false</emphasis> can be used to specify
@@ -114,11 +116,11 @@
 	  These options (true/false) integrate additional archive suites
 	  from Ubuntu, see <biblioref linkend="ubuntu-repositories"/> for details.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>sources_list</emphasis>: Additional
-	  apt sources can be integrated here.</simpara></listitem>.
-	  <!-- Weitere Quellen können für einen installierten Client auch über &ucsUCR; eingebunden werden (siehe  -->
-	  <!-- <xref linkend="config:softwareupdates"/>). Dieser Parameter wird u.a. benötigt um apt-Quellen schon  -->
-	  <!-- bei der Image-Generierung zu integrieren. -->
+	  <listitem><simpara><emphasis>sources_list</emphasis>: Additional apt sources can be integrated
+	  here. Additional sources can also be added for an installed client via &ucsUCR;(see <xref
+	  linkend="config:softwareupdates"/>). This parameter is required for
+	  integrating apt sources as early as during the image generation.
+	  </simpara></listitem>.
 
 	  <listitem><simpara><emphasis>packages_no_recommends,
 	  packages</emphasis>: In the Debian package format, packages can
@@ -183,8 +185,8 @@
 
 	  <listitem><simpara><emphasis>continuation_prompt</emphasis> If
 	  this option is set to true, a prompt appears to verify whether
-	  partitioning should be performed.
-	  <!-- Dies kann mit der Boot-Option <emphasis>force_partition</emphasis> vermieden werden, siehe <xref linkend="rollout:imagerollout"/>. -->
+	  partitioning should be performed. This can be avoided with the
+	  <emphasis>force_partition</emphasis> boot option, see <xref linkend="rollout:imagerollout"/>.
 	  </simpara></listitem>
 
 	  <listitem><simpara><emphasis>continuation_message_top,
