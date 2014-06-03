@@ -54,13 +54,25 @@
   </section>
 
   <section id="config:cron">
-	<title>Definition of Cron jobs</title>
+	<title>Definition of Cron jobs / executing commands at system startup</title>
 	<para>
 	  Regularly recurring actions can be defined and run on UCC clients via Cron jobs. The
 	  configuration is performed as in Univention Corporate Server via &ucsUCR; or local
 	  configuration files under <filename>/etc/cron.d</filename>. Further information can be found
 	  in the UCS manual <biblioref linkend="ucs-manual-cron"/>.
 	</para>
+
+	<para>
+	  Cron jobs can also be used to execute commands during system startup using the
+	  <emphasis>@reboot</emphasis> option. The following &ucsUCR; variables configure the execution
+	  of /usr/bin/example during the system boot. COMMAND1 can be replaced with arbitrary identifiers:
+
+	  <programlisting>
+cron/COMMAND1/command=/usr/bin/example		
+cron/COMMAND1/time=@reboot
+	  </programlisting>
+	</para>
+
   </section>
 
   <section id="config:softwareupdates">
