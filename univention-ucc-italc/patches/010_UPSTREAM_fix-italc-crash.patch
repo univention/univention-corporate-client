@@ -8,10 +8,10 @@ Date:   Wed Dec 11 23:28:37 2013 +0100
     rfbRegisterProtocolExtension the passed pointer is not valid anymore and
     causes a crash on recent GCCs.
 
-diff --git a/ica/src/ItalcVncServer.cpp b/ica/src/ItalcVncServer.cpp
+diff --git italc-2.0.0.orig/ica/src/ItalcVncServer.cpp italc-2.0.0/ica/src/ItalcVncServer.cpp
 index 65b4d8e..73e0ee7 100644
---- a/ica/src/ItalcVncServer.cpp
-+++ b/ica/src/ItalcVncServer.cpp
+--- italc-2.0.0.orig/ica/src/ItalcVncServer.cpp
++++ italc-2.0.0/ica/src/ItalcVncServer.cpp
 @@ -2,7 +2,7 @@
   * ItalcVncServer.cpp - implementation of ItalcVncServer, a VNC-server-
   *                      abstraction for platform independent VNC-server-usage

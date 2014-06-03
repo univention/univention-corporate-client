@@ -1,3 +1,10 @@
+univention-ucc-italc (2:2.0.0-6) unstable; urgency=low
+
+  * Fix patch 008_return_correct_user_fullname.patch to return full username
+    with UCC 2 (Bug #35039) 
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 03 Jun 2014 13:42:18 +0200
+
 univention-ucc-italc (2:2.0.0-5) unstable; urgency=low
 
   * Include upstream patch to fix italc crash with recent GCC version.
