@@ -25,7 +25,7 @@
 	<itemizedlist>
 	  <listitem><simpara><filename>/usr/share/doc/ucc-image-toolkit/example/ucc-desktop.cfg</filename></simpara></listitem>
 	  <listitem><simpara><filename>/usr/share/doc/ucc-image-toolkit/example/ucc-thinclient.cfg</filename></simpara></listitem>
-	  <listitem><simpara><filename>/usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg</filename></simpara></listitem>
+	  <listitem><simpara><filename>/usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg.gz</filename></simpara></listitem>
 	</itemizedlist>
   </para>
 
@@ -167,7 +167,7 @@
 	  image.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>initramfs_modules</emphasis>: You
-	  can specify a list of kernel modules here which should be loaded
+	  can specify a list of kernel modules here which should be placed
 	  in the initrd.</simpara></listitem>
 
 	  <listitem><simpara><emphasis>kernel, initrd</emphasis>: The Linux
@@ -177,6 +177,10 @@
 	  <listitem><simpara><emphasis>iso</emphasis>: If a name of a file
 	  is defined here, a bootable ISO image is generated
 	  which can be booted from USB or a DVD drive, see <xref linkend="rollout:iso"/>.
+	  </simpara></listitem>
+
+	  <listitem><simpara><emphasis>include_image_on_iso</emphasis>: If set to true and if
+	  <envar>iso</envar> is specified, the UCC image is integrated into the ISO image.
 	  </simpara></listitem>
 
 	  <listitem><simpara><emphasis>device</emphasis>: Specifies which

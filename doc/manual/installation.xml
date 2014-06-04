@@ -57,7 +57,7 @@
   <para>
 	In the Univention App Center, select the <emphasis>Univention Corporate Client</emphasis>
 	application and click on <guimenu>Install</guimenu>. The integration in the UCS management
-	system (UMC modules and LDAP schema extensions) are are automatically installed on the
+	system (UMC modules and LDAP schema extensions) are automatically installed on the
 	&ucsMaster; and all &ucsBackup; via the Univention App Center.
   </para>
 

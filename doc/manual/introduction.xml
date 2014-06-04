@@ -21,7 +21,7 @@
 <para>
   UCC clients are part of a UCS domain. The clients are
   entirely managed through settings from the LDAP. As a result, a UCC
-  system is directly configured after an upgrade or an
+  system is ready to use after an upgrade or an
   installation. Features configured from the LDAP include network
   configuration, hardware settings like dual monitor setups and
   software selections.
@@ -41,7 +41,7 @@
 
 <para>
   UCC systems include the most important UCS base components and
-  integrate into the UCS user management: all the users in a UCS
+  integrate into the UCS user management: all users in a UCS
   domain can log on to UCC clients using their domain password. The
   integration packages are installed via the Univention App
   Center.
@@ -49,14 +49,14 @@
 
 <para>
   UCC integrates terminal services provided via XRDP, i.e., the KDE Linux desktop is provided via
-  the RDP protocol. The KDE desktop can be accessed from UCC thin clients or any other RDP clients.
+  the RDP protocol. The KDE desktop can be accessed from UCC thin clients or any other RDP client.
 </para>
 
 <para>
   UCC supports both a local desktop based on KDE Plasma and working on terminal servers (RDP, Citrix
   XenApp and remotely used KDE desktops based on xrdp). Access to web-based services can also be
   configured using a full-screen Firefox browser session. A UCC desktop system be used both in the
-  company network and in mobile use (all user and group information is cached locally for that).
+  company network and in mobile use (all user and group information are cached locally for that).
 </para>
 
 <para>

@@ -131,11 +131,11 @@
 		  </simpara></listitem>
 
 		  <listitem><simpara>
-			<filename>/etc/lightdm/display-setup</filename>: Is run if a greeter session is run.
+			<filename>/etc/lightdm/display-setup</filename>: Is run if the greeter is started
 		  </simpara></listitem>
 
 		  <listitem><simpara>
-			<filename>/etc/lightdm/greeter-setup</filename>: Is run if a greeter session is started.
+			<filename>/etc/lightdm/greeter-setup</filename>: Is run if the greeter starts a session
 		  </simpara></listitem>
 		</itemizedlist>
 	  </para>
@@ -218,6 +218,12 @@
 	  to log in with this password when working offline. When logging on with cached credentials,
 	  the message <guimenu>You have been logged on using cached credentials</guimenu> is displayed.
 	</para>
+
+	<para>
+	  Password changes are not immediately visible to PAM modules executed later in the PAM stack;
+	  please refer to the release notes for more details.
+	</para>
+
   </section>
 
   <section id="logins:firefox">

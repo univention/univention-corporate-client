@@ -281,7 +281,7 @@
 
 	<para>
 	  For licensing reasons it is not possible to deliver the Citrix Receiver with Univention
-	  Corporate Client. Instead, it must be downloaded for the 32 bit Intel archictecture as a DEB file using the download link provided
+	  Corporate Client. Instead, it must be downloaded for the 32 bit Intel architecture as a DEB file using the download link provided
 	  and saved in a local directory. Only Citrix Receiver 13.0 is supported in UCC 2.0.
 	</para>
 

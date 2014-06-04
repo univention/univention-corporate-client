@@ -28,7 +28,7 @@
 
 	<para>
 	  In the UCC wizard it is now possible to select an existing network object in the <guimenu>Network
-	  configuration</guimenu> dialogue or create a new one. During the installation of an UCS
+	  configuration</guimenu> dialogue or create a new one. During the installation of a UCS
 	  system, a network object with the name <emphasis>default</emphasis> is created as standard.
 	  It uses the network of the &ucsMaster;. If only a certain IP segment is to be used for the UCC
 	  systems, a new network object can be created with the <guimenu>Specify a new IP
@@ -41,11 +41,10 @@
 	</para>
 
 	<para>
-	  The network configuration of UCC clients is managed through DHCP in nearly all cases (the only
-	  exception are UCC terminal servers). The wizard checks whether a default gateway is assigned
-	  via DHCP. If this is not the case, a dialogue window opens in which the gateway can be
-	  configured. In the default setting, fixed IP addresses are assigned only to
-	  clients registered in the LDAP.
+	  The network configuration of UCC clients is managed through DHCP in nearly all cases
+	  The wizard checks whether a default gateway is assigned via DHCP. If this is not the case, a
+	  dialogue window opens in which the gateway can be configured. In the default setting, fixed IP
+	  addresses are assigned only to clients registered in the LDAP.
 	</para>
 	
 	<para>

@@ -1,5 +1,5 @@
 <chapter id="config:chapter">
-  <title>Configuration of UCC systems</title>
+  <title> Configuration of UCC systems</title>
   <section id="config:ucr">
 	<title>Setting of Univention Configuration Registry settings on UCC clients</title>
 	<para>
@@ -321,7 +321,7 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 	</para>
 
 	<para>
-	  The &ucsUCRV; <envar>ucc/pxe/bootsplash</envar> on the UCS syste acting as PXE server can be set to
+	  The &ucsUCRV; <envar>ucc/pxe/bootsplash</envar> on the UCS system acting as PXE server can be set to
 	  <emphasis>no</emphasis> to deactivate it completely.
 	</para>
   </section>

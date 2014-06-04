@@ -26,20 +26,22 @@
   with join scripts during the installation of the image, see <xref
   linkend="installation:imagemanagement:download"/>.
 </para>
+
+<figure><title>Assigning the desktop image to a UCC client</title>
+ <graphic scalefit="1" width="60%" fileref="illustrations/ucc-assign-image.png"/>
+ </figure>
+
 <para>
   The &ucsUMC; can also be used to edit several objects at once, which
   permits the assignment of images to several computers at once. This
   is documented in the UCS manual <biblioref linkend="ucs-manual-multiedit"/>.
 </para>
 
-<figure><title>Assigning the desktop image to a UCC client</title>
- <graphic scalefit="1" width="60%" fileref="illustrations/ucc-assign-image.png"/>
- </figure>
 
  <para>
-   On UCC systems, user-specific data such as the home of the users must be stored separately from
+   On UCC systems, user-specific data such as the home directory of the users must be stored separately from
    the system data on another partition. This is the case in the default partition
-   configuration. The partitioning scheme is specified in the images configuration, see <xref
+   configuration. The partitioning scheme is specified in the image configuration, see <xref
    linkend="imagegen:params"/>. It is also possible to perform completely new partitioning schemes -
    e.g. an encrypted hard drive - with an adapted partitioning script, see <xref
    linkend="rollout:crypto"/>).
@@ -85,7 +87,8 @@
 		<guimenu>Image boot with update check</guimenu> is used to update an existing UCC
 		installation to a new version. It is detected whether the installed image differs
 		from the image to be installed. If that is the case, the UCC image on the system is replaced.
-		In contrast to the partition option above, no new partitioning occurs.
+		In contrast to the partition option above, no new partitioning occurs. All user data on the
+		<filename>/home</filename> partition is retained.
 	  </para>
 	</listitem>
 
@@ -166,7 +169,7 @@
 <title>Domain join of UCC systems</title>
 <para>
   Only UCC clients, which are joined into a UCS domain can be
-  centrally configured. Unjoined clients can still be used for special
+  configured centrally. Unjoined clients can be used for special
   setups like live systems or demo points.
 </para>
 
@@ -194,7 +197,8 @@
 	<listitem><simpara>
 	  An image must be generated in which the interactive confirmation of he partitioning is
 	  disabled. This can be achieved by setting the option <emphasis>continuation_prompt</emphasis>
-	  to <emphasis>false</emphasis> (see <xref linkend="imagegen:params"/>).
+	  to <emphasis>false</emphasis> (see <xref linkend="imagegen:params"/>). Alternatively the boot
+	  option <emphasis>force_partition</emphasis> can be used, see <xref linkend="rollout:imagerollout"/>).
 	</simpara></listitem>
 
 	<listitem><simpara>
@@ -237,19 +241,18 @@
 </para>
 </section>
 
-
-<section id="rollout:iso:xen">
-<title>UCC installation as Xen Guest</title>
-<para>
-  To install an UCC ISO image in a Xen DomU, the DomU must be configured to be
-  fully virtualized (HVM). On an UCS System with a virtual machine manager the operating system option
-  'Other' has to be used <biblioref linkend="ucs-manual-uvmm"/>.
-  Please note that the official UCC desktop image uses a kernel that supports pvops, so I/O performance
-  is that of a paravirtualized guest when pvops is supported by Dom0. On an official thinclient image
-  another kernel with pvops support can be installed, e.g. linux-image-generic-pae. More information
-  about pvops can be found at <ulink url="http://wiki.xen.org/wiki/Paravirtualization_%28PV%29"/>.
-</para>
-</section>
+<!-- <section id="rollout:iso:xen"> -->
+<!-- <title>UCC installation as Xen Guest</title> -->
+<!-- <para> -->
+<!--   To install an UCC ISO image in a Xen DomU, the DomU must be configured to be -->
+<!--   fully virtualized (HVM). On an UCS System with a virtual machine manager the operating system option -->
+<!--   'Other' has to be used <biblioref linkend="ucs-manual-uvmm"/>. -->
+<!--   Please note that the official UCC desktop image uses a kernel that supports pvops, so I/O performance -->
+<!--   is that of a paravirtualized guest when pvops is supported by Dom0. On an official thinclient image -->
+<!--   another kernel with pvops support can be installed, e.g. linux-image-generic-pae. More information -->
+<!--   about pvops can be found at <ulink url="http://wiki.xen.org/wiki/Paravirtualization_%28PV%29"/>. -->
+<!-- </para> -->
+<!-- </section> -->
 
 <section id="rollout:persistent">
 <title>Persistently stored system settings</title>
