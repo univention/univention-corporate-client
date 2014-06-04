@@ -57,7 +57,7 @@
 
 		<para>
 		  With Univention Corporate Client 2.0 the first major release update of Univention Corporate
-		  Server (UCS) is now available. It provides several improvements and bugfixes:
+		  Client (UCC) is now available. It provides several improvements and bugfixes:
 		</para>
 
 		<itemizedlist>
@@ -75,7 +75,7 @@
 		  </para></listitem>
 
 		  <listitem><para>
-			Support for operatin xrdp terminal services has been integrated: A KDE Linux desktop is provided via the RDP
+			Support for operating xrdp terminal services has been integrated: A KDE Linux desktop is provided via the RDP
 			protocol. In addition to access from UCC thin clients, this also allows access from
 			Windows or MacOS X computers. The RDP access is very bandwidth efficient.
 		  </para></listitem>
