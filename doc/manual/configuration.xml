@@ -1,5 +1,5 @@
 <chapter id="config:chapter">
-  <title> Configuration of UCC systems</title>
+  <title>Configuration of UCC systems</title>
   <section id="config:ucr">
 	<title>Setting of Univention Configuration Registry settings on UCC clients</title>
 	<para>
