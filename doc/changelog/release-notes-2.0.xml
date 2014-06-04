@@ -56,7 +56,7 @@
 	  <title>Release highlights</title>
 
 		<para>
-		  With Univention Corporate Client 2.0 the first major release of Univention Corporate
+		  With Univention Corporate Client 2.0 the first major release update of Univention Corporate
 		  Server (UCS) is now available. It provides several improvements and bugfixes:
 		</para>
 
@@ -75,21 +75,20 @@
 		  </para></listitem>
 
 		  <listitem><para>
-			Support for xrdp has been integrated: A KDE-Linux desktop is provided via the RDP
+			Support for operatin xrdp terminal services has been integrated: A KDE Linux desktop is provided via the RDP
 			protocol. In addition to access from UCC thin clients, this also allows access from
-			Windows, MacOS X computers or thin clients with their own operating system
-			possible. The RDP access is very bandwidth efficient.
+			Windows or MacOS X computers. The RDP access is very bandwidth efficient.
 		  </para></listitem>
 
 		  <listitem><para>
 			For licensing reasons, it is not possible to distribute the Citrix Receiver with
-			UCC. The installation is now integrated in the &ucsUMC;, reducing the installation
+			UCC. The installation is now integrated in the &ucsUMC; setup wizard, reducing the installation
 			efforts to just a few clicks.
 		  </para></listitem>
 			
 		  <listitem><para>
 			A great number of improvements have been made to the UCC image build system, and as such
-			the generated images are now more compact, among other things. 
+			the generated images are now smaller in size, among other things. 
 		  </para></listitem>
 
 		  <listitem><para>
@@ -98,12 +97,17 @@
 
 		  <listitem><para>
 			The operation of UCC systems with an encrypted hard drive has been considerably
-			facilitated; the corresponding option can now be configured simply in the &ucsUMC;.
+			facilitated; the corresponding option can now be configured easily in the &ucsUMC;.
 		  </para></listitem>
 
 		  <listitem><para>
 			UCC systems can now be configured to avoid PXE boots and start directly from their local
 			storage. This reduces the bootup time.
+		  </para></listitem>
+
+		  <listitem><para>
+			The configuration of UCC systems has been simplified; print servers, CIFS home shares
+			and proxy settings can now be centrally configured through policies.
 		  </para></listitem>
 
 		  <listitem><para>
@@ -119,18 +123,18 @@
 
     </chapter>
 
-    <chapter id="relnotes:prepare">
-	  <title>Preparation of update</title>
+    <!-- <chapter id="relnotes:prepare"> -->
+	<!--   <title>Preparation of update</title> -->
 
-		<para>
-		</para>
+	<!-- 	<para> -->
+	<!-- 	</para> -->
 
-		<para>
-		</para>
+	<!-- 	<para> -->
+	<!-- 	</para> -->
 
-		<para>
-		</para>
-	</chapter>
+	<!-- 	<para> -->
+	<!-- 	</para> -->
+	<!-- </chapter> -->
 
     <chapter>
 	  <title>Postprocessing of the update</title>
@@ -175,9 +179,9 @@ $ su testuser
 	  <section>
 	  	<title>RDP logins and PAM home mounts after a password change at LightDM</title>
 	  	<para>
-		  If the user password is changed during the login on the LightDM Login Manager (e.g.,
+		  If the user password is changed during the login at the LightDM Login Manager (e.g.,
 		  because the <guimenu>Change password on next login</guimenu> user option is activated or
-		  because a password has expired, the password change is effected via Kerberos. This
+		  because a password has expired), the password change is effected via Kerberos. This
 		  Kerberos password change is not "visible" for PAM modules executed after authentication. 
 		  The RDP session script and the PAM module for mounting the home directory via CIFS,
 		  however, access the cached password and, as a result, the login fails the first time. The
