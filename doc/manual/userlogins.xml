@@ -216,8 +216,7 @@
 	  In addition, successful login attempts are cached via the PAM module <package>pam_ccreds</package>, i.e., if a
 	  user has successfully logged in once with an active network connection, she can also continue
 	  to log in with this password when working offline. When logging on with cached credentials,
-	  the message <guimenu>You have been logged on using cached credentials</guimenu> is sometimes
-	  displayed.
+	  the message <guimenu>You have been logged on using cached credentials</guimenu> is displayed.
 	</para>
   </section>
 
