@@ -2,13 +2,9 @@
   <title>General</title>
 	<itemizedlist>
 	  <listitem><simpara>
-		The dependencies of the <package>univention-corporate-client</package> package have been updated: Network Manager was added
-		(<ulink url="&ucsbug;30297">Bug 30297</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		The original LSB values from Kubuntu are now retained. This fixes the compatibility with
-		packages/services depending on specific values (<ulink url="&ucsbug;32627">Bug 32627</ulink>).
+		UCC was updated to Kubuntu 14.04. The original Kubuntu LSB values are now retained. This
+		fixes the compatibility with packages/services depending on specific values (<ulink
+		url="&ucsbug;32627">Bug 32627</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
@@ -17,207 +13,28 @@
 		The UCS packages imported in UCC were updated to the versions in UCS 3.2-1.
 		Among other improvements this allows blacklisting kernel modules using the &ucsUCRV; 
 		<envar>kernel/blacklist</envar> (<ulink url="&ucsbug;30177">Bug 30177</ulink>).
+		The apt source for errata updates has been updated for UCC 2.0 (<ulink url="&ucsbug;31150">Bug 31150</ulink>).
 	  </simpara></listitem>
 
 	</itemizedlist>
 </section>
 
 
+
 <section>
-  <title>Image rollouts, software and image updates</title>
+  <title>System boot / initial ramdisk</title>
 	<itemizedlist>
-	  <listitem><simpara>
-		<filename>/etc/ldap.secret</filename> was added to the list of persistent files (<ulink
-		url="&ucsbug;30463">Bug 30463</ulink>). Also add symlink support to
-		<command>univention-ucc-sync-persistent-files</command>.
-	  </simpara></listitem>
 
 	  <listitem><simpara>
-		An update run of <command>univention-ucc-software-update</command> can now be forced with
-		the new option <emphasis>--force</emphasis> (<ulink url="&ucsbug;32296">Bug 32296</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Clarify error message in case an image could not be found (<ulink url="&ucsbug;30994">Bug 30994</ulink>).
-	  </simpara></listitem>
-
-
-	  <listitem><simpara>
-		<command>rdate</command> has been added to the dependencies of
-		<package>univention-ucc-join</package>. This ensures that the system time is synchronised
-		correctly (<ulink url="&ucsbug;34869">Bug 34869</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		An additional boot option 'local boot' is available, which tells the client's PXE environment to exit and resume the normal boot order.	(<ulink url="&ucsbug;32114">Bug 32114</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Added DEBIAN_FRONTEND=noninteractive to <command>univention-ucc-software-update</command>
-		(<ulink url="&ucsbug;31010">Bug 31010</ulink>).
-	  </simpara></listitem>
-
-
-
-	  <listitem><simpara>
-		A new tool (<command>ucc-image-add-citrix-receiver</command>) has been created which
-		integrates the Citrix Receiver into a UCC image; the necessary dependencies are installed
-		and the Receiver installed afterwards. It is part of ucc-image-toolkit.
-		(<ulink url="&ucsbug;34452">Bug 34452</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><para>
-		Several improvements and bugfixes were made to <command>ucc-image</command>
-		<itemizedlist>
-			<listitem><simpara>
-				Display the progress when uncompressing UCC images (<ulink url="&ucsbug;33933">Bug 33933</ulink>).
-			</simpara></listitem>
-			<listitem><simpara>
-				Use the same base multiplier when calculating the image size as the initramfs (<ulink url="&ucsbug;30063">Bug 30063</ulink>).
-			</simpara></listitem>
-			<listitem><simpara>
-				Create all files in the workingdir and move them at the end (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
-			</simpara></listitem>
-			<listitem><simpara>
-				Handle the targetdir option correctly (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
-			</simpara></listitem>
-			<listitem><simpara>
-				Increase logfile readability by logging executed commands (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
-			</simpara></listitem>
-			<listitem><simpara>
-				Always install base ucc packages (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
-			</simpara></listitem>
-			<listitem><simpara>
-				Write compression progress to stdout (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
-			</simpara></listitem>
-			<listitem><simpara>
-				To reduce the required image size during image creation the system is now installed in an directory
-				not into the image. Then the installed system is copied into the image
-				(<ulink url="&ucsbug;31942">Bug 31942</ulink>).
-			</simpara></listitem>
-			<listitem><simpara>
-				Temporarily set the nameserver during image build. This fixes build errors on UCS member servers(<ulink url="&ucsbug;30286">Bug 30286</ulink>).
-			</simpara></listitem>
-		</itemizedlist>
-	  </para></listitem>
-
-	  <listitem><simpara>
-		The new package <package>univention-ucc-bootstrap</package> ships dummy init scripts for
-		<emphasis>systemd-logind</emphasis>, <emphasis>modemmanager</emphasis>,
-		<emphasis>whoopsie</emphasis> and <emphasis>ofono</emphasis>. These packages ship Upstart
-		jobs, but no SysV init scripts (which are needed during image creation in chroots) (<ulink
-		url="&ucsbug;33782">Bug 33782</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Start the loopback interface on system boot which improves boot times when the LDAP server is unreachable (<ulink url="&ucsbug;30441">Bug 30441</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		A new package <package>univention-ucc-bootstrap</package> was added. It contains stub sysv init scripts to cope with startup failure of packages only shipping Upstart jobs (<ulink url="&ucsbug;33782">Bug 33782</ulink>).
-
-	</simpara></listitem>
-
-	  <listitem><simpara>
-		Do not backup old initramfs files (<ulink url="&ucsbug;31015">Bug 31015</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		A superflous empty line at the beginnging of join scripts generated by ucc-image has been fixed (<ulink url="&ucsbug;34746">Bug 34746</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Only update grub if a new image was downloaded during an update check (<ulink url="&ucsbug;30069">Bug 30069</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-        Reset boot variant only if a new image was downloaded during an update check (<ulink url="&ucsbug;34762">Bug 34762</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Create new initramfs files in temporary directory (not in <filename>/boot</filename>) (<ulink url="&ucsbug;31015">Bug 31015</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		The access permissions for the directory <filename>/ucc_root</filename> have been restricted (<ulink url="&ucsbug;34671">Bug 34671</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Improved get_boot_mount_option.sh error handling, it always outputs a sensible boot option (<ulink url="&ucsbug;31683">Bug 31683</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		The apt source from which errata updates are installed has been updated for UCC 2.0 (<ulink
-		url="&ucsbug;31150">Bug 31150</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Remove unused kernel packages before performing a software update (<ulink
-		url="&ucsbug;31012]">Bug 31012]</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Package source lists are no longer updated for each package that is to installed (<ulink
-		url="&ucsbug;32575">Bug 32575</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Check for package existence before (un-)installing it (<ulink url="&ucsbug;34124">Bug
-		34124</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		A typo in a status message during software updates has been fixed (<ulink
-		url="&ucsbug;34026">Bug 34026</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Logging of software updates has been improved (<ulink url="&ucsbug;34123">Bug
-		34123</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><simpara>
-		Use <filename>/tmp</filename> or <filename>/ucc_root</filename> as the temporary directory (the directory with more  free space is used) (<ulink url="&ucsbug;31015">Bug 31015</ulink>).
-	  </simpara></listitem>
-
-	  <listitem><para>
-		Several improvements were made to <command>univention-ucc-software-update</command> (<ulink url="&ucsbug;31061">Bug 31061</ulink>)
-		<itemizedlist>
-		  <listitem><simpara>
-			Exit softwareupdate script when a reboot is necessary
-		  </simpara></listitem>
-
-		  <listitem><simpara>
-			Added additional messages during software update
-		  </simpara></listitem>
-
-		  <listitem><simpara>
-			Outdated &ucsUCR; templates for the KDE display manager have been removed
-		    (<ulink url="&ucsbug;34512">Bug 34512</ulink>).
-		  </simpara></listitem>
-
-		</itemizedlist>
-	  </para></listitem>
-
-	  <listitem><simpara>
-		The plymouth bootsplash init scripts have been fixed to keep plymouth displaying during software updates
+		The Plymouth bootsplash init scripts have been fixed to keep Plymouth displaying during software updates
 		and correctly display messages from the filesystem check
         (<ulink url="&ucsbug;31126">Bug 31126</ulink>, <ulink url="&ucsbug;34814">Bug 34814</ulink>, <ulink url="&ucsbug;30575">Bug 30575</ulink>).
 	  </simpara></listitem>
-
-	  <listitem><para>
-	    Several improvements were made to <command>ucc-image-set-join-information</command>
-	    <itemizedlist>
-          <listitem><simpara>
-            A password parameter has been added
-            (<ulink url="&ucsbug;31784">Bug 31784</ulink>).
-          </simpara></listitem>
-          <listitem><simpara>
-            The parameter handling has been fixed
-            (<ulink url="&ucsbug;30601">Bug 30601</ulink>).
-          </simpara></listitem>
-		</itemizedlist>
-	  </para></listitem>
+	  
+	  <listitem><simpara>
+		Start the loopback interface on system boot which improves boot times if the LDAP server
+		is unreachable (<ulink url="&ucsbug;30441">Bug 30441</ulink>).
+	  </simpara></listitem>
 
 	  <listitem><simpara>
 		The parsing of several initramfs parameters has been corrected 
@@ -225,57 +42,75 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		The initramfs parameter force_partition can be used to enforce repartition, without user interaction 
-		(<ulink url="&ucsbug;30427">Bug 30427</ulink>).
+		Do not backup old initramfs files. Create new initramfs files in temporary directory (not in
+		<filename>/boot</filename>). Use <filename>/tmp</filename> or <filename>/ucc_root</filename>
+		for this (the directory with more  free space is used) (<ulink url="&ucsbug;31015">Bug 31015</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		Obsolte code has been removed from the listener module that creates the PXE configuration files for ucc clients on the ucs server
-		(<ulink url="&ucsbug;30347">Bug 30347</ulink>).
+		A quoting bug in the UCR subtemplate <filename>/etc/grub.d/15_ucc</filename> has been fixed
+		(<ulink url="&ucsbug;32631">Bug 32631</ulink>).
+	  </simpara></listitem>
+
+	</itemizedlist>
+</section>
+
+
+<section>
+  <title>Image rollouts and image updates</title>
+	<itemizedlist>
+
+	  <listitem><simpara>
+		A new boot variant option for repartitioning and initial rollout has been added. The
+		checkbox for repartitioning has been removed (<ulink url="&ucsbug;30466">Bug
+		30466</ulink>). 
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-	    The join script 91ucc-pxe-boot.inst from <package>ucc-pxe-boot</package> now ensures that the default-settings
-	    policies/dhcp_boot policy exists
-	    (<ulink url="&ucsbug;3561">Bug 3561</ulink>).
+		<filename>/etc/ldap.secret</filename> was added to the list of persistent files (<ulink
+		url="&ucsbug;30463">Bug 30463</ulink>). Also add symlink support to
+		<command>univention-ucc-sync-persistent-files</command>.
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		  The package <package>ucc-pxe-boot</package> now contains the files
-		  <filename>/var/lib/univention-client-boot/ldlinux.e32</filename>
-		  <filename>/var/lib/univention-client-boot/ldlinux.e64</filename>
-		  <filename>/var/lib/univention-client-boot/syslinux.efi32</filename>
-		  <filename>/var/lib/univention-client-boot/syslinux.efi64</filename>
-		  which enable UEFI-PXE booting by selecting the syslinux.efi64 (or syslinux.efi32) as the "boot_filename" (UDM module "policies/dhcp_boot") (<ulink url="&ucsbug;33978">Bug 33978</ulink>).
+		Clarify the error message displayed in case an image could not be found (<ulink url="&ucsbug;30994">Bug 30994</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		  The package <package>ucc-image-toolkit</package> now contains the file
-		  <filename> /usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg</filename>
-		  as an example configuration for UEFI partitioning (<ulink url="&ucsbug;33978">Bug 33978</ulink>).
+		An additional boot option <emphasis>local boot</emphasis> is now available, which tells the client's PXE
+		environment to exit and resume the normal boot order.	(<ulink url="&ucsbug;32114">Bug
+		32114</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		  The package <package>univention-ucc-initramfs</package> now detects "esp" partitions and
-		  correctly formats them. Also GRUB is installed for the correct UEFI-architecture if an
-		  ESP is detected (<ulink url="&ucsbug;33978">Bug 33978</ulink>).
+		Only update the Grub bootloader if a new image was downloaded during an update check (<ulink
+		url="&ucsbug;30069">Bug 30069</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		A &ucsUCR; Module has been added to immediately apply changes of the ucc/pxe/* variables to all existing PXE 
-		configuration files for ucc clients, e.g. setting ucc/pxe/loglevel changes the loglevel kernel parameter in all
-		PXE configuration files
-		(<ulink url="&ucsbug;29904">Bug 29904</ulink>).
+        Reset the boot variant only if a new image was downloaded during an update check (<ulink
+		url="&ucsbug;34762">Bug 34762</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		Old and unused kernel package are automatically removed from ucc clients with univention-ucc-prune-old-kernel-packages.
-        Determination of the package status has been fixed in this script
-		(<ulink url="&ucsbug;32166">Bug 32166</ulink>).
+		The access permissions for the directory <filename>/ucc_root</filename> have been restricted
+		(<ulink url="&ucsbug;34671">Bug 34671</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-	    The local buffer of free space on a ucc root-device for persistent data has been reduced to 10 MB (<ulink url="&ucsbug;32311">Bug 32311</ulink>).
+		Improved error handling in parsing boot options, it now always outputs a sensible boot
+		option (<ulink url="&ucsbug;31683">Bug 31683</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The boot parameter <emphasis>force_partition</emphasis> can be used to enforce to
+		repartition without user confirmation (<ulink url="&ucsbug;30427">Bug 30427</ulink>).
+	  </simpara></listitem>
+
+
+	  <listitem><simpara>
+	    The local buffer of free space on a UCC root device (needed for handling persistent data) has been reduced to
+		10 MB (<ulink url="&ucsbug;32311">Bug 32311</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
@@ -296,40 +131,193 @@
 </section>
 
 <section>
-  <title>Domain integration</title>
-  <itemizedlist>
-	<listitem><simpara>
-	  The SSH host keys are now recreated during domain join. They are also tracked as persistent files (<ulink url="&ucsbug;30163">Bug 30163</ulink>).
-	</simpara></listitem>
+  <title>Image build and image management</title>
+	<itemizedlist>
 
-    <listitem><simpara>
-      The determination of the kerberos key version number of the ucc host account during the join has been fixed
-      (<ulink url="&ucsbug;30471">Bug 30471</ulink>).
-    </simpara></listitem>
+	  <listitem><para>
+		Several improvements and bugfixes were made to the image toolkit:
+		<itemizedlist>
+			<listitem><simpara>
+				Use the same base multiplier when calculating the image size as the initramfs (<ulink url="&ucsbug;30063">Bug 30063</ulink>).
+			</simpara></listitem>
 
-    <listitem><simpara>
-      During the domain join the group and user database is now actualised before running the join scripts
-      (<ulink url="&ucsbug;30760">Bug 30760</ulink>).
-    </simpara></listitem>
+			<listitem><simpara>
+				Create all files in the working directory and move them to the target
+				directory at the end  (<ulink url="&ucsbug;31634">Bug 31634</ulink>). Also, handle
+				the <emphasis>targetdir</emphasis> option correctly (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
+			</simpara></listitem>
 
-    <listitem><simpara>
-      The handling of the domain join password file during automated rollouts has been fixed
-      (<ulink url="&ucsbug;33802">Bug 33802</ulink>).
-    </simpara></listitem>
-    
-    <listitem><simpara>
-      An unjoin script for <package>univention-corporate-client-schema</package> has been added, which
-      unregisters all UCC images from LDAP
-      (<ulink url="&ucsbug;30852">Bug 30852</ulink>).
-    </simpara></listitem>
+			<listitem><simpara>
+			  If and what packages should be set to <emphasis>hold</emphasis> can be configured the
+			  parameter <emphasis>packages_hold</emphasis>  (<ulink url="&ucsbug;34489">Bug 34489</ulink>).
+			</simpara></listitem>
 
-	<listitem><simpara>
-	  By default, univention-ucc-update-nss copies the nss user data from the UCS server only if the user is not already known.
-	  This test can be disabled by setting the &ucsUCRV; <envar>ucc/nss/update/force</envar> to true
-	  (<ulink url="&ucsbug;31864">Bug 31864</ulink>).
-	</simpara></listitem>
+			<listitem><simpara>
+			  Improve logging by logging executed commands (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
+			</simpara></listitem>
 
-  </itemizedlist>
+			<listitem><simpara>
+			  Always install UCC base packages (<ulink url="&ucsbug;31634">Bug 31634</ulink>).
+			</simpara></listitem>
+
+			<listitem><simpara>
+			  To reduce the required image size during image creation the system is now installed in an directory
+			  outside the image. Finally, the installed system is copied into the image
+			  (<ulink url="&ucsbug;31942">Bug 31942</ulink>).
+			</simpara></listitem>
+
+			<listitem><simpara>
+				Temporarily set the nameserver during image build. This fixes build errors on UCS
+				member servers (<ulink url="&ucsbug;30286">Bug 30286</ulink>).
+			</simpara></listitem>
+
+			<listitem><simpara>
+			  A superflous empty line at the beginnging of generated join scripts has
+			  been fixed (<ulink url="&ucsbug;34746">Bug 34746</ulink>).
+			</simpara></listitem>
+		</itemizedlist>
+	  </para></listitem>
+
+	  <listitem><simpara>
+		Display the progress when uncompressing UCC images (<ulink url="&ucsbug;33933">Bug
+		33933</ulink>). Write compression progress to stdout (<ulink url="&ucsbug;31634">Bug
+		31634</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The build of UCC images using the UEFI boot standard is now possible: The package
+		<package>ucc-image-toolkit</package> provides  <filename>
+		/usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg</filename> as an example
+		configuration for UEFI partitioning (<ulink url="&ucsbug;33978">Bug 33978</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The new package <package>univention-ucc-bootstrap</package> ships dummy init scripts for
+		<emphasis>systemd-logind</emphasis>, <emphasis>modemmanager</emphasis>,
+		<emphasis>whoopsie</emphasis> and <emphasis>ofono</emphasis>. These packages ship Upstart
+		jobs, but no SysV init scripts (which are needed during image creation in chroots) (<ulink
+		url="&ucsbug;33782">Bug 33782</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><para>
+		Several improvements were made to <command>ucc-image-set-join-information</command>
+		<itemizedlist>
+		  <listitem><simpara>
+			A password parameter has been added
+			(<ulink url="&ucsbug;31784">Bug 31784</ulink>).
+		  </simpara></listitem>
+		  <listitem><simpara>
+			The parameter handling has been fixed
+			(<ulink url="&ucsbug;30601">Bug 30601</ulink>).
+		  </simpara></listitem>
+		</itemizedlist>
+	  </para></listitem>
+
+	</itemizedlist>
+</section>
+
+<section>
+  <title>UCS domain integration</title>
+
+  <section>
+	<title>Domains joins of UCC clients</title>
+	<itemizedlist>
+
+	  <listitem><simpara>
+		The SSH host keys are now recreated during domain join. They are also tracked as persistent files (<ulink url="&ucsbug;30163">Bug 30163</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		<command>rdate</command> has been added to the dependencies of
+		<package>univention-ucc-join</package>. This ensures that the system time is synchronised
+		correctly (<ulink url="&ucsbug;34869">Bug 34869</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The determination of the Kerberos key version number of the UCC host account during the join has been fixed
+		(<ulink url="&ucsbug;30471">Bug 30471</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		During the domain join the group and user database is now actualised before running the join scripts
+		(<ulink url="&ucsbug;30760">Bug 30760</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The handling of the domain join password file during automated rollouts has been fixed
+		(<ulink url="&ucsbug;33802">Bug 33802</ulink>).
+	  </simpara></listitem>
+	  
+	</itemizedlist>
+  </section>
+
+  <section>
+	<title>&ucsUMC; integration</title>
+	<itemizedlist>
+	  <listitem><simpara>
+		A configuration wizard for thin clients and desktop clients has been added to
+		facilitate the initial configuration of UCC (<ulink url="&ucsbug;34360">Bug 34360</ulink>). 
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		A UMC module to download and remove UCC images has been added (<ulink
+		url="&ucsbug;30379">Bug 30379</ulink>). 
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		A simplified wizard for the creation of UCC computers has been added (<ulink
+		url="&ucsbug;32942">Bug 32942</ulink>). The MAC address is an required attribute now (<ulink
+		url="&ucsbug;34757">Bug 34757</ulink>). A traceback when creating UCC computer objects has
+		been fixed (<ulink url="&ucsbug;34378">Bug 34378</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		UMC icons for UCC policy objects have been added (<ulink url="&ucsbug;30366">Bug
+		30366</ulink>). The description of a UMC module has been fixed (<ulink url="&ucsbug;32433">Bug
+		32433</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		An unjoin script for <package>univention-corporate-client-schema</package> has been added, which
+		the UCC service once the last UCC app in the domain was removed (<ulink url="&ucsbug;30852">Bug 30852</ulink>).
+	  </simpara></listitem>
+	</itemizedlist>
+  </section>
+
+  <section>
+	<title>PXE service</title>
+	<itemizedlist>
+
+	  <listitem><simpara>
+		A &ucsUCR; module has been added to immediately apply changes of the <envar>ucc/pxe/*</envar> variables to all existing PXE 
+		configuration files for UCC clients, e.g. setting <envar>ucc/pxe/loglevel</envar> changes the loglevel kernel parameter in all
+		PXE configuration files
+		(<ulink url="&ucsbug;29904">Bug 29904</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Obsolete code has been removed from the listener module that creates the PXE configuration
+		files for UCC clients (<ulink url="&ucsbug;30347">Bug 30347</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The join script 91ucc-pxe-boot.inst from <package>ucc-pxe-boot</package> now ensures that the default-settings
+		policies/dhcp_boot policy exists
+		(<ulink url="&ucsbug;3561">Bug 3561</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The package <package>ucc-pxe-boot</package> now contains the files
+		<filename>/var/lib/univention-client-boot/ldlinux.e32</filename>
+		<filename>/var/lib/univention-client-boot/ldlinux.e64</filename>
+		<filename>/var/lib/univention-client-boot/syslinux.efi32</filename>
+		<filename>/var/lib/univention-client-boot/syslinux.efi64</filename>
+		which enable UEFI-PXE booting by selecting the syslinux.efi64 (or syslinux.efi32) as the "boot_filename" (UDM module "policies/dhcp_boot") (<ulink url="&ucsbug;33978">Bug 33978</ulink>).
+	  </simpara></listitem>
+
+	</itemizedlist>
+  </section>
+
 </section>
 
 <section>
@@ -339,7 +327,7 @@
 	<title>UCC desktop image</title>
 	<itemizedlist>
 	  <listitem><simpara>
-		The new mete packages <package>univention-ucc-i18n-de</package>,
+		The new meta packages <package>univention-ucc-i18n-de</package>,
 		<package>univention-ucc-i18n-en</package>, <package>univention-ucc-i18n-es</package>,
 		<package>univention-ucc-i18n-fr</package> and <package>univention-ucc-i18n-nl</package>
 		install all dependencies needed for a localised Kubuntu desktop  (<ulink
@@ -349,15 +337,25 @@
 	  <listitem><simpara>
 		The package <package>language-pack-gnome-*</package> has been added for all languages that are
 		available by default (en, de, es, fr, nl). It adds
-		internalisation for the "Power off" button in the LightDM login manager. Note that this
+		internatiolisation for the <guimenu>Power off</guimenu> button in the LightDM login manager. Note that this
 		package hasn't been added to the thin client image due to size constraints. It can be added
 		to custom images (<ulink url="&ucsbug;31807">Bug 31807</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		The <package>bash-completion</package> has been added in order to
-		provide bash completion (<ulink url="&ucsbug;30254">Bug 30254</ulink>).
+		The <package>bash-completion</package> has been added (<ulink url="&ucsbug;30254">Bug 30254</ulink>).
 	  </simpara></listitem>
+
+	  <listitem><simpara>
+		The optional <package>univention-ucc-italc</package> package provides italc for Univention Corporate
+		Client (<ulink url="&ucsbug;30830">Bug 30830</ulink>). The package
+		<package>univention-ucc-ucsschool-integration</package> installs all required packages for
+		using UCC with UCS@school (<ulink url="&ucsbug;30829">Bug 30829</ulink>, <ulink
+		url="&ucsbug;31902">Bug 31902</ulink>, <ulink url="&ucsbug;31906">Bug 31906</ulink>, <ulink
+		url="&ucsbug;31976">Bug 31976</ulink>, <ulink url="&ucsbug;31976">Bug 31976</ulink>,). More information can be found in the UCS@School user
+		manual 
+	  </simpara></listitem>
+
 	</itemizedlist>
   </section>
 
@@ -366,14 +364,10 @@
 	<itemizedlist>
 	  <listitem><simpara>
         Kernel updates on standard thin client image has been disabled by marking the package
-        <package>linux-image-generic</package> as <emphasis>hold</emphasis>. If and what packages
-        should be set to <emphasis>hold</emphasis> can be configured in the ucc image creation 
-        tool config file using the parameter <emphasis>packages_hold</emphasis> 
-        (<ulink url="&ucsbug;34489">Bug 34489</ulink>).
+        <package>linux-image-generic</package> as <emphasis>hold</emphasis> (<ulink url="&ucsbug;34489">Bug 34489</ulink>).
 	  </simpara></listitem>
 	</itemizedlist>
   </section>
-
 
 </section>
 
@@ -384,29 +378,33 @@
   <title>User logins</title>
   <itemizedlist>
 	<listitem><simpara>
-	  The &ucsUCR; variable description of <package>univention-lightdm</package> has been improved (<ulink url="&ucsbug;30933">Bug 30933</ulink>).
-	</simpara></listitem>
-
-	<listitem><simpara>
-	  The deprecated &ucsUCR; variable <package>lightdm/wallpaper</package> has been removed(<ulink url="&ucsbug;30426">Bug 30426</ulink>).
-	</simpara></listitem>
-
-	<listitem><simpara>
-	  pam_mkhomedir was not executed under all circumstances, this has been fixed (<ulink url="&ucsbug;34790">Bug 34790</ulink>).
-	</simpara></listitem>
-
-	<listitem><simpara>
 	  The monolithic &ucsUCR; template for <filename>/etc/pam.d/lightdm</filename> has been split
 	  into a  multifile template (<ulink url="&ucsbug;31409">Bug 31409</ulink>).
+	  The &ucsUCR; variable description of <package>univention-lightdm</package> has been improved
+	  (<ulink url="&ucsbug;30933">Bug 30933</ulink>). The obsolete &ucsUCR; variable
+	  <package>lightdm/wallpaper</package> has been removed (<ulink url="&ucsbug;30426">Bug
+	  30426</ulink>).
 	</simpara></listitem>
+
+	<listitem><simpara>
+	  The PAM module for creating the home directory during login (pam_mkhomedir) was not executed
+	  under all circumstances, this has been fixed (<ulink url="&ucsbug;34790">Bug
+	  34790</ulink>). The default umask has been changed to 0066  (<ulink url="&ucsbug;31303">Bug
+	  31303</ulink>).
+    </simpara></listitem>
 
 	<listitem><simpara>
 	  The LXDE session can now also be forced (<ulink url="&ucsbug;30420">Bug 30420</ulink>).
 	</simpara></listitem>
 
 	<listitem><simpara>
-	  The new UCR variable lightdm/autologin/user allows the configuration of the user under which
-	  the automatic login should occur. If the variable is unset a temporary guest user is used as
+	  Outdated &ucsUCR; templates for the KDE display manager have been removed
+	  (<ulink url="&ucsbug;34512">Bug 34512</ulink>).
+	</simpara></listitem>
+	
+	<listitem><simpara>
+	  The new &ucsUCRV; <envar>lightdm/autologin/user</envar> allows the configuration of the user under which
+	  the automatic login should occur. If the variable is unset, a temporary guest user is used as
 	  before (<ulink url="&ucsbug;30617">Bug 30617</ulink>).
 	</simpara></listitem>
 
@@ -419,9 +417,6 @@
 	  url="&ucsbug;32119">Bug 32119</ulink>).
 	</simpara></listitem>
 
-    <listitem><simpara>
-      The default umask for pam_mkhomedir has been changed to 0066  (<ulink url="&ucsbug;31303">Bug 31303</ulink>).
-    </simpara></listitem>
   </itemizedlist>
 </section>
 
@@ -432,8 +427,7 @@
 	<title>Citrix XenApp</title>
 	<itemizedlist>
 	  <listitem><simpara>
-		A devilspie configuration was integrated into the XenApp session script. The Citrix session
-		is now correctly running in fullscreen if the autologin is used (<ulink
+		The Citrix session is now correctly running in fullscreen if the autologin is used (<ulink
 		url="&ucsbug;30358">Bug 30358</ulink>).
 	  </simpara></listitem>
 
@@ -444,16 +438,23 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		Add a new &ucsUCRV; <envar>citrix/accepteula</envar>. If set to <emphasis>true</emphasis>, a
+		A new tool (<command>ucc-image-add-citrix-receiver</command>) has been created which
+		integrates the Citrix Receiver into a UCC image; the necessary dependencies are installed
+		and the Receiver installed afterwards. It is part of <package>ucc-image-toolkit</package>.
+		(<ulink url="&ucsbug;34452">Bug 34452</ulink>).
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		New &ucsUCRV; <envar>citrix/accepteula</envar>: If set to <emphasis>true</emphasis>, a
 		configuration file is added to the user's home which accepts the EULA of Citrix Receiver.
 		(<ulink url="&ucsbug;34452">Bug 34452</ulink>).
 	  </simpara></listitem>
 
-	<listitem><simpara>
-	  The new &ucsUCRV; <envar>citrix/pulseaudio</envar> has been added. If set to <emphasis>true</emphasis>,
-	  the xenapp session script starts the pulseaudio daemon
-	  (<ulink url="&ucsbug;34227">Bug 34227</ulink>).
-	</simpara></listitem>
+	  <listitem><simpara>
+		New &ucsUCRV; <envar>citrix/pulseaudio</envar>: If set to <emphasis>true</emphasis>,
+		the xenapp session script starts the Pulseaudio daemon for the user
+		(<ulink url="&ucsbug;34227">Bug 34227</ulink>).
+	  </simpara></listitem>
 
 	</itemizedlist>
   </section>
@@ -462,21 +463,23 @@
 	<title>RDP</title>
 	<itemizedlist>
 	  <listitem><simpara>
-		The handling of the &ucsUCRV;<envar>rdp/geometry</envar> has been fixed (<ulink url="&ucsbug;31951">Bug 31951</ulink>).
+		The handling of the &ucsUCRV; <envar>rdp/geometry</envar> has been fixed. Previously it was
+		always overriden by the fullscreen setting (<ulink url="&ucsbug;31951">Bug 31951</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		The handling of the &ucsUCRV;<envar>rdp/additionaloptions</envar> has been fixed (<ulink url="&ucsbug;31717">Bug 31717</ulink>).
+		The &ucsUCRV; <envar>rdp/additionaloptions</envar> now allows setting more options (<ulink
+		url="&ucsbug;31717">Bug 31717</ulink>).
 	  </simpara></listitem>
+
 	  <listitem><simpara>
-		The handling of the &ucsUCRV;<envar>rdp/ignorecertificate</envar> has been fixed (<ulink url="&ucsbug;34874">Bug 34874</ulink>).
-	  </simpara></listitem>
-	  <listitem><simpara>
-		The &ucsUCRV;<envar>rdp/checktls</envar> has been renamed to (<ulink url="&ucsbug;34874">Bug 34874</ulink>).
+		The &ucsUCRV;<envar>rdp/checktls</envar> has been renamed to
+		<envar>rdp/tlsencryption</envar>. The handling of the &ucsUCRV;
+		<envar>rdp/ignorecertificate</envar> has been fixed (<ulink url="&ucsbug;34874">Bug
+		34874</ulink>).
 	  </simpara></listitem>
 	</itemizedlist>
   </section>
-
 
   <section>
 	<title>XRDP</title>
@@ -496,52 +499,6 @@
 
 	</itemizedlist>
   </section>
-
-
-</section>
-
-
-
-
-<section>
-  <title>&ucsUMC; integration</title>
-  <itemizedlist>
-	<listitem><simpara>
-	  A UMC module to download and manage UCC images has been added (<ulink url="&ucsbug;30379">Bug 30379</ulink>). 
-	</simpara></listitem>
-
-	<listitem><simpara>
-	  A configuration wizard for thin clients as well as desktop clients has been added to facilitate the initial configuration of UCC (<ulink url="&ucsbug;34360">Bug 34360</ulink>). 
-	</simpara></listitem>
-
-	<listitem><simpara>
-	  A new boot variant option for repartitioning and initial rollout has been added. The checkbox for repartitioning has been removed (<ulink url="&ucsbug;30466">Bug 30466</ulink>). 
-	</simpara></listitem>
-
-	<listitem><simpara>
-	  The description of the UCC image module has been fixed (<ulink url="&ucsbug;32433">Bug 32433</ulink>).
-	</simpara></listitem>
-
-    <listitem><simpara>
-      UMC icons for UCC policy objects have been added (<ulink url="&ucsbug;30366">Bug 30366</ulink>).
-    </simpara></listitem>
-
-    <listitem><simpara>
-      A simplified wizard for the creation of UCC computers has been added (<ulink url="&ucsbug;32942">Bug 32942</ulink>).
-    </simpara></listitem>
-
-	<listitem><simpara>
-      A traceback when creating UCC computer objects has been fixed (<ulink url="&ucsbug;34378">Bug 34378</ulink>).
-    </simpara></listitem>
-
-	<listitem><simpara>
-      Nagios support has been added for UCC computer objects (<ulink url="&ucsbug;31276">Bug 31276</ulink>).
-    </simpara></listitem>
-
-	<listitem><simpara>
-      The MAC address of UCC computer objects is an required attribute now (<ulink url="&ucsbug;34757">Bug 34757</ulink>).
-    </simpara></listitem>
-  </itemizedlist>
 </section>
 
 
@@ -549,34 +506,48 @@
 <section>
   <title>Hardware support</title>
   <itemizedlist>
+
 	<listitem><simpara>
-	  <command>univention-ucc-remote-mount</command> is now disabled on desktop images (<ulink
-	  url="&ucsbug;30552">Bug 30552</ulink>). ram* and loop* devices are now ignored (<ulink
-	  url="&ucsbug;30468">Bug 30468</ulink>).
+		Several changes have been made to <package>univention-ucc-remote-mount</package>:
+		<itemizedlist>
+		  <listitem><simpara>		  
+			It is now disabled on desktop images (<ulink url="&ucsbug;30552">Bug 30552</ulink>).
+		  </simpara></listitem>
+
+		  <listitem><simpara>		  
+			<filename>ram*</filename> and <filename>loop*</filename> devices are now ignored (<ulink url="&ucsbug;30468">Bug 30468</ulink>).
+		  </simpara></listitem>
+
+		  <listitem><simpara>		  
+			The udev handling for ATA CD-ROM devices has been fixed: The udev script now tries to
+			speed up ATA cdrom devices with the eject tool. Problems  with changing CD/DVDs in a
+			drive were fixed (<ulink url="&ucsbug;31685">Bug 31685</ulink>, <ulink
+			url="&ucsbug;31713">Bug 31713</ulink>).
+		  </simpara></listitem>
+
+		  <listitem><simpara>
+			The automounter directory cleanup has been improved: It now removes directories in more
+			cases, even if file handles are still open after a drive has been removed. (<ulink
+			url="&ucsbug;34878">Bug 34878</ulink>). 
+		  </simpara></listitem>
+		</itemizedlist>
+
 	</simpara></listitem>
 
 	<listitem><simpara>
-	  The udev handling for ATA CDROM devices in <command>univention-ucc-remote-mount</command> has
-	  been fixed.  The udev script now tries to speed up ATA cdrom devices with the eject tool.
-	  Problems with changing CD/DVDs in a drive were fixed (<ulink url="&ucsbug;31685">Bug
-	  31685</ulink>, <ulink url="&ucsbug;31713">Bug 31713</ulink>).
+	  The LightDM startup script for multimonitor configuration has been fixed (<ulink url="&ucsbug;30402">Bug 30402</ulink>).
 	</simpara></listitem>
 
-	<listitem><simpara>
-	  Obsolete tools and code has been removed from udev handling for CDROM devices
-	  <ulink url="&ucsbug;31749">Bug 31749</ulink>).
-	</simpara></listitem>
+    <listitem><simpara>
+      Kernel modesetting has been disabled for the Cirrus driver due to a problem initializing the framebuffer
+      (<ulink url="&ucsbug;34448">Bug 34448</ulink>).
+    </simpara></listitem>
 
 	<listitem><simpara>
-	  <command>univention-ucc-remote-mount</command> automounter directory cleanup has been improved.
-	  It now removes directories in more cases, even if file handles are still open after a drive has been removed.
-	  (<ulink url="&ucsbug;34878">Bug 34878</ulink>). 
+	  <package>univention-corporate-client</package> now depends on Network Manager (before that
+	  change it was still present, but installed indirectly (<ulink url="&ucsbug;30297">Bug 30297</ulink>).
 	</simpara></listitem>
 
-	<listitem><simpara>
-	  The lightdm startup script for multimonitor setup has been fixed
-	  <ulink url="&ucsbug;30402">Bug 30402</ulink>).
-	</simpara></listitem>
 
   </itemizedlist>
 </section>
@@ -585,20 +556,6 @@
 <section>
   <title>System services</title>
   <itemizedlist>
-	<listitem><simpara>
-	  After connection timeouts to Cups server, a reconnect is now performed (<ulink url="&ucsbug;30911">Bug 30911</ulink>).
-	</simpara></listitem>
-
-	<listitem><simpara>
-	  <package>univention-ucc-printerconfig</package> now depends on <package>cups-client</package>
-	  (<ulink url="&ucsbug;32515">Bug 32515</ulink>).
-	</simpara></listitem>
-
-	<listitem><simpara>
-	  Add workarounds for <package>grub2</package>, <package>kdm</package> and
-	  <package>lightdm</package> to always install noninteractively (<ulink url="&ucsbug;31035">Bug
-	  31035</ulink>).
-	</simpara></listitem>
 
 	<listitem><simpara>
 	  The logging on UCC clients is now using the RELP protocol instead of UDP. This ensures that
@@ -609,6 +566,18 @@
 	  The &ucsUCR; template for the <filename>krb5.conf</filename> config file now also supports the
 	  <emphasis>dns_lookup_kdc</emphasis> option (<ulink url="&ucsbug;32080">Bug 32080</ulink>).
 	</simpara></listitem>
+
+	<listitem><simpara>
+	  By default, univention-ucc-update-nss copies the nss user data from the UCS server only if the user is not already known.
+	  This test can be disabled by setting the &ucsUCRV; <envar>ucc/nss/update/force</envar> to true
+	  (<ulink url="&ucsbug;31864">Bug 31864</ulink>).
+	</simpara></listitem>
+
+    <listitem><simpara>
+      A traceback in <filename>ldap-passwd-to-file.py</filename> has been fixed (<ulink
+	  url="&ucsbug;32958">Bug 32958</ulink>).
+    </simpara></listitem>
+
   </itemizedlist>
 </section>
 
@@ -623,6 +592,11 @@
 	</simpara></listitem>
 
 	<listitem><simpara>
+	  Nagios support has been added for UCC computer objects (<ulink url="&ucsbug;31276">Bug
+	  31276</ulink>).
+	</simpara></listitem>
+
+	<listitem><simpara>
 	  The new package <package>univention-ucc-cifshome-pam-mount</package> installs a mechanism to
 	  automatically mount a CIFS share as home directory during user login. Server, share name and
 	  mount options may be defined via the &ucsUCR; variables
@@ -632,49 +606,65 @@
 
 	<listitem><simpara>
 	  The new &ucsUCRV; <envar>ucc/cups/server</envar> allows to configure Cups server(s) (<ulink
-	  url="&ucsbug;32056">Bug 32056</ulink>).
+	  url="&ucsbug;32056">Bug 32056</ulink>, <ulink url="&ucsbug;32515">Bug 32515</ulink>). After
+	  connection timeouts to a Cups server, a reconnect is now performed (<ulink
+	  url="&ucsbug;30911">Bug 30911</ulink>).
 	</simpara></listitem>
 
 	<listitem><simpara>
 	  New &ucsUCR; variables have been added to configure the APT sources:
-	  The content of all &ucsUCR; variables of the format <envar>ucc/apt/ID</envar> (whereby "ID" can be anything) are written to the file <filename>/etc/apt/sources.list.d/ucc.list</filename>.
-	  (<ulink url="&ucsbug;30748">Bug 30748</ulink>)
-	</simpara></listitem>
-  </itemizedlist>
-</section>
-
-
-<section>
-  <title>Other changes</title>
-  <itemizedlist>
-	<listitem><simpara>
-	  The <package>univention-ucc-italc</package> package provides italc for Univention Corporate
-	  Client (<ulink url="&ucsbug;30830">Bug 30830</ulink>). The package
-	  <package>univention-ucc-ucsschool-integration</package> installs all required packages for
-	  using UCC with UCS@school (<ulink url="&ucsbug;30829">Bug 30829</ulink>, <ulink
-	  url="&ucsbug;31902">Bug 31902</ulink>, <ulink url="&ucsbug;31906">Bug 31906</ulink>, <ulink
-	  url="&ucsbug;31976">Bug 31976</ulink>, <ulink url="&ucsbug;31976">Bug 31976</ulink>,). More information can be found in the UCS@School user
-	  manual 
+	  The content of all &ucsUCR; variables of the format <envar>ucc/apt/ID</envar> (whereby "ID"
+	  can be anything) are written to the file <filename>/etc/apt/sources.list.d/ucc.list</filename>
+	  (<ulink url="&ucsbug;30748">Bug 30748</ulink>).
 	</simpara></listitem>
 
-    <listitem><simpara>
-      Kernel modesetting has been disabled for the cirrus driver due to a problem initializing the framebuffer
-      <ulink url="&ucsbug;34448">Bug 34448</ulink>.
-    </simpara></listitem>
+	<listitem><para>
+	  Several improvements were made to <command>univention-ucc-software-update</command> 
+	  <itemizedlist>
 
-    <listitem><simpara>
-      A traceback in <filename>ldap-passwd-to-file.py</filename> has been fixed <ulink url="&ucsbug;32958">Bug 32958</ulink>.
-    </simpara></listitem>
+		<listitem><simpara>
+		  Exit software update script when a reboot is necessary (<ulink url="&ucsbug;31061">Bug 31061</ulink>)
+		</simpara></listitem>
+		
+		<listitem><simpara>
+		  Check for package existence before (un-)installing it (<ulink url="&ucsbug;34124">Bug
+		  34124</ulink>).
+		</simpara></listitem>
 
-    <listitem><simpara>
-      A quoting bug in the grub.cfg subtemplate /etc/grub.d/15_ucc from the package <package>univention-ucc-grub</package> has been fixed
-      <ulink url="&ucsbug;32631">Bug 32631</ulink>.
-    </simpara></listitem>
+		<listitem><simpara>
+		  Old and unused kernel package are automatically removed from UCC clients using
+		  <command>univention-ucc-prune-old-kernel-packages</command> (<ulink
+		  url="&ucsbug;32166">Bug 32166</ulink>, <ulink url="&ucsbug;31012]">Bug 31012</ulink>).
+		</simpara></listitem>
+
+		<listitem><simpara>
+		  Logging of software updates has been improved (<ulink url="&ucsbug;34123">Bug
+		  34123</ulink>).
+		</simpara></listitem>
+
+		<listitem><simpara>
+		  A typo in a status message during software updates has been fixed (<ulink
+		  url="&ucsbug;34026">Bug 34026</ulink>).
+		</simpara></listitem>
+
+		<listitem><simpara>
+		  Package source lists are no longer updated for each package that is to installed (<ulink
+		  url="&ucsbug;32575">Bug 32575</ulink>).
+		</simpara></listitem>
+
+		<listitem><simpara>
+		  Added DEBIAN_FRONTEND=noninteractive to (<ulink url="&ucsbug;31010">Bug 31010</ulink>).
+		</simpara></listitem>
+
+		<listitem><simpara>
+		  An update run of <command>univention-ucc-software-update</command> can now be forced with
+		  the new option <emphasis>--force</emphasis> (<ulink url="&ucsbug;32296">Bug 32296</ulink>).
+		</simpara></listitem>
+		
+	  </itemizedlist>
+	</para></listitem>
+
   </itemizedlist>
 </section>
-
-
-
-
 
 
