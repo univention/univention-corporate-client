@@ -9,8 +9,8 @@
 
 	  <listitem><simpara>
 		Patches applied to UCC 1.0 were migrated to UCC 2.0 (if applicable) (<ulink
-		url="&ucsbug;33760">Bug 33760</ulink>, <ulink url="&ucsbug;33760">Bug 33760</ulink>).
-		The UCS packages imported in UCC were updated to the versions in UCS 3.2-1.
+		url="&ucsbug;33760">Bug 33760</ulink>).
+		The UCS packages imported in UCC were updated to the versions in UCS 3.2-2.
 		Among other improvements this allows blacklisting kernel modules using the &ucsUCRV; 
 		<envar>kernel/blacklist</envar> (<ulink url="&ucsbug;30177">Bug 30177</ulink>).
 		The apt source for errata updates has been updated for UCC 2.0 (<ulink url="&ucsbug;31150">Bug 31150</ulink>).
@@ -103,8 +103,8 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		The boot parameter <emphasis>force_partition</emphasis> can be used to enforce to
-		repartition without user confirmation (<ulink url="&ucsbug;30427">Bug 30427</ulink>).
+		The boot parameter <emphasis>force_partition</emphasis> can be used to enforce 
+		repartitioning without user confirmation (<ulink url="&ucsbug;30427">Bug 30427</ulink>).
 	  </simpara></listitem>
 
 
@@ -123,7 +123,7 @@
 	  </simpara></listitem>
 
       <listitem><simpara>
-        During the update to an UCC 2.0 image the &ucsUCRV; <envar>nameserver1</envar> is automatically 
+        During the update to a UCC 2.0 image the &ucsUCRV; <envar>nameserver1</envar> is automatically 
 		set to the new default <emphasis>127.0.1.1</emphasis> if the previous value was the UCC 1.0 default
 		(<ulink url="&ucsbug;34646">Bug 34646</ulink>).
       </simpara></listitem>
@@ -161,7 +161,7 @@
 			</simpara></listitem>
 
 			<listitem><simpara>
-			  To reduce the required image size during image creation the system is now installed in an directory
+			  To reduce the required image size during image creation the system is now installed in a directory
 			  outside the image. Finally, the installed system is copied into the image
 			  (<ulink url="&ucsbug;31942">Bug 31942</ulink>).
 			</simpara></listitem>
@@ -172,7 +172,7 @@
 			</simpara></listitem>
 
 			<listitem><simpara>
-			  A superflous empty line at the beginnging of generated join scripts has
+			  A superflous empty line at the beginning of generated join scripts has
 			  been fixed (<ulink url="&ucsbug;34746">Bug 34746</ulink>).
 			</simpara></listitem>
 		</itemizedlist>
@@ -187,7 +187,7 @@
 	  <listitem><simpara>
 		The build of UCC images using the UEFI boot standard is now possible: The package
 		<package>ucc-image-toolkit</package> provides  <filename>
-		/usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg</filename> as an example
+		/usr/share/doc/ucc-image-toolkit/example/ucc-desktop-efi.cfg.gz</filename> as an example
 		configuration for UEFI partitioning (<ulink url="&ucsbug;33978">Bug 33978</ulink>).
 	  </simpara></listitem>
 
@@ -234,7 +234,7 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		The determination of the Kerberos key version number of the UCC host account during the join has been fixed
+		The determination of the Kerberos key version number of the UCC host account during the domain join has been fixed
 		(<ulink url="&ucsbug;30471">Bug 30471</ulink>).
 	  </simpara></listitem>
 
@@ -278,7 +278,7 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		An unjoin script for <package>univention-corporate-client-schema</package> has been added, which
+		An unjoin script for <package>univention-corporate-client-schema</package> has been added, which removes
 		the UCC service once the last UCC app in the domain was removed (<ulink url="&ucsbug;30852">Bug 30852</ulink>).
 	  </simpara></listitem>
 	</itemizedlist>
@@ -343,11 +343,11 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		The <package>bash-completion</package> has been added (<ulink url="&ucsbug;30254">Bug 30254</ulink>).
+		The <package>bash-completion</package> package has been added to the desktop image (<ulink url="&ucsbug;30254">Bug 30254</ulink>).
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		The optional <package>univention-ucc-italc</package> package provides italc for Univention Corporate
+		The optional <package>univention-ucc-italc</package> package provides iTALC for Univention Corporate
 		Client (<ulink url="&ucsbug;30830">Bug 30830</ulink>). The package
 		<package>univention-ucc-ucsschool-integration</package> installs all required packages for
 		using UCC with UCS@school (<ulink url="&ucsbug;30829">Bug 30829</ulink>, <ulink
@@ -363,7 +363,7 @@
 	<title>UCC thin client image</title>
 	<itemizedlist>
 	  <listitem><simpara>
-        Kernel updates on standard thin client image has been disabled by marking the package
+        Kernel updates on the standard thin client image has been disabled by marking the package
         <package>linux-image-generic</package> as <emphasis>hold</emphasis> (<ulink url="&ucsbug;34489">Bug 34489</ulink>).
 	  </simpara></listitem>
 	</itemizedlist>
@@ -473,7 +473,7 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		The &ucsUCRV;<envar>rdp/checktls</envar> has been renamed to
+		The &ucsUCRV; <envar>rdp/checktls</envar> has been renamed to
 		<envar>rdp/tlsencryption</envar>. The handling of the &ucsUCRV;
 		<envar>rdp/ignorecertificate</envar> has been fixed (<ulink url="&ucsbug;34874">Bug
 		34874</ulink>).
@@ -648,7 +648,7 @@
 		</simpara></listitem>
 
 		<listitem><simpara>
-		  Package source lists are no longer updated for each package that is to installed (<ulink
+		  Package source lists are no longer updated for each package that is to be installed (<ulink
 		  url="&ucsbug;32575">Bug 32575</ulink>).
 		</simpara></listitem>
 
