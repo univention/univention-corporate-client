@@ -5,6 +5,6 @@ src: univention-ucc-initramfs
 fix: 1.0.19-4.108.201404301038
 note:
 desc: |
-  * Restrict permissions for directory /ucc_root
+  * Restrict permissions for the directory /ucc_root
 version: [0]
 bug: [34705]
