@@ -1,3 +1,11 @@
+univention-ucc-cifshome-pam-mount (2.0.0-2) unstable; urgency=low
+
+  * Only write PAM configuration for  CIFS home directory if the UCR variable
+    ucc/mount/cifshome/server is set (Bug #35111)
+  * Don't fall back to ldap/server/name
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 13 Jun 2014 13:43:07 +0200
+
 univention-ucc-cifshome-pam-mount (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)

@@ -43,11 +43,12 @@
 <mkmountpoint enable="1" remove="true" />
 
 @!@
-server = configRegistry.get('ucc/mount/cifshome/server', configRegistry.get('ldap/server/name', 'UNDEFINED'))
+server = configRegistry.get('ucc/mount/cifshome/server', 'UNDEFINED')
 path = configRegistry.get('ucc/mount/cifshome/share', '%(DOMAIN_USER)')
 options = configRegistry.get('ucc/mount/cifshome/options', 'serverino')
-print '<volume fstype="cifs" server="%s" path="%s" mountpoint="~/" options="%s" />' % (server, path, options)
+if configRegistry.has_key('ucc/mount/cifshome/server') and configRegistry.get('ucc/mount/cifshome/server', 'UNDEFINED') != 'UNDEFINED':
+	print '<volume fstype="cifs" server="%s" path="%s" mountpoint="~/" options="%s" />' % (server, path, options)
+	print '<cifsmount>mount -t cifs //%(SERVER)/%(VOLUME) %(MNTPT) -o user=%(USER),%(OPTIONS)</cifsmount>'
 @!@
-<cifsmount>mount -t cifs //%(SERVER)/%(VOLUME) %(MNTPT) -o user=%(USER),%(OPTIONS)</cifsmount>
 
 </pam_mount>
