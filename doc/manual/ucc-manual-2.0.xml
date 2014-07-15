@@ -60,5 +60,5 @@ feedback@univention.de
   &terminalservices;
   &bibliography;
 
-  <?dbhtml-include href="../stylesheets/piwiki.html"?>
+  <?dbhtml-include href="../stylesheets/piwik.html"?>
 </book>
