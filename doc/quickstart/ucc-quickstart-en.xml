@@ -2,8 +2,8 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
           "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
 
-  <!ENTITY % entities SYSTEM "../stylesheets/macros-de.ent" >
-  <!ENTITY bibliography SYSTEM "../stylesheets/bibliography-de.xml">
+  <!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+  <!ENTITY bibliography SYSTEM "../stylesheets/bibliography-en.xml">
 
   %entities;
 ]>
@@ -57,7 +57,7 @@
   <para>
 	UCC also offers the possibility of providing a KDE Linux desktop terminal server remotely via
 	the RDP protocol. It is then possible to access it from thin clients, for example. This is
-	documented in UCC manual <biblioref linkend="ucc-manual"/>.
+	documented in the UCC manual <biblioref linkend="ucc-manual"/>.
   </para>
 
   <para>
@@ -118,12 +118,12 @@
 
   <para>
 	UCC requires Univention Corporate Server (UCS) 3.2. The installation of Univention Corporate
-	Server is described in the Quickstart Guide for UCS <biblioref linkend="ucs-quickstart"/>.
+	Server is described in the quickstart guide for UCS <biblioref linkend="ucs-quickstart"/>.
   </para>
 
   <para>
 	UCC can be installed on all UCS server roles. In this example, the installation is performed on
-	a single-server system. Therefore, Domaincontroller master has to be selected as system role. No
+	a single-server system. Therefore, <emphasis>Domaincontroller master</emphasis> has to be selected as system role. No
 	additional component needs to be selected in the software selection. All available errata
 	updates should be installed on the UCS system. 
   </para>
@@ -155,7 +155,7 @@
 
   <para>
 	In the Univention App Center, select the <emphasis>Univention Corporate Client
-	2.0</emphasis>application and click on <guimenu>Install</guimenu>. Following that, a new login
+	2.0</emphasis> application and click on <guimenu>Install</guimenu>. Following that, a new login
 	to UMC needs to be done. 
   </para>
 
@@ -167,7 +167,7 @@
 </chapter>
 
 <chapter id="uccquickstart:thinclient">
-  <title>Configuring the thin client for the access to Windows terminal servers</title>
+  <title>Configuring thin client access to Windows terminal servers</title>
 
   <section id="uccquickstart:thinclient:setup">
 	<title>Introduction</title>
@@ -220,9 +220,9 @@
 	</para>
 
 	<para>
-	  The server to be connected to is entered under <guiname>Host name of RDP server</guiname>. If
-	  this is a Windows server, the <guiname>Domain name</guiname> must also be configured. Then
-	  click on <guiname>Next</guiname>.
+	  The server to be connected to is entered under <guimenu> Host name of RDP server</guimenu>. If
+	  this is a Windows server, the <guimenu>Domain name</guimenu> must also be configured. Then
+	  click on <guimenu>Next</guimenu>.
 	</para>
 
 	<para>
@@ -254,7 +254,7 @@
 	<para>
 	  Select <emphasis>Installation with repartitioning and image rollout</emphasis> as the
 	  <guimenu>Boot variant</guimenu> and the downloaded thin client image
-	  (<emphasis>ucc-2.0-thinclient-image.img</emphasis>) as the <guiname>Image</guiname>.
+	  (<emphasis>ucc-2.0-thinclient-image.img</emphasis>) as the <guimenu>Image</guimenu>.
 	</para>
 
 	<para>
@@ -265,16 +265,16 @@
 	  The client has to be started now. A PXE start must be selected in the system's BIOS. The image
 	  is started via PXE and the harddrive partitioned and installed following confirmation. The
 	  domain join to the UCS domain is performed in the scope of the installation. The join is
-	  performed with the Administrator account.
+	  performed with the <emphasis>Administrator</emphasis> account.
 	</para>
 
 	<para>
-	  In a productive UCC installation, the domain join can be performed completely automated
+	  The domain join can also be performed completely automated
 	  <biblioref linkend="ucc-manual-automaticrollout"/>.
 	</para>
 
 	<para>
-	  The session <guiname>RDP</guiname> must now be selected in the LightDM login manager. A login
+	  The session <guimenu>RDP</guimenu> must now be selected in the LightDM login manager. A login
 	  can now be performed with the user created in the UMC. A connection to the Windows terminal
 	  server is created automatically and it is possible to work on the terminal server. 
 	</para>
