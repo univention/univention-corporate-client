@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+          "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+
+  <!ENTITY % entities SYSTEM "../stylesheets/macros-de.ent" >
+  <!ENTITY bibliography SYSTEM "../stylesheets/bibliography-de.xml">
+
+  %entities;
+]>
+<book lang="en" id="quickstart-en-3.2">
+<bookinfo>
+  <title>Univention Corporate Client</title>
+  <subtitle>Quickstart Guide for Univention Corporate Client</subtitle>
+  <revhistory>
+     <revision>
+        <revnumber>2.0</revnumber>
+        <date>6 Jun 2014</date>
+     </revision>
+  </revhistory>
+</bookinfo>
+
+<chapter id="uccquickstart:intro">
+  <title>Introduction</title>
+
+  <para>
+	Univention Corporate Client (UCC) is a flexible and very economic alternative for the operation
+	and administration of PCs, notebooks and thin clients in companies and institutions. The
+	software contains a Linux-based desktop environment optimised for business use. In addition, UCC
+	serves as a platform for access to remote desktop solutions and virtualized desktops as well as
+	browser or terminal server-based applications.
+  </para>
+
+  <para>
+	The administration is performed using the standard tools of the UCS management system from
+	Univention Corporate Server and integrates seamlessly in the administration of existing domain
+	resources.
+  </para>
+
+  <para>
+	This quickstart guide offers an introduction to Univention Corporate Client. Two application
+	scenarios for UCC are presented:
+	
+	<itemizedlist>
+	  <listitem><simpara>
+		The management of Linux desktop systems (here taking a notebook with a KDE desktop
+		environment as an example). 
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Access to Windows Remote Desktop Services via the RDP protocol using a thin client
+	  </simpara></listitem>
+	</itemizedlist>
+
+	If you only wish to test one of these scenarios, one of the two steps can also be skipped.
+  </para>
+
+  <para>
+	UCC also offers the possibility of providing a KDE Linux desktop terminal server remotely via
+	the RDP protocol. It is then possible to access it from thin clients, for example. This is
+	documented in UCC manual <biblioref linkend="ucc-manual"/>.
+  </para>
+
+  <para>
+	Help on Univention Corporate Client is offered in the Univention Forum: <ulink
+	url="http://forum.univention.de/"/>.
+  </para>
+
+</chapter>
+
+<chapter id="uccquickstart:requirements">
+  <title> Requirements</title>
+
+  <para>
+	The following systems are required for the quickstart guide: 
+
+	<itemizedlist>
+	  <listitem><simpara>
+		A UCS system in which UCC is managed (a UCC environment can also be distributed on several
+		systems, this example uses a single-server installation). The UCC images will be stored on
+		the UCS system, so there should be sufficient disk space available. At least 2 GiB of free
+		space are needed for the thin client image and at least 20 GiB for the desktop image. 
+	  </simpara></listitem>
+	</itemizedlist>
+
+	To test the access to a Windows terminal server from a thin client: 
+
+	<itemizedlist>
+	  <listitem><simpara>
+		A Windows terminal server for the thin client to access.
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		A thin client. The thin client must have 2 GiB CompactFlash memory. 
+	  </simpara></listitem>
+	</itemizedlist>
+
+	To test the operation of a Linux desktop: 
+
+	<itemizedlist>
+	  <listitem><simpara>
+		A system on which the Linux desktop is installed. The system should be equipped with at
+		least 20 GiB of disk space (the operating system installation requires 15 GiB plus
+		additional GiBs for the home directory). 
+	  </simpara></listitem>
+	</itemizedlist>
+  </para>
+
+  <para>
+	Detailed descriptions of UCC can be found on the website website <footnote><para><ulink
+	url="http://www.univention.com/products/ucc/"/></para></footnote> and in the UCC manual
+	<biblioref linkend="ucc-manual"/>.
+  </para>
+
+</chapter>
+
+<chapter id="uccquickstart:ucsinstall">
+  <title>Installing the UCS system</title>
+
+  <para>
+	UCC requires Univention Corporate Server (UCS) 3.2. The installation of Univention Corporate
+	Server is described in the Quickstart Guide for UCS <biblioref linkend="ucs-quickstart"/>.
+  </para>
+
+  <para>
+	UCC can be installed on all UCS server roles. In this example, the installation is performed on
+	a single-server system. Therefore, Domaincontroller master has to be selected as system role. No
+	additional component needs to be selected in the software selection. All available errata
+	updates should be installed on the UCS system. 
+  </para>
+
+  <para>
+	Following successful installation, a login is performed on the Univention Management Console
+	(reachable under https://server_ip/) as user <emphasis>Administrator</emphasis>. 
+  </para>
+
+  <figure id="quickucc-umc">
+	<title>Login at the  UMC</title>
+	<graphic scalefit="1" width="40%" fileref="illustrations/umclogin-en.png"/>
+  </figure>
+
+  <para>
+	During the first login at the Univention Management Console a dialogue is displayed which allows
+	the activation of the UCS license for the Univention App Center. For this an e-mail address
+	needs to be provided to which the activated license key is sent.
+  </para>
+
+  <para>
+	The license key can be imported in the UMC by clicking on the gear-wheel symbol in the upper
+	menu bar. The menu entry <guimenu>Import new license</guimenu> needs to be selected.
+  </para>
+
+  <para>
+	Now the UMC module <guimenu>App Center</guimenu> needs to be opened. 
+  </para>
+
+  <para>
+	In the Univention App Center, select the <emphasis>Univention Corporate Client
+	2.0</emphasis>application and click on <guimenu>Install</guimenu>. Following that, a new login
+	to UMC needs to be done. 
+  </para>
+
+  <para>
+	Now a user must be created in the user management of the UMC. It is sufficient to perform the
+	minimum required settings.
+  </para>
+
+</chapter>
+
+<chapter id="uccquickstart:thinclient">
+  <title>Configuring the thin client for the access to Windows terminal servers</title>
+
+  <section id="uccquickstart:thinclient:setup">
+	<title>Introduction</title>
+	
+	<para>
+	  The <guimenu>UCC setup</guimenu> UMC module must be run. In the first menu item you can select
+	  whether desktops and/or thin clients are to be set up. Select <guimenu>Thin client
+	  configuration</guimenu> and click <guimenu>Next</guimenu>.
+	</para>
+
+	<para>
+	  The UCC systems are installed via images, i.e., the complete operating system is replaced
+	  during installations and updates (user data are stored separately). This makes it possible to
+	  run an installation in just a few minutes. Univention provides preconfigured images which are
+	  continuously maintained. 
+	</para>
+
+	<para>
+	  The thin client image must now be downloaded from the Univention server. As it is
+	  approximately 300 MB in size, the download may take some time. To do so, enable the
+	  <guimenu>Download the UCC thin client image</guimenu> option and click on
+	  <guimenu>Next</guimenu>. Once the download is complete, the image is unpacked.
+	</para>
+
+	<para>
+	  UCS uses so-called network objects to manage IP addresses and DNS/DHCP settings for client
+	  systems. Network objects define IP address ranges and provide the next free IP address when a
+	  new computer is created.
+	</para>
+
+	<para>
+	  The following dialogue can be used either to define a new network or to use the network object
+	  installed during the installation of the &ucsMaster;.
+	</para>
+
+	<para>
+	  In the following step, the wizard checks whether a standard gateway is configured in the
+	  DHCP. If this is not the case, a dialogue appears in which this can be defined.
+	</para>
+
+	<para>
+	  The next prompt asks which remote desktop services should be accessed. Select <guimenu>RDP
+	  services (Windows Remote Desktop Services, XRDP)</guimenu> and click <guimenu>Next</guimenu>.
+	</para>
+
+	<para>
+	  In addition to the RDP access described here, access to Citrix Terminal Services or a website
+	  can also be configured. This is documented in the UCC manual: <biblioref
+	  linkend="ucc-manual-citrix"/>, <biblioref linkend="ucc-manual-firefox"/>.
+	</para>
+
+	<para>
+	  The server to be connected to is entered under <guiname>Host name of RDP server</guiname>. If
+	  this is a Windows server, the <guiname>Domain name</guiname> must also be configured. Then
+	  click on <guiname>Next</guiname>.
+	</para>
+
+	<para>
+	  The configured settings are then shown once again. Clicking <guimenu>Apply
+	  configuration</guimenu> applies them. The UCC image is then downloaded and unpacked and
+	  different Univention Configuration Registry policies preconfigured. 
+	</para>
+  </section>
+
+  <section id="uccquickstart:thinclient:createhost">
+	<title>Adding a thin client</title>
+
+	<para>
+	  Now open the computer module in the UMC and click <guimenu>Add</guimenu>. Select
+	  <emphasis>computers/ucc-thinclients</emphasis> as the <guimenu>Container</guimenu> (this
+	  container is linked to policies which are configured in the UCC wizard) and <emphasis>Host:
+	  Univention Corporate Client</emphasis> as the <guimenu>Type</guimenu>. Then click on
+	  <guimenu>Next</guimenu>.
+	</para>
+
+	<para>
+	  You can select any <guimenu>Host name</guimenu>. The network configured in the UCC setup
+	  wizard is used as the <guimenu>Network</guimenu> and an <guimenu>IP address</guimenu>
+	  suggested based on this (however, it is also possible to use a different one). In addition,
+	  the <guimenu>MAC address</guimenu> also needs to be configured. Then click on
+	  <guimenu>Next</guimenu>. 
+	</para>
+
+	<para>
+	  Select <emphasis>Installation with repartitioning and image rollout</emphasis> as the
+	  <guimenu>Boot variant</guimenu> and the downloaded thin client image
+	  (<emphasis>ucc-2.0-thinclient-image.img</emphasis>) as the <guiname>Image</guiname>.
+	</para>
+
+	<para>
+	  Then click <guimenu>Create computer</guimenu>. 
+	</para>
+
+	<para>
+	  The client has to be started now. A PXE start must be selected in the system's BIOS. The image
+	  is started via PXE and the harddrive partitioned and installed following confirmation. The
+	  domain join to the UCS domain is performed in the scope of the installation. The join is
+	  performed with the Administrator account.
+	</para>
+
+	<para>
+	  In a productive UCC installation, the domain join can be performed completely automated
+	  <biblioref linkend="ucc-manual-automaticrollout"/>.
+	</para>
+
+	<para>
+	  The session <guiname>RDP</guiname> must now be selected in the LightDM login manager. A login
+	  can now be performed with the user created in the UMC. A connection to the Windows terminal
+	  server is created automatically and it is possible to work on the terminal server. 
+	</para>
+  </section>
+</chapter>
+
+<chapter id="uccquickstart:desktop">
+  <title>Configuring Linux desktop systems </title>
+	
+  <section id="uccquickstart:desktop:setup">
+	<title>Introduction</title>
+	
+	<para>
+	  The UCC setup <guimenu>UMC module</guimenu> must be opened. In the first menu item you can
+	  select whether desktops and/or thin clients are to be set up. Select <guimenu>Linux desktop
+	  systems configuration / XRDP terminal server setup</guimenu> and click
+	  <guimenu>Next</guimenu>.
+	</para>
+
+	<para>
+	  The UCC systems are installed via images, i.e., the complete operating system is replaced
+	  during installations and updates (user data are saved separately). This makes it possible to
+	  perform an installation in just a few minutes. Univention provides preconfigured images which
+	  are continuously maintained. 
+	</para>
+
+	<para>
+	  The desktop image must now be downloaded from the Univention server. As it is approximately 1
+	  GB in size, the download may take some time. To do so, enable the <guimenu>Download the UCC
+	  desktop image option</guimenu> and click on <guimenu>Next</guimenu> Once the download is
+	  complete, the desktop image is unpacked. The UCS system should have at least 20 GiB of free
+	  disk space.
+	</para>
+
+	<para>
+	  UCS uses so-called network objects to manage IP addresses and DNS/DHCP settings for client
+	  systems. Network objects define IP address ranges and provide the next free IP address when a
+	  new computer is added.
+	</para>
+
+	<para>
+	  The following dialogue can be used either to define a new network or to use the network object
+	  installed during the installation of the &ucsMaster;.
+	</para>
+
+	<para>
+	  In the following, the wizard checks whether a standard gateway is configured in the DHCP. If
+	  this is not the case, a dialogue appears in which this can be defined.
+	</para>
+
+	<para>
+	  The configured settings are then shown once again. Clicking <guimenu>Apply
+	  configuration</guimenu> applies them. The UCC image is then downloaded and unpacked and
+	  different Univention Configuration Registry policies preconfigured. 
+	</para>
+  </section>
+
+  <section id="uccquickstart:desktop:createhost">
+	<title>Adding a desktop</title>
+
+	<para>
+	  Now open the computers module of the UMC and click <guimenu>Add</guimenu>. Select
+	  <emphasis>computers/ucc-desktops</emphasis> as the <guimenu>Container</guimenu> (this
+	  container is linked to policies which are configured in the UCC wizard) and <emphasis>Host:
+	  Univention Corporate Client</emphasis> as the <guimenu>Type</guimenu>. Then click on
+	  <guimenu>Next</guimenu>.
+	</para>
+
+	<para>
+	  You can select any <guimenu>Host name</guimenu>. The network configured in the UCC setup
+	  wizard is used as the <guimenu>Network</guimenu> and an <guimenu>IP address</guimenu>
+	  suggested based on this (however, it is also possible to use a different one). In addition,
+	  the MAC address also needs to be configured. Then click on <guimenu>Next</guimenu>.
+	</para>
+
+	<para>
+	  Select Installation with repartitioning and image rollout as the <guimenu>Boot
+	  variant</guimenu> and the downloaded desktop image
+	  (<emphasis>ucc-2.0-desktop-image.img</emphasis>) as the <guimenu>Image</guimenu>. Then click
+	  <guimenu>Create computer</guimenu>. 
+	</para>
+
+	<para>
+	  The client has to be started now. A PXE start must be selected in the system's BIOS. The image
+	  is started via PXE and the harddrive partitioned and installed following confirmation. The
+	  domain join to the UCS domain is performed in the scope of the installation. The join is
+	  performed with the Administrator account.
+	</para>
+
+	<para>
+	  In a productive UCC installation, the domain join can be performed completely automated
+	  <biblioref linkend="ucc-manual-automaticrollout"/>.
+	</para>
+
+	<para>
+	  The session <guimenu>UCC</guimenu> must now be selected in the LightDM login manager. The
+	  login can now be performed with the user created in the UMC. The user can then work with a KDE
+	  Plasma desktop. 
+	</para>
+
+  </section>
+</chapter>
+
+  
+
+<bibliography id="relnotes:bibliography">
+  <bibliomixed id="ucc-manual"/>
+  <bibliomixed id="ucs-quickstart"/>
+  <bibliomixed id="ucc-manual-citrix"/>
+  <bibliomixed id="ucc-manual-firefox"/>
+  <bibliomixed id="ucc-manual-automaticrollout"/>
+  <bibliomixed id=""/>
+
+
+</bibliography>
+
+<?dbhtml-include href="../stylesheets/piwik.html"?>
+</book>

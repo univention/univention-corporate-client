@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+          "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+
+  <!ENTITY % entities SYSTEM "../stylesheets/macros-de.ent" >
+  <!ENTITY bibliography SYSTEM "../stylesheets/bibliography-de.xml">
+
+  %entities;
+]>
+<book lang="de" id="quickstart-de-3.2">
+<bookinfo>
+  <title>Univention Corporate Client</title>
+  <subtitle>Quickstart Guide für Univention Corporate Client</subtitle>
+  <revhistory>
+     <revision>
+        <revnumber>2.0</revnumber>
+        <date>6 Jun 2014</date>
+     </revision>
+  </revhistory>
+</bookinfo>
+
+<chapter id="uccquickstart:intro">
+  <title>Einleitung</title>
+
+  <para>
+	Univention Corporate Client (UCC) ist eine flexible und sehr wirtschaftliche Alternative für
+	Betrieb und Verwaltung von PCs, Notebooks und Thin Clients in Unternehmen und Behörden. Die
+	Software enthält eine für den Business-Einsatz optimierte Desktop-Umgebung auf Basis von
+	KDE. Außerdem dient UCC als Plattform für den Zugriff auf Remote-Desktop-Lösungen und
+	virtualisierte Desktops genauso wie auf Browser- oder Terminalserver-basierte Anwendungen.
+  </para>
+
+  <para>
+	Die Administration erfolgt mit den Standardmitteln des UCS-Managementsystems aus Univention
+	Corporate Server und fügt sich nahtlos in die Verwaltung bestehender Domänen ein.
+  </para>
+
+  <para>
+	Dieser Quickstart Guide gibt einen Einstieg in Univention Corporate Client. Es werden dabei zwei
+	Einsatzszenarien für UCC vorgestellt: 
+	
+	<itemizedlist>
+	  <listitem><simpara>
+		Das Management von KDE-Desktopsystemen (hier am Beispiel eines Notebooks mit
+		KDE-Desktopumgebung)
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Der Zugriff auf einen Windows-Desktop als Remote Desktop über das RDP-Protokoll 
+	  </simpara></listitem>
+	</itemizedlist>
+
+	Wenn nur eines der Szenarien getestet werden soll, kann das andere auch übersprungen werden.
+  </para>
+
+  <para>
+	UCC bietet auch die Möglichkeit einen KDE-Linux-Desktop Terminalserver über das RDP-Prokoll
+	bereitzustellen. Auf diesen kann dann z.B. von Thin Clients zugegriffen werden. Dies ist im
+	UCC-Handbuch dokumentiert <biblioref linkend="ucc-manual"/>.
+  </para>
+
+  <para>
+	Hilfe zu Univention Corporate Client gibt es im Univention Forum: <ulink url="http://forum.univention.de/"/>.
+  </para>
+
+</chapter>
+
+<chapter id="uccquickstart:requirements">
+  <title>Voraussetzungen</title>
+
+  <para>
+	Benötigt werden für den Quickstart Guide die folgenden Systeme:
+
+	<itemizedlist>
+	  <listitem><simpara>
+		Ein UCS-System, in dem UCC verwaltet wird (eine UCC-Umgebung kann auch auf mehrere Systeme
+		verteilt werden, in diesem Beispiel erfolgt eine Single-Server-Installation). Da die UCC
+		Images auf das UCS-System heruntergeladen werden müssen, sollte dort ausreichend freier
+		Festplattenspeicher für das Herunterladen und Speichern der UCC Images vorhanden sein. Es
+		sollten mindestens 2 GiB freier Speicherplatz für das Thin Client Image und mindestens 20
+		GiB für das Desktop-Image verfügbar sein. 
+	  </simpara></listitem>
+	</itemizedlist>
+
+	Wenn der Zugriff auf einen Windows-Terminalserver von einem Thin Client getestet werden soll:
+
+	<itemizedlist>
+	  <listitem><simpara>
+		Ein Windows Terminal Server, auf den der Thin Client zugreift.
+	  </simpara></listitem>
+
+	  <listitem><simpara>
+		Ein Thin Client. Der Thin Client muss über 2 GiB CompactFlash-Speicher verfügen. 
+	  </simpara></listitem>
+	</itemizedlist>
+
+	Wenn der Betrieb eines Linux-Desktops getestet werden soll:
+
+	<itemizedlist>
+	  <listitem><simpara>
+		Ein System, auf dem der Linux-Desktop installiert wird. Das System sollte über min. 20 GiB
+		Plattenplatz verfügen (die Systeminstallation benötigt 15 GiB plus einige GiB für das
+		Heimatverzeichnis). 
+	  </simpara></listitem>
+	</itemizedlist>
+  </para>
+
+  <para>
+	Ausführliche Beschreibungen zu UCC sind auf der Univention-Webseite <footnote><para><ulink url="http://www.univention.de/produkte/ucc/"/></para></footnote>
+	und im UCC-Handbuch  zu finden.
+  </para>
+
+</chapter>
+
+<chapter id="uccquickstart:ucsinstall">
+  <title>Installation des UCS-Systems</title>
+
+  <para>
+	UCC setzt Univention Corporate Server (UCS) 3.2 voraus. Die Installation von Univention
+	Corporate Server wird im UCS Quickstart Guide beschrieben <biblioref linkend="ucs-quickstart"/>.
+  </para>
+
+  <para>
+	UCC kann auf allen UCS-Serverrollen installiert werden. In diesem Beispiel erfolgt eine
+	Installation auf einem Single-Server-System. Als Systemrolle ist daher ein Domänencontroller
+	Master auszuwählen. In der Softwareauswahl muss keine weitere Komponente ausgewählt werden.
+	Auf dem UCS-System sollten alle verfügbaren Errata-Updates installiert werden.
+  </para>
+
+  <para>
+	Nach der erfolgten Installation von UCS erfolgt eine Anmeldung als Benutzer <emphasis>Administrator</emphasis> am
+	UCS-Managementsystem (UMC, erreichbar unter https://server_ip/).
+  </para>
+
+  <figure id="quickucc-umc">
+	<title>Anmeldung an der UMC</title>
+	<graphic scalefit="1" width="40%" fileref="illustrations/umclogin-de.png"/>
+  </figure>
+
+  <para>
+	Bei der ersten Anmeldung an der Univention Management Console erscheint ein Dialog, mit dem die
+	UCS-Lizenz für das Univention App Center freigeschaltet werden kann. Es muss dazu eine
+	E-Mail-Adresse angegeben werden, an die der freigeschaltete Lizenzschlüssel dann geschickt wird.
+  </para>
+
+  <para>
+	Der freigeschaltete Lizenzschlüssel kann über die UMC importiert werden, indem in der oberen
+	rechte Bildschirmzeile auf das Zahnrad-Symbol geklickt wird. Es muss der Menüpunkt <guimenu>Neue Lizenz
+	einspielen</guimenu> ausgewählt werden.
+  </para>
+
+  <para>
+	Anschließend muss das UMC-Modul <guimenu>App Center</guimenu> aufgerufen werden.
+  </para>
+
+  <para>
+	Im Univention App Center muss die Applikation <emphasis>Univention Corporate Client
+	2.0</emphasis> ausgewählt und auf <guimenu>Installieren</guimenu> geklickt werden. Anschließend
+	erfolgt eine erneute Anmeldung an der UMC. 
+  </para>
+
+  <para>
+	Nun muss in der Benutzerverwaltung des UCS-Managementsystems (UMC) ein Benutzer angelegt
+	werden. Es reicht hierbei die minimal nötigen Einstellungen vorzunehmen. 
+  </para>
+
+</chapter>
+
+<chapter id="uccquickstart:thinclient">
+  <title>Inbetriebnahme des Thin Clients für den Zugriff auf Windows-Terminalserver</title>
+
+  <section id="uccquickstart:thinclient:setup">
+	<title>Einrichtung</title>
+	
+	<para>
+	  Hierfür muss das UMC-Modul <guimenu>UCC Einrichtung</guimenu> aufgerufen werden. Im ersten
+	  Menüpunkt kann ausgewählt werden, ob Desktops und/oder Thin Clients eingerichtet werden
+	  sollen. Hier muss <guimenu>Thin Clients konfigurieren</guimenu>  ausgewählt und auf
+	  <guimenu>Weiter</guimenu> geklickt werden.
+	</para>
+
+	<para>
+	  Die Installation der UCC-Systeme erfolgt über Images, d.h. bei einer Installation oder bei
+	  Updates wird das komplette Betriebssystem ersetzt (Benutzerdaten werden getrennt
+	  gespeichert). Dadurch kann eine Installation in wenigen Minuten erfolgen. Univention stellt
+	  vorkonfigurierte Images bereit, die fortlaufend gepflegt werden.
+	</para>
+
+	<para>
+	  Das Thin Client-Image muss nun vom Univention-Server geladen werden, es ist ca. 300 MB groß,
+	  der Download kann also einige Zeit in Anspruch nehmen. Dazu muss die Option
+	  <guimenu>Herunterladen des UCC Thin-Client-Images</guimenu> aktiviert werden und auf
+	  <guimenu>Weiter</guimenu> geklickt werden. Nach dem Download wird das Thin-Client-Image
+	  entpackt.
+	</para>
+
+	<para>
+	  UCS benutzt sogenannte Netzwerkobjekte um IP-Adressen sowie DNS-/DHCP-Einstellungen für
+	  Client-Systeme zu verwalten. Netzwerkobjekte definieren IP-Adressbereiche und stellen beim
+	  Anlegen eines neuen Rechners die nächste freie IP-Adresse bereit.
+	</para>
+
+	<para>
+	  Im folgenden Dialog kann entweder ein neues Netzwerk definiert werden oder das bei der
+	  Installation des &ucsMaster; installierte Netzwerkobjekt verwendet werden.
+	</para>
+
+	<para>
+	  Im folgenden prüft der Assistent, ob ein Standard-Gateway im DHCP konfiguriert ist. Ist das
+	  nicht der Fall, wird ein Dialog angezeigt, in dem dieses definiert werden kann.
+	</para>
+
+	<para>
+	  Im nächsten Dialog wird abgefragt, auf welche Remote Desktop-Dienste zugegriffen werden
+	  soll. Hier wird <guimenu>RDP-Dienste (Windows Remote Desktop Services, XRDP)</guimenu>
+	  ausgewählt und auf <guimenu>Weiter</guimenu> geklickt.
+	</para>
+
+	<para>
+	  Neben dem hier beschriebenen Zugriff über RDP kann auch der Zugriff auf Citrix Terminal
+	  Services oder eine Webseite konfiguriert werden. Dies ist im UCC-Handbuch dokumentiert 
+	  <biblioref linkend="ucc-manual-citrix"/>, <biblioref linkend="ucc-manual-firefox"/>.
+	</para>
+
+	<para>
+	  Unter <guiname>Rechnername des RDP-Servers</guiname> wird der Server angegeben, zu dem
+	  verbunden werden soll. Handelt es sich dabei um einen Windows-Server muss zusätzlich der
+	  <guimenu>Domänenname</guimenu> konfiguriert werden. Anschließend Klick auf
+	  <guimenu>Weiter</guimenu>.
+	</para>
+
+	<para>
+	  Anschließend werden die konfigurierten Einstellungen noch einmal angezeigt. Mit einem Klick
+	  auf <guimenu>Einstellungen anwenden</guimenu> werden diese umgesetzt. Dabei wird das UCC-Image
+	  heruntergeladen und entpackt und verschiedene Univention Configuration Registry-Richtlinien
+	  vorkonfiguriert. 
+	</para>
+  </section>
+
+  <section id="uccquickstart:thinclient:createhost">
+	<title>Anlegen eines Rechners</title>
+
+	<para>
+	  Nun muss das Rechnermodul der UMC geöffnet werden und auf <guimenu>Hinzufügen</guimenu>
+	  geklickt werden. Als <guimenu>Container</guimenu> muss
+	  <emphasis>computers/ucc-thinclients</emphasis> ausgewählt werden (mit diesem Container sind
+	  Richtlinien verknüpft, die im UCC-Wizard konfiguriert wurden) und als <guimenu>Typ</guimenu>
+	  <emphasis>Rechner: Univention Corporate Client</emphasis>. Danach muss auf
+	  <guimenu>Weiter</guimenu> geklickt werden.
+	</para>
+
+	<para>
+	  Es kann ein beliebiger <guimenu>Rechnername</guimenu> angegeben werden. Als
+	  <guimenu>Netzwerk</guimenu> wird das im UCC-Setup-Assistenten konfigurierte Netz verwendet und
+	  darauf basierend eine IP-Adresse vorgeschlagen (es kann aber auch eine abweichende verwendet
+	  werden). Außerdem muss die <guimenu>MAC-Adresse</guimenu> konfiguriert werden. Danach muss auf
+	  <guimenu>Weiter</guimenu> geklickt werden.
+	</para>
+
+	<para>
+	  Als <guimenu>Startvariante</guimenu> wird <emphasis>Installation: Neupartitionierung und
+	  Image-Rollout</emphasis> gewählt und als <guimenu>Image</guimenu> das heruntergeladene Thin
+	  Client-Image (<emphasis>ucc-2.0-thinclient-image.img</emphasis>).
+	</para>
+
+	<para>
+	  Abschließend muss auf <guimenu>Rechner anlegen</guimenu> geklickt werden.
+	</para>
+
+	<para>
+	  Nun wird der Thin Client gestartet. Im BIOS des Systems muss ein PXE-Start ausgewählt
+	  werden. Das Image wird über PXE gestartet und nach einer Bestätigung partitioniert und
+	  installiert. Im Rahmen der Installation erfolgt ein Domänenbeitritt zur UCS-Domäne. Der
+	  Beitritt erfolgt dabei mit dem Administrator-Konto.
+	</para>
+
+	<para>
+	  In einer produktiven UCC-Installation kann der Domänenbeitritt komplett automatisiert werden
+	  <biblioref linkend="ucc-manual-automaticrollout"/>.
+	</para>
+
+	<para>
+	  Im Anmeldemanager LightDM muss nun die Sitzung <guimenu>RDP</guimenu> ausgewählt werden. Jetzt kann eine
+	  Anmeldung mit dem in der UMC angelegten Benutzer erfolgen. Es wird dann automatisch eine
+	  Verbindung zum Windows-Terminalserver aufgebaut auf dem dann der Login durchgeführt wird. 
+	</para>
+  </section>
+</chapter>
+
+<chapter id="uccquickstart:desktop">
+  <title>Konfiguration von Linux-Desktopsystemen</title>
+	
+  <section id="uccquickstart:desktop:setup">
+	<title>Einrichtung</title>
+	
+	<para>
+	  Hierfür muss das UMC-Modul <guimenu>UCC Einrichtung</guimenu> aufgerufen werden. Im ersten
+	  Menüpunkt kann ausgewählt werden, ob Desktops und/oder Thin Clients eingerichtet werden
+	  sollen. Hier muss <guimenu>Linux Desktop-Systeme konfigurieren / XRDP-Terminal-Server
+	  einrichten</guimenu> ausgewählt werden und auf <guimenu>Weiter</guimenu> geklickt werden.
+	</para>
+
+	<para>
+	  Die Installation der UCC-Systeme erfolgt über Images, d.h. bei einer Installation oder bei
+	  Updates wird das komplette Betriebssystem ersetzt (Benutzerdaten werden getrennt
+	  gespeichert). Dadurch kann eine Installation in wenigen Minuten erfolgen. Univention stellt
+	  vorkonfigurierte Images bereit, die fortlaufend gepflegt werden.
+	</para>
+
+	<para>
+	  Das Desktop-Image muss nun vom Univention-Server geladen werden, es ist ca. 1 GB groß, der
+	  Download kann also einige Zeit in Anspruch nehmen. Dazu muss die Option <guimenu>Herunterladen
+	  des UCC-Desktop-Images</guimenu> aktiviert werden und auf <guimenu>Weiter</guimenu> geklickt
+	  werden. Nach dem Download wird das Desktop-Image entpackt. Das UCS System sollte dazu über
+	  mindestens 20 GiB freien Speicher verfügen.
+	</para>
+
+	<para>
+	  UCS benutzt sogenannte Netzwerkobjekte um IP-Adressen sowie DNS-/DHCP-Einstellungen für
+	  Client-Systeme zu verwalten. Netzwerkobjekte definieren IP-Adressbereiche und stellen beim
+	  Anlegen eines neuen Rechners die nächste freie IP-Adresse bereit.
+	</para>
+
+	<para>
+	  Im folgenden Dialog kann entweder ein neues Netzwerk definiert werden oder das bei der
+	  Installation des &ucsMaster; installierte Netzwerkobjekt verwendet werden.
+	</para>
+
+	<para>
+	  Im folgenden prüft der Assistent, ob ein Standard-Gateway im DHCP konfiguriert ist. Ist das
+	  nicht der Fall, wird ein Dialog angezeigt, in dem dieses definiert werden kann.
+	</para>
+
+	<para>
+	  Anschließend werden die konfigurierten Einstellungen noch einmal angezeigt. Mit einem Klick
+	  auf <guimenu>Einstellungen anwenden</guimenu>werden diese umgesetzt. Dabei wird das UCC-Image
+	  heruntergeladen und entpackt und verschiedene Univention Configuration Registry-Richtlinien
+	  vorkonfiguriert. 
+	</para>
+  </section>
+
+  <section id="uccquickstart:desktop:createhost">
+	<title>Anlegen eines Rechners</title>
+
+	<para>
+	  Nun muss das Rechnermodul der UMC geöffnet werden und auf <guimenu>Hinzufügen</guimenu>
+	  geklickt werden. Als <guimenu>Container</guimenu> muss
+	  <emphasis>computers/ucc-desktops</emphasis> ausgewählt werden (mit diesem Container sind
+	  Richtlinien verknüpft, die im UCC-Wizard konfiguriert wurden) und als <guimenu>Typ</guimenu>
+	  <emphasis>Rechner: Univention Corporate Client</emphasis>. Danach muss auf
+	  <guimenu>Weiter</guimenu> geklickt werden.
+	</para>
+
+	<para>
+	  Es kann ein beliebiger <guimenu>Rechnername</guimenu> angegeben werden. Als
+	  <guimenu>Netzwerk</guimenu> wird das im UCC-Setup-Assistenten konfigurierte Netz verwendet und
+	  darauf basierend eine IP-Adresse vorgeschlagen (es kann aber auch eine abweichende verwendet
+	  werden). Außerdem muss die <guimenu>MAC-Adresse</guimenu> konfiguriert werden. Danach muss auf
+	  <guimenu>Weiter</guimenu> geklickt werden.
+	</para>
+
+	<para>
+	  Als <guimenu>Startvariante</guimenu> wird <emphasis>Installation: Neupartitionierung und
+	  Image-Rollout</emphasis> gewählt und als <guimenu>Image</guimenu> das heruntergeladene
+	  Desktop-Image (<emphasis>ucc-2.0-desktop-image.img</emphasis>).
+	  Abschließend muss auf <guimenu>Rechner anlegen</guimenu> geklickt werden.
+	</para>
+
+	<para>
+	  Nun wird der PC gestartet. Im BIOS des Systems muss ein PXE-Start ausgewählt werden. Das Image
+	  wird über PXE gestartet und nach einer Bestätigung partitioniert und installiert. Im Rahmen
+	  der Installation erfolgt ein Domänenbeitritt zur UCS-Domäne. Der Beitritt erfolgt dabei mit
+	  dem <emphasis>Administrator</emphasis>-Konto.
+	</para>
+
+	<para>
+	  In einer produktiven UCC-Installation kann der Domänenbeitritt komplett automatisiert werden
+	  <biblioref linkend="ucc-manual-automaticrollout"/>.
+	</para>
+
+	<para>
+	  Im Anmeldemanager LightDM muss nun die Sitzung <guimenu>UCC</guimenu> ausgewählt werden. Jetzt
+	  kann eine Anmeldung mit dem in der UMC angelegten Benutzer erfolgen. Der Benutzer kann dann
+	  mit einem KDE-Plasma-Desktoparbeiten. 
+	</para>
+  </section>
+</chapter>
+
+
+
+
+  
+
+<bibliography id="relnotes:bibliography">
+  <bibliomixed id="ucc-manual"/>
+  <bibliomixed id="ucs-quickstart"/>
+  <bibliomixed id="ucc-manual-citrix"/>
+  <bibliomixed id="ucc-manual-firefox"/>
+  <bibliomixed id="ucc-manual-automaticrollout"/>
+  <bibliomixed id=""/>
+
+
+</bibliography>
+
+<?dbhtml-include href="../stylesheets/piwik.html"?>
+</book>
