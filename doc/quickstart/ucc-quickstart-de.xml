@@ -223,7 +223,7 @@
 	</para>
 
 	<para>
-	  Unter <guiname>Rechnername des RDP-Servers</guiname> wird der Server angegeben, zu dem
+	  Unter <guimenu>Rechnername des RDP-Servers</guimenu> wird der Server angegeben, zu dem
 	  verbunden werden soll. Handelt es sich dabei um einen Windows-Server muss zusätzlich der
 	  <guimenu>Domänenname</guimenu> konfiguriert werden. Anschließend Klick auf
 	  <guimenu>Weiter</guimenu>.
