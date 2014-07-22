@@ -96,6 +96,9 @@
 
   <para>
 	UCC systems operated with these images must have at least 512 MB of system memory available.
+	Since UCC 2.0 is based on Ubuntu 14.04, all x86 desktop hardware which is supported in Ubuntu
+	14.04 is also supported in Univention Corporate Client. You can either test whether your device is
+	compatible or contact the hardware supplier for compatibility information.
   </para>
 
   <para>
