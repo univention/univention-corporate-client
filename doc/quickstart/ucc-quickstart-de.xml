@@ -106,8 +106,9 @@
   </para>
 
   <para>
-	Ausführliche Beschreibungen zu UCC sind auf der Univention-Webseite <footnote><para><ulink url="http://www.univention.de/produkte/ucc/"/></para></footnote>
-	und im UCC-Handbuch  zu finden.
+	Ausführliche Beschreibungen zu UCC sind auf der Univention-Webseite 
+	<footnote><para><ulink url="http://www.univention.de/produkte/ucc/"/></para></footnote>
+	und im UCC-Handbuch zu finden <biblioref linkend="ucc-manual"/>.
   </para>
 
 </chapter>
@@ -122,8 +123,8 @@
 
   <para>
 	UCC kann auf allen UCS-Serverrollen installiert werden. In diesem Beispiel erfolgt eine
-	Installation auf einem Single-Server-System. Als Systemrolle ist daher ein Domänencontroller
-	Master auszuwählen. In der Softwareauswahl muss keine weitere Komponente ausgewählt werden.
+	Installation auf einem Single-Server-System. Als Systemrolle ist daher ein <emphasis>Domänencontroller
+	Master</emphasis> auszuwählen. In der Softwareauswahl muss keine weitere Komponente ausgewählt werden.
 	Auf dem UCS-System sollten alle verfügbaren Errata-Updates installiert werden.
   </para>
 
@@ -225,15 +226,14 @@
 	<para>
 	  Unter <guimenu>Rechnername des RDP-Servers</guimenu> wird der Server angegeben, zu dem
 	  verbunden werden soll. Handelt es sich dabei um einen Windows-Server muss zusätzlich der
-	  <guimenu>Domänenname</guimenu> konfiguriert werden. Anschließend Klick auf
-	  <guimenu>Weiter</guimenu>.
+	  <guimenu>Domänenname</guimenu> konfiguriert werden.
 	</para>
 
 	<para>
-	  Anschließend werden die konfigurierten Einstellungen noch einmal angezeigt. Mit einem Klick
-	  auf <guimenu>Einstellungen anwenden</guimenu> werden diese umgesetzt. Dabei wird das UCC-Image
-	  heruntergeladen und entpackt und verschiedene Univention Configuration Registry-Richtlinien
-	  vorkonfiguriert. 
+	  Nach einem Klick auf <guimenu>Weiter</guimenu> werden die konfigurierten Einstellungen noch 
+	  einmal angezeigt. Mit einem Klick auf <guimenu>Einstellungen anwenden</guimenu> werden diese 
+	  umgesetzt. Dabei wird das UCC-Image heruntergeladen und entpackt und verschiedene 
+	  Univention Configuration Registry-Richtlinien werden vorkonfiguriert. 
 	</para>
   </section>
 
@@ -252,7 +252,7 @@
 	<para>
 	  Es kann ein beliebiger <guimenu>Rechnername</guimenu> angegeben werden. Als
 	  <guimenu>Netzwerk</guimenu> wird das im UCC-Setup-Assistenten konfigurierte Netz verwendet und
-	  darauf basierend eine IP-Adresse vorgeschlagen (es kann aber auch eine abweichende verwendet
+	  darauf basierend eine <guimenu>IP-Adresse</guimenu> vorgeschlagen (es kann aber auch eine abweichende verwendet
 	  werden). Außerdem muss die <guimenu>MAC-Adresse</guimenu> konfiguriert werden. Danach muss auf
 	  <guimenu>Weiter</guimenu> geklickt werden.
 	</para>
@@ -260,11 +260,8 @@
 	<para>
 	  Als <guimenu>Startvariante</guimenu> wird <emphasis>Installation: Neupartitionierung und
 	  Image-Rollout</emphasis> gewählt und als <guimenu>Image</guimenu> das heruntergeladene Thin
-	  Client-Image (<emphasis>ucc-2.0-thinclient-image.img</emphasis>).
-	</para>
-
-	<para>
-	  Abschließend muss auf <guimenu>Rechner anlegen</guimenu> geklickt werden.
+	  Client-Image (<emphasis>ucc-2.0-thinclient-image.img</emphasis>). Abschließend muss auf 
+ 	 <guimenu>Rechner anlegen</guimenu> geklickt werden.
 	</para>
 
 	<para>
@@ -333,9 +330,9 @@
 
 	<para>
 	  Anschließend werden die konfigurierten Einstellungen noch einmal angezeigt. Mit einem Klick
-	  auf <guimenu>Einstellungen anwenden</guimenu>werden diese umgesetzt. Dabei wird das UCC-Image
+	  auf <guimenu>Einstellungen anwenden</guimenu> werden diese umgesetzt. Dabei wird das UCC-Image
 	  heruntergeladen und entpackt und verschiedene Univention Configuration Registry-Richtlinien
-	  vorkonfiguriert. 
+	  werden vorkonfiguriert. 
 	</para>
   </section>
 
@@ -354,7 +351,7 @@
 	<para>
 	  Es kann ein beliebiger <guimenu>Rechnername</guimenu> angegeben werden. Als
 	  <guimenu>Netzwerk</guimenu> wird das im UCC-Setup-Assistenten konfigurierte Netz verwendet und
-	  darauf basierend eine IP-Adresse vorgeschlagen (es kann aber auch eine abweichende verwendet
+	  darauf basierend eine <guimenu>IP-Adresse</guimenu> vorgeschlagen (es kann aber auch eine abweichende verwendet
 	  werden). Außerdem muss die <guimenu>MAC-Adresse</guimenu> konfiguriert werden. Danach muss auf
 	  <guimenu>Weiter</guimenu> geklickt werden.
 	</para>
@@ -381,7 +378,7 @@
 	<para>
 	  Im Anmeldemanager LightDM muss nun die Sitzung <guimenu>UCC</guimenu> ausgewählt werden. Jetzt
 	  kann eine Anmeldung mit dem in der UMC angelegten Benutzer erfolgen. Der Benutzer kann dann
-	  mit einem KDE-Plasma-Desktoparbeiten. 
+	  mit einem KDE-Plasma-Desktop arbeiten. 
 	</para>
   </section>
 </chapter>

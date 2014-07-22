@@ -106,7 +106,7 @@
   </para>
 
   <para>
-	Detailed descriptions of UCC can be found on the website website <footnote><para><ulink
+	Detailed descriptions of UCC can be found on the website <footnote><para><ulink
 	url="http://www.univention.com/products/ucc/"/></para></footnote> and in the UCC manual
 	<biblioref linkend="ucc-manual"/>.
   </para>
@@ -220,15 +220,14 @@
 	</para>
 
 	<para>
-	  The server to be connected to is entered under <guimenu> Host name of RDP server</guimenu>. If
-	  this is a Windows server, the <guimenu>Domain name</guimenu> must also be configured. Then
-	  click on <guimenu>Next</guimenu>.
+	  The server to be connected to is entered under <guimenu>Host name of RDP server</guimenu>. If
+	  this is a Windows server, the <guimenu>Domain name</guimenu> must also be configured.
 	</para>
 
 	<para>
-	  The configured settings are then shown once again. Clicking <guimenu>Apply
-	  configuration</guimenu> applies them. The UCC image is then downloaded and unpacked and
-	  different Univention Configuration Registry policies preconfigured. 
+	  After clicking on <guimenu>Next</guimenu>, the configured settings are then shown once again. 
+	  Clicking <guimenu>Apply configuration</guimenu> applies them. The UCC image is then downloaded 
+	  and unpacked and different Univention Configuration Registry policies are preconfigured.
 	</para>
   </section>
 
@@ -255,9 +254,6 @@
 	  Select <emphasis>Installation with repartitioning and image rollout</emphasis> as the
 	  <guimenu>Boot variant</guimenu> and the downloaded thin client image
 	  (<emphasis>ucc-2.0-thinclient-image.img</emphasis>) as the <guimenu>Image</guimenu>.
-	</para>
-
-	<para>
 	  Then click <guimenu>Create computer</guimenu>. 
 	</para>
 
@@ -288,7 +284,7 @@
 	<title>Introduction</title>
 	
 	<para>
-	  The UCC setup <guimenu>UMC module</guimenu> must be opened. In the first menu item you can
+	  The <guimenu>UCC setup</guimenu> UMC module must be opened. In the first menu item you can
 	  select whether desktops and/or thin clients are to be set up. Select <guimenu>Linux desktop
 	  systems configuration / XRDP terminal server setup</guimenu> and click
 	  <guimenu>Next</guimenu>.
@@ -304,7 +300,7 @@
 	<para>
 	  The desktop image must now be downloaded from the Univention server. As it is approximately 1
 	  GB in size, the download may take some time. To do so, enable the <guimenu>Download the UCC
-	  desktop image option</guimenu> and click on <guimenu>Next</guimenu> Once the download is
+	  desktop image option</guimenu> and click on <guimenu>Next</guimenu>. Once the download is
 	  complete, the desktop image is unpacked. The UCS system should have at least 20 GiB of free
 	  disk space.
 	</para>
@@ -321,14 +317,14 @@
 	</para>
 
 	<para>
-	  In the following, the wizard checks whether a standard gateway is configured in the DHCP. If
+	  In the following step, the wizard checks whether a standard gateway is configured in the DHCP. If
 	  this is not the case, a dialogue appears in which this can be defined.
 	</para>
 
 	<para>
 	  The configured settings are then shown once again. Clicking <guimenu>Apply
 	  configuration</guimenu> applies them. The UCC image is then downloaded and unpacked and
-	  different Univention Configuration Registry policies preconfigured. 
+	  different Univention Configuration Registry policies are preconfigured. 
 	</para>
   </section>
 
@@ -347,12 +343,12 @@
 	  You can select any <guimenu>Host name</guimenu>. The network configured in the UCC setup
 	  wizard is used as the <guimenu>Network</guimenu> and an <guimenu>IP address</guimenu>
 	  suggested based on this (however, it is also possible to use a different one). In addition,
-	  the MAC address also needs to be configured. Then click on <guimenu>Next</guimenu>.
+	  the <guimenu>MAC address</guimenu> also needs to be configured. Then click on <guimenu>Next</guimenu>.
 	</para>
 
 	<para>
-	  Select Installation with repartitioning and image rollout as the <guimenu>Boot
-	  variant</guimenu> and the downloaded desktop image
+	  Select <emphasis>Installation with repartitioning and image rollout</emphasis> as the 
+	  <guimenu>Boot variant</guimenu> and the downloaded desktop image
 	  (<emphasis>ucc-2.0-desktop-image.img</emphasis>) as the <guimenu>Image</guimenu>. Then click
 	  <guimenu>Create computer</guimenu>. 
 	</para>
