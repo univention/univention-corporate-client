@@ -1,0 +1,11 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: cups
+fix: 1.5.3-0ubuntu8.5.81.201409261538
+note:
+desc: |
+  Errata #6 for UCC 1.0 fixed reconnection problems after connection timeouts.
+  After a parted update in Ubuntu Precise, this update reintegrates these changes
+version: [0]
+bug: [36007]

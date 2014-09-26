@@ -1,0 +1,11 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: parted
+fix: 2.3-8ubuntu5.2.37.201409261426
+note:
+desc: |
+  Parted was patched in UCC to enable legacy boot support. After a parted
+  update in Ubuntu Precise, this update reintegrates these changes.
+version: [0]
+bug: [36007]
