@@ -163,7 +163,7 @@ $ su root
 $ su testuser
 		  </programlisting>
 
-		  More information can be found at <ulink url="&ucsBug;30243">Bug 30243</ulink>.
+		  More information can be found at <ulink url="&ucsbug;30243">Bug 30243</ulink>.
 		</para>
 	  </section>
 
