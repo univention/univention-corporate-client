@@ -163,7 +163,7 @@ $ su root
 $ su testuser
 		  </programlisting>
 
-		  More information can be found at <ulink url="https://forge.univention.org/bugzilla/show_bug.cgi?id=30243"/>.
+		  More information can be found at <ulink url="&ucsBug;30243">Bug 30243</ulink>.
 		</para>
 	  </section>
 
