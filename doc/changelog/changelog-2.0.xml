@@ -634,7 +634,7 @@
 		<listitem><simpara>
 		  Old and unused kernel package are automatically removed from UCC clients using
 		  <command>univention-ucc-prune-old-kernel-packages</command> (<ulink
-		  url="&ucsbug;32166">Bug 32166</ulink>, <ulink url="&ucsbug;31012]">Bug 31012</ulink>).
+		  url="&ucsbug;32166">Bug 32166</ulink>, <ulink url="&ucsbug;31012">Bug 31012</ulink>).
 		</simpara></listitem>
 
 		<listitem><simpara>
