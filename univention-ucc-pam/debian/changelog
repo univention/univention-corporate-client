@@ -1,3 +1,10 @@
+univention-ucc-pam (1.0.2-6) unstable; urgency=low
+
+  * Bug #36352: Make network timeout for ldap connections configurable
+    with new UCRV ucc/ldap/network/timeout 
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 04 Dec 2014 14:47:47 +0100
+
 univention-ucc-pam (1.0.2-5) unstable; urgency=low
 
   * Fix pam_ccreds usage. Do not cache old userpasswords (Bug #35976) 
