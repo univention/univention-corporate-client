@@ -6,6 +6,7 @@ Variables: ldap/server/port
 Variables: ldap/base
 Variables: hostname
 Variables: ldap/hostdn
+Variables: ucc/ldap/network/timeout
 
 Type: file
 File: etc/ldap/ldap.conf
@@ -14,6 +15,7 @@ Variables: ldap/server/addition
 Variables: ldap/server/port
 Variables: ldap/master
 Variables: ldap/base
+Variables: ucc/ldap/network/timeout
 
 Type: file
 File: etc/nsswitch.conf
