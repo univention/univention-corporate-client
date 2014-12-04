@@ -1,0 +1,12 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-ucc-pam
+fix: 1.0.2-6.46.201412041449
+note:
+desc: |
+  * Make network timeout for ldap connections configurable
+    with the new UCR variable ucc/ldap/network/timeout. The
+    default is 10 seconds
+version: [0]
+bug: [36352]
