@@ -1,3 +1,11 @@
+univention-corporate-client (2.0.3-2) unstable; urgency=low
+
+  * Bug #35363: Add new packages univention-ucc-eval-policies-on-join and
+    univention-ucc-eval-policies-on-boot to enable the possibility of
+    writing fallback system policy values on thinclient images
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 05 Dec 2014 14:24:50 +0100
+
 univention-corporate-client (2.0.3-1) unstable; urgency=low
 
   * Stop plymouth in plymouth-stop, but wait for lightdm start (Bug #34814)

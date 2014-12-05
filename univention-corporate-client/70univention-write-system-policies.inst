@@ -1,7 +1,9 @@
-#!/bin/bash 
-# Univention Corporate Client
+#! /bin/sh
 #
-# Copyright 2013-2014 Univention GmbH
+# UCC join
+#  join script
+#
+# Copyright 2012-2014 Univention GmbH
 #
 # http://www.univention.de/
 #
@@ -28,31 +30,16 @@
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
 
-# This script is during during session startup with root privileges to retrieve
-# the LDAP policies for the user logging in
+VERSION=1
 
-. /usr/share/univention-lib/ldap.sh
+eval "$(ucr shell)"
 
-eval "$(/usr/sbin/univention-config-registry shell)"
+. /usr/share/univention-join/joinscripthelper.lib  || exit 1
 
-if [ -z "$ldap_hostdn" ]; then
-    echo "System not joined yet, skipping policy retrieval"
-    exit 0
-fi
+joinscript_init
 
-if [ -z "$ldap_server_port" ]; then
-	ldap_server_port=7389
-fi
+/usr/sbin/univention-ucc-fetch-system-policies || die
 
-# get user and client policies
-addition=$(echo "$ldap_server_addition" | sed -e "s/,/ /g")
-for host in $ldap_server_name $addition; do
-	if /bin/netcat -q0 -w4 $host $ldap_server_port </dev/null >/dev/null 2>&1; then
-		univention-policy-result -s -h "$host" -D "$ldap_hostdn" \
-			-y /etc/machine.secret "$ldap_hostdn" > /var/cache/ucc/client-policy-"$hostname".txt
-		run-parts /usr/lib/univention-directory-policy >>/var/log/univention/ldap-policy.log 2>&1
-		break
-	fi
-done
+joinscript_save_current_version
 
 exit 0

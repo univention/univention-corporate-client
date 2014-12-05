@@ -29,3 +29,23 @@ Recommends: univention-ucc-printerconfig,
 Description: Metapackage for Univention Corporate Client
  This package defines dependencies on the various packages
  needed on a Univention Corporate Client system.
+
+Package: univention-ucc-eval-policies-on-join
+Architecture: all
+Depends: univention-corporate-client
+Description: Evaluate Univention Corporate Client policies on join
+ This package provies a joinscript that runs
+ univention-ucc-fetch-system-policies during system join. Install this
+ package to write system policies to the thinclient image when joining,
+ to provide fallback values in case the LDAP server is unrechable.
+
+Package: univention-ucc-eval-policies-on-boot
+Architecture: all
+Depends: univention-corporate-client,
+ univention-ucc-initramfs (>= 3.0.2-3)
+Description: Evaluate Univention Corporate Client policies on boot
+ This package provies funcionality to run
+ univention-ucc-fetch-system-policies during system boot. Install this
+ package if system policies should be written to a thinclient image
+ on each boot, to always provide the latest available fallback in case
+ the LDAP server is unreachable.
