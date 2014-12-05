@@ -1,3 +1,10 @@
+univention-ucc-initramfs (3.0.2-3) unstable; urgency=low
+
+  * Bug #35363: Add new directory /usr/lib/univention-run-parts-initramfs,
+    on which run-parts is called in the initramfs script during local boot
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 05 Dec 2014 14:22:22 +0100
+
 univention-ucc-initramfs (3.0.2-2) unstable; urgency=low
 
   * Live-System boot option: Do not check if the image 

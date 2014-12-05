@@ -1567,16 +1567,18 @@ mountroot()
 					notice "Read and set LDAP boot parameter"
 					debug "LDAP boot parameter: $(cat /tmp/boot_parameter)"
 					check_parameter /tmp/boot_parameter
+					test "$verbose" = "y" && set -x || set +x
 				fi
 				chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script
 				chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_nfs_mount_script >/tmp/nfs_mount_script
+				# Place scripts that should modify the image in the directory /usr/lib/univention-run-parts-initramfs
+				chroot /root run-parts /usr/lib/univention-run-parts-initramfs
+				_verbose_break
 			fi
 			
 			_umount_image
 		fi
 		umount /ucc_tmp/root
-
-		test "$verbose" = "y" && set -x || set +x
 
 		# Restart remote logging, the values may have been changed
 		# TODO: check if the restart is really necessary
