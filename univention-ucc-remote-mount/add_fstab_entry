@@ -38,17 +38,21 @@ for i in $blacklist; do
 	fi
 done
 
-# Prevent mounts of partition devices like /dev/sda, distorts the cleanup of removable devices
-# https://forge.univention.org/bugzilla/show_bug.cgi?id=36716
-blacklist="sda sdb sdc sdd sde"
-for i in $blacklist; do
-       if [ -n "$1" ] && [[ "$1" == $i ]]; then
-               echo "univention-ucc-remote-mount: ignored device ${1}" | logger
-               exit 0
-       fi
-done
-
 . /usr/share/univention-lib/all.sh
+
+if ! is_ucr_true 'ucc/mount/fullpartition'; then
+    # Prevent mounts of partition devices like /dev/sda, distorts the cleanup of removable devices
+    # https://forge.univention.org/bugzilla/show_bug.cgi?id=36716
+    blacklist="sda sdb sdc sdd sde"
+    for i in $blacklist; do
+	if [ -n "$1" ] && [[ "$1" == $i ]]; then
+            echo "univention-ucc-remote-mount: ignored device ${1}" | logger
+            exit 0
+	fi
+    done
+fi
+
+
 
 eval "$(univention-config-registry shell)"
 

@@ -1,3 +1,10 @@
+univention-ucc-remote-mount (2.0.1-7) unstable; urgency=low
+
+  * Allow to retain the old behaviour by setting the UCR variable
+    ucc/mount/fullpartition to "true" (Bug #36717)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 05 Dec 2014 11:45:23 +0100
+
 univention-ucc-remote-mount (2.0.1-6) unstable; urgency=low
 
   * Ignore partition devices /dev/sda or /dev/sdb1, this distorts the umount
