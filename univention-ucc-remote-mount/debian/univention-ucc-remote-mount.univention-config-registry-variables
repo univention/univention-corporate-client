@@ -1,0 +1,5 @@
+[ucc/mount/fullpartition]
+Description[de]=In der Grundeinstellung werden Partitions-Devices wie /dev/sda oder /dev/sdb auf Thin Clients nicht gemountet. Wird diese Option aktiviert, werden sie trotzdem eingebunden.
+Description[en]=In the default setting partition devices like /dev/sda or /dev/sdb are not mounted on thin clients. If this option is activated, they are mounted anyway.
+Type=bool
+Categories=system-base

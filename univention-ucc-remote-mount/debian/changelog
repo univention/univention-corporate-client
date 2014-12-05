@@ -1,3 +1,9 @@
+univention-ucc-remote-mount (2.0.1-8) unstable; urgency=low
+
+  * Add variable description for ucc/mount/fullpartition (Bug #36717)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 05 Dec 2014 12:07:48 +0100
+
 univention-ucc-remote-mount (2.0.1-7) unstable; urgency=low
 
   * Allow to retain the old behaviour by setting the UCR variable
@@ -8,7 +14,7 @@ univention-ucc-remote-mount (2.0.1-7) unstable; urgency=low
 univention-ucc-remote-mount (2.0.1-6) unstable; urgency=low
 
   * Ignore partition devices /dev/sda or /dev/sdb1, this distorts the umount
-    of the actual data partitions such as /dev/sda1 (Bug #36716)
+    of the actual data partitions such as /dev/sda1 (Bug #36717)
 
  -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 05 Dec 2014 10:59:16 +0100
 
