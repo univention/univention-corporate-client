@@ -1,0 +1,15 @@
+product: ucc
+release: "2.0"
+scope: ucs_3.2-0-ucc20-errata
+src: univention-corporate-client
+fix: 2.0.3-2.103.201412051427
+note:
+desc: |
+  * Two new binary packages are available that enable support for
+    caching fallback system policies on a thinclient image.
+    * univention-ucc-eval-policies-on-join writes system policies
+    during the initial join process
+    * univention-ucc-eval-policies-on-boot writes system policies
+    during each local boot
+version: [0]
+bug: [35363]
