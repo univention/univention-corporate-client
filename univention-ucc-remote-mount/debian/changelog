@@ -1,6 +1,13 @@
+univention-ucc-remote-mount (2.0.1-6) unstable; urgency=low
+
+  * Ignore partition devices /dev/sda or /dev/sdb1, this distorts the umount
+    of the actual data partitions such as /dev/sda1 (Bug #36716)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Fri, 05 Dec 2014 10:59:16 +0100
+
 univention-ucc-remote-mount (2.0.1-5) unstable; urgency=low
 
-  * Remove mountpoint directory with rm -r (Bug #34878) 
+  * Remove mountpoint directory with rm -r (Bug #34878)
 
  -- Erik Damrose <damrose@univention.de>  Tue, 20 May 2014 13:52:45 +0200
 

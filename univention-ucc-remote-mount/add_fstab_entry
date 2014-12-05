@@ -30,12 +30,22 @@
 # Debug
 echo "univention-ucc-remote-mount: add_fstab_entry called: options: '$1' '$2' '$3'"|logger
 
-# ignoe ram* and loop* devices bug #30468
+# ignore ram* and loop* devices bug #30468
 blacklist="ram loop"
 for i in $blacklist; do
 	if [ -n "$1" ] && [[ "$1" == $i* ]]; then
 		exit 0
 	fi
+done
+
+# Prevent mounts of partition devices like /dev/sda, distorts the cleanup of removable devices
+# https://forge.univention.org/bugzilla/show_bug.cgi?id=36716
+blacklist="sda sdb sdc sdd sde"
+for i in $blacklist; do
+       if [ -n "$1" ] && [[ "$1" == $i ]]; then
+               echo "univention-ucc-remote-mount: ignored device ${1}" | logger
+               exit 0
+       fi
 done
 
 . /usr/share/univention-lib/all.sh
