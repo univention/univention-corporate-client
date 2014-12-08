@@ -385,7 +385,7 @@ parted -s PARTITIONDEVICE mklabel GPT
 	In the default configuration UCC thin clients require a connection to an LDAP server to start
 	and receive their configuration from LDAP. For special configurations UCC can also be configured
 	to cope with inaccessible LDAP servers. The exact setup may vary a lot depending on the setup
-	so the following items are not a compresive list of necessary changes, but rather building
+	so the following items are not a comprehensive list of necessary changes, but rather building
 	blocks to adapt to such a setup:
 
 	<itemizedlist>
@@ -408,7 +408,7 @@ parted -s PARTITIONDEVICE mklabel GPT
 
 	  <listitem><simpara>
 		Instead of only writing the fallback values during the system rollout, it is also possible to
-		cache them only every system start: In that case the package
+		cache them on every system start: In that case the package
 		<package>univention-ucc-eval-policies-on-boot</package> needs to be installed instead of
 		<package>univention-ucc-eval-policies-on-join</package>. It should be noted that this leads to a
 		write access on the thin client storage on every boot! This may lead to problems on thin clients
