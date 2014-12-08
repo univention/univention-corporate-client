@@ -236,8 +236,9 @@
   <ulink url="http://ucc-images.software-univention.de/download/ucc-images/"/>.
 </para>
 <para>
-  The client to be installed should be created in the UMC computer
-  management first (see <xref linkend="umc:manageucc"/>).
+  The client to be installed must be created in the UMC computer
+  management first (see <xref linkend="umc:manageucc"/>), otherwise it doesn't have an IP address
+  assigned and the domain join would fail.
 </para>
 </section>
 
@@ -378,8 +379,45 @@ parted -s PARTITIONDEVICE mklabel GPT
 
 </section>
 
+<section id="rollout:thinclientsoffline">
+  <title>Operating thin clients without persistent access to LDAP servers</title>
+  <para>
+	In the default configuration UCC thin clients require a connection to an LDAP server to start
+	and receive their configuration from LDAP. For special configurations UCC can also be configured
+	to cope with inaccessible LDAP servers. The exact setup may vary a lot depending on the setup
+	so the following items are not a compresive list of necessary changes, but rather building
+	blocks to adapt to such a setup:
 
+	<itemizedlist>
+	  <listitem><simpara>
+		The &ucsUCR; variable <envar>ucc/ldap/network/timeout</envar> can be used to configure a
+		timeout for connecting to the LDAP server, by default ten seconds.
+	  </simpara></listitem>
+	  
+	  <listitem><simpara>
+		By default the policies which apply to a thin client are retrieved from LDAP during system
+		startup. If the package <package>univention-ucc-eval-policies-on-join</package> is installed
+		into a UCC image, the system policies are retrieved during the join of the thin client
+		and stored in the image (<filename>/var/cache/ucc/client-policy-*</filename>)
+		These files can be treated as fallback values: If the thin client is able to connect to an
+		LDAP server during startup, the current values are fetched from LDAP and overwrite the
+		existing values in <filename>/var/cache/ucc/</filename> temporarily (since the thin client image uses overlayfs,
+		see <xref linkend="rollout:overlayfs"/>). If the thin client cannot connect to an LDAP server
+		the local values are used.
+	  </simpara></listitem>
 
+	  <listitem><simpara>
+		Instead of only writing the fallback values during the system rollout, it is also possible to
+		cache them only every system start: In that case the package
+		<package>univention-ucc-eval-policies-on-boot</package> needs to be installed instead of
+		<package>univention-ucc-eval-policies-on-join</package>. It should be noted that this leads to a
+		write access on the thin client storage on every boot! This may lead to problems on thin clients
+		with storage media which is only designed for a limited amount of write accesses (such as
+		CompactFlash).
+	  </simpara></listitem>
+	</itemizedlist>
+  </para>
+</section>
 
 
 
