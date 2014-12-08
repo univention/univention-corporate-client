@@ -2,7 +2,7 @@ product: ucc
 release: "2.0"
 scope: ucs_3.2-0-ucc20-errata
 src: univention-ucc-remote-mount
-fix: 2.0.1-7.26.201412051147
+fix: 2.0.1-8.27.201412051214
 note:
 desc: |
  Full partition devices (like /dev/sda or /dev/sdb) on removable USB devices
