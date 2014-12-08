@@ -17,6 +17,7 @@ Depends: ${misc:Depends},
  mythes-de,
  mythes-de-ch,
  thunderbird-locale-de,
+ firefox-locale-de,
  hyphen-de
 Description: UCC - Translations and localisations for the German desktop image
  This package integrates the German localisation and internationalisation packages into
@@ -32,6 +33,7 @@ Depends: ${misc:Depends},
  mythes-fr,
  libreoffice-help-fr,
  thunderbird-locale-fr,
+ firefox-locale-fr,
  libreoffice-l10n-fr
 Description: UCC - Translations and localisations for the French desktop image
  This package integrates the French localisation and internationalisation packages into
@@ -45,6 +47,7 @@ Depends: ${misc:Depends},
  language-pack-gnome-nl,
  libreoffice-help-nl,
  thunderbird-locale-nl,
+ firefox-locale-nl,
  libreoffice-l10n-nl
 Description: UCC - Translations and localisations for the Dutch desktop image
  This package integrates the Dutch localisation and internationalisation packages into
@@ -58,6 +61,7 @@ Depends: ${misc:Depends},
  language-pack-gnome-es,
  libreoffice-help-es,
  thunderbird-locale-es,
+ firefox-locale-es,
  libreoffice-l10n-es
 Description: UCC - Translations and localisations for the Spanish desktop image
  This package integrates the Spanish localisation and internationalisation packages into
@@ -71,6 +75,7 @@ Depends: ${misc:Depends},
  language-pack-gnome-en,
  mythes-en-us,
  thunderbird-locale-en,
+ firefox-locale-en,
  hyphen-en-us
 Description: UCC - Translations and localisations for the English desktop image
  This package integrates the English localisation and internationalisation packages into

@@ -1,3 +1,11 @@
+univention-ucc-i18n (1.0-2) unstable; urgency=low
+
+  * The recent trusty-updates update for language-pack-*-base dropped the Recommends
+    on firefox-locale-*. Explicitly depend on firefox-locale-* to ensure that the
+    packages are not dropped in autoremovals (Bug #37219)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 08 Dec 2014 08:51:47 +0100
+
 univention-ucc-i18n (1.0-1) unstable; urgency=low
 
   * Initial release (Bug #34517)
