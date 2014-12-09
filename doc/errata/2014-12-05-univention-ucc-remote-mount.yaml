@@ -11,4 +11,4 @@ desc: |
  in terminal services like RDP or XenApp. The old behaviour was be restored
  by setting the UCR variable ucc/mount/fullpartition to true.
 version: [0]
-bug: [36716]
+bug: [36717]
