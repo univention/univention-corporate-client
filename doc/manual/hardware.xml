@@ -57,6 +57,13 @@
 	</para>
 
 	<para>
+	  Filesystems directly written to devices (such as <filename>/dev/sda</filename>) are not
+	  mounted by default (only the respective partitions like <filename>/dev/sda1</filename>). If the&ucsUCR;
+	  <envar>ucc/mount/fullpartition</envar> is set to <emphasis>true</emphasis>, full partitions
+	  are mounted as well.
+	</para>
+
+	<para>
 	  In the standard setting, data on thin clients are cached for up to a tenth of a second before
 	  they are written on the USB medium. The behaviour can be adapted with the &ucsUCR; variables
 	  <envar>ucc/sysctl/dirtywritebackcentisecs</envar> and
