@@ -1,0 +1,12 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: kde-workspace
+fix: 4:4.8.5-0ubuntu0.4.5.201412111124
+note:
+desc: |
+  Erratum #10 for UCC 1.0 forced the non-interactive installation mode.
+  kde-workspace was updated in Ubuntu Precise. This update integrates 
+  these changes.
+version: [0]
+bug: [37300]
