@@ -1,0 +1,14 @@
+product: ucc
+release: "2.0"
+scope: ucs_3.2-0-ucc20-errata
+src: univention-ucc-pam
+fix: 2.0.0-9.48.201412150751
+note:
+desc: |
+  Two new UCR variables to configure the behaviour when
+  connecting to unavailable LDAP servers:
+  * ucc/ldap/timeout: Timeout for LDAP queries 
+  * ucc/ldap/timelimit: Maximum duration of LDAP queries
+  If unset, the default for all variables is ten seconds.
+version: [0]
+bug: [37321]
