@@ -17,7 +17,19 @@ Type=str
 Categories=system-base
 
 [ucc/ldap/network/timeout]
-Description[de]=Konfiguriert einen Timeout für den Aufbau einer Netzwerkverbindung zum LDAP Server. (Standard: 10 Sekunden)
-Description[en]=Configures a timeout when establishing a network connection to the LDAP server. (default: 10 seconds)
-Type=str
+Description[de]=Konfiguriert einen Timeout für den Aufbau einer Netzwerkverbindung zum LDAP-Server (Standard: 10 Sekunden)
+Description[en]=Configures a timeout when establishing a network connection to the LDAP server (default: 10 seconds)
+Type=int
+Categories=system-base
+
+[ucc/ldap/timeout]
+Description[de]=Konfiguriert einen Timeout für LDAP-Abfragen. Kann keine Verbindung aufgebaut werden, wird nach diesem Zeitraum abgebrochen (Standard: 10 Sekunden)
+Description[en]=Configures a timeout for LDAP queries if no connection can be established (default: 10 seconds)
+Type=int
+Categories=system-base
+
+[ucc/ldap/timelimit]
+Description[de]=Konfiguriert eine maximale Dauer von LDAP-Abfragen in Sekunden (Standard: 10 Sekunden)
+Description[en]=Configures a maximum length of LDAP queries in seconds (default: 10 seconds)
+Type=int
 Categories=system-base
