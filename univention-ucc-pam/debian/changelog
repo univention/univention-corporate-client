@@ -1,3 +1,11 @@
+univention-ucc-pam (1.0.2-7) unstable; urgency=low
+
+  * Also make TIMEOUT and TIMELIMIT configurable in ldap.conf
+    (ucc/ldap/timeout and Variables: ucc/ldap/timelimit)
+    (Bug #37320)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Mon, 15 Dec 2014 06:38:09 +0100
+
 univention-ucc-pam (1.0.2-6) unstable; urgency=low
 
   * Bug #36352: Make network timeout for ldap connections configurable
