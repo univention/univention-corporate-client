@@ -386,16 +386,31 @@
 </para>
 </section>
 
-<!-- <section id="terminalservices:citrix:flash"> -->
-<!-- <title>Accelerating the playback of Flash videos</title> -->
-<!-- <para> -->
-<!--   The Citrix client offers the possibility of optimising the -->
-<!--   playback of Flash videos: instead of streaming the video on the -->
-<!--   server and transmitting every image, the video is transmitted to the -->
-<!--   client and played locally in the terminal session. This requires -->
-<!--   the installation of the Flash plugin on the UCC client. -->
-<!-- </para> -->
-<!-- </section> -->
+<section id="terminalservices:citrix:flash">
+  <title>Accelerating the playback of Flash videos</title>
+  <para>
+	The Citrix Receiver offers the possibility of optimising the playback of Flash videos: instead of
+	streaming the video on the server and transmitting every image, the video is transmitted to the
+	client and played locally in the terminal session. This requires the installation of the Flash
+	plugin on the UCC client.
+  </para>
+
+  <para>
+	In the default setting the Flash version on the client and the Flash version on the Citrix server
+	need to be identical. Releases of Adobe Flash later than 11.2 are no longer available for Linux.
+	The version check can be disabled on the Citrix server. For this a registry key needs to
+	be added on the Citrix server in the location <emphasis>HKEY_LOCAL_MACHINE -> Software ->
+	Wow6432Node -> Citrix ->  HdxMediaStreamForFlash -> Server -> PseudoServer</emphasis>. The new key
+	must be created as a dword, named <emphasis>FlashPlayerVersionComparisonMask</emphasis> and set to
+	<emphasis>0</emphasis>.
+  </para>
+
+  <para>
+	To verify the local Flash playback, you can play a Flash video on the Citrix server and query
+	the process list on the UCC client using <command>ps aux</command>. If the Flash redirection is
+	working correctly, you should see a process named <emphasis>FlashContainer.bin</emphasis>.
+  </para>
+</section>
 
 
 </section>
