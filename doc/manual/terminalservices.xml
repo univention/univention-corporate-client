@@ -392,7 +392,7 @@
 	The Citrix Receiver offers the possibility of optimising the playback of Flash videos: instead of
 	streaming the video on the server and transmitting every image, the video is transmitted to the
 	client and played locally in the terminal session. This requires the installation of the Flash
-	plugin on the UCC client.
+	plugin on the UCC client (the package is called <package>adobe-flashplugin</package>).
   </para>
 
   <para>
