@@ -1,0 +1,11 @@
+product: ucc
+release: "2.0"
+scope: ucs_3.2-0-ucc20-errata
+src: unity-greeter
+fix: 14.04.11-0ubuntu1.14.201502101427
+note:
+desc: |
+  UCC uses a patched version of the Unity Greeter. This update reintegrates 
+  the changes into the new packages from Precise.
+version: [0]
+bug: [37750]
