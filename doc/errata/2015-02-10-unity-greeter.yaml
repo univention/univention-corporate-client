@@ -6,6 +6,6 @@ fix: 14.04.11-0ubuntu1.15.201502101459
 note:
 desc: |
   UCC uses a patched version of the Unity Greeter. This update reintegrates 
-  the changes into the new packages from Precise.
+  the changes into the new packages from Trusty.
 version: [0]
 bug: [37750]
