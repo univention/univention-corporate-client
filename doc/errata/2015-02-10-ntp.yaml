@@ -2,7 +2,7 @@ product: ucc
 release: "2.0"
 scope: ucs_3.2-0-ucc20-errata
 src: ntp
-fix: 1:4.2.6.p5+dfsg-3ubuntu2.14.04.2.34.201502101103
+fix: 1:4.2.6.p5+dfsg-4.36.201502101200
 note:
 desc: |
   UCC uses a patched version of NTP. This update reintegrates the changes into
