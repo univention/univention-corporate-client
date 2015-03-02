@@ -13,9 +13,12 @@
 
 <para>
   Univention Corporate Client is the successor to Univention Corporate
-  Desktop (UCD) and UCS Thin Client Services (UCS TCS). Notes on
+  Desktop (UCD) and UCS Thin Client Services (UCS TCS).
+  <!--
+  Notes on
   upgrading from UCD and TCS can be found in the Univention Wiki under
   <ulink url="http://wiki.univention.de/index.php?title=Upgrade-TCS-UCD-to-UCC"/>.
+  -->
 </para>
 
 <para>
