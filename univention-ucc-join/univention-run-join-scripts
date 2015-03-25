@@ -138,7 +138,7 @@ if [ ! "$server_role" = "domaincontroller_master" ] || [ -n "$ASK_PASS" ] ; then
 	if [ -z "$binddn" ]; then
 		# Next check is the local ldapi interface
 		binddn="$(univention-ssh "$DCPWD" "$DCACCOUNT"@"$ldap_master" \
-			ldapsearch -x LLL -H ldapi:/// "(&(uid=$DCACCOUNT)(objectClass=person))" dn | ldapsearch-decode64 | sed -ne 's|^dn: ||p;s|^DN: ||p')"
+			ldapsearch -x -LLL -H ldapi:/// "(&(uid=$DCACCOUNT)(objectClass=person))" dn | ldapsearch-decode64 | sed -ne 's|^dn: ||p;s|^DN: ||p')"
 	fi
 
 	if [ -z "$binddn" ]; then

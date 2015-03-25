@@ -1,3 +1,9 @@
+univention-ucc-join (2.0.0-9) unstable; urgency=low
+
+  * Fix retrieval of the bind DN in univention-run-join-scripts (Bug #37909)
+
+ -- Moritz Mühlenhoff <muehlenhoff@univention.de>  Wed, 25 Mar 2015 12:54:33 +0100
+
 univention-ucc-join (2.0.0-8) unstable; urgency=low
 
   * Depend on rdate (Bug #34869)
