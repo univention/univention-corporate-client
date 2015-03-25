@@ -241,7 +241,7 @@
 	  <title>Citrix XenApp terminal services</title>
 	  <para>
 		UCC supports access to Citrix XenApp terminal servers. This documentation refers to Citrix
-		XenApp and Citrix Receiver 13.
+		XenApp and Citrix Receiver 13.1.
 	  </para>
 
 	  <para>
@@ -282,7 +282,7 @@
 	<para>
 	  For licensing reasons it is not possible to deliver the Citrix Receiver with Univention
 	  Corporate Client. Instead, it must be downloaded for the 32 bit Intel architecture as a DEB file using the download link provided
-	  and saved in a local directory. Only Citrix Receiver 13.0 is supported in UCC 2.0.
+	  and saved in a local directory. Only Citrix Receiver 13.1 is supported in UCC 2.0.
 	</para>
 
 	<para>
@@ -324,7 +324,7 @@
 	
 	<para>
 	  The Citrix Receiver for 32 bit systems must be downloaded as a DEB file from <ulink
-	  url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-130.html"/>.
+	  url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-131.html"/>.
 	</para>
 
 	<para>
