@@ -1,3 +1,9 @@
+univention-ucc-join (1.1.16-7) unstable; urgency=low
+
+  * Fix retrieval of the bind DN in univention-run-join-scripts (Bug #37909)
+
+ -- Felix Botner <botner@univention.de>  Wed, 22 Apr 2015 13:49:04 +0200
+
 univention-ucc-join (1.1.16-6) unstable; urgency=low
 
   * recreate openssh-server hostkeys during join and add
