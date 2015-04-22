@@ -1,0 +1,10 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: univention-ucc-join
+fix: 1.1.16-7.61.201504221351
+note:
+desc: |
+  A bug was fixed which could lead to failing domain joins.
+version: [0]
+bug: [37909]
