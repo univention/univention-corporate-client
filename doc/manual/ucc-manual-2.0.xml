@@ -13,6 +13,7 @@
 	  <!ENTITY desktop SYSTEM "desktop.xml">
 	  <!ENTITY configuration SYSTEM "configuration.xml">
 	  <!ENTITY terminalservices SYSTEM "terminalservices.xml">
+	  <!ENTITY thinclients SYSTEM "thinclients.xml">
 	  <!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
 
 	  %entities;
@@ -58,6 +59,7 @@ feedback@univention.de
   &desktop;
   &imagegen;
   &terminalservices;
+  &thinclients;
   &bibliography;
 
   <?dbhtml-include href="../stylesheets/piwik.html"?>
