@@ -1,3 +1,9 @@
+univention-xrdp (2.1.0-12) unstable; urgency=low
+
+  * added autorun=xrdp1 to xrdp.ini (Bug #36891) 
+
+ -- Felix Botner <botner@univention.de>  Tue, 16 Jun 2015 13:44:53 +0200
+
 univention-xrdp (2.1.0-11) unstable; urgency=low
 
   * Source /etc/profile in the UCC-KDE session script so that the language setting
