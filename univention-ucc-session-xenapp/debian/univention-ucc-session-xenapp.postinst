@@ -42,6 +42,8 @@ if [ ! -L /etc/lightdm/session-setup/030_univention-citrix-copy-region-info ]; t
 	ln -s /usr/sbin/univention-copy-region-info /etc/lightdm/session-setup/030_univention-citrix-copy-region-info
 fi
 
-ucr set lightdm/sessiondefault?XenApp
+ucr set \
+	ucc/firefox/defaults/npicaplugin?'user_pref("plugin.state.npica", 2);' \
+	lightdm/sessiondefault?XenApp
 
 exit 0

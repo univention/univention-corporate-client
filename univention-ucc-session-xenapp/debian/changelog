@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (2.0.0-8) unstable; urgency=low
+
+  * enable npica plugin in firefox per default (Bug #37774) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 17 Jun 2015 10:11:46 +0200
+
 univention-ucc-session-xenapp (2.0.0-7) unstable; urgency=low
 
   * added citrix/pulseaudio (Bug #34227) 
