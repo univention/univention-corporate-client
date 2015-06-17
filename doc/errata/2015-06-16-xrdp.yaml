@@ -1,0 +1,10 @@
+product: ucc
+release: "2.0"
+scope: ucs_3.2-0-ucc20-errata
+src: xrdp
+fix: 0.9.0+master-1
+note:
+desc: |
+  The xrdp packages have been updated to version 0.9.0.
+version: [0]
+bug: [36891]
