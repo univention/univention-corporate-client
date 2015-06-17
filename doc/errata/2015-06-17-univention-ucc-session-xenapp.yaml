@@ -1,0 +1,11 @@
+product: ucc
+release: "2.0"
+scope: ucs_3.2-0-ucc20-errata
+src: univention-ucc-session-xenapp
+fix: 2.0.0-8.32.201506171014
+note:
+desc: |
+  The "Citrix Receiver for Linux" firefox plugin npica is now 
+  enabled by default.
+version: [0]
+bug: [37774]
