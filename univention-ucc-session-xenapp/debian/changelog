@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (2.0.0-11) unstable; urgency=low
+
+  * Bug #29853: revert last change 
+
+ -- Felix Botner <botner@univention.de>  Mon, 22 Jun 2015 16:44:27 +0200
+
 univention-ucc-session-xenapp (2.0.0-10) unstable; urgency=low
 
   * Bug #29853: More gstreamer plugins for Windows Media HDX playback 
