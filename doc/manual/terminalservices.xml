@@ -412,6 +412,17 @@
   </para>
 </section>
 
+<section id="terminalservices:hdxplayback">
+  <title>Windows Media HDX playback</title>
+  <para>
+    To enable Citrix Windows Media HDX playback on the client the following packages have to 
+    installed on the UCC client: gstreamer0.10-plugins-ugly, gstreamer0.10-plugins-good,
+    gstreamer0.10-plugins-bad, gstreamer0.10-alsa, gstreamer0.10-fluendo-mp3,
+    gstreamer0.10-ffmpeg and gstreamer0.10-x
+  </para>
+</section>
+
+
 
 </section>
 

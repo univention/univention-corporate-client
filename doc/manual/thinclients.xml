@@ -1,7 +1,9 @@
 <chapter id="thinclients:chapter">
   <title>List of tested thinclient hardware</title>
   <para>
-    <table frame="all">
+    The list supported thinclint hardware can be at
+    <ulink url="http://download.univention.de/doc/Hardware_compatibility_list.pdf"/>.
+    <!--<table frame="all">
       <title>Tested thinclients</title>
       <tgroup cols='5' align='left' colsep='1' rowsep='1'>
         <thead>
@@ -73,6 +75,6 @@
 
         </tbody>
       </tgroup>
-    </table>
+    </table>-->
   </para>
 </chapter>
