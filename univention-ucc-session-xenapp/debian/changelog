@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (2.0.0-10) unstable; urgency=low
+
+  * Bug #29853: More gstreamer plugins for Windows Media HDX playback 
+
+ -- Felix Botner <botner@univention.de>  Mon, 22 Jun 2015 15:46:32 +0200
+
 univention-ucc-session-xenapp (2.0.0-9) unstable; urgency=medium
 
   * Bug #37788: Enable USB audio redirection with citrix receiver 
