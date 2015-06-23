@@ -27,7 +27,7 @@
   linkend="installation:imagemanagement:download"/>.
 </para>
 
-<figure><title>Assigning the desktop image to a UCC client</title>
+<figure id="assign-image"><title>Assigning the desktop image to a UCC client</title>
  <graphic scalefit="1" width="60%" fileref="illustrations/ucc-assign-image.png"/>
  </figure>
 
@@ -49,17 +49,17 @@
 
 <para>
   UCC clients can be operated in five different modes,
-  which can be assigned via the <guimenu>Boot variant</guimenu> field. 
+  which can be assigned via the <guimenu>Boot variant</guimenu> field.
   The client must be configured for PXE boot in the BIOS.
   <itemizedlist>
 	<listitem>
 	  <simpara><guimenu>Live boot</guimenu> Here the image is
 	  started via PXE and mounted via NFS. Technically, all UCC systems are always
 	  treated as having read/write storage media: If an image is mounted from a
-	  source which itself only allows readonly access (from a live DVD or as
+	  source which itself only allows read-only access (from a live DVD or as
 	  in this case from an NFS share), an OverlayFS file system is employed:
 	  All the write changes are cached in the system memory and are lost when the computer is
-	  switched off. Thin clients are also always run with an overlayfs
+	  switched off. Thin clients are also always run with an OverlayFS
 	  for a local installation, further information can be found under
 	  <xref linkend="rollout:overlayfs"/>.
 	</simpara></listitem>
@@ -71,7 +71,7 @@
 		be reinstalled completely or switched to a different partition scheme. The partitions of the
 		system are setup as configured in the image configuration. A prompt must be
 		confirmed before the partitioning begins (it can be disabled using the boot option
-		<emphasis>force_partition</emphasis>, see below). After the installation of the image, the
+		<option>force_partition</option>, see below). After the installation of the image, the
 		system is joined into the UCS domain.
 	  </para>
 
@@ -122,27 +122,34 @@
   The <guimenu>Additional boot parameter</guimenu> input field can be
   used to add arbitrary parameters to the initial RAM disk, which performs
   the installation/rollout. These preconfigured options exist:
-  <itemizedlist>
-	<listitem><simpara>
-	  <emphasis>debugshell=y</emphasis>: If an error occurs during installation of the image, a
-	shell opens in which the problem can be analysed further.</simpara></listitem>
-
-	<listitem><simpara>
-	  <emphasis>verbose=y</emphasis>: The shell scripts of the initial RAM disk are started with the
-	  parameter "-x", with which the current control flow can be better monitored (useful for
+</para>
+<variablelist>>
+	<varlistentry>
+		<term><option>debugshell=y</option></term>
+		<listitem><simpara>
+				If an error occurs during installation of the image, a
+				shell opens in which the problem can be analysed further.
+		</simpara></listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><option>verbose=y</option></term>
+		<listitem><simpara>
+				The shell scripts of the initial RAM disk are started with the
+	  parameter <option>-x</option>, with which the current control flow can be better monitored (useful for
 	  debugging).
-	</simpara></listitem>
-
-	<listitem><simpara>
-	  <emphasis>force_partition</emphasis>: If an image is rolled out and the <guimenu>Installation with repartitioning and image
+		</simpara></listitem>
+	</varlistentry>
+	<varlistentry>
+		<term><option>force_partition</option></term>
+		<listitem><simpara>
+				If an image is rolled out and the <guimenu>Installation with repartitioning and image
 	  rollout</guimenu> option used, a warning message appears reminding you that all the data on
 	  the hard drive will be lost if the repartitioning is performed. This warning message needs to
-	  be confirmed. If the <emphasis>force_partition</emphasis> boot option is assigned, the
+	  be confirmed. If the <option>force_partition</option> boot option is assigned, the
 	  security prompt is not shown any more.
-	</simpara></listitem>
-
-  </itemizedlist>
-</para>
+		</simpara></listitem>
+	</varlistentry>
+</variablelist>
 </section>
 
 
@@ -152,16 +159,16 @@
 	In the standard setting the partitioning scheme is configured in the image configuration. A
 	different partitioning can be configured using partition scripts. They are
 	stored on the UCS server(s) in the directory
-	<filename>/var/lib/univention-client-boot/partition-scripts</filename>. The file name below that
+	<filename class="directory">/var/lib/univention-client-boot/partition-scripts/</filename>. The file name below that
 	directory needs to be configured in the <guimenu>Additional boot options</guimenu>, see <xref
 	linkend="rollout:imagerollout"/>) using the command
-	<emphasis>partition_script=FILENAME</emphasis>. The filename is specified relative to the
+	<command>partition_script=FILENAME</command>. The filename is specified relative to the
 	directory, e.g. <filename>partition_script=desktop_encrypted.example</filename>.
   </para>
 
   <para>
 	An example configuration which configures an encrypted LUKS hard disk for the UCC desktop image is
-	shipped as <filename>desktop_encrypted.example</filename>. 
+	shipped as <filename>desktop_encrypted.example</filename>.
   </para>
 </section>
 
@@ -196,24 +203,24 @@
   <itemizedlist>
 	<listitem><simpara>
 	  An image must be generated in which the interactive confirmation of he partitioning is
-	  disabled. This can be achieved by setting the option <emphasis>continuation_prompt</emphasis>
-	  to <emphasis>false</emphasis> (see <xref linkend="imagegen:params"/>). Alternatively the boot
-	  option <emphasis>force_partition</emphasis> can be used, see <xref linkend="rollout:imagerollout"/>).
+	  disabled. This can be achieved by setting the option <option>continuation_prompt</option>
+	  to <literal>false</literal> (see <xref linkend="imagegen:params"/>). Alternatively the boot
+	  option <option>force_partition</option> can be used, see <xref linkend="rollout:imagerollout"/>).
 	</simpara></listitem>
 
 	<listitem><simpara>
 	  Then the credentials of a user need to be stored in the image, which is authorised to join
-	  clients in the domain (the user must be a member of the <emphasis>Domain Admins</emphasis> and
-	  <emphasis>DC Backup Hosts</emphasis> groups for this). For security reasons, this user should
+	  clients in the domain (the user must be a member of the <systemitem class="groupname">Domain Admins</systemitem> and
+	  <systemitem class="groupname">DC Backup Hosts</systemitem> groups for this). For security reasons, this user should
 	  only be created during the rollout and then removed or disabled after the rollout.
 	</simpara></listitem>
 
 	<listitem><simpara>
 	  These credentials are now saved in the image with the tool
-	  <command>ucc-image-set-join-information</command>. The parameter <emphasis>-i</emphasis> is
+	  <command>ucc-image-set-join-information</command>. The parameter <option>-i</option> is
 	  used to specify an image and the join account and its password are interactively
-	  prompted. Alternatively, the account can be specified with <emphasis>-u</emphasis>, the domain
-	  with <emphasis>-d</emphasis> and the password with <emphasis>-p</emphasis>.
+	  prompted. Alternatively, the account can be specified with <option>-u</option>, the domain
+	  with <option>-d</option> and the password with <option>-p</option>.
 	</simpara></listitem>
 
 	<listitem><simpara>
@@ -273,7 +280,7 @@
 <title>Configuration of the PXE server in a multi-server environment</title>
 <para>
   The rollout of UCC systems usually occurs via PXE (see <xref linkend="rollout:imagerollout"/>). If
-  UCC is operated in a single server environment the server distributing the IP adresses to the
+  UCC is operated in a single server environment the server distributing the IP addresses to the
   clients is identical to the PXE server providing the UCC images for installation.
 </para>
 <para>
@@ -307,18 +314,18 @@
 
 <para>
   If a thin client uses storage media which allows
-  permanent write access, the Overlayfs can also be disabled by
-  adding <emphasis>mount=rw</emphasis> to the <guimenu>Images -> Additional
+  permanent write access, the OverlayFS can also be disabled by
+  adding <literal>mount=rw</literal> to the <guimenu>Images -> Additional
   boot parameter</guimenu> of the computer object in the computer management
   module of the &ucsUMC;.
 </para>
 
 <para>
   In addition the &ucsUCR; variable <envar>ucc/thinclientoverlayfs</envar> must
-  be set to <emphasis>false</emphasis> on the affected thin clients using a &ucsUCR; policy
+  be set to <literal>false</literal> on the affected thin clients using a &ucsUCR; policy
   (see <xref linkend="config:ucr"/>). This variable allows tools such as
   <command>univention-ucc-software-update</command> to detect whether they are running on a thin
-  client using overlayfs.
+  client using OverlayFS.
 </para>
 
 </section>
@@ -350,7 +357,7 @@
 	rollout. <filename>syslinux.efi32</filename> must be assigned as the <guimenu>Boot
 	filename</guimenu> for i386 systems and <filename>syslinux.efi64</filename> for amd64 systems.
   </para>
-	
+
   <para>
 	If a UEFI-compatible image has been generated and the DHCP boot policy defined, the rollout of
 	a UEFI system is not different from the standard rollout via the BIOS.
@@ -368,11 +375,11 @@
   </para>
 
   <para>
-	As a workaround, the system can be started with the <emphasis>debugshell=y</emphasis> boot
+	As a workaround, the system can be started with the <option>debugshell=y</option> boot
 	option (see <xref linkend="rollout:imagerollout"/> and the GPT table rewritten with the
 	following command:
 
-	<programlisting>
+	<programlisting language="sh">
 parted -s PARTITIONDEVICE mklabel GPT
 	</programlisting>
   </para>
@@ -393,7 +400,7 @@ parted -s PARTITIONDEVICE mklabel GPT
 		The &ucsUCR; variable <envar>ucc/ldap/network/timeout</envar> can be used to configure a
 		timeout for connecting to the LDAP server, by default ten seconds.
 	  </simpara></listitem>
-	  
+
 	  <listitem><simpara>
 		By default the policies which apply to a thin client are retrieved from LDAP during system
 		startup. If the package <package>univention-ucc-eval-policies-on-join</package> is installed
@@ -401,7 +408,7 @@ parted -s PARTITIONDEVICE mklabel GPT
 		and stored in the image (<filename>/var/cache/ucc/client-policy-*</filename>)
 		These files can be treated as fallback values: If the thin client is able to connect to an
 		LDAP server during startup, the current values are fetched from LDAP and overwrite the
-		existing values in <filename>/var/cache/ucc/</filename> temporarily (since the thin client image uses overlayfs,
+		existing values in <filename class="directory">/var/cache/ucc/</filename> temporarily (since the thin client image uses OverlayFS,
 		see <xref linkend="rollout:overlayfs"/>). If the thin client cannot connect to an LDAP server
 		the local values are used.
 	  </simpara></listitem>

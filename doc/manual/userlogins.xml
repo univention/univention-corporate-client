@@ -17,7 +17,7 @@
 		<xref linkend="logins:autologin"/>
 	  </para>
 
-	  <figure><title>User login at LightDM</title>
+	  <figure id="lightdm"><title>User login at LightDM</title>
 	  <graphic scalefit="1" width="80%" fileref="illustrations/ucc-lightdm.png"/>
 	  </figure>
 
@@ -38,7 +38,7 @@
 		The last chosen user session is cached per user.
 	  </para>
 
-	  <figure><title>Session selection at LightDM</title>
+	  <figure id="session-selection"><title>Session selection at LightDM</title>
 	  <graphic scalefit="1" width="40%" fileref="illustrations/ucc-session-selection.png"/>
 	  </figure>
 
@@ -91,9 +91,9 @@
 
 	  <para>
 		This is done by setting the &ucsUCRV; <envar>lightdm/autologin</envar> to
-		<emphasis>yes</emphasis> and <envar>lightdm/autologin/session</envar> to a session
-		script. The session scripts can be found in the <filename>/usr/share/xsessions</filename>
-		directory, in other words, <emphasis>firefox</emphasis> for example.
+		<literal>yes</literal> and <envar>lightdm/autologin/session</envar> to a session
+		script. The session scripts can be found in the <filename class="directory">/usr/share/xsessions/</filename>
+		directory, in other words, <filename>firefox</filename> for example.
 	  </para>
 
 	  <para>
@@ -191,17 +191,17 @@
 	</para>
 
 	<para>
-	  If the &ucsUCRV; <envar>ucc/nss/update/force</envar> is set to <emphasis>true</emphasis>, the
+	  If the &ucsUCRV; <envar>ucc/nss/update/force</envar> is set to <literal>true</literal>, the
 	  user and group information is obtained during every login.
 	</para>
 
 	<para>
 	  As standard, all of the users in the domain are always copied to the client. For special cases
 	  - such as notebooks, on which only a few users should be present - the &ucsUCRV;
-	  <envar>ucc/nss/update/hostspecific</envar> should be set to <emphasis>true</emphasis>. In this
+	  <envar>ucc/nss/update/hostspecific</envar> should be set to <literal>true</literal>. In this
 	  case, the download script for the user data on the UCS server searches for the
-	  <filename>/var/cache/ucc/HOSTNAME.passwd</filename> and
-	  <filename>/var/cache/ucc/HOSTNAME.group</filename> files in which system-specific user data
+	  <filename>/var/cache/ucc/<replaceable>HOSTNAME</replaceable>.passwd</filename> and
+	  <filename>/var/cache/ucc/<replaceable>HOSTNAME</replaceable>.group</filename> files in which system-specific user data
 	  can be stored.
 	</para>
   </section>
@@ -229,7 +229,7 @@
   <section id="logins:firefox">
 	<title>Firefox session script</title>
 	<para>
-	  The Firefox session script starts a Firefox web browser in a fullscreen session. It can be
+	  The Firefox session script starts a Firefox web browser in a full-screen session. It can be
 	  used, for example, to access an intranet page directly from thin clients or to configure a
 	  groupware web client.
 	</para>
@@ -254,7 +254,7 @@
 	  Sessions are registered in the &ucsUMC;. New sessions can be
 	  created by selecting the UMC module <guimenu>LDAP
 	  directory</guimenu> and adding a <guimenu>UCC session
-	  script</guimenu> object below <emphasis>cn=univention,cn=UCC,dc=Session</emphasis>.
+	  script</guimenu> object below <uri>cn=univention,cn=UCC,dc=Session</uri>.
 	</para>
   </section>
 

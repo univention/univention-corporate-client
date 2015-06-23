@@ -46,7 +46,7 @@
 	  dialogue window opens in which the gateway can be configured. In the default setting, fixed IP
 	  addresses are assigned only to clients registered in the LDAP.
 	</para>
-	
+
 	<para>
 	  The next menu item allows you to select whether desktops and/or thin clients should be
 	  configured. No additional configuration is required for Linux desktop systems / XRDP terminal
@@ -81,11 +81,11 @@
 
 	 <para>
 	   UCC systems are registered and administrated with the system role <emphasis>Univention
-	   Corporate Client</emphasis> in the computer management module of the &ucsUMC;. 
+	   Corporate Client</emphasis> in the computer management module of the &ucsUMC;.
 	   The UCC setup wizard automatically creates three computer containers for thin clients
-	   (<emphasis>cn=computers, cn=ucc-thinclients</emphasis>), desktop systems
-	   (<emphasis>cn=computers, cn=ucc-desktops</emphasis>) and XRDP terminal servers
-	   (<emphasis>cn=computers, cn=ucc-xrdpserver</emphasis>). These should be selected in the
+	   (<uri>cn=computers, cn=ucc-thinclients</uri>), desktop systems
+	   (<uri>cn=computers, cn=ucc-desktops</uri>) and XRDP terminal servers
+	   (<uri>cn=computers, cn=ucc-xrdpserver</uri>). These should be selected in the
 	   <guimenu>Container</guimenu> input field depending on the type of the UCC client.
 	 </para>
 
@@ -105,10 +105,10 @@
 		 </simpara></listitem>
 
 		 <listitem><simpara>
-		   The <emphasis>MAC address</emphasis> of the client in the notation XX:XX:XX:XX:XX:XX. It
+		   The <emphasis>MAC address</emphasis> of the client in the notation <systemitem class="etheraddress">XX:XX:XX:XX:XX:XX</systemitem>. It
 		   is required for DHCP.
 		 </simpara></listitem>
-		 
+
 		 <listitem><simpara>
 		   A <guimenu>Network</guimenu> needs to be selected: generally the network configured in the UCC
 		   Setup wizard. The <guimenu>IP address</guimenu> is suggested automatically and can be

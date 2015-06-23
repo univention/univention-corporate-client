@@ -12,7 +12,7 @@
   in the UCS manual <biblioref linkend="ucs-manual"/>.
 </para>
 
-<figure><title>Installing UCC in the Univention App Center</title>
+<figure id="app-center"><title>Installing UCC in the Univention App Center</title>
  <graphic scalefit="1" width="80%" fileref="illustrations/ucc-app-center.png"/>
  </figure>
 
@@ -27,7 +27,7 @@
 	<listitem><simpara>
 	  A UCS server which distributes the images for the installation of UCC systems via PXE. The
 	  images used for the installation of UCC systems are loaded from the Univention mirror using
-	  &ucsUMC; module and then distributed locally to the clients. 
+	  &ucsUMC; module and then distributed locally to the clients.
 	  UCC servers can be installed in all UCS server roles (&ucsMaster;, &ucsBackup;, &ucsSlave; and
 	  &ucsMember;). It is possible to employ more than one UCC server in an environment.
 	</simpara></listitem>
@@ -146,13 +146,13 @@
   <para>
 	Alternatively, images can also be managed via command line tools:
 	<command>ucc-image-download</command> can be used to download images. The individual files of
-	the image are referenced via a spec file containing the file names and SHA256 hashes. The hash
+	the image are referenced via a specification file containing the file names and SHA-256 hashes. The hash
 	values are checked as part of the download procedure in order to detect erroneous
-	transmissions. The parameter <emphasis>-s</emphasis> is used to provide the name of the spec
+	transmissions. The parameter <option>-s</option> is used to provide the name of the specification
 	file on the mirror. The full list of available parameters can be queried with the
-	<emphasis>-h</emphasis> option. The <command>ucc-image-remove -l</command> command can be used
+	<option>-h</option> option. The <command>ucc-image-remove -l</command> command can be used
 	to output an overview of the available images. An image can be deleted using the parameter
-	<emphasis>-r</emphasis> and specifying a spec file.
+	<option>-r</option> and specifying a specification file.
   </para>
 
   <section id="installation:imagemanagement:rootpw">
@@ -165,7 +165,7 @@
 	  the root password can be set subsequently with the command
 	  <command>ucc-image-root-password</command>, e.g.
 
-	  <programlisting>
+	  <programlisting language="sh">
 ucc-image-root-password -i ucc-2.0-desktop-image.img -p
 	  </programlisting>
 	</para>

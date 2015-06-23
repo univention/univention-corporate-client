@@ -54,7 +54,7 @@
 
 <para>
   UCC supports both a local desktop based on KDE Plasma and working on terminal servers (RDP, Citrix
-  XenApp and remotely used KDE desktops based on xrdp). Access to web-based services can also be
+  XenApp and remotely used KDE desktops based on XRDP). Access to web-based services can also be
   configured using a full-screen Firefox browser session. A UCC desktop system be used both in the
   company network and in mobile use (all user and group information are cached locally for that).
 </para>

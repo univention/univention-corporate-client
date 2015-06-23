@@ -11,9 +11,9 @@
 
   <para>
 	Image generation is performed with the <command>ucc-image</command> tool in the
-	<emphasis>ucc-image-toolkit</emphasis> package. The images are defined via a configuration
+	<package>ucc-image-toolkit</package> package. The images are defined via a configuration
 	file (see <xref linkend="imagegen:params"/>). In addition to the image, the image toolkit also creates an initial ram disk (initrd) and
-	a kernel. An ISO image can also optionally be created. In addition, a spec file is generated,
+	a kernel. An ISO image can also optionally be created. In addition, a specification file is generated,
 	which is used when downloading a UCC image (see <xref
 	linkend="installation:imagemanagement:download"/>).
   </para>
@@ -31,36 +31,36 @@
 
   <para>
 	The images are created with the <command>ucc-image</command>
-	command as the <emphasis>root</emphasis> user:
+	command as the <systemitem class="username">root</systemitem> user:
 
 	<itemizedlist>
 	  <listitem><simpara>
-		The parameter <emphasis>-c</emphasis> must be used to specify a configuration file. 
+		The parameter <option>-c</option> must be used to specify a configuration file.
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		If the parameter <emphasis>--compress</emphasis> is set, the image is compressed with
-		xz.
+		If the parameter <option>--compress</option> is set, the image is compressed with
+		<command>xz</command>.
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		The option <emphasis>-t</emphasis> can be used to specify a target directory.
+		The option <option>-t</option> can be used to specify a target directory.
 		If no target directory has been specified, a temporary directory is created under
-		<filename>/tmp</filename>.
+		<filename class="directory">/tmp/</filename>.
 	  </simpara></listitem>
 	</itemizedlist>
   </para>
 
   <para>
 	After image generation the images need to be copied to the directory
-	<filename>/var/lib/univention-client-boot/</filename> on the UCC servers. The join script needs
-	to be copied to <filename>/usr/lib/univention-install</filename>. After that,
+	<filename class="directory">/var/lib/univention-client-boot/</filename> on the UCC servers. The join script needs
+	to be copied to <filename class="directory">/usr/lib/univention-install/</filename>. After that,
 	<command>univention-run-join-script</command> needs to be executed.
   </para>
 
   <para>
 	The image generation is logged in <filename>/var/log/univention/ucc-image-toolkit.log</filename>. The
-	option <emphasis>-l</emphasis> can also be used to specify a different log file.
+	option <option>-l</option> can also be used to specify a different log file.
   </para>
 </section>
 
@@ -74,164 +74,161 @@
 	The configuration files can be commented with a hash (#):
 	<itemizedlist>
 	  <listitem><simpara>
-		<emphasis>arch</emphasis>: The system architecture, i386 or amd64. The official UCC images
+		<property>arch</property>: The system architecture, i386 or amd64. The official UCC images
 		are provided as i386.
 	  </simpara></listitem>
 
-	  <listitem><simpara><emphasis>version</emphasis>: The Ubuntu code
+	  <listitem><simpara><property>version</property>: The Ubuntu code
 	  name on which the image is based. It must be taken into account
 	  that the Univention modifications are only built and
 	  tested for a specific release, in the case of UCC 2.0 for Ubuntu 14.04
 	  (trusty).</simpara></listitem>
 
-	  <listitem><simpara><emphasis>hostname</emphasis>: The standard host
+	  <listitem><simpara><property>hostname</property>: The standard host
 	  name of an unjoined UCC client. The name is set to the name
 	  configured in the LDAP during the domain join.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>domainname</emphasis>: The standard
+	  <listitem><simpara><property>domainname</property>: The standard
 	  domain name of an unjoined UCC client. The domain is set in the
 	  scope of the domain join.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>root_password</emphasis>: The
+	  <listitem><simpara><property>root_password</property>: The
 	  SHA-512 hash of the standard root password. If the official
 	  image is downloaded from the Univention server, it is adapted during
 	  the download, see <xref linkend="installation:imagemanagement:download"/>. To generate an individual hash, the
-	  <emphasis>whois</emphasis> package must be installed. The command <command>mkpasswd -H sha-512
+	  <package>whois</package> package must be installed. The command <command>mkpasswd -H sha-512
 	  PASSWORD</command> can be used to generate the hash
 	  value.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>mirror</emphasis>: Configures the mirror from which the Ubuntu
+	  <listitem><simpara><property>mirror</property>: Configures the mirror from which the Ubuntu
 	  packages are downloaded. We advise against using a standard Ubuntu mirror; some packages are
 	  built with patches in UCC. When a non-Univention mirror is used, it is not possible to
 	  guarantee that these packages will be updated when Ubuntu packages are updated.
 	  </simpara></listitem>.
 
-	  <listitem><simpara><emphasis>updates, security,
-	  backports</emphasis>: Here, <emphasis>true/false</emphasis> can be used to specify
+	  <listitem><simpara><property>updates</property>, <property>security</property>,
+	  <property>backports</property>: Here, <literal>true</literal>/<literal>false</literal> can be used to specify
 	  whether, in addition to the standard release, updated bugfix
-	  packages (updates), security updates or backports should also be
+	  packages (updates), security updates or back-ports should also be
 	  integrated into the image.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>universe, multiverse</emphasis>:
+	  <listitem><simpara><property>universe</property>, <property>multiverse</property>:
 	  These options (true/false) integrate additional archive suites
 	  from Ubuntu, see <biblioref linkend="ubuntu-repositories"/> for details.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>sources_list</emphasis>: Additional apt sources can be integrated
+	  <listitem><simpara><property>sources_list</property>: Additional apt sources can be integrated
 	  here. Additional sources can also be added for an installed client via &ucsUCR;(see <xref
 	  linkend="config:softwareupdates"/>). This parameter is required for
 	  integrating apt sources as early as during the image generation.
 	  </simpara></listitem>.
 
-	  <listitem><simpara><emphasis>packages_no_recommends,
-	  packages</emphasis>: In the Debian package format, packages can
+	  <listitem><simpara><property>packages_no_recommends</property>,
+	  <property>packages</property>: In the Debian package format, packages can
 	  declare recommendations for packages which should be
 	  additionally installed during installation of a package. In
 	  these options, packages can be specified which should be
-	  installed with or without their recommended packages. 
+	  installed with or without their recommended packages.
 	  Multiple packages need to be separated by newlines. The following packages are required on
-	  each UCC system as a minimum: 
+	  each UCC system as a minimum:
 	  <itemizedlist>
-		<listitem><simpara>linux-image-generic: The Linux kernel</simpara></listitem>
+		  <listitem><simpara><package>linux-image-generic</package>: The Linux kernel</simpara></listitem>
 
-		<listitem><simpara>univention-ucc-bootstrap: A range of dummy init scripts which are run
-		during generation of the image</simpara></listitem>
+		  <listitem><simpara><package>univention-ucc-bootstrap</package>: A range of dummy init scripts which are run during generation of the image</simpara></listitem>
 
-		<listitem><simpara>univention-ucc-grub: The integration packages for the boot loader
-		Grub</simpara></listitem>
+		  <listitem><simpara><package>univention-ucc-grub</package>: The integration packages for the boot loader Grub</simpara></listitem>
 
-		<listitem><simpara>univention-corporate-client: This package integrates the central UCC
-		services</simpara></listitem>
+		  <listitem><simpara><package>univention-corporate-client</package>: This package integrates the central UCC services</simpara></listitem>
 	  </itemizedlist>
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		<emphasis>packages_hold</emphasis>: A list separated by newlines of one or more packages which
+		<property>packages_hold</property>: A list separated by newlines of one or more packages which
 		are not to be updated. To this end, the packages are set to the <emphasis>hold</emphasis>
-		installation status in the dpkg database.
+		installation status in the <application>dpkg</application> database.
 	  </simpara></listitem>
 
-	  <listitem><simpara><emphasis>ucr_variables</emphasis>: Here one
+	  <listitem><simpara><property>ucr_variables</property>: Here one
 	  can define &ucsUCR; variables which are then set directly in the
 	  installed image.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>version</emphasis>: A version for the image which, among other things, is
+	  <listitem><simpara><property>version</property>: A version for the image which, among other things, is
 	  also displayed in the image selection in the &ucsUMC;.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>size</emphasis>: The size of the
+	  <listitem><simpara><property>size</property>: The size of the
 	  image in megabytes.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>filesystem</emphasis>: The file
-	  system used inside the image file; it is recommended to retain ext4 here.</simpara></listitem>
+	  <listitem><simpara><property>filesystem</property>: The file
+			  system used inside the image file; it is recommended to retain <systemitem class="filesystem">ext4</systemitem> here.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>name</emphasis>: The name of the
+	  <listitem><simpara><property>name</property>: The name of the
 	  image.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>initramfs_modules</emphasis>: You
+	  <listitem><simpara><property>initramfs_modules</property>: You
 	  can specify a list of kernel modules here which should be placed
 	  in the initrd.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>kernel, initrd</emphasis>: The Linux
+	  <listitem><simpara><property>kernel, initrd</property>: The Linux
 	  kernel of a UCC system is stored separately from the image. The
 	  file names are defined here.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>iso</emphasis>: If a name of a file
+	  <listitem><simpara><property>iso</property>: If a name of a file
 	  is defined here, a bootable ISO image is generated
 	  which can be booted from USB or a DVD drive, see <xref linkend="rollout:iso"/>.
 	  </simpara></listitem>
 
-	  <listitem><simpara><emphasis>include_image_on_iso</emphasis>: If set to true and if
+	  <listitem><simpara><property>include_image_on_iso</property>: If set to true and if
 	  <envar>iso</envar> is specified, the UCC image is integrated into the ISO image.
 	  </simpara></listitem>
 
-	  <listitem><simpara><emphasis>device</emphasis>: Specifies which
-	  device should be partitioned, e.g., hda or sda. <emphasis>auto</emphasis> establishes
+	  <listitem><simpara><property>device</property>: Specifies which
+			  device should be partitioned, e.g., <filename class="devicefile">hda</filename> or <filename class="devicefile">sda</filename>. <literal>auto</literal> establishes
 	  the first available disk.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>continuation_prompt</emphasis> If
+	  <listitem><simpara><property>continuation_prompt</property> If
 	  this option is set to true, a prompt appears to verify whether
 	  partitioning should be performed. This can be avoided with the
-	  <emphasis>force_partition</emphasis> boot option, see <xref linkend="rollout:imagerollout"/>.
+	  <option>force_partition</option> boot option, see <xref linkend="rollout:imagerollout"/>.
 	  </simpara></listitem>
 
-	  <listitem><simpara><emphasis>continuation_message_top,
-	  continuation_message, continuation_dialog,
-	  continuation_dialog_yes, continuation_dialog_no,
-	  continuation_dialog_error</emphasis>: Different dialogue texts
+	  <listitem><simpara><property>continuation_message_top</property>,
+	  <property>continuation_message</property>, <property>continuation_dialog</property>,
+	  <property>continuation_dialog_yes</property>, <property>continuation_dialog_no</property>,
+	  <property>continuation_dialog_error</property>: Different dialogue texts
 	  during partitioning which can be adapted or compiled.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>remove_partitions</emphasis>: Here
+	  <listitem><simpara><property>remove_partitions</property>: Here
 	  you can specify a list of partitions which should be removed
-	  during partitioning. Alternatively, <emphasis>auto</emphasis>
+	  during partitioning. Alternatively, <literal>auto</literal>
 	  removes all partitions.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>partition_start</emphasis>: A whole
+	  <listitem><simpara><property>partition_start</property>: A whole
 	  number value in megabytes, which specifies where the
 	  partitioning should start.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>partition&lt;NUMBER&gt;_name</emphasis>: The
+	  <listitem><simpara><property>partition&lt;NUMBER&gt;_name</property>: The
 	  name of the partition.</simpara></listitem>
 
-	  <listitem><simpara><emphasis>partition&lt;NUMBER&gt;_size</emphasis>: The
+	  <listitem><simpara><property>partition&lt;NUMBER&gt;_size</property>: The
 	  size of the image. Here you can either specify a numerical value
-	  in megabytes, a percentage or <emphasis>expand</emphasis>. expand then uses the
+	  in megabytes, a percentage or <literal>expand</literal>. expand then uses the
 	  remaining available space on the disk.</simpara></listitem>
 
 	  <listitem><simpara>
-		<emphasis>partition&lt;NUMBER&gt;_fs</emphasis>: The file
-		system to be used, e.g., ext4.</simpara></listitem>
+		<property>partition&lt;NUMBER&gt;_fs</property>: The file
+		system to be used, e.g., <systemitem class="filesystem">ext4</systemitem>.</simpara></listitem>
 
 	  <listitem><simpara>
-		<emphasis>partition&lt;NUMBER&gt;_mountpoint</emphasis>: The
+		<property>partition&lt;NUMBER&gt;_mountpoint</property>: The
 		directory under which the file system should be
 		mounted.</simpara></listitem>
 
 	  <listitem><simpara>
-		<emphasis>partition&lt;NUMBER&gt;_image_mount</emphasis>: Uses
+		<property>partition&lt;NUMBER&gt;_image_mount</property>: Uses
 		true/false to specify whether the file system should be
 		mounted in the image as standard.</simpara></listitem>
 
 	  <listitem><simpara>
-		<emphasis>partition&lt;NUMBER&gt;_copy_files</emphasis>:
+		<property>partition&lt;NUMBER&gt;_copy_files</property>:
 		Specifies whether the partition should be copied during an
 		image update. Usually only required for the boot
 		partition.</simpara></listitem>
@@ -243,13 +240,13 @@
 <section id="imagegen:modify">
   <title>Modification of existing images</title>
   <para>
-	UCC images can be edited without the need for a complete rebuild, e.g.to preinstall an
+	UCC images can be edited without the need for a complete rebuild, e.g. to pre-install an
 	additional package or to perform various configuration modifications. The following steps need
-	to be executed as root: 
+	to be executed as root:
 
-	<programlisting>
+	<programlisting language="sh">
 mkdir /mnt/img
-mount -o loop /var/lib/univention-client-boot/IMAGENAME.img  /mnt/img/
+mount -o loop /var/lib/univention-client-boot/IMAGENAME.img /mnt/img/
 chroot /mnt/img
 ( perform arbitrary changes.. )
 sync
@@ -262,7 +259,7 @@ umount /mnt/img
 	After modifying the UCC image the MD5 checksums need to be recalculated. The MD5 sums determine
 	whether a rolled-out image has been modified:
 
-	<programlisting>
+	<programlisting language="sh">
 md5sum /var/lib/univention-client-boot/ucc-2.0-desktop-image.img \
 > /var/lib/univention-client-boot/ucc-2.0-desktop-image.img.md5
 	</programlisting>

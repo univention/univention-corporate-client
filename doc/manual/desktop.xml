@@ -9,7 +9,7 @@
 	  applications.
 	</para>
 
-	<figure><title>Univention Corporate Client desktop</title>
+	<figure id="ucc-desktop"><title>Univention Corporate Client desktop</title>
 	<graphic scalefit="1" width="80%" fileref="illustrations/ucc-desktop.png"/>
 	</figure>
   
@@ -23,7 +23,7 @@
 	  scope of functions of a modern Office suite. In addition to standardised, open formats such as
 	  the OpenDocument format it can also be used to open and edit documents created in other
 	  office applications such as Microsoft Office. To ensure uncomplicated distribution, documents
-	  can also be easily exported in PDF format. Extensive documentation on Libreoffice can be found at
+	  can also be easily exported in PDF format. Extensive documentation on LibreOffice can be found at
 	  <ulink url="http://www.libreoffice.org/get-help/documentation/"/>.
 	</para>
 
@@ -42,10 +42,10 @@
 	<title>Configuration of proxy settings for the desktop</title>
 	<para>
 	  The proxy settings in Firefox and KDE can be centrally configured via &ucsUCR; variables
-	  provide by the package <emphasis>univention-ucc-proxy-settings</emphasis> (see <xref
+	  provide by the package <package>univention-ucc-proxy-settings</package> (see <xref
 	  linkend="config:ucr"/>). <envar>ucc/proxy/http</envar> configures a specific proxy,
-	  e.g. <emphasis>http://192.168.0.100:3128</emphasis>. Alternatively the URL to a PAC (proxy
-	  auto-config) file can be provided with the variable <envar>ucc/proxy/autoconfig/url</envar>.
+  e.g. <literal>http://192.168.0.100:3128</literal>. Alternatively the URL to a PAC (<phrase>Proxy
+	  Auto-Config</phrase>) file can be provided with the variable <envar>ucc/proxy/autoconfig/url</envar>.
 	</para>
 
 	<para>

@@ -5,7 +5,7 @@
 	In addition to the operation of stationary UCC clients, UCC also supports
 	access to terminal services. Login is supported to:
 	<itemizedlist>
-	  <listitem><simpara>UCC terminal servers via the RDP protocol (based on xrdp)</simpara></listitem>
+	  <listitem><simpara>UCC terminal servers via the RDP protocol (based on XRDP)</simpara></listitem>
 	  <listitem><simpara>Windows terminal services via the RDP protocol</simpara></listitem>
 	  <listitem><simpara>Citrix XenApp</simpara></listitem>
 	</itemizedlist>
@@ -18,7 +18,7 @@
 		An interactive selection of the session by the user during login to LightDM (see <xref
 		linkend="logins:sessions"/>)
 	  </simpara></listitem>
-	  
+
 	  <listitem><simpara>
 		Automatic session selection where login is performed with a guest user. In this case, no
 		login dialogue is shown (see <xref linkend="logins:autologin"/>).
@@ -30,7 +30,7 @@
 	<title>UCC terminal services based on XRDP</title>
 	<para>
 	  UCC integrates terminal services provided via XRDP, i.e., the KDE Linux desktop is provided
-	  via the RDP protocol. 
+	  via the RDP protocol.
 	</para>
 
 	<section id="terminalservices:xrdp:installation">
@@ -43,7 +43,7 @@
 		UCC terminal servers are installed with the UCC desktop image. The setup is described in
 		<xref linkend="umc:manageucc"/>. The <package>univention-xrdp</package> package must also be
 		installed on the desktop image. There is a UCC software policy linked to the container
-		<emphasis>cn=computers, cn=ucc-xrdpserver</emphasis> (see <xref
+		<uri>cn=computers, cn=ucc-xrdpserver</uri> (see <xref
 		linkend="config:softwareupdates"/>), i.e., if the computer object is created in the container,
 		the package is installed automatically during the rollout of the UCC system.
 	  </para>
@@ -62,21 +62,21 @@
 
 	  <para>
 		The access of an XRDP terminal server from a UCC thin client via the RDP protocol is
-		described in <xref linkend="terminalservices:rdp"/>. 
+		described in <xref linkend="terminalservices:rdp"/>.
 	  </para>
 
 	  <para>
 		If the forwarding of storage devices is enabled, they appear in the user's home directory in
-		the <filename>.~/xrdp_client</filename> directory. Forwarding of sound output in terminal sessions is also
+		the <filename class="directory">~/xrdp_client</filename> directory. Forwarding of sound output in terminal sessions is also
 		possible. This requires a sound card to be present or emulated on the XRDP terminal server.
 	  </para>
 
 	  <para>
 		Access to the XRDP terminal server from other clients is also supported (e.g., Windows PCs,
 		Mac OS X or thin clients with third-party operating systems). For these clients it is
-		sufficient to configure the IP address or hostname of the XDRP server and perform a login
+		sufficient to configure the IP address or hostname of the XRDP server and perform a login
 		with a user from the UCS domain. An XRDP login screen is provided for the login from
-		external devices. It is not necessary to specify a domain when logging on to an XDRP
+		external devices. It is not necessary to specify a domain when logging on to an XRDP
 		terminal server.
 	  </para>
 
@@ -94,7 +94,7 @@
 		As standard, UCC uses a KDE profile optimised for remote operation on terminal servers. It
 		disables e.g. update notifications. The use of this profile can be disabled per UCC terminal
 		server by setting the &ucsUCRV; on the XRDP terminal server <envar>ucc/session/remote/profile</envar> to
-		<emphasis>false</emphasis> (see <xref linkend="config:ucr"/>). 
+		<literal>false</literal> (see <xref linkend="config:ucr"/>).
 	  </para>
 	</section>
   </section>
@@ -109,7 +109,7 @@
 
 	<para>
 	  The login is performed via the <emphasis>RDP</emphasis> session script which uses the
-	  NeutrinoRDP client (a fork of the freerdp code base). The password entered
+	  NeutrinoRDP client (a fork of the FreeRDP code base). The password entered
 	  by the user during login to LightDM is cached by a PAM module and automatically provided to
 	  NeutrinoRDP, i.e., it is not necessary to enter it again when logging in to the terminal server.
 	</para>
@@ -175,12 +175,12 @@
 		<para>
 		  Mass storage devices mounted on the thin client (see <xref linkend="hardware:usbthin"/>)
 		  is available in the RDP session if the &ucsUCRV; <envar>rdp/redirectdisk</envar> is set to
-		  <emphasis>true</emphasis>. 
+		  <literal>true</literal>.
 		</para>
 
 		<para>
 		  Sound output is enabled by default. It can be disabled by setting the &ucsUCRV;
-		  <envar>rdp/disable-sound</envar> to <emphasis>true</emphasis>.
+		  <envar>rdp/disable-sound</envar> to <literal>true</literal>.
 		</para>
 	  </section>
 
@@ -189,22 +189,22 @@
 		<title>Advanced configuration</title>
 
 		<section id="terminalservices:rdp:crypto">
-		  <title>Networklevel authentication / certificate approval</title>
+		  <title>Network level authentication / certificate approval</title>
 		  <para>
-			The RDP client uses the "Network Level Authentication" (NLA) authentication
+			The RDP client uses the "Network Level Authentication" (<acronym>NLA</acronym>) authentication
 			method as standard. This can be disabled by setting the &ucsUCRV; <envar>rdp/checknla</envar> to
-			<emphasis>false</emphasis>.
+			<literal>false</literal>.
 		  </para>
 
 		  <para>
 			Verification of the login certificate is also disabled as standard. It can be enabled by
-			setting the &ucsUCRV; <envar>rdp/ignorecertificate</envar> to <emphasis>true</emphasis>.
+			setting the &ucsUCRV; <envar>rdp/ignorecertificate</envar> to <literal>true</literal>.
 		  </para>
 
 		  <para>
 			In special cases, it may be necessary to disable the TLS encryption of the RDP
 			connection entirely. This is done by setting the &ucsUCRV; <envar>rdp/tlsencryption</envar>
-			to <emphasis>false</emphasis>.
+			to <literal>false</literal>.
 		  </para>
 		</section>
 
@@ -224,7 +224,7 @@
 
 		  <para>
 			The &ucsUCRV; <envar>rdp/additionaloptions</envar> can be used to provide any additional
-			options to neutrinordp (e.g., to enable additional plugins).
+			options to NeutrinoRDP (e.g., to enable additional plugins).
 		  </para>
 
 		  <para>
@@ -262,7 +262,7 @@
 
 	  <para>
 		Access to a Citrix terminal service is performed via the <emphasis>XenApp</emphasis> session
-		script. This opens a fullscreen Firefox session with the login web interface of the Citrix
+		script. This opens a full-screen Firefox session with the login web interface of the Citrix
 		installation. If the browser is closed, a menu opens in which you are offered the
 		possibility to log in to Citrix again, shutdown the thin client or select another session.
 	  </para>
@@ -304,14 +304,14 @@
 	  Citrix web interface. The session script then opens the web interface directly in Firefox
 	  during login.
 	</para>
-	
+
 	<para>
 	  As the authentication during the Citrix login occurs on the web interface and if Citrix is the
 	  only terminal service, it is not necessary for the user to log on to the thin client again. If
 	  the <guimenu>Automatic thin client login</guimenu> option is enabled, the login to LightDM
 	  occurs automatically.
 	</para>
-	
+
   </section>
 
   <section id="terminalservices:citrix:setup:manually">
@@ -321,7 +321,7 @@
 	  scenarios in which the UCC setup wizard should not be used. For general information on XenApp
 	  and UCC, please see <xref linkend="terminalservices:citrix:setup:umc"/>
 	</para>
-	
+
 	<para>
 	  The Citrix Receiver for 32 bit systems must be downloaded as a DEB file from <ulink
 	  url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-131.html"/>.
@@ -329,21 +329,21 @@
 
 	<para>
 	  The <command>ucc-image-add-citrix-receiver</command> tool can be used to install the Citrix
-	  Receiver in a UCC thin client image. The parameter <emphasis>-i</emphasis> specifies the UCC
-	  image and <emphasis>-d</emphasis> the DEB file with the Citrix Receiver. The
+	  Receiver in a UCC thin client image. The parameter <option>-i</option> specifies the UCC
+	  image and <option>-d</option> the DEB file with the Citrix Receiver. The
 	  <package>univention-ucc-session-xenapp</package> meta package is installed automatically.
 	</para>
 
 	<para>
 	  If the EULA is to be confirmed automatically, the &ucsUCRV; <envar>citrix/accepteula</envar>
-	  must be set to <emphasis>true</emphasis> by means of a policy. The web interface for the
+	  must be set to <literal>true</literal> by means of a policy. The web interface for the
 	  Citrix login must be configured via the <envar>citrix/webinterface</envar> variable.
 	</para>
 
 	<para>
 	  To configure a login-less access to the web interface the &ucsUCRV;
-	  <envar>lightdm/autologin/session</envar> must be set to <emphasis>XenApp</emphasis> and the
-	  &ucsUCRV; <envar>lightdm/autologin</envar> to <emphasis>yes</emphasis>.
+	  <envar>lightdm/autologin/session</envar> must be set to <literal>XenApp</literal> and the
+	  &ucsUCRV; <envar>lightdm/autologin</envar> to <literal>yes</literal>.
 	</para>
   </section>
 
@@ -353,8 +353,8 @@
 	<para>
 	  The Citrix Receiver uses <filename>/dev/random</filename> as a
 	  randomness source as standard. <filename>/dev/random</filename> blocks access if insufficient entropy is
-	  available from hardware sources. This is the case on many thin clients. 
-	  If the &ucsUCRV; <envar>citrix/linkdevrandom</envar> is set to <emphasis>true</emphasis>,
+	  available from hardware sources. This is the case on many thin clients.
+	  If the &ucsUCRV; <envar>citrix/linkdevrandom</envar> is set to <literal>true</literal>,
 	  <filename>/dev/random</filename> is converted to a symbolic link to
 	  <filename>/dev/urandom</filename> which prevents these delays.
 	</para>
@@ -362,7 +362,7 @@
 	<para>
 	  In the default setting, the Citrix Receiver accesses the thin client's sound card(s) via the
 	  ALSA interface. For special cases - e.g., systems with multiple sound cards - the &ucsUCRV;
-	  <envar>citrix/pulseaudio</envar> can be set to <emphasis>true</emphasis>. The result of this
+	  <envar>citrix/pulseaudio</envar> can be set to <literal>true</literal>. The result of this
 	  is that the PulseAudio sound daemon is started in the XenApp session script (this e.g.
 	  ensures the assignment of a primary sound card).
 	</para>
@@ -399,26 +399,26 @@
 	In the default setting the Flash version on the client and the Flash version on the Citrix server
 	need to be identical. Releases of Adobe Flash later than 11.2 are no longer available for Linux.
 	The version check can be disabled on the Citrix server. For this a registry key needs to
-	be added on the Citrix server in the location <emphasis>HKEY_LOCAL_MACHINE -> Software ->
-	Wow6432Node -> Citrix ->  HdxMediaStreamForFlash -> Server -> PseudoServer</emphasis>. The new key
-	must be created as a dword, named <emphasis>FlashPlayerVersionComparisonMask</emphasis> and set to
-	<emphasis>0</emphasis>.
+	be added on the Citrix server in the location <guimenu>HKEY_LOCAL_MACHINE &ar; Software &ar;
+	Wow6432Node &ar; Citrix &ar;  HdxMediaStreamForFlash &ar; Server &ar; PseudoServer</guimenu>. The new key
+must be created as a <classname>dword</classname>, named <property>FlashPlayerVersionComparisonMask</property> and set to
+	<literal>0</literal>.
   </para>
 
   <para>
 	To verify the local Flash playback, you can play a Flash video on the Citrix server and query
 	the process list on the UCC client using <command>ps aux</command>. If the Flash redirection is
-	working correctly, you should see a process named <emphasis>FlashContainer.bin</emphasis>.
+	working correctly, you should see a process named <systemitem class="process">FlashContainer.bin</systemitem>.
   </para>
 </section>
 
 <section id="terminalservices:hdxplayback">
   <title>Windows Media HDX playback</title>
   <para>
-    To enable Citrix Windows Media HDX playback on the client the following packages have to 
-    installed on the UCC client: gstreamer0.10-plugins-ugly, gstreamer0.10-plugins-good,
-    gstreamer0.10-plugins-bad, gstreamer0.10-alsa, gstreamer0.10-fluendo-mp3,
-    gstreamer0.10-ffmpeg and gstreamer0.10-x
+    To enable Citrix Windows Media HDX playback on the client the following packages have to
+    installed on the UCC client: <package>gstreamer0.10-plugins-ugly</package>, <package>gstreamer0.10-plugins-good</package>,
+    <package>gstreamer0.10-plugins-bad</package>, <package>gstreamer0.10-alsa</package>, <package>gstreamer0.10-fluendo-mp3</package>,
+    <package>gstreamer0.10-ffmpeg</package> and <package>gstreamer0.10-x</package>.
   </para>
 </section>
 

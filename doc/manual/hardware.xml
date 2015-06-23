@@ -11,21 +11,21 @@
 
 	<para>
 	  The network interfaces of a joined UCC client are managed via the Network Manager. Here you
-	  can also configure additional connections uch as a VPN/Wifi access or a static IP address.
+	  can also configure additional connections such as a VPN/WiFi access or a static IP address.
 	</para>
 
 	<para>
-	  During the PXE live boot of a UCC system, the primary interface (eth0) is not managed by
+		During the PXE live boot of a UCC system, the primary interface (<filename class="devicefile">eth0</filename>) is not managed by
 	  Network Manager.
 	</para>
 
 	<para>
 	  While offline operation is supported for images running the desktop image, thin clients
-	  require a permanenent network connection.
+	  require a permanent network connection.
 	</para>
 
 	<para>
-	  The wireless regulatory domain is set to <emphasis>00</emphasis> as standard. With some access
+	  The wireless regulatory domain is set to <literal>00</literal> as standard. With some access
 	  points, it can be necessary to configure this to the national code using the command
 	  <command>iw reg set</command>.
 	</para>
@@ -34,19 +34,19 @@
   <section id="hardware:usbthin">
 	<title>USB mass storage access on thin clients</title>
 	<para>
-	  The <emphasis>univention-ucc-remote-mount</emphasis> package installed as standard allows
+	  The <package>univention-ucc-remote-mount</package> package installed as standard allows
 	  access to the USB-CD/DVD drives, hard drives and sticks connected to a UCC thin client. If a
 	  USB mass storage device is connected to the client, a local mount is performed via a udev
 	  rule. The terminal service solutions then provide this directory through the terminal
 	  session. The additional component <command>cdpinger</command> is used for the integration of
-	  USB-CDROM/DVDROMs. VFAT, NTFS and ext* file systems are supported.
+	  USB-CDROM/DVDROMs. <systemitem class="Filesystem">VFAT</systemitem>, <systemitem class="Filesystem">NTFS</systemitem> and <systemitem class="Filesystem">ext*</systemitem> file systems are supported.
 	</para>
 
 	<para>
 	  The mounting of mass storage devices is disabled on desktop systems (as mass storage devices
 	  are automatically mounted in the KDE desktop anyway). If you still wish to enable the function
 	  in exceptional cases, this can be done by setting the &ucsUCRV; <envar>ucc/mount</envar> to
-	  <emphasis>true</emphasis>.
+	  <literal>true</literal>.
 	</para>
 
 	<para>
@@ -57,9 +57,9 @@
 	</para>
 
 	<para>
-	  Filesystems directly written to devices (such as <filename>/dev/sda</filename>) are not
-	  mounted by default (only the respective partitions like <filename>/dev/sda1</filename>). If the&ucsUCR;
-	  <envar>ucc/mount/fullpartition</envar> is set to <emphasis>true</emphasis>, full partitions
+	  Filesystems directly written to devices (such as <filename class="devicefile">/dev/sda</filename>) are not
+	  mounted by default (only the respective partitions like <filename>/dev/sda1</filename>). If the &ucsUCR;
+	  <envar>ucc/mount/fullpartition</envar> is set to <literal>true</literal>, full partitions
 	  are mounted as well.
 	</para>
 
@@ -71,7 +71,7 @@
 	</para>
 
 	<para>
-	  Setting the &ucsUCRV; <envar>ucc/mount/sync</envar> to <emphasis>true</emphasis> allows all
+	  Setting the &ucsUCRV; <envar>ucc/mount/sync</envar> to <literal>true</literal> allows all
 	  changes to be written directly. This generally leads to considerable performance losses.
 	</para>
 
@@ -121,12 +121,12 @@
   <section id="hardware:dualdisplay">
 	<title>Configuration of dual-display setups</title>
 	<para>
-	  UCC uses the Xorg autodetection for the configuration of the graphics adapter. This
+	  UCC uses the Xorg auto-detection for the configuration of the graphics adapter. This
 	  automatically determines the suitable driver for the graphics card and the appropriate display
 	  parameters.
 	</para>
 
-	<figure><title>Configuring dual monitor display</title>
+	<figure id="hardware-policy"><title>Configuring dual monitor display</title>
 	<graphic scalefit="1" width="60%" fileref="illustrations/ucc-hardware-policy.png"/>
 	</figure>
 	
@@ -154,20 +154,20 @@
 	  Setting the resolutions via the <guimenu>Resolution of primary display</guimenu> and
 	  <guimenu>Resolution of secondary display</guimenu> fields is optional: If they are not set,
 	  they are assigned the recommended value (<command>xrandr --auto</command>). The values for
-	  width and height should be separated by an <emphasis>x</emphasis>, e.g.,
-	  <emphasis>1024x768</emphasis>.
+	  width and height should be separated by an <literal>x</literal>, e.g.,
+	  <literal>1024x768</literal>.
 	</para>
 
 	<para>
-	  The Xorg-internal names of the displays are also automatically detected and listed
+	  The Xorg internal names of the displays are also automatically detected and listed
 	  alphabetically. In this way, the order is always fixed. If automatic determination of the
 	  display names is used, a message like the one below is written in the syslog:
 
-	  <programlisting>
+	  <screen>
 Dec 17 13:12:34 x201 logger: The display settings for x201 were
 queried automatically, if you want to set them through a policy
 use the display names LVDS1 and VGA1
-	  </programlisting>
+	  </screen>
 
 	  These values can then be specified in the <guimenu>Name of primary display</guimenu> and
 	  <guimenu>Name of secondary display</guimenu> fields.

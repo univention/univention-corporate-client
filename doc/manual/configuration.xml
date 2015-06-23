@@ -15,25 +15,25 @@
 
 	  <itemizedlist>
 	  	<listitem><simpara>
-		  <emphasis>ucc-common-settings</emphasis> is linked to the
-		  <emphasis>cn=computers</emphasis> container, and thus applies for thin clients and
+		  <uri>ucc-common-settings</uri> is linked to the
+		  <uri>cn=computers</uri> container, and thus applies for thin clients and
 		  desktops.
 	  	</simpara></listitem>
 
 	  	<listitem><simpara>
-		  <emphasis>ucc-thinclient-settings</emphasis> is linked to the
-		  <emphasis>cn=computers,cn=ucc-thinclients</emphasis> container, and thus only applies for
+		  <uri>ucc-thinclient-settings</uri> is linked to the
+		  <uri>cn=computers,cn=ucc-thinclients</uri> container, and thus only applies for
 		  thin clients.
 	  	</simpara></listitem>
 
 	  	<listitem><simpara>
-		  <emphasis>ucc-desktop-settings</emphasis> is linked to the
-		  <emphasis>cn=computers,cn=ucc-desktops</emphasis> container, and thus only applies for
+		  <uri>ucc-desktop-settings</uri> is linked to the
+		  <uri>cn=computers,cn=ucc-desktops</uri> container, and thus only applies for
 		  desktops.
 	  	</simpara></listitem>
 	  </itemizedlist>
 	</para>
-	  
+
 	<para>
 	  &ucsUCR; policies can be managed in the &ucsUMC; in the <guimenu>Policies</guimenu> menu. At
 	  least one UCR variable must be configured with the <guimenu>Variable</guimenu> and
@@ -41,7 +41,7 @@
 	  sign. The UCR policies are evaluated when the system is started and then once an hour.
 	</para>
 
-	<figure><title>Configuring UCR values through a policy</title>
+	<figure id="ucr-policy"><title>Configuring UCR values through a policy</title>
 	<graphic scalefit="1" width="60%" fileref="illustrations/ucc-ucr-policy.png"/>
 	</figure>
 
@@ -64,12 +64,12 @@
 
 	<para>
 	  Cron jobs can also be used to execute commands during system startup using the
-	  <emphasis>@reboot</emphasis> option. The following &ucsUCR; variables (see <xref
+	  <option>@reboot</option> option. The following &ucsUCR; variables (see <xref
 	  linkend="config:ucr"/>) configure the execution of <command>/usr/bin/example</command> as the user root during the system
-	  boot. COMMAND1 can be replaced with arbitrary identifiers:
+	  boot. <envar>COMMAND1</envar> can be replaced with arbitrary identifiers:
 
 	  <programlisting>
-cron/COMMAND1/command=/usr/bin/example		
+cron/COMMAND1/command=/usr/bin/example
 cron/COMMAND1/time=@reboot
 	  </programlisting>
 	</para>
@@ -92,7 +92,7 @@ cron/COMMAND1/time=@reboot
 	  policy in the &ucsUMC;:
 	</para>
 
-	<figure><title>Installing additional software through a software update policy</title>
+	<figure id="software-policy"><title>Installing additional software through a software update policy</title>
 	<graphic scalefit="1" width="60%" fileref="illustrations/ucc-software-policy.png"/>
 	</figure>
 
@@ -149,7 +149,7 @@ cron/COMMAND1/time=@reboot
 	  Additional software packages can also be installed on the command line using
 	  <command>apt-get</command>:
 
-	  <programlisting>
+	  <programlisting language="sh">
 apt-get update
 apt-get install emacs24
 	  </programlisting>
@@ -163,15 +163,15 @@ apt-get install emacs24
 	<para>
 	  In the default setting, only the UCC repositories are used as package sources. &ucsUCR;
 	  policies can be used to add new package sources (see <xref linkend="config:ucr"/>). The
-	  variables must be specified in the form <envar>ucc/apt/ID1</envar> = <emphasis>apt source
-	  entry</emphasis>, e.g.:
+	  variables must be specified in the form <envar>ucc/apt/ID1</envar> = <literal>apt source
+	  entry</literal>, e.g.:
 
 	  <programlisting>
-ucc/apt/cs1=deb http://example.com/ application/all/	
-ucc/apt/cs2=deb http://example.com/ application/i386/		
+ucc/apt/cs1=deb http://example.com/ application/all/
+ucc/apt/cs2=deb http://example.com/ application/i386/
 	  </programlisting>
 
-	  <figure>
+	  <figure id="apt-policy">
 		<title>Example UCR policy for configuring an apt source</title>
 		<graphic scalefit="1" width="80%" fileref="illustrations/ucc-apt.png"/>
 	  </figure>
@@ -197,13 +197,13 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 
 	<para>
 	  The &ucsUCRV; <envar>xorg/keyboard/options/XkbLayout</envar> can be used to set another
-	  keyboard layout, e.g., <emphasis>de</emphasis> for German or <emphasis>fr</emphasis> for
+	  keyboard layout, e.g., <literal>de</literal> for German or <literal>fr</literal> for
 	  French.
 	</para>
 
 	<para>
 	  The &ucsUCRV; <envar>locale/default</envar> can be used to set a different locale, e.g.,
-	  <emphasis>de_DE.UTF-8:UTF-8</emphasis> for German or <emphasis>fr_FR.UTF-8:UTF-8</emphasis>
+	  <literal>de_DE.UTF-8:UTF-8</literal> for German or <literal>fr_FR.UTF-8:UTF-8</literal>
 	  for French. Please note that it may be necessary to install additional language packages for
 	  some locales. The standard thin client image includes German and English; the standard desktop
 	  image includes English, German, French, Dutch and Spanish.
@@ -222,7 +222,7 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 	  a CIFS share with the user's home directory during login. It must be configured using the
 	  following &ucsUCR; variables. This functionality is only suitable for stationary
 	  workstations, mobile systems like notebooks should rather use a local home directory.
-	  Further information on configuring &ucsUCR; variables can be found in  <xref linkend="config:ucr"/>. 
+	  Further information on configuring &ucsUCR; variables can be found in  <xref linkend="config:ucr"/>.
 
 	  <itemizedlist>
 		<listitem><simpara>
@@ -236,7 +236,7 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 
 		<listitem><simpara>
 		  <envar>ucc/mount/cifshome/options</envar>: This configures a optional list of mount options. The full
-		  list of available options can be found in the <emphasis>mount.cifs</emphasis> manpage.
+		  list of available options can be found in the manual page <citerefentry><refentrytitle>mount.cifs</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
 		</simpara></listitem>
 	  </itemizedlist>
 	</para>
@@ -253,7 +253,7 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 
 	<para>
 	  The &ucsUCRV; <envar>ucc/timezone</envar> can be used to set a different time zone. The
-	  available time zones can be found in the <filename>/usr/share/zoneinfo/</filename> directory,
+	  available time zones can be found in the <filename class="directory">/usr/share/zoneinfo/</filename> directory,
 	  for example <emphasis>Europe/Berlin</emphasis>. Further information on configuring &ucsUCR; variables can be
 	  found in  <xref linkend="config:ucr"/>.
 	</para>
@@ -286,12 +286,12 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 	<title>Remote logging</title>
 	<para>
 	  In addition to local logging, the system logging (syslog) of UCC clients can also be performed
-	  remotely against a central log host based on rsyslog. As standard, the logging is performed
+	  remotely against a central log host based on <application>rsyslog</application>. As standard, the logging is performed
 	  against the UCS system acting as PXE server.
 	</para>
 
 	<para>
-	  The log files are stored in the <filename>/var/log/univention/ucc-clients</filename>
+	  The log files are stored in the <filename class="directory">/var/log/univention/ucc-clients/</filename>
 	  directory. A separate log file is maintained for each client. The log files are also rotated
 	  with Logrotate, e.g., <filename>syslog-client01.log</filename>,
 	  <filename>syslog-client01.log.1</filename>, etc.
@@ -299,7 +299,7 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 
 	<para>
 	  The &ucsUCRV; <envar>ucc/pxe/append</envar> can be adapted to deactivate the remote logging
-	  (syslog=n) or reroute it to another log host (syslogserver=HOSTNAME). These configuration
+	  (<literal>syslog=n</literal>) or reroute it to another log host (<literal>syslogserver=<replaceable>HOSTNAME</replaceable></literal>). These configuration
 	  options are only set during the installation or update of an UCC system.
 	</para>
   </section>
@@ -315,15 +315,15 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 
 
   <section id="config:bootsplash">
-	<title>Bootsplash startup animation</title>
+	<title>Boot-splash startup animation</title>
 	<para>
-	  A startup animation (bootsplash) is displayed when a UCC client is started. It can be hidden
+	  A startup animation (boot-splash) is displayed when a UCC client is started. It can be hidden
 	  by pressing the Escape key to diagnose the startup in full details.
 	</para>
 
 	<para>
 	  The &ucsUCRV; <envar>ucc/pxe/bootsplash</envar> on the UCS system acting as PXE server can be set to
-	  <emphasis>no</emphasis> to deactivate it completely.
+	  <literal>no</literal> to deactivate it completely.
 	</para>
   </section>
 </chapter>

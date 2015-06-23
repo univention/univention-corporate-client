@@ -14,7 +14,7 @@
   <revhistory>
      <revision>
         <revnumber>2.0</revnumber>
-        <date>6 Jun 2014</date>
+        <date>6. Juni 2014</date>
      </revision>
   </revhistory>
 </bookinfo>
@@ -37,8 +37,8 @@
 
   <para>
 	Dieser Quickstart Guide gibt einen Einstieg in Univention Corporate Client. Es werden dabei zwei
-	Einsatzszenarien für UCC vorgestellt: 
-	
+	Einsatzszenarien für UCC vorgestellt:
+
 	<itemizedlist>
 	  <listitem><simpara>
 		Das Management von KDE-Desktopsystemen (hier am Beispiel eines Notebooks mit
@@ -46,7 +46,7 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		Der Zugriff auf einen Windows-Desktop als Remote Desktop über das RDP-Protokoll 
+		Der Zugriff auf einen Windows-Desktop als Remote Desktop über das RDP-Protokoll
 	  </simpara></listitem>
 	</itemizedlist>
 
@@ -54,7 +54,7 @@
   </para>
 
   <para>
-	UCC bietet auch die Möglichkeit einen KDE-Linux-Desktop Terminalserver über das RDP-Prokoll
+	UCC bietet auch die Möglichkeit einen KDE-Linux-Desktop Terminalserver über das RDP-Protokoll
 	bereitzustellen. Auf diesen kann dann z.B. von Thin Clients zugegriffen werden. Dies ist im
 	UCC-Handbuch dokumentiert <biblioref linkend="ucc-manual"/>.
   </para>
@@ -78,7 +78,7 @@
 		Images auf das UCS-System heruntergeladen werden müssen, sollte dort ausreichend freier
 		Festplattenspeicher für das Herunterladen und Speichern der UCC Images vorhanden sein. Es
 		sollten mindestens 2 GiB freier Speicherplatz für das Thin Client Image und mindestens 20
-		GiB für das Desktop-Image verfügbar sein. 
+		GiB für das Desktop-Image verfügbar sein.
 	  </simpara></listitem>
 	</itemizedlist>
 
@@ -90,7 +90,7 @@
 	  </simpara></listitem>
 
 	  <listitem><simpara>
-		Ein Thin Client. Der Thin Client muss über 2 GiB CompactFlash-Speicher verfügen. 
+		Ein Thin Client. Der Thin Client muss über 2 GiB CompactFlash-Speicher verfügen.
 	  </simpara></listitem>
 	</itemizedlist>
 
@@ -100,13 +100,13 @@
 	  <listitem><simpara>
 		Ein System, auf dem der Linux-Desktop installiert wird. Das System sollte über min. 20 GiB
 		Plattenplatz verfügen (die Systeminstallation benötigt 15 GiB plus einige GiB für das
-		Heimatverzeichnis). 
+		Heimatverzeichnis).
 	  </simpara></listitem>
 	</itemizedlist>
   </para>
 
   <para>
-	Ausführliche Beschreibungen zu UCC sind auf der Univention-Webseite 
+	Ausführliche Beschreibungen zu UCC sind auf der Univention-Webseite
 	<footnote><para><ulink url="http://www.univention.de/produkte/ucc/"/></para></footnote>
 	und im UCC-Handbuch zu finden <biblioref linkend="ucc-manual"/>.
   </para>
@@ -122,7 +122,7 @@
   </para>
 
   <para>
-	UCC kann auf allen UCS-Serverrollen installiert werden. In diesem Beispiel erfolgt eine
+	UCC kann auf allen UCS-Serversystemrollen installiert werden. In diesem Beispiel erfolgt eine
 	Installation auf einem Single-Server-System. Als Systemrolle ist daher ein <emphasis>Domänencontroller
 	Master</emphasis> auszuwählen. In der Softwareauswahl muss keine weitere Komponente ausgewählt werden.
 	Auf dem UCS-System sollten alle verfügbaren Errata-Updates installiert werden.
@@ -157,12 +157,12 @@
   <para>
 	Im Univention App Center muss die Applikation <emphasis>Univention Corporate Client
 	2.0</emphasis> ausgewählt und auf <guimenu>Installieren</guimenu> geklickt werden. Anschließend
-	erfolgt eine erneute Anmeldung an der UMC. 
+	erfolgt eine erneute Anmeldung an der UMC.
   </para>
 
   <para>
 	Nun muss in der Benutzerverwaltung des UCS-Managementsystems (UMC) ein Benutzer angelegt
-	werden. Es reicht hierbei die minimal nötigen Einstellungen vorzunehmen. 
+	werden. Es reicht hierbei die minimal nötigen Einstellungen vorzunehmen.
   </para>
 
 </chapter>
@@ -172,7 +172,7 @@
 
   <section id="uccquickstart:thinclient:setup">
 	<title>Einrichtung</title>
-	
+
 	<para>
 	  Hierfür muss das UMC-Modul <guimenu>UCC Einrichtung</guimenu> aufgerufen werden. Im ersten
 	  Menüpunkt kann ausgewählt werden, ob Desktops und/oder Thin Clients eingerichtet werden
@@ -188,7 +188,7 @@
 	</para>
 
 	<para>
-	  Das Thin Client-Image muss nun vom Univention-Server geladen werden, es ist ca. 300 MB groß,
+	  Das Thin Client-Image muss nun vom Fileserver von Univention heruntergeladen werden, es ist ca. 300 MB groß,
 	  der Download kann also einige Zeit in Anspruch nehmen. Dazu muss die Option
 	  <guimenu>Herunterladen des UCC Thin-Client-Images</guimenu> aktiviert werden und auf
 	  <guimenu>Weiter</guimenu> geklickt werden. Nach dem Download wird das Thin-Client-Image
@@ -219,7 +219,7 @@
 
 	<para>
 	  Neben dem hier beschriebenen Zugriff über RDP kann auch der Zugriff auf Citrix Terminal
-	  Services oder eine Webseite konfiguriert werden. Dies ist im UCC-Handbuch dokumentiert 
+	  Services oder eine Webseite konfiguriert werden. Dies ist im UCC-Handbuch dokumentiert
 	  <biblioref linkend="ucc-manual-citrix"/>, <biblioref linkend="ucc-manual-firefox"/>.
 	</para>
 
@@ -230,10 +230,10 @@
 	</para>
 
 	<para>
-	  Nach einem Klick auf <guimenu>Weiter</guimenu> werden die konfigurierten Einstellungen noch 
-	  einmal angezeigt. Mit einem Klick auf <guimenu>Einstellungen anwenden</guimenu> werden diese 
-	  umgesetzt. Dabei wird das UCC-Image heruntergeladen und entpackt und verschiedene 
-	  Univention Configuration Registry-Richtlinien werden vorkonfiguriert. 
+	  Nach einem Klick auf <guimenu>Weiter</guimenu> werden die konfigurierten Einstellungen noch
+	  einmal angezeigt. Mit einem Klick auf <guimenu>Einstellungen anwenden</guimenu> werden diese
+	  umgesetzt. Dabei wird das UCC-Image heruntergeladen und entpackt und verschiedene
+	  Univention Configuration Registry-Richtlinien werden vorkonfiguriert.
 	</para>
   </section>
 
@@ -243,7 +243,7 @@
 	<para>
 	  Nun muss das Rechnermodul der UMC geöffnet werden und auf <guimenu>Hinzufügen</guimenu>
 	  geklickt werden. Als <guimenu>Container</guimenu> muss
-	  <emphasis>computers/ucc-thinclients</emphasis> ausgewählt werden (mit diesem Container sind
+	  <uri>computers/ucc-thinclients</uri> ausgewählt werden (mit diesem Container sind
 	  Richtlinien verknüpft, die im UCC-Wizard konfiguriert wurden) und als <guimenu>Typ</guimenu>
 	  <emphasis>Rechner: Univention Corporate Client</emphasis>. Danach muss auf
 	  <guimenu>Weiter</guimenu> geklickt werden.
@@ -260,7 +260,7 @@
 	<para>
 	  Als <guimenu>Startvariante</guimenu> wird <emphasis>Installation: Neupartitionierung und
 	  Image-Rollout</emphasis> gewählt und als <guimenu>Image</guimenu> das heruntergeladene Thin
-	  Client-Image (<emphasis>ucc-2.0-thinclient-image.img</emphasis>). Abschließend muss auf 
+	  Client-Image (<filename>ucc-2.0-thinclient-image.img</filename>). Abschließend muss auf
  	 <guimenu>Rechner anlegen</guimenu> geklickt werden.
 	</para>
 
@@ -279,17 +279,17 @@
 	<para>
 	  Im Anmeldemanager LightDM muss nun die Sitzung <guimenu>RDP</guimenu> ausgewählt werden. Jetzt kann eine
 	  Anmeldung mit dem in der UMC angelegten Benutzer erfolgen. Es wird dann automatisch eine
-	  Verbindung zum Windows-Terminalserver aufgebaut auf dem dann der Login durchgeführt wird. 
+	  Verbindung zum Windows-Terminalserver aufgebaut auf dem dann der Login durchgeführt wird.
 	</para>
   </section>
 </chapter>
 
 <chapter id="uccquickstart:desktop">
   <title>Konfiguration von Linux-Desktopsystemen</title>
-	
+
   <section id="uccquickstart:desktop:setup">
 	<title>Einrichtung</title>
-	
+
 	<para>
 	  Hierfür muss das UMC-Modul <guimenu>UCC Einrichtung</guimenu> aufgerufen werden. Im ersten
 	  Menüpunkt kann ausgewählt werden, ob Desktops und/oder Thin Clients eingerichtet werden
@@ -305,7 +305,7 @@
 	</para>
 
 	<para>
-	  Das Desktop-Image muss nun vom Univention-Server geladen werden, es ist ca. 1 GB groß, der
+	  Das Desktop-Image muss nun vom Fileserver von Univention heruntergeladen werden, es ist ca. 1 GB groß, der
 	  Download kann also einige Zeit in Anspruch nehmen. Dazu muss die Option <guimenu>Herunterladen
 	  des UCC-Desktop-Images</guimenu> aktiviert werden und auf <guimenu>Weiter</guimenu> geklickt
 	  werden. Nach dem Download wird das Desktop-Image entpackt. Das UCS System sollte dazu über
@@ -332,7 +332,7 @@
 	  Anschließend werden die konfigurierten Einstellungen noch einmal angezeigt. Mit einem Klick
 	  auf <guimenu>Einstellungen anwenden</guimenu> werden diese umgesetzt. Dabei wird das UCC-Image
 	  heruntergeladen und entpackt und verschiedene Univention Configuration Registry-Richtlinien
-	  werden vorkonfiguriert. 
+	  werden vorkonfiguriert.
 	</para>
   </section>
 
@@ -342,7 +342,7 @@
 	<para>
 	  Nun muss das Rechnermodul der UMC geöffnet werden und auf <guimenu>Hinzufügen</guimenu>
 	  geklickt werden. Als <guimenu>Container</guimenu> muss
-	  <emphasis>computers/ucc-desktops</emphasis> ausgewählt werden (mit diesem Container sind
+	  <uri>computers/ucc-desktops</uri> ausgewählt werden (mit diesem Container sind
 	  Richtlinien verknüpft, die im UCC-Wizard konfiguriert wurden) und als <guimenu>Typ</guimenu>
 	  <emphasis>Rechner: Univention Corporate Client</emphasis>. Danach muss auf
 	  <guimenu>Weiter</guimenu> geklickt werden.
@@ -359,7 +359,7 @@
 	<para>
 	  Als <guimenu>Startvariante</guimenu> wird <emphasis>Installation: Neupartitionierung und
 	  Image-Rollout</emphasis> gewählt und als <guimenu>Image</guimenu> das heruntergeladene
-	  Desktop-Image (<emphasis>ucc-2.0-desktop-image.img</emphasis>).
+	  Desktop-Image (<filename>ucc-2.0-desktop-image.img</filename>).
 	  Abschließend muss auf <guimenu>Rechner anlegen</guimenu> geklickt werden.
 	</para>
 
@@ -378,15 +378,10 @@
 	<para>
 	  Im Anmeldemanager LightDM muss nun die Sitzung <guimenu>UCC</guimenu> ausgewählt werden. Jetzt
 	  kann eine Anmeldung mit dem in der UMC angelegten Benutzer erfolgen. Der Benutzer kann dann
-	  mit einem KDE-Plasma-Desktop arbeiten. 
+	  mit einem KDE-Plasma-Desktop arbeiten.
 	</para>
   </section>
 </chapter>
-
-
-
-
-  
 
 <bibliography id="relnotes:bibliography">
   <bibliomixed id="ucc-manual"/>
@@ -394,9 +389,6 @@
   <bibliomixed id="ucc-manual-citrix"/>
   <bibliomixed id="ucc-manual-firefox"/>
   <bibliomixed id="ucc-manual-automaticrollout"/>
-  <bibliomixed id=""/>
-
-
 </bibliography>
 
 <?dbhtml-include href="../stylesheets/piwik.html"?>
