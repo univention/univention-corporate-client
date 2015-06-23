@@ -412,16 +412,24 @@ must be created as a <classname>dword</classname>, named <property>FlashPlayerVe
   </para>
 </section>
 
-<section id="terminalservices:hdxplayback">
+<section id="terminalservices:citrix:hdxplayback">
   <title>Windows Media HDX playback</title>
   <para>
-    To enable Citrix Windows Media HDX playback on the client the following packages have to
+    To enable Citrix Windows Media HDX playback on the client the following packages have to be
     installed on the UCC client: <package>gstreamer0.10-plugins-ugly</package>, <package>gstreamer0.10-plugins-good</package>,
     <package>gstreamer0.10-plugins-bad</package>, <package>gstreamer0.10-alsa</package>, <package>gstreamer0.10-fluendo-mp3</package>,
     <package>gstreamer0.10-ffmpeg</package> and <package>gstreamer0.10-x</package>.
   </para>
 </section>
 
+<section id="terminalservices:citrix:servergraphicsettings">
+  <title>Possible graphical glitches with Citrix Receiver</title>
+  <para>
+    Some thinclients show graphical glitches when using XenApp. In this case a Citrix XenApp policy 
+    to enable legacy graphics mode has to be configured. More information about the different graphic modes 
+    can be found at <ulink url="http://blogs.citrix.com/2014/10/22/whats-new-with-hdx-display-in-xendesktop-xenapp-7-x/"/>.
+  </para>
+</section>
 
 
 </section>
