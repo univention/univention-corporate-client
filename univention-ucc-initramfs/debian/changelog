@@ -1,3 +1,10 @@
+univention-ucc-initramfs (4.0.0-1) unstable; urgency=medium
+
+  * Version bump for UCC 2.1
+  * Bug #31384: Add hook directories to initramfs script
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 02 Jul 2015 13:46:01 +0200
+
 univention-ucc-initramfs (3.0.2-3) unstable; urgency=low
 
   * Bug #35363: Add new directory /usr/lib/univention-run-parts-initramfs,

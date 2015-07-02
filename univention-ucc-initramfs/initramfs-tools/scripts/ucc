@@ -1522,6 +1522,31 @@ check_parameter ()
 	done
 }
 
+run_parts_in ()
+{
+	local dir="$1"
+	mounted="$2"
+	_verbose_break
+	if [ -n "$mounted" ]; then
+		chroot /root run-parts "$dir"
+		_verbose_break
+		return 0
+	else
+		mkdir -p /ucc_tmp/root
+		_mount_local_root_device
+		if [ -n "$dir" ]; then
+			_umount_image
+			if _mount_image; then
+				debug "Run hook scripts in $dir"
+				chroot /root run-parts "$dir"
+				_verbose_break
+				_umount_image
+			fi
+		fi
+		umount /ucc_tmp/root
+	fi
+}
+
 mountroot()
 {
 	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-top"
@@ -1571,9 +1596,8 @@ mountroot()
 				fi
 				chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script
 				chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_nfs_mount_script >/tmp/nfs_mount_script
-				# Place scripts that should modify the image in the directory /usr/lib/univention-run-parts-initramfs
-				chroot /root run-parts /usr/lib/univention-run-parts-initramfs
-				_verbose_break
+				# Place scripts that should modify the image in the directory /usr/lib/univention-initramfs-localboot
+				run_parts_in "/usr/lib/univention-initramfs-localboot"
 			fi
 			
 			_umount_image
@@ -1586,7 +1610,7 @@ mountroot()
 		remote_logging
 	fi
 
-	_verbose_break
+	run_parts_in "/usr/lib/univention-initramfs-pre-boot-option-check"
 
 	# INSTALLATION
 	if [ "$REPARTITION" = "y" ]; then
@@ -1616,6 +1640,8 @@ mountroot()
 		notice "Starting UCC local mode"
 		ucc_image_local
 	fi
+
+	run_parts_in "/usr/lib/univention-initramfs-post-boot-option-check" "mounted"
 
 	# mount the image ro if requested
 	if [ "$UCC" != "overlayfs" ]; then
