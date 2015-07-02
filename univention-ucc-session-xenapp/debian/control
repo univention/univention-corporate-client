@@ -37,7 +37,6 @@ Depends: ${misc:Depends},
  devilspie,
  libcurl3,
  univention-ucc-firefox-config
-
 Description: Integration package for XenApp terminal services
  This package installs the required packages to allow
  UCC systems to access terminal services.
