@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-MAIN := release-notes-ucc-2.0 
+MAIN := release-notes-ucc-2.1 
 STYLESHEET := univention_extdocs
 OPTIONS += --stringparam ulink.show 0
 

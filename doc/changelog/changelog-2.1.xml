@@ -1,0 +1,149 @@
+<section>
+  <title>General</title>
+  <itemizedlist>
+    <listitem><simpara>
+      ...        
+    </simpara></listitem>
+  </itemizedlist>
+</section>
+
+<section>
+  <title>System boot / initial ramdisk</title>
+  <itemizedlist>
+    <listitem><simpara>
+      ...
+    </simpara></listitem>
+  </itemizedlist>
+</section>
+
+<section>
+  <title>Image rollouts and image updates</title>
+  <itemizedlist>
+    <listitem><simpara>
+      ...
+    </simpara></listitem>
+  </itemizedlist>
+</section>
+
+<section>
+  <title>Image build and image management</title>
+  <itemizedlist>
+    <listitem><simpara>
+      ...
+    </simpara></listitem>
+  </itemizedlist>
+</section>
+
+<section>
+  <title>UCS domain integration</title>
+  <section>
+    <title>Domains joins of UCC clients</title>
+    <itemizedlist>
+      <listitem><simpara>
+        ...
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
+  <section>
+    <title>&ucsUMC; integration</title>
+    <itemizedlist>
+      <listitem><simpara>
+        ...
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
+  <section>
+    <title>PXE service</title>
+    <itemizedlist>
+      <listitem><simpara>
+        ...
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
+</section>
+
+<section>
+  <title>UCC standard images</title>
+  <section>
+  <title>UCC desktop image</title>
+    <itemizedlist>
+      <listitem><simpara>
+        ...
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
+  <section>
+    <title>UCC thin client image</title>
+    <itemizedlist>
+      <listitem><simpara>
+        ...
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
+</section>
+
+<section>
+  <title>User logins</title>
+  <itemizedlist>
+    <listitem><simpara>
+      ...
+    </simpara></listitem>
+  </itemizedlist>
+</section>
+
+<section>
+  <title>Terminal sessions</title>
+  <section>
+    <title>Citrix XenApp</title>
+    <itemizedlist>
+      <listitem><simpara>
+        Dependencies to software packages to enable "Windows Media HDX playback" have been added to
+        the package <package>univention-ucc-session-xenapp</package>
+        (<ulink url="&ucsbug;38741">Bug 38741</ulink>).
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
+  <section>
+  <title>RDP</title>
+    <itemizedlist>
+      <listitem><simpara>
+        ...
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
+  <section>
+    <title>XRDP</title>
+    <itemizedlist>
+      <listitem><simpara>
+        ...
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
+</section>
+
+<section>
+  <title>Hardware support</title>
+  <itemizedlist>
+    <listitem><simpara>
+      ...
+    </simpara></listitem>
+  </itemizedlist>
+</section>
+
+<section>
+  <title>System services</title>
+  <itemizedlist>
+    <listitem><simpara>
+      ...
+    </simpara></listitem>
+  </itemizedlist>
+</section>
+
+<section>
+  <title>Client management</title>
+  <itemizedlist>
+    <listitem><simpara>
+      ...
+    </simpara></listitem>
+  </itemizedlist>
+</section>
