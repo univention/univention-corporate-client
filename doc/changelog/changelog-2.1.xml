@@ -9,11 +9,12 @@
 
 <section>
   <title>System boot / initial ramdisk</title>
-  <itemizedlist>
-    <listitem><simpara>
-      ...
-    </simpara></listitem>
-  </itemizedlist>
+    <itemizedlist>
+      <listitem><simpara>
+	Hook directories have been added which make it possible to place arbitrary 
+	scripts in a UCC image which will be executed by the initramfs (<ulink url="&ucsbug;31384">Bug 31384</ulink>).
+      </simpara></listitem>
+    </itemizedlist>
 </section>
 
 <section>
