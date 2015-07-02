@@ -1,3 +1,10 @@
+univention-ucc-session-xenapp (3.0.0-1) unstable; urgency=low
+
+  * Bug #38741: added some more gstreamer plugin dependencies
+    to enable Windows Media HDX playback
+
+ -- Felix Botner <botner@univention.de>  Thu, 02 Jul 2015 10:18:06 +0200
+
 univention-ucc-session-xenapp (2.0.0-11) unstable; urgency=low
 
   * Bug #29853: revert last change 
