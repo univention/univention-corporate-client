@@ -1,0 +1,23 @@
+univention-ucc-firefox-config (2.0.0-1) unstable; urgency=low
+
+  * UCC 2.1 (Bug #38741)
+
+ -- Felix Botner <botner@univention.de>  Thu, 02 Jul 2015 12:18:48 +0200
+
+univention-ucc-firefox-config (1.0.0-2) unstable; urgency=low
+
+  * fixed path (Bug #37774) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 17 Jun 2015 09:57:12 +0200
+
+univention-ucc-firefox-config (1.0.0-1) unstable; urgency=low
+
+  * copied from customer scope (Bug #37774) 
+
+ -- Felix Botner <botner@univention.de>  Wed, 17 Jun 2015 09:44:02 +0200
+
+univention-ucc-firefox-config (0.1.0-1) unstable; urgency=low
+
+  * Initial release - Issue #1758
+
+ -- Michael Grandjean <grandjean@univention.de>  Tue, 16 Jun 2015 11:46:10 +0200

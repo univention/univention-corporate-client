@@ -1,0 +1,2 @@
+70-ucc-raw-printers.rules lib/udev/rules.d/
+univention-uev-usb-raw-printer lib/udev/

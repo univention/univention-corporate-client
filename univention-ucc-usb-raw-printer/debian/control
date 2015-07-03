@@ -1,0 +1,14 @@
+Source: univention-ucc-usb-raw-printer
+Section: univention
+Priority: optional
+Maintainer: Univention GmbH <packages@univention.de>
+Build-Depends: debhelper (>= 8.0.0), ucslint, univention-config-dev
+Standards-Version: 3.9.4
+Homepage: http://www.univention.de/
+
+Package: univention-ucc-usb-raw-printer
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, cups, udev
+Description: manage usb printers as raw cups printers
+ Add usb printer as raw printer to cups, or remove
+ the printer

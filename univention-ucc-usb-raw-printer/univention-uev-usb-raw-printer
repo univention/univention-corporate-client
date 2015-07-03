@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# Univention Corporate Client
+#
+# Add USB printers to cups as raw printers
+#
+# Copyright (C) 2015 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# The source code of this program is made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this program provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use this program under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+
+name="${ID_VENDOR}_${ID_MODEL}"
+log="$(basename "$0")"
+if [ -z "$name" ]; then
+	name="${ID_SERIAL}"
+fi
+logger "$log: usb printer '$name' - ${ACTION}"
+
+if [ "${ACTION}" = "add" ]; then
+	uri="$(lpinfo -v --timeout=3 | grep "usb://.*serial=${ID_SERIAL_SHORT}" | sed -e 's/^direct //')"
+	if [ -n "$name" -a -n "$uri" ]; then
+		if ! lpstat -v | grep -q "$uri"; then
+			echo "$log: adding usb printer $name with uri $uri" | logger
+			lpadmin -p "$name" -v "$uri" 2>&1 | logger
+			cupsaccept "$name" 2>&1 | logger
+			cupsenable "$name" 2>&1 | logger
+		fi
+	fi
+elif [ "${ACTION}" = "remove" ]; then
+	if [ -n "$name" ]; then
+		if lpstat -v | grep -q "$name.*usb://"; then
+			echo "$log: removing usb printer $name" | logger
+			lpadmin -x "$name" 2>&1 | logger
+		fi
+	fi
+fi
