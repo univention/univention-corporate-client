@@ -30,7 +30,9 @@
   <title>Image build and image management</title>
   <itemizedlist>
     <listitem><simpara>
-      ...
+      The <command>ucc-image-add-citrix-receiver</command> script now cleans
+      out the local repository of retrieved package files
+      (<ulink url="&ucsbug;38741">Bug 38741</ulink>).
     </simpara></listitem>
   </itemizedlist>
 </section>
