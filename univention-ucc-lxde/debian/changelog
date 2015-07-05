@@ -1,3 +1,9 @@
+univention-ucc-lxde (3.0.0-1) unstable; urgency=medium
+
+  * Bump version for UCC 2.1 rebuild (Bug #38772)
+
+ -- Erik Damrose <damrose@univention.de>  Sun, 05 Jul 2015 20:26:28 +0200
+
 univention-ucc-lxde (2.0.0-1) unstable; urgency=low
 
   * Bump version for UCC 2.0, update copyright  (Bug #34310)

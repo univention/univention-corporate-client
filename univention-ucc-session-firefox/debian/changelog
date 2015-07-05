@@ -1,3 +1,9 @@
+univention-ucc-session-firefox (4.0.0-1) unstable; urgency=medium
+
+  * Bump version for UCC 2.1 rebuild (Bug #38772)
+
+ -- Erik Damrose <damrose@univention.de>  Sun, 05 Jul 2015 20:28:03 +0200
+
 univention-ucc-session-firefox (3.0.0-1) unstable; urgency=low
 
   * Bump version, this was incorrectly already imported in a customer scope (Bug #34310)

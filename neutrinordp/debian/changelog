@@ -1,3 +1,9 @@
+neutrinordp (1.1.0.20140505-3) unstable; urgency=medium
+
+  * Bump version for UCC 2.1 rebuild (Bug #38772) 
+
+ -- Erik Damrose <damrose@univention.de>  Sun, 05 Jul 2015 20:20:52 +0200
+
 neutrinordp (1.1.0.20140505-2) unstable; urgency=low
 
   * Add dependencies on plugin packages (Bug #34274)

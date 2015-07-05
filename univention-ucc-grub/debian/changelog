@@ -1,3 +1,9 @@
+univention-ucc-grub (3.0.0-1) unstable; urgency=medium
+
+  * Bump version for UCC 2.1 rebuild (Bug #38772)
+
+ -- Erik Damrose <damrose@univention.de>  Sun, 05 Jul 2015 20:24:47 +0200
+
 univention-ucc-grub (2.0.0-2) unstable; urgency=low
 
   * fixed etc/grub.d/15_ucc (Bug #32631) 

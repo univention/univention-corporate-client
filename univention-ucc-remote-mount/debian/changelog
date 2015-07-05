@@ -1,3 +1,9 @@
+univention-ucc-remote-mount (3.0.0-1) unstable; urgency=medium
+
+  * Bump version for UCC 2.1 rebuild (Bug #38772)
+
+ -- Erik Damrose <damrose@univention.de>  Sun, 05 Jul 2015 20:27:28 +0200
+
 univention-ucc-remote-mount (2.0.1-8) unstable; urgency=low
 
   * Add variable description for ucc/mount/fullpartition (Bug #36717)

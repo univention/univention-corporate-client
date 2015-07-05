@@ -1,3 +1,9 @@
+univention-ucc-i18n (2.0.0-1) unstable; urgency=medium
+
+  * Bump version for UCC 2.1 rebuild (Bug #38772)
+
+ -- Erik Damrose <damrose@univention.de>  Sun, 05 Jul 2015 20:25:08 +0200
+
 univention-ucc-i18n (1.0-2) unstable; urgency=low
 
   * The recent trusty-updates update for language-pack-*-base dropped the Recommends

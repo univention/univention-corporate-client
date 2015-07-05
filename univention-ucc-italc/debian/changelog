@@ -1,3 +1,9 @@
+univention-ucc-italc (2:3.0.0-1) unstable; urgency=medium
+
+  * Bump version for UCC 2.1 rebuild (Bug #38772)
+
+ -- Erik Damrose <damrose@univention.de>  Sun, 05 Jul 2015 20:25:53 +0200
+
 univention-ucc-italc (2:2.0.0-6) unstable; urgency=low
 
   * Fix patch 008_return_correct_user_fullname.patch to return full username
