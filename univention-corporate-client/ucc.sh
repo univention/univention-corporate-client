@@ -1,6 +1,6 @@
 # Univention Common Shell Library for UCC
 #
-# Copyright 2013-2014 Univention GmbH
+# Copyright 2013-2015 Univention GmbH
 #
 # http://www.univention.de/
 #

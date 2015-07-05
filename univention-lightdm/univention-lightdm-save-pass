@@ -4,7 +4,7 @@
 #  helper script to dump password information into /tmp
 #  This prevents duplicated password entry when logging in via RDP
 #
-# Copyright (C) 2012-2014 Univention GmbH
+# Copyright (C) 2012-2015 Univention GmbH
 #
 # http://www.univention.de/
 #

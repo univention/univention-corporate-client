@@ -4,7 +4,7 @@
 # Add a wrapper around wfica so that we can pass additional options to the 
 # XenApp client when started through the browser session
 #
-# Copyright (C) 2012-2014 Univention GmbH
+# Copyright (C) 2012-2015 Univention GmbH
 #
 # http://www.univention.de/
 #
