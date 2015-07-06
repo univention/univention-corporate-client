@@ -51,7 +51,9 @@
     <title>&ucsUMC; integration</title>
     <itemizedlist>
       <listitem><simpara>
-        ...
+        The UCC hardware settings policy tooltip has been adapted to use the
+        correct xrandr parameter for querying the display devices
+        (<ulink url="&ucsbug;38678">Bug 38678</ulink>).
       </simpara></listitem>
     </itemizedlist>
   </section>
