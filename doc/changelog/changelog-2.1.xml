@@ -70,6 +70,15 @@
 <section>
   <title>UCC standard images</title>
   <section>
+  <title>General</title>
+    <itemizedlist>
+      <listitem><simpara>
+        Desktop and Thinclient image use a newer kernel (3.16) and xserver-core (1.16) version from ubuntu utopic
+	(<ulink url="&ucsbug;37970">Bug 37970</ulink>).
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
+  <section>
   <title>UCC desktop image</title>
     <itemizedlist>
       <listitem><simpara>

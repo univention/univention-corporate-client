@@ -16,7 +16,7 @@
         <revhistory>
             <revision>
                 <revnumber>2.1</revnumber>
-                <date>30 Apr 2014</date>
+                <date>21 Jul 2015</date>
             </revision>
         </revhistory>
 
@@ -26,7 +26,7 @@
 		  </para>
 
 		  <para>
-			(c) 2012 bis 2014 Univention GmbH
+			(c) 2012 bis 2015 Univention GmbH
 		  </para>
 
 		  <para>
@@ -56,71 +56,28 @@
 	  <title>Release highlights</title>
 
 		<para>
-		  With Univention Corporate Client 2.0 the first major release update of Univention Corporate
+		  With Univention Corporate Client 2.1 the first minor release update of Univention Corporate
 		  Client (UCC) is now available. It provides several improvements and bugfixes:
 		</para>
 
 		<itemizedlist>
 		  <listitem><para>
-			The underlying Ubuntu base has been updated to Kubuntu 14.04. Consequently, a great deal
-			of software components have been renewed: KDE 4.13, Linux kernel 3.13, Libreoffice
-			4.2.3, Xorg 15. All the Univention packages imported from UCS have been updated to the
-			version of UCS 3.2-2.
+			UCC is now Citrix Ready certified.
+			This allows us to provide the Citrix Receiver with UCC thinclient images.
+			The UCC setup wizard still allows the manual installation of specific Citrix Receiver versions.
 		  </para></listitem>
 
 		  <listitem><para>
-			The initial configuration of Univention Corporate Client is now performed via a wizard
-			in the &ucsUMC;. This considerably simplifies the initial setup. In addition, the UCC images
-			can now be administrated in their own UMC module.
+			Support for UCC Image site servers has been added.
+			UCC computer objects can now be configured to use a specific server to download UCC Images from.
 		  </para></listitem>
 
 		  <listitem><para>
-			Support for operating xrdp terminal services has been integrated: A KDE Linux desktop is provided via the RDP
-			protocol. In addition to access from UCC thin clients, this also allows access from
-			Windows or MacOS X computers. The RDP access is very bandwidth efficient.
+			UCC 2.1 images use the newer linux kernel and xserver version from ubuntu utopic by default.
+			UCC 2.1 is still based on Ubuntu 14.04 and will receive its software and security updates.
 		  </para></listitem>
 
-		  <listitem><para>
-			For licensing reasons, it is not possible to distribute the Citrix Receiver with
-			UCC. The installation is now integrated in the &ucsUMC; setup wizard, reducing the installation
-			efforts to just a few clicks.
-		  </para></listitem>
-			
-		  <listitem><para>
-			A great number of improvements have been made to the UCC image build system, and as such
-			the generated images are now smaller in size, among other things. 
-		  </para></listitem>
-
-		  <listitem><para>
-			UCC now also supports the rollout of systems in the UEFI boot standard.
-		  </para></listitem>
-
-		  <listitem><para>
-			The operation of UCC systems with an encrypted hard drive has been considerably
-			facilitated; the corresponding option can now be configured easily in the &ucsUMC;.
-		  </para></listitem>
-
-		  <listitem><para>
-			UCC systems can now be configured to avoid PXE boots and start directly from their local
-			storage. This reduces the bootup time.
-		  </para></listitem>
-
-		  <listitem><para>
-			The configuration of UCC systems has been simplified; print servers, CIFS home shares
-			and proxy settings can now be centrally configured through policies.
-		  </para></listitem>
-
-		  <listitem><para>
-			UCC now uses NeutrinoRDP as its standard RDP client. Among other things, this offers
-			support for multi-monitor operation.
-		  </para></listitem>
-
-		  <listitem><para>
-			A whole range of bug fixes and smaller improvements have been integrated. UCC can now
-			also be monitored with Nagios, for example.
-		  </para></listitem>
 		</itemizedlist>
-
     </chapter>
 
     <!-- <chapter id="relnotes:prepare"> -->
@@ -137,7 +94,7 @@
 	<!-- </chapter> -->
 
     <chapter>
-	  <title>Postprocessing of the update</title>
+	  <title>Postprocessing of the installation</title>
 	  <para>
 		UCS installations, in which the &ucsMaster; was installed in a release older than 2.3 still
 		use MD5 as the hashing algorithm for the SSL certificates. Later releases use SHA1 as the
@@ -149,7 +106,13 @@
 
     <chapter>
 	  <title>Notes on selected packages</title>
-
+	  <section>
+		  <title>Announcing discontinuation of XRDP terminal services for UCC 3</title>
+		  <para>
+			With the release of Univention Corporate Client 2.1 Univention announces the discontinuation of XRDP terminal services on UCC for the next major release UCC 3.0.
+			This does not affect functionality and support for XRDP UCC terminal services on UCC 2.
+		  </para>
+	  </section>
 	  <section>
 		<title>User switches using <command>su</command></title>
 		<para>
@@ -165,15 +128,6 @@ $ su testuser
 
 		  More information can be found at <ulink url="&ucsbug;30243">Bug 30243</ulink>.
 		</para>
-	  </section>
-
-	  <section>
-	  	<title>Terminal services based on X11 forwarding</title>
-	  	<para>
-		  Terminal services based on X11 forwarding are no longer supported. The corresponding
-		  &ucsUMC; policy still exists, but is now only used by UCC 1.0 systems. This policy will be
-		  removed in a subsequent UCC version.
-	  	</para>
 	  </section>
 
 	  <section>
