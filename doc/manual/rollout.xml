@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+	  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+	<!ENTITY % extensions SYSTEM "../stylesheets/macros.ent" >
+	<!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+	%extensions;
+	%entities;
+]>
 <chapter id="rollout:chapter">
   <title>Rollout of UCC systems</title>
 
@@ -28,7 +36,7 @@
 </para>
 
 <figure id="assign-image"><title>Assigning the desktop image to a UCC client</title>
- <graphic scalefit="1" width="60%" fileref="illustrations/ucc-assign-image.png"/>
+ <graphic scalefit="1" width="60%" fileref="illustrations40/ucc-assign-image.png"/>
  </figure>
 
 <para>
@@ -123,7 +131,7 @@
   used to add arbitrary parameters to the initial RAM disk, which performs
   the installation/rollout. These preconfigured options exist:
 </para>
-<variablelist>>
+<variablelist>
 	<varlistentry>
 		<term><option>debugshell=y</option></term>
 		<listitem><simpara>
@@ -232,11 +240,11 @@
 
 
 <section id="rollout:iso">
-<title>Rollouts using an ISO image</title>
+<title>Roll-outs using an ISO image</title>
 <para>
   While the standard rollout mechanism for UCC systems is PXE-based,
   it is also possible to perform installations using ISO images, which
-  can be written to USB sticks, DVDs or BluRays.
+  can be written to USB sticks, DVDs or Blu-ray disks.
 </para>
 <para>
   The images are available at

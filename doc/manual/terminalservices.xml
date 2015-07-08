@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+	  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+	<!ENTITY % extensions SYSTEM "../stylesheets/macros.ent" >
+	<!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+	%extensions;
+	%entities;
+]>
 <chapter id="terminalservices:chapter">
   <title>Terminal services with UCC</title>
 
@@ -115,7 +123,7 @@
 	</para>
 
 	<para>
-	  The RDP client Remmina is provided as a client with which an RDP connection can be
+		The RDP client <application>Remmina</application> is provided as a client with which an RDP connection can be
 	  configured and started on the desktop.
 	</para>
 
@@ -425,8 +433,8 @@ must be created as a <classname>dword</classname>, named <property>FlashPlayerVe
 <section id="terminalservices:citrix:servergraphicsettings">
   <title>Possible graphical glitches with Citrix Receiver</title>
   <para>
-    Some thinclients show graphical glitches when using XenApp. In this case a Citrix XenApp policy 
-    to enable legacy graphics mode has to be configured. More information about the different graphic modes 
+    Some thin-clients show graphical glitches when using XenApp. In this case a Citrix XenApp policy
+    to enable legacy graphics mode has to be configured. More information about the different graphic modes
     can be found at <ulink url="http://blogs.citrix.com/2014/10/22/whats-new-with-hdx-display-in-xendesktop-xenapp-7-x/"/>.
   </para>
 </section>

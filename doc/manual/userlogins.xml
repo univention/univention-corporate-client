@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+	  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+	<!ENTITY % extensions SYSTEM "../stylesheets/macros.ent" >
+	<!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+	%extensions;
+	%entities;
+]>
 <chapter id="logins:chapter">
   <title>User logins</title>
   <section id="logins:lightdm">
@@ -18,7 +26,7 @@
 	  </para>
 
 	  <figure id="lightdm"><title>User login at LightDM</title>
-	  <graphic scalefit="1" width="80%" fileref="illustrations/ucc-lightdm.png"/>
+	  <graphic scalefit="1" width="80%" fileref="illustrations40/ucc-lightdm.png"/>
 	  </figure>
 
 	  <para>
@@ -39,7 +47,7 @@
 	  </para>
 
 	  <figure id="session-selection"><title>Session selection at LightDM</title>
-	  <graphic scalefit="1" width="40%" fileref="illustrations/ucc-session-selection.png"/>
+	  <graphic scalefit="1" width="40%" fileref="illustrations40/ucc-session-selection.png"/>
 	  </figure>
 
 	  <para>
@@ -99,7 +107,7 @@
 	  <para>
 		By default a temporary guest user is used for the automatic login. Alternatively, the
 		&ucsUCRV; <envar>lightdm/autologin/user</envar> allows the configuration of the user under
-		which the automatic login should occur. 
+		which the automatic login should occur.
 	  </para>
 
 	  <para>

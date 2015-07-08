@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+	  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+	<!ENTITY % extensions SYSTEM "../stylesheets/macros.ent" >
+	<!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+	%extensions;
+	%entities;
+]>
 <chapter id="config:chapter">
   <title>Configuration of UCC systems</title>
   <section id="config:ucr">
@@ -42,7 +50,7 @@
 	</para>
 
 	<figure id="ucr-policy"><title>Configuring UCR values through a policy</title>
-	<graphic scalefit="1" width="60%" fileref="illustrations/ucc-ucr-policy.png"/>
+	<graphic scalefit="1" width="60%" fileref="illustrations40/ucc-ucr-policy.png"/>
 	</figure>
 
 	<para>
@@ -93,7 +101,7 @@ cron/COMMAND1/time=@reboot
 	</para>
 
 	<figure id="software-policy"><title>Installing additional software through a software update policy</title>
-	<graphic scalefit="1" width="60%" fileref="illustrations/ucc-software-policy.png"/>
+	<graphic scalefit="1" width="60%" fileref="illustrations40/ucc-software-policy.png"/>
 	</figure>
 
 	<para>
@@ -173,7 +181,7 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 
 	  <figure id="apt-policy">
 		<title>Example UCR policy for configuring an apt source</title>
-		<graphic scalefit="1" width="80%" fileref="illustrations/ucc-apt.png"/>
+		<graphic scalefit="1" width="80%" fileref="illustrations40/ucc-apt.png"/>
 	  </figure>
 
 	</para>
@@ -293,7 +301,7 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 	<para>
 	  The log files are stored in the <filename class="directory">/var/log/univention/ucc-clients/</filename>
 	  directory. A separate log file is maintained for each client. The log files are also rotated
-	  with Logrotate, e.g., <filename>syslog-client01.log</filename>,
+	  with <application>Logrotate</application>, e.g., <filename>syslog-client01.log</filename>,
 	  <filename>syslog-client01.log.1</filename>, etc.
 	</para>
 

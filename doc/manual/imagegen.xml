@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+	  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+	<!ENTITY % extensions SYSTEM "../stylesheets/macros.ent" >
+	<!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+	%extensions;
+	%entities;
+]>
 <chapter id="imagegen:chapter">
 <title>Generation of adapted UCC images</title>
 <section id="imagegen:toolkit">
@@ -102,13 +110,13 @@
 
 	  <listitem><simpara><property>mirror</property>: Configures the mirror from which the Ubuntu
 	  packages are downloaded. We advise against using a standard Ubuntu mirror; some packages are
-	  built with patches in UCC. When a non-Univention mirror is used, it is not possible to
+	  built with patches in UCC. When a non Univention mirror is used, it is not possible to
 	  guarantee that these packages will be updated when Ubuntu packages are updated.
-	  </simpara></listitem>.
+	  </simpara></listitem>
 
 	  <listitem><simpara><property>updates</property>, <property>security</property>,
 	  <property>backports</property>: Here, <literal>true</literal>/<literal>false</literal> can be used to specify
-	  whether, in addition to the standard release, updated bugfix
+	  whether, in addition to the standard release, updated bug fix
 	  packages (updates), security updates or back-ports should also be
 	  integrated into the image.</simpara></listitem>
 
@@ -120,7 +128,7 @@
 	  here. Additional sources can also be added for an installed client via &ucsUCR;(see <xref
 	  linkend="config:softwareupdates"/>). This parameter is required for
 	  integrating apt sources as early as during the image generation.
-	  </simpara></listitem>.
+	  </simpara></listitem>
 
 	  <listitem><simpara><property>packages_no_recommends</property>,
 	  <property>packages</property>: In the Debian package format, packages can
@@ -129,7 +137,7 @@
 	  these options, packages can be specified which should be
 	  installed with or without their recommended packages.
 	  Multiple packages need to be separated by newlines. The following packages are required on
-	  each UCC system as a minimum:
+	  each UCC system as a minimum:</simpara>
 	  <itemizedlist>
 		  <listitem><simpara><package>linux-image-generic</package>: The Linux kernel</simpara></listitem>
 
@@ -139,7 +147,7 @@
 
 		  <listitem><simpara><package>univention-corporate-client</package>: This package integrates the central UCC services</simpara></listitem>
 	  </itemizedlist>
-	  </simpara></listitem>
+	  </listitem>
 
 	  <listitem><simpara>
 		<property>packages_hold</property>: A list separated by newlines of one or more packages which

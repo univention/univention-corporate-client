@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+	  "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+	<!ENTITY % extensions SYSTEM "../stylesheets/macros.ent" >
+	<!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+	%extensions;
+	%entities;
+]>
 <chapter id="hardware:chapter">
   <title>Hardware configuration of UCC systems</title>
 
@@ -35,11 +43,11 @@
 	<title>USB mass storage access on thin clients</title>
 	<para>
 	  The <package>univention-ucc-remote-mount</package> package installed as standard allows
-	  access to the USB-CD/DVD drives, hard drives and sticks connected to a UCC thin client. If a
+	  access to the USB CD/DVD drives, hard drives and sticks connected to a UCC thin client. If a
 	  USB mass storage device is connected to the client, a local mount is performed via a udev
 	  rule. The terminal service solutions then provide this directory through the terminal
 	  session. The additional component <command>cdpinger</command> is used for the integration of
-	  USB-CDROM/DVDROMs. <systemitem class="Filesystem">VFAT</systemitem>, <systemitem class="Filesystem">NTFS</systemitem> and <systemitem class="Filesystem">ext*</systemitem> file systems are supported.
+	  USB CD-ROM/DVD-ROM. <systemitem class="filesystem">VFAT</systemitem>, <systemitem class="filesystem">NTFS</systemitem> and <systemitem class="filesystem">ext*</systemitem> file systems are supported.
 	</para>
 
 	<para>
@@ -86,7 +94,7 @@
 	<para>
 	  The sound output is activated in UCC clients as standard. Sound is also available in terminal
 	  sessions:
-	  
+
 	  <itemizedlist>
 		<listitem><simpara>
 		  In RDP sessions to Windows terminal servers and XRDP terminal servers, audio is
@@ -127,9 +135,9 @@
 	</para>
 
 	<figure id="hardware-policy"><title>Configuring dual monitor display</title>
-	<graphic scalefit="1" width="60%" fileref="illustrations/ucc-hardware-policy.png"/>
+	<graphic scalefit="1" width="60%" fileref="illustrations40/ucc-hardware-policy.png"/>
 	</figure>
-	
+
 	<para>
 	  Dual-display setups can be configured using a <guimenu>UCC client configuration</guimenu>
 	  computer policy in the UCS management system: This is primarily only relevant for thin
