@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-          "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-
-  <!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
-  <!ENTITY bibliography SYSTEM "../stylesheets/bibliography-en.xml">
-  <!ENTITY changelog SYSTEM "changelog-2.1.xml">
-
-  %entities;
+	"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+	<!ENTITY % extensions SYSTEM "../stylesheets/macros.ent" >
+	<!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+	%extensions;
+	%entities;
 ]>
 <book lang="en" id="releasenotes-ucc-2.1-en">
     <bookinfo>
@@ -16,11 +14,11 @@
         <revhistory>
             <revision>
                 <revnumber>2.1</revnumber>
-                <date>21 Jul 2015</date>
+                <date>21 July 2015</date>
             </revision>
         </revhistory>
 
-		<legalnotice>
+		<legalnotice lang="">
 		  <para>
 			Alle Rechte vorbehalten. / All rights reserved.
 		  </para>
@@ -34,22 +32,21 @@
 		  </para>
 
 		  <para>
-			feedback@univention.de
+			<email>feedback@univention.de</email>
 		  </para>
 
-		  <para>
+		  <para lang="de">
 			Jede aufgeführte Marke und jedes Warenzeichen steht im Eigentum
 			ihrer jeweiligen eingetragenen Rechtsinhaber. Linux ist ein
 			eingetragenes Warenzeichen von Linus Torvalds.
 		  </para>
 
-		  <para>
+		  <para lang="en">
 			The mentioned brand names and registered trademarks are owned by
 			the respective legal owners in each case. Linux is a registered
 			trademark of Linus Torvalds.
 		  </para>
 		</legalnotice>
-
     </bookinfo>
 
     <chapter id="relnotes:highlights">
@@ -63,7 +60,7 @@
 		<itemizedlist>
 		  <listitem><para>
 			UCC is now Citrix Ready certified.
-			This allows us to provide the Citrix Receiver with UCC thinclient images.
+			This allows us to provide the Citrix Receiver with UCC thin client images.
 			The UCC setup wizard still allows the manual installation of specific Citrix Receiver versions.
 		  </para></listitem>
 
@@ -73,7 +70,7 @@
 		  </para></listitem>
 
 		  <listitem><para>
-			UCC 2.1 images use the newer linux kernel and xserver version from ubuntu utopic by default.
+			UCC 2.1 images use the newer Linux kernel and X-server version from Ubuntu <wordasword>Utopic</wordasword> by default.
 			UCC 2.1 is still based on Ubuntu 14.04 and will receive its software and security updates.
 		  </para></listitem>
 
@@ -93,27 +90,27 @@
 	<!-- 	</para> -->
 	<!-- </chapter> -->
 
-    <chapter>
+    <chapter id="relnotes:postprocessing">
 	  <title>Postprocessing of the installation</title>
 	  <para>
 		UCS installations, in which the &ucsMaster; was installed in a release older than 2.3 still
-		use MD5 as the hashing algorithm for the SSL certificates. Later releases use SHA1 as the
+		use MD5 as the hashing algorithm for the SSL certificates. Later releases use SHA-1 as the
 		hashing algorithm. UCC clients cannot join a domain still using MD5 hashes. The necessary
-		steps to migrate a UCS domain from MD5 to SHA1 are documented in the Univention Support
-		Database (<ulink url="http://sdb.univention.de/1150"/>).
+		steps to migrate a UCS domain from MD5 to SHA-1 are documented in the Univention Support
+		Database (<u:sdb>1150</u:sdb>).
 	  </para>
 	</chapter>
 
-    <chapter>
+    <chapter id="relnotes:packages">
 	  <title>Notes on selected packages</title>
-	  <section>
+	  <section id="relnotes:packages:xrdp">
 		  <title>Announcing discontinuation of XRDP terminal services for UCC 3</title>
 		  <para>
 			With the release of Univention Corporate Client 2.1 Univention announces the discontinuation of XRDP terminal services on UCC for the next major release UCC 3.0.
 			This does not affect functionality and support for XRDP UCC terminal services on UCC 2.
 		  </para>
 	  </section>
-	  <section>
+	  <section id="relnotes:packages:su">
 		<title>User switches using <command>su</command></title>
 		<para>
 		  Switching from one non-root user account to another non-root user account with the
@@ -121,7 +118,7 @@
 		  The underlying bug cannot be easily fixed as it would lead to invasive changes. As a
 		  workaround it is possible to first switch to root and then switch to the user account, e.g.
 
-		  <programlisting>
+		  <programlisting lang="sh">
 $ su root
 $ su testuser
 		  </programlisting>
@@ -130,7 +127,7 @@ $ su testuser
 		</para>
 	  </section>
 
-	  <section>
+	  <section id="relnotes:packages:pam">
 	  	<title>RDP logins and PAM home mounts after a password change at LightDM</title>
 	  	<para>
 		  If the user password is changed during the login at the LightDM Login Manager (e.g.,
@@ -145,15 +142,20 @@ $ su testuser
 
 	</chapter>
 
-    <chapter>
+    <chapter id="relnotes:changelog">
 	  <title>Changelog</title>
 	  <para>
 		Listed are the changes since UCC 2.0:
 	  </para>
 
-	  &changelog;
-
+	  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="changelog-2.1.xml" xpointer="xpointer(/chapter/section)"/>
 	</chapter>
+
+	<!--
+	<bibliography id="bibliography">
+		<bibliomixed id="ext-doc-inst"/>
+	</bibliography>
+	-->
 
     <?dbhtml-include href="../stylesheets/piwiki.html"?>
 </book>
