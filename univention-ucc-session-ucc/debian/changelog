@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (3.0.0-1) unstable; urgency=medium
+
+  * Bump version for UCC 2.1 rebuild (Bug #38772) 
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 08 Jul 2015 15:48:08 +0200
+
 univention-ucc-session-ucc (2.0.0-2) unstable; urgency=low
 
   * Remove old session scripts used for SSH-based X11 forwarding (Bug #33871)
