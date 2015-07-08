@@ -7,14 +7,14 @@
 
   %entities;
 ]>
-<book lang="de" id="quickstart-de-3.2">
+<book lang="de" id="ucc-2.1-quickstart-de">
 <bookinfo>
   <title>Univention Corporate Client</title>
   <subtitle>Quickstart Guide für Univention Corporate Client</subtitle>
   <revhistory>
      <revision>
-        <revnumber>2.0</revnumber>
-        <date>6. Juni 2014</date>
+        <revnumber>2.1</revnumber>
+        <date>8. Juli 2015</date>
      </revision>
   </revhistory>
 </bookinfo>
@@ -117,7 +117,7 @@
   <title>Installation des UCS-Systems</title>
 
   <para>
-	UCC setzt Univention Corporate Server (UCS) 3.2 voraus. Die Installation von Univention
+	UCC setzt Univention Corporate Server (UCS) 4.0 voraus. Die Installation von Univention
 	Corporate Server wird im UCS Quickstart Guide beschrieben <biblioref linkend="ucs-quickstart"/>.
   </para>
 
