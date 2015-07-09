@@ -100,7 +100,7 @@
     <title>UCC thin client image</title>
     <itemizedlist>
       <listitem><simpara>
-        ...
+        Citrix Receiver and the Citrix Session are now shipped with the UCC thinclient image (<u:bug>38181</u:bug>).
       </simpara></listitem>
     </itemizedlist>
   </section>
