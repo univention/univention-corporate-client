@@ -12,7 +12,8 @@
   <title>General</title>
   <itemizedlist>
     <listitem><simpara>
-      ...        
+		Various small changes to the frontend to improve the layout
+		(<u:bug>36772</u:bug>).
     </simpara></listitem>
   </itemizedlist>
 </section>
