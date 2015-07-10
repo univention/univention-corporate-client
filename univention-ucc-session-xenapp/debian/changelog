@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (3.0.0-2) unstable; urgency=medium
+
+  * Bug #38181: Make wfclient.ini configurable via UCR
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 10 Jul 2015 14:56:49 +0200
+
 univention-ucc-session-xenapp (3.0.0-1) unstable; urgency=low
 
   * Bug #38741: added some more gstreamer plugin dependencies

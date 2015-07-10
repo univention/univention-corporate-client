@@ -3,3 +3,8 @@ File: etc/ucc/xenapp-module.ini
 
 Type: file
 File: etc/ucc/xenapp-wfclient.ini
+
+Type: file
+File: usr/share/ucc/citrix-conf/wfclient.ini
+Variables: ucc/xenapp/wfclientdefaults
+Variables: ucc/xenapp/wfclient/*
