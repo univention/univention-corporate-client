@@ -82,6 +82,13 @@
       </simpara></listitem>
     </itemizedlist>
   </section>
+    <title>UCC image module</title>
+    <itemizedlist>
+      <listitem><simpara>
+	The UCC image module has been updated to show available UCC 2.1 images (<u:bug>38912</u:bug>).
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
   <section id="changelog:ucs:pxe">
     <title>PXE service</title>
     <itemizedlist>
