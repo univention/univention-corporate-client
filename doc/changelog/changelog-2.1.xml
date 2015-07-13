@@ -68,6 +68,17 @@
       </simpara></listitem>
     </itemizedlist>
   </section>
+  <section id="changelog:ucs:umc">
+    <title>UCC installation wizard</title>
+    <itemizedlist>
+      <listitem><simpara>
+        The layout of the UCC installation wizard has been changed since a Citrix
+        receiver is now integrated into UCC thin client images. A custom receiver can
+        optionally be uploaded.
+        (<u:bug>38806</u:bug>).
+      </simpara></listitem>
+    </itemizedlist>
+  </section>
   <section id="changelog:ucs:pxe">
     <title>PXE service</title>
     <itemizedlist>
