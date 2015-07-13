@@ -45,17 +45,22 @@ if __name__ == '__main__':
 
 	res = None
 	servers = []
+	dedicatedServer = None
 	try:
 		lo = univention.uldap.getMachineConnection(ldap_master=False)
-		res = lo.search(base=ucr.get('ldap/hostdn'), attr=['univentionCorporateClientBootImage'], unique=True, required=True)
-		bootImage = res[0][1].get('univentionCorporateClientBootImage', [])[0]
+		res = lo.search(base=ucr.get('ldap/hostdn'), attr=['univentionCorporateClientBootImage', 'univentionCorporateClientDedicatedImageServer'], unique=True, required=True)
+		bootImage = res[0][1].get('univentionCorporateClientBootImage', [None])[0]
+		dedicatedServer = res[0][1].get('univentionCorporateClientDedicatedImageServer', [None])[0]
 		filter = '(&(objectClass=univentionCorporateClientImage)(univentionCorporateClientImageName=%s))' % bootImage
 		res = lo.search(filter=filter, attr=['univentionCorporateClientImageServer'], unique=True)
 	except:
 		print "# Could not establish machine connection"
 
+	if dedicatedServer:
+		servers.append(dedicatedServer)
 	if res:
-		servers = res[0][1].get('univentionCorporateClientImageServer', [])
+		for server in res[0][1].get('univentionCorporateClientImageServer', []):
+			servers.append(server)
 
 	if servers:
 		print '''
