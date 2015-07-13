@@ -45,6 +45,11 @@
       out the local repository of retrieved package files
       (<u:bug>38741</u:bug>).
     </simpara></listitem>
+    <listitem><simpara>
+      The <command>ucc-image-add-citrix-receiver</command> script now installs
+      packages more reliably by using the dpkg parameters --force-confnew --force-overwrite 
+      --force-overwrite-dir (<u:bug>38905</u:bug>).
+    </simpara></listitem>
   </itemizedlist>
 </section>
 
