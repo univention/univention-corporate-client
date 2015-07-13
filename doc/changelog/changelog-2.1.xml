@@ -47,8 +47,7 @@
     </simpara></listitem>
     <listitem><simpara>
       The <command>ucc-image-add-citrix-receiver</command> script now installs
-      packages more reliably by using the dpkg parameters --force-confnew --force-overwrite 
-      --force-overwrite-dir (<u:bug>38905</u:bug>).
+	  packages more reliably by using the <command>dpkg</command> parameters <option>--force-confnew --force-overwrite --force-overwrite-dir</option> (<u:bug>38905</u:bug>).
     </simpara></listitem>
   </itemizedlist>
 </section>
@@ -116,7 +115,7 @@
     <title>UCC thin client image</title>
     <itemizedlist>
       <listitem><simpara>
-        Citrix Receiver and the Citrix Session are now shipped with the UCC thinclient image (<u:bug>38181</u:bug>).
+        Citrix Receiver and the Citrix Session are now shipped with the UCC thin client image (<u:bug>38181</u:bug>).
       </simpara></listitem>
     </itemizedlist>
   </section>
