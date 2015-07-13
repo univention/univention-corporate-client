@@ -141,6 +141,11 @@
         the package <package>univention-ucc-session-xenapp</package>
         (<u:bug>38741</u:bug>).
       </simpara></listitem>
+      <listitem><simpara>
+        The package <package>univention-ucc-usb-raw-printer</package> has been added to create/remove
+        local (raw) printer queues for USB printers in order to enable "Client Printer Redirection"
+        (<u:bug>37889</u:bug>).
+      </simpara></listitem>
     </itemizedlist>
   </section>
   <section id="changelog:sessions:rdp">
