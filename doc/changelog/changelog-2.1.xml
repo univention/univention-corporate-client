@@ -1,201 +1,203 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE chapter  PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-	"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
-	<!ENTITY % extensions SYSTEM "../stylesheets/macros.ent" >
-	<!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
-	%extensions;
-	%entities;
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % extensions SYSTEM "../stylesheets/macros.ent" >
+<!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+%extensions;
+%entities;
 ]>
 <chapter id="relnotes:changelog" lang="en">
 	<title>Changelog</title>
-<section id="Changelog:general">
-  <title>General</title>
-  <itemizedlist>
-    <listitem><simpara>
-		Various small changes to the frontend to improve the layout
-		(<u:bug>36772</u:bug>).
-    </simpara></listitem>
-  </itemizedlist>
-</section>
+	<section id="Changelog:general">
+		<title>General</title>
+		<itemizedlist>
+			<listitem><simpara>
+					Various small changes to the frontend to improve the layout
+					(<u:bug>36772</u:bug>).
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
 
-<section id="changelog:boot">
-  <title>System boot / initial ramdisk</title>
-    <itemizedlist>
-      <listitem><simpara>
-	Hook directories have been added which make it possible to place arbitrary 
-	scripts in a UCC image which will be executed by the initramfs (<u:bug>31384</u:bug>).
-      </simpara></listitem>
-    </itemizedlist>
-</section>
+	<section id="changelog:boot">
+		<title>System boot / initial ramdisk</title>
+		<itemizedlist>
+			<listitem><simpara>
+					Hook directories have been added which make it possible to place arbitrary
+					scripts in a UCC image which will be executed by the initramfs (<u:bug>31384</u:bug>).
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
 
-<section id="changelog:rollout">
-  <title>Image roll-outs and image updates</title>
-  <itemizedlist>
-    <listitem><simpara>
-      ...
-    </simpara></listitem>
-  </itemizedlist>
-</section>
+	<section id="changelog:rollout">
+		<title>Image roll-outs and image updates</title>
+		<itemizedlist>
+			<listitem><simpara>
+					...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
 
-<section id="changelog:build">
-  <title>Image build and image management</title>
-  <itemizedlist>
-    <listitem><simpara>
-      The <command>ucc-image-add-citrix-receiver</command> script now cleans
-      out the local repository of retrieved package files
-      (<u:bug>38741</u:bug>).
-    </simpara></listitem>
-    <listitem><simpara>
-      The <command>ucc-image-add-citrix-receiver</command> script now installs
-	  packages more reliably by using the <command>dpkg</command> parameters <option>--force-confnew --force-overwrite --force-overwrite-dir</option> (<u:bug>38905</u:bug>).
-    </simpara></listitem>
-  </itemizedlist>
-</section>
+	<section id="changelog:build">
+		<title>Image build and image management</title>
+		<itemizedlist>
+			<listitem><simpara>
+					The <command>ucc-image-add-citrix-receiver</command> script now cleans
+					out the local repository of retrieved package files
+					(<u:bug>38741</u:bug>).
+			</simpara></listitem>
+			<listitem><simpara>
+					The <command>ucc-image-add-citrix-receiver</command> script now installs
+					packages more reliably by using the <command>dpkg</command> parameters <option>--force-confnew --force-overwrite --force-overwrite-dir</option> (<u:bug>38905</u:bug>).
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
 
-<section id="changelog:ucs">
-  <title>UCS domain integration</title>
-  <section id="changelog:ucs:join">
-    <title>Domains joins of UCC clients</title>
-    <itemizedlist>
-      <listitem><simpara>
-        ...
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-  <section id="changelog:ucs:umc">
-    <title>&ucsUMC; integration</title>
-    <itemizedlist>
-      <listitem><simpara>
-        The UCC hardware settings policy tooltip has been adapted to use the
-        correct <command>xrandr</command> parameter for querying the display devices
-        (<u:bug>38678</u:bug>).
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-  <section id="changelog:wizard">
-    <title>UCC installation wizard</title>
-    <itemizedlist>
-      <listitem><simpara>
-        The layout of the UCC installation wizard has been changed since a Citrix
-        receiver is now integrated into UCC thin client images. A custom
-        receiver can optionally be uploaded (<u:bug>38806</u:bug>).
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-    <title>UCC image module</title>
-    <itemizedlist>
-      <listitem><simpara>
-	The UCC image module has been updated to show available UCC 2.1 images (<u:bug>38912</u:bug>).
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-  <section id="changelog:ucs:pxe">
-    <title>PXE service</title>
-    <itemizedlist>
-      <listitem><simpara>
-        ...
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-</section>
+	<section id="changelog:ucs">
+		<title>UCS domain integration</title>
+		<section id="changelog:ucs:join">
+			<title>Domains joins of UCC clients</title>
+			<itemizedlist>
+				<listitem><simpara>
+						...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:ucs:umc">
+			<title>&ucsUMC; integration</title>
+			<itemizedlist>
+				<listitem><simpara>
+						The UCC hardware settings policy tooltip has been adapted to use the
+						correct <command>xrandr</command> parameter for querying the display devices
+						(<u:bug>38678</u:bug>).
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:wizard">
+			<title>UCC installation wizard</title>
+			<itemizedlist>
+				<listitem><simpara>
+						The layout of the UCC installation wizard has been changed since a Citrix
+						receiver is now integrated into UCC thin client images. A custom
+						receiver can optionally be uploaded (<u:bug>38806</u:bug>).
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:ucc:image">
+			<title>UCC image module</title>
+			<itemizedlist>
+				<listitem><simpara>
+						The UCC image module has been updated to show available UCC 2.1 images (<u:bug>38912</u:bug>).
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:ucs:pxe">
+			<title>PXE service</title>
+			<itemizedlist>
+				<listitem><simpara>
+						...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+	</section>
 
-<section id="changelog:images">
-  <title>UCC standard images</title>
-  <section id="changelog:images:general">
-  <title>General</title>
-    <itemizedlist>
-      <listitem><simpara>
-        Desktop and thin-client image use a newer kernel (3.16) and <package>xserver-core</package> (1.16) version from Ubuntu <wordasword>Utopic</wordasword>
-	(<u:bug>37970</u:bug>).
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-  <section id="changelog:images:desktop">
-  <title>UCC desktop image</title>
-    <itemizedlist>
-      <listitem><simpara>
-        ...
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-  <section id="changelog:images:thinclient">
-    <title>UCC thin client image</title>
-    <itemizedlist>
-      <listitem><simpara>
-        Citrix Receiver and the Citrix Session are now shipped with the UCC thin client image (<u:bug>38181</u:bug>).
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-</section>
+	<section id="changelog:images">
+		<title>UCC standard images</title>
+		<section id="changelog:images:general">
+			<title>General</title>
+			<itemizedlist>
+				<listitem><simpara>
+						Desktop and thin-client image use a newer kernel (3.16) and <package>xserver-core</package> (1.16) version from Ubuntu <wordasword>Utopic</wordasword>
+						(<u:bug>37970</u:bug>).
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:images:desktop">
+			<title>UCC desktop image</title>
+			<itemizedlist>
+				<listitem><simpara>
+						...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:images:thinclient">
+			<title>UCC thin client image</title>
+			<itemizedlist>
+				<listitem><simpara>
+						Citrix Receiver and the Citrix Session are now shipped with the UCC thin client image (<u:bug>38181</u:bug>).
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+	</section>
 
-<section id="changelog:login">
-  <title>User logins</title>
-  <itemizedlist>
-    <listitem><simpara>
-      ...
-    </simpara></listitem>
-  </itemizedlist>
-</section>
+	<section id="changelog:login">
+		<title>User logins</title>
+		<itemizedlist>
+			<listitem><simpara>
+					...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
 
-<section id="changelog:sessions">
-  <title>Terminal sessions</title>
-  <section id="changelog:sessions:XenApp">
-    <title>Citrix XenApp</title>
-    <itemizedlist>
-      <listitem><simpara>
-        Dependencies to software packages to enable "Windows Media HDX playback" have been added to
-        the package <package>univention-ucc-session-xenapp</package>
-        (<u:bug>38741</u:bug>).
-      </simpara></listitem>
-      <listitem><simpara>
-        The package <package>univention-ucc-usb-raw-printer</package> has been added to create/remove
-        local (raw) printer queues for USB printers in order to enable "Client Printer Redirection"
-        (<u:bug>37889</u:bug>).
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-  <section id="changelog:sessions:rdp">
-  <title>RDP</title>
-    <itemizedlist>
-      <listitem><simpara>
-        ...
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-  <section id="changelog:sessions:xrdp">
-    <title>XRDP</title>
-    <itemizedlist>
-      <listitem><simpara>
-        ...
-      </simpara></listitem>
-    </itemizedlist>
-  </section>
-</section>
+	<section id="changelog:sessions">
+		<title>Terminal sessions</title>
+		<section id="changelog:sessions:XenApp">
+			<title>Citrix XenApp</title>
+			<itemizedlist>
+				<listitem><simpara>
+						Dependencies to software packages to enable "Windows Media HDX playback" have been added to
+						the package <package>univention-ucc-session-xenapp</package>
+						(<u:bug>38741</u:bug>).
+				</simpara></listitem>
+				<listitem><simpara>
+						The package <package>univention-ucc-usb-raw-printer</package> has been added to create/remove
+						local (raw) printer queues for USB printers in order to enable "Client Printer Redirection"
+						(<u:bug>37889</u:bug>).
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:sessions:rdp">
+			<title>RDP</title>
+			<itemizedlist>
+				<listitem><simpara>
+						...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:sessions:xrdp">
+			<title>XRDP</title>
+			<itemizedlist>
+				<listitem><simpara>
+						...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+	</section>
 
-<section id="changelog:hardware">
-  <title>Hardware support</title>
-  <itemizedlist>
-    <listitem><simpara>
-      ...
-    </simpara></listitem>
-  </itemizedlist>
-</section>
+	<section id="changelog:hardware">
+		<title>Hardware support</title>
+		<itemizedlist>
+			<listitem><simpara>
+					...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
 
-<section id="changelog:services">
-  <title>System services</title>
-  <itemizedlist>
-    <listitem><simpara>
-      ...
-    </simpara></listitem>
-  </itemizedlist>
-</section>
+	<section id="changelog:services">
+		<title>System services</title>
+		<itemizedlist>
+			<listitem><simpara>
+					...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
 
-<section id="changelog:clients">
-  <title>Client management</title>
-  <itemizedlist>
-    <listitem><simpara>
-      ...
-    </simpara></listitem>
-  </itemizedlist>
-</section>
+	<section id="changelog:clients">
+		<title>Client management</title>
+		<itemizedlist>
+			<listitem><simpara>
+					...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
 </chapter>
+<!-- vim:set ts=2 sw=2 noet: -->
