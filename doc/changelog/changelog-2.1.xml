@@ -49,6 +49,9 @@
 					The <command>ucc-image-add-citrix-receiver</command> script now installs
 					packages more reliably by using the <command>dpkg</command> parameters <option>--force-confnew --force-overwrite --force-overwrite-dir</option> (<u:bug>38905</u:bug>).
 			</simpara></listitem>
+			<listitem><simpara>
+					The image generation program <command>ucc-image</command> has been adapted to support creating large iso files on UCS 4 (<u:bug>38906</u:bug>).
+			</simpara></listitem>
 		</itemizedlist>
 	</section>
 
