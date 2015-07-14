@@ -1,3 +1,9 @@
+univention-ucc-initramfs (4.0.0-3) unstable; urgency=medium
+
+  * Bug #31384: Fix hook script evaluation for rollout case
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 14 Jul 2015 17:33:40 +0200
+
 univention-ucc-initramfs (4.0.0-2) unstable; urgency=low
 
   * Bug #35410: Added dedicatedServer to generate_nfs_mount_script
