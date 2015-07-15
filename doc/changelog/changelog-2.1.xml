@@ -32,7 +32,8 @@
 		<title>Image roll-outs and image updates</title>
 		<itemizedlist>
 			<listitem><simpara>
-					...
+					It is now possible to assign a default UCS image server for a UCC client.
+					The UCC client will then download its image from the designated server (<u:bug>35410</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
