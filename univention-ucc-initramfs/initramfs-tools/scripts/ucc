@@ -715,6 +715,7 @@ _mount_image ()
 			notice "ERROR: failed to initialize overlayfs"
 			failure
 		fi
+		chmod 755 /root
 		mkdir -p /root/root-ro /root/root-rw /root/ucc_root
 		mount -o move /ucc_tmp/root-rw /root/root-rw
 		mount -o move /ucc_tmp/root-ro /root/root-ro
@@ -1278,6 +1279,7 @@ ucc_image_ro()
 		fi
 			
 		mount -t overlayfs -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/root-rw overlayfs-root /root/
+		chmod 755 /root
 
 		mkdir -p /root/root-rw /root/root-ro /root/root-boot_medium
 		mount -o move /ucc_tmp/root-rw /root/root-rw
