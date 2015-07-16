@@ -44,6 +44,7 @@ if [ "${ACTION}" = "add" ]; then
 		if ! lpstat -v | grep -q "$uri"; then
 			echo "$log: adding usb printer $name with uri $uri" | logger
 			lpadmin -p "$name" -v "$uri" 2>&1 | logger
+			lpoptions -d "$name" 2>&1 | logger
 			cupsaccept "$name" 2>&1 | logger
 			cupsenable "$name" 2>&1 | logger
 		fi
