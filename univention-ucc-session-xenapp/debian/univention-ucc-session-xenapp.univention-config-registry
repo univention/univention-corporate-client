@@ -8,3 +8,7 @@ Type: file
 File: usr/share/ucc/citrix-conf/wfclient.ini
 Variables: ucc/xenapp/wfclientdefaults
 Variables: ucc/xenapp/wfclient/*
+
+Type: file
+File: opt/Citrix/ICAClient/usb.conf
+Variables: ucc/xenapp/ctxusb/rules/*
