@@ -44,6 +44,7 @@ fi
 
 ucr set \
 	ucc/firefox/defaults/npicaplugin?'user_pref("plugin.state.npica", 2);' \
+	ucc/firefox/defaults/rememberSignons?'user_pref("signon.rememberSignons",false);' \
 	lightdm/sessiondefault?XenApp
 
 exit 0

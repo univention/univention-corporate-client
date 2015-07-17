@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (3.0.0-4) unstable; urgency=medium
+
+  * Bug #38932: Suppress 'Save credentials' dialog in xenapp session
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 17 Jul 2015 12:47:29 +0200
+
 univention-ucc-session-xenapp (3.0.0-3) unstable; urgency=low
 
   * Bug #38925: added tempate for opt/Citrix/ICAClient/usb.conf 
