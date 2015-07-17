@@ -1,3 +1,9 @@
+univention-corporate-client (3.0.0-2) unstable; urgency=medium
+
+  * Add UCC 2.1 codename: Aller (Bug #38772)
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 17 Jul 2015 11:54:02 +0200
+
 univention-corporate-client (3.0.0-1) unstable; urgency=medium
 
   * Bump version for UCC 2.1 rebuild (Bug #38772)
