@@ -246,14 +246,15 @@
   </section>
 
   <section id="terminalservices:citrix">
-	  <title>Citrix XenApp terminal services</title>
+	  <title>Citrix XenApp and XenDesktop terminal services</title>
 	  <para>
-		UCC supports access to Citrix XenApp terminal servers. This documentation refers to Citrix
-		XenApp and Citrix Receiver 13.1.
+		UCC supports access to Citrix XenApp and XenDesktop terminal servers.
+		Citrix Receiver is included in UCC thin client images to connect to Citrix servers.
+		This documentation refers to Citrix Receiver 13.2.
 	  </para>
 
 	  <para>
-		Citrix XenApp supports two login methods:
+		Citrix supports two login methods:
 		<itemizedlist>
 		  <listitem><simpara>Access to the XenApp terminal server is
 		  configured by an ICA session file in which the connection
@@ -281,16 +282,24 @@
   <section id="terminalservices:citrix:setup:umc">
 	<title>Installation using the setup wizard</title>
 	<para>
-	  For setting up access to a Citrix XenApp terminal service, the <guimenu>UCC Setup</guimenu>
-	  wizard must be opened in the &ucsUMC;. The <guimenu>Configure access to a Citrix XenApp
+	  For setting up access to a Citrix terminal service, the <guimenu>UCC Setup</guimenu>
+	  wizard must be opened in the &ucsUMC;. The <guimenu>Configure access to a Citrix 
 	  terminal server</guimenu> option must be selected under <guimenu>Thin client
 	  configuration</guimenu> in the <guimenu>Configuration of terminal services</guimenu> submenu.
 	</para>
 
 	<para>
-	  For licensing reasons it is not possible to deliver the Citrix Receiver with Univention
-	  Corporate Client. Instead, it must be downloaded for the 32 bit Intel architecture as a DEB file using the download link provided
-	  and saved in a local directory. Only Citrix Receiver 13.1 is supported in UCC 2.0.
+	  The <guimenu>URL for Citrix farm login</guimenu> option is used to configure the URL of the
+	  Citrix web interface. The session script then opens the web interface directly in Firefox
+	  during login.
+	</para>
+
+	<para>
+	  Citrix Receiver version 13.2 is included in the UCC thinclient image.
+	  Other Citrix Receiver versions may be included manually in a thinclient image.
+	  It must be downloaded for the 32 bit Intel architecture as a DEB file using the download link provided
+	  and saved in a local directory. Support is only provided for the included Citrix Receiver.
+	  To include a different version, choose the option <guimenu>Use custom receiver</guimenu>
 	</para>
 
 	<para>
@@ -308,12 +317,6 @@
 	</para>
 
 	<para>
-	  The <guimenu>URL for Citrix farm login</guimenu> option is used to configure the URL of the
-	  Citrix web interface. The session script then opens the web interface directly in Firefox
-	  during login.
-	</para>
-
-	<para>
 	  As the authentication during the Citrix login occurs on the web interface and if Citrix is the
 	  only terminal service, it is not necessary for the user to log on to the thin client again. If
 	  the <guimenu>Automatic thin client login</guimenu> option is enabled, the login to LightDM
@@ -325,14 +328,14 @@
   <section id="terminalservices:citrix:setup:manually">
 	<title>Installation without the UMC wizard</title>
 	<para>
-	  This section provides a brief description of the setting up of the XenApp for complex
-	  scenarios in which the UCC setup wizard should not be used. For general information on XenApp
+	  This section provides a brief description of the setting up Citrix Receiver for complex
+	  scenarios in which the UCC setup wizard should not be used. For general information on Citrix 
 	  and UCC, please see <xref linkend="terminalservices:citrix:setup:umc"/>
 	</para>
 
 	<para>
 	  The Citrix Receiver for 32 bit systems must be downloaded as a DEB file from <ulink
-	  url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-131.html"/>.
+	  url="http://www.citrix.de/downloads/citrix-receiver/linux/receiver-for-linux-132.html"/>.
 	</para>
 
 	<para>
@@ -375,6 +378,21 @@
 	  ensures the assignment of a primary sound card).
 	</para>
 
+	<para>
+	  Citrix Receiver can be configured via the wfclient.ini file on the UCC thin client. To disable
+	  the default settings, the UCR variable <envar>ucc/xenapp/wfclientdefaults</envar> has to be set
+	  to <literal>false</literal>. To set additional options in the ini file, a UCR variable in the form
+	  <envar>ucc/xenapp/wfclient/identifier=value</envar> has to be set. The value will then be written to
+	  the wfclient.ini file.
+	</para>
+
+	<para>
+	  The package <package>univention-ucc-firefox-config</package> is installed on UCC thin clients
+	  by default. To set defaults for firefox, a UCR variable in the form
+	  <envar>ucc/firefox/defaults/identifier=value</envar> can be set. The value will then be written
+	  to the file <filename>/usr/lib/firefox/defaults/pref/ucc-prefs.js</filename>
+	</para>
+
   </section>
 </section>
 
@@ -404,6 +422,11 @@
   </para>
 
   <para>
+	  To supress the popup question to optimize flash playback, a UCR policy should e.g. set 
+	  <envar>ucc/xenapp/wfclient/flashsetting</envar> to <literal>HDXFlashUseFlashRemoting=Always</literal>.
+  </para>
+
+  <para>
 	In the default setting the Flash version on the client and the Flash version on the Citrix server
 	need to be identical. Releases of Adobe Flash later than 11.2 are no longer available for Linux.
 	The version check can be disabled on the Citrix server. For this a registry key needs to
@@ -423,8 +446,8 @@ must be created as a <classname>dword</classname>, named <property>FlashPlayerVe
 <section id="terminalservices:citrix:hdxplayback">
   <title>Windows Media HDX playback</title>
   <para>
-    To enable Citrix Windows Media HDX playback on the client the following packages have to be
-    installed on the UCC client: <package>gstreamer0.10-plugins-ugly</package>, <package>gstreamer0.10-plugins-good</package>,
+	To enable Citrix Windows Media HDX playback on the client the following packages are 
+	installed on the UCC client by default: <package>gstreamer0.10-plugins-ugly</package>, <package>gstreamer0.10-plugins-good</package>,
     <package>gstreamer0.10-plugins-bad</package>, <package>gstreamer0.10-alsa</package>, <package>gstreamer0.10-fluendo-mp3</package>,
     <package>gstreamer0.10-ffmpeg</package> and <package>gstreamer0.10-x</package>.
   </para>
@@ -433,7 +456,7 @@ must be created as a <classname>dword</classname>, named <property>FlashPlayerVe
 <section id="terminalservices:citrix:servergraphicsettings">
   <title>Possible graphical glitches with Citrix Receiver</title>
   <para>
-    Some thin-clients show graphical glitches when using XenApp. In this case a Citrix XenApp policy
+    Some thin-clients show graphical glitches when using Citrix terminal services. In this case a Citrix policy
     to enable legacy graphics mode has to be configured. More information about the different graphic modes
     can be found at <ulink url="http://blogs.citrix.com/2014/10/22/whats-new-with-hdx-display-in-xendesktop-xenapp-7-x/"/>.
   </para>

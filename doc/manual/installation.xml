@@ -10,7 +10,7 @@
 <title>Installation</title>
 <para>
   Univention Corporate Client integrates into the management system
-  of Univention Corporate Server. UCS 3.2 is a prerequisite for the
+  of Univention Corporate Server. UCS 4.0 is a prerequisite for the
   installation of UCC.
 </para>
 
@@ -111,7 +111,8 @@
 
   <para>
 	The thin client image offers a minimal desktop and support for accessing terminal sessions on
-	Windows and UCC terminal servers. In addition, a local LXDE desktop environment is also
+	Windows and UCC terminal servers. UCC thin client images integrate the Citrix Receiver for accessing
+	Citrix terminal services. In addition, a local LXDE desktop environment is also
 	available. Thin clients which are to be operated with this image must be equipped with at least 2
 	GB of local disk space (e.g., CompactFlash or SSD).
   </para>
