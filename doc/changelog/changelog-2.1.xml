@@ -15,6 +15,9 @@
 					Various small changes to the frontend to improve the layout
 					(<u:bug>36772</u:bug>).
 			</simpara></listitem>
+			<listitem><simpara>
+					References to UCC 2.0 have been updated (<u:bug>38801</u:bug>).
+			</simpara></listitem>
 		</itemizedlist>
 	</section>
 
