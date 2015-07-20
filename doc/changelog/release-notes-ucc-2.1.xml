@@ -53,14 +53,14 @@
 	  <title>Release highlights</title>
 
 		<para>
-		  With Univention Corporate Client 2.1 the first minor release update of Univention Corporate
-		  Client (UCC) is now available. It provides several improvements and bugfixes:
+		  With Univention Corporate Client (UCC) 2.1 the first minor release update of UCC is now available.
 		</para>
 
 		<itemizedlist>
 		  <listitem><para>
 			UCC is now Citrix Ready certified.
-			This allows us to provide the Citrix Receiver with UCC thin client images.
+			This allows Univention to provide the Citrix Receiver with UCC thin client images.
+			Citrix Receiver is responsible for the connection to Citrix environments from a thin client operated with UCC.
 			The UCC setup wizard still allows the manual installation of specific Citrix Receiver versions.
 		  </para></listitem>
 

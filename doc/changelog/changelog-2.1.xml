@@ -12,7 +12,7 @@
 		<title>General</title>
 		<itemizedlist>
 			<listitem><simpara>
-					Various small changes to the frontend to improve the layout
+					Various small changes to the frontend to improve the UMC module layout
 					(<u:bug>36772</u:bug>).
 			</simpara></listitem>
 			<listitem><simpara>
@@ -65,7 +65,7 @@
 			<title>Domains joins of UCC clients</title>
 			<itemizedlist>
 				<listitem><simpara>
-						...
+						A bug was fixed which could lead to failing domain joins (<u:bug>37910</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
@@ -97,14 +97,6 @@
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
-		<section id="changelog:ucs:pxe">
-			<title>PXE service</title>
-			<itemizedlist>
-				<listitem><simpara>
-						...
-				</simpara></listitem>
-			</itemizedlist>
-		</section>
 	</section>
 
 	<section id="changelog:images">
@@ -113,16 +105,9 @@
 			<title>General</title>
 			<itemizedlist>
 				<listitem><simpara>
-						Desktop and thin-client image use a newer kernel (3.16) and <package>xserver-core</package> (1.16) version from Ubuntu <wordasword>Utopic</wordasword>
-						(<u:bug>37970</u:bug>).
-				</simpara></listitem>
-			</itemizedlist>
-		</section>
-		<section id="changelog:images:desktop">
-			<title>UCC desktop image</title>
-			<itemizedlist>
-				<listitem><simpara>
-						...
+						An update adds an explicit dependency to the internationalisation (i18n) packages for Firefox:
+						Updated language packages for Ubuntu Trusty dropped package dependencies, which would lead to 
+						potential removal of the Firefox i18n packages during updates (<u:bug>37219</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
@@ -135,23 +120,24 @@
 				<listitem><simpara>
 						The directory <filename>/</filename> is now mounted with option 755 when using overlayfs (<u:bug>38925</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+					Two new binary packages are available that enable support for caching fallback system policies on a thinclient image.
+					<package>univention-ucc-eval-policies-on-join</package> writes system policies during the initial join process.
+					<package>univention-ucc-eval-policies-on-boot</package> writes system policies during each local boot (<u:bug>35363</u:bug>).
+				</simpara></listitem>
+				<listitem><simpara>
+					Full partition devices (like /dev/sda or /dev/sdb) on removable USB devices	are no longer mounted on to thin clients (UCC desktop systems are not
+					affected), since this could lead to delays in freeing unmounted devices in terminal services like RDP or Citrix.
+					The old behaviour can be restored by setting the UCR variable ucc/mount/fullpartition to true (<u:bug>36717</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
-	</section>
-
-	<section id="changelog:login">
-		<title>User logins</title>
-		<itemizedlist>
-			<listitem><simpara>
-					...
-			</simpara></listitem>
-		</itemizedlist>
 	</section>
 
 	<section id="changelog:sessions">
 		<title>Terminal sessions</title>
 		<section id="changelog:sessions:XenApp">
-			<title>Citrix XenApp</title>
+			<title>Citrix</title>
 			<itemizedlist>
 				<listitem><simpara>
 						Dependencies to software packages to enable "Windows Media HDX playback" have been added to
@@ -169,9 +155,9 @@
 				</simpara></listitem>
 				<listitem><simpara>
 						The package <package>univention-ucc-session-xenapp</package> has been updated to set the UCR
-						variable <literal>ucc/firefox/defaults/rememberSignons</literal> to
-						<envar>'user_pref("signon.rememberSignons",false);'</envar> by default. This prevents a recurring
-						popup in firefox when accessing Citrix terminal services (<u:bug>38932</u:bug>).
+						variable 
+						<literal>ucc/firefox/defaults/rememberSignons</literal> to <envar>'user_pref("signon.rememberSignons",false);'</envar> by default.
+						This prevents a recurring popup in firefox when accessing Citrix terminal services (<u:bug>38932</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
@@ -179,15 +165,10 @@
 			<title>RDP</title>
 			<itemizedlist>
 				<listitem><simpara>
-						...
-				</simpara></listitem>
-			</itemizedlist>
-		</section>
-		<section id="changelog:sessions:xrdp">
-			<title>XRDP</title>
-			<itemizedlist>
-				<listitem><simpara>
-						...
+					The divide key available on the numeric block on some keyboards
+					was mapped incorrectly when connecting to Windows terminal servers.
+					Instead of the expected division sign, a minus sign was returned.
+					This update corrects the keyboard mapping (<u:bug>35159</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
@@ -197,7 +178,7 @@
 		<title>Hardware support</title>
 		<itemizedlist>
 			<listitem><simpara>
-					...
+					Desktop and thin-client image use a newer kernel (3.16) and <package>xserver-core</package> (1.16) version from Ubuntu <wordasword>Utopic</wordasword> (<u:bug>37970</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
@@ -206,7 +187,7 @@
 		<title>System services</title>
 		<itemizedlist>
 			<listitem><simpara>
-					...
+				A problem with the caching of user passwords has been fixed (<u:bug>35333</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
@@ -215,7 +196,20 @@
 		<title>Client management</title>
 		<itemizedlist>
 			<listitem><simpara>
-					...
+					The configuration file for the PAM CIFS mount no longer falls back to <envar>ldap/server/name</envar> if <envar>ucc/mount/cifshome/server</envar> is unset (<u:bug>35111</u:bug>).
+			</simpara></listitem>
+			<listitem><simpara>
+					The cifsmount stanza is now only written if <envar>ucc/mount/cifshome/server</envar> is set (<u:bug>35111</u:bug>).
+			</simpara></listitem>
+			<listitem><simpara>
+					The network timeout for ldap connections is now configurable with the new UCR variable <envar>ucc/ldap/network/timeout</envar>.
+					The default is 10 seconds (<u:bug>36325</u:bug>).
+			</simpara></listitem>
+			<listitem><simpara>
+				Two new UCR variables have been added to configure the behaviour when connecting to unavailable LDAP servers.
+				<envar>ucc/ldap/timeout</envar>: Timeout for LDAP queries.
+				<envar>ucc/ldap/timelimit</envar>: Maximum duration of LDAP queries
+				If unset, the default for all variables is ten seconds (<u:bug>37321</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
