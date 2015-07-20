@@ -161,7 +161,12 @@
 						A UCR config template has been added for the HDX USB redirect daemon rules file /opt/Citrix/ICAClient/usb.conf.
 						USB redirect rules can be configured with the UCR variable ucc/xenapp/ctxusb/rules (<u:bug>38925</u:bug>).
 				</simpara></listitem>
-
+				<listitem><simpara>
+						The package <package>univention-ucc-session-xenapp</package> has been updated to set the UCR
+						variable <literal>ucc/firefox/defaults/rememberSignons</literal> to
+						<envar>'user_pref("signon.rememberSignons",false);'</envar> by default. This prevents a recurring
+						popup in firefox when accessing Citrix terminal services (<u:bug>38932</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 		<section id="changelog:sessions:rdp">
