@@ -12,6 +12,7 @@ Package: univention-xrdp
 Architecture: all
 Depends: ${misc:Depends},
  univention-base-files,
+ univention-directory-listener,
  xrdp (>= 0.8),
  x11rdp,
  pulseaudio-xrdp
