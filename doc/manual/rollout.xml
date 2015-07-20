@@ -158,6 +158,13 @@
 		</simpara></listitem>
 	</varlistentry>
 </variablelist>
+
+<para>
+  The <guimenu>Dedicated image server</guimenu> select box allows to select a dedicated server
+  for the installation/update of the particular UCC client. During the rollout the dedicated image
+  server is the first choice for downloading the image to the client.
+</para>
+
 </section>
 
 
