@@ -132,6 +132,9 @@
 				<listitem><simpara>
 						Citrix Receiver and the Citrix Session are now shipped with the UCC thin client image (<u:bug>38181</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+						The directory <filename>/</filename> is now mounted with option 755 when using overlayfs (<u:bug>38925</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 	</section>
