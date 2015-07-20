@@ -393,6 +393,12 @@
 	  to the file <filename>/usr/lib/firefox/defaults/pref/ucc-prefs.js</filename>
 	</para>
 
+	<para>
+	  The Citrix session supports USB redirection (if configured on the server). Special rules 
+	  to enable/disable USB redirection for devices can be configured with the UCR variable
+	  <envar>ucc/xenapp/ctxusb/rules</envar> on the UCC thin client.
+	</para>
+
   </section>
 </section>
 
@@ -452,6 +458,16 @@ must be created as a <classname>dword</classname>, named <property>FlashPlayerVe
     <package>gstreamer0.10-ffmpeg</package> and <package>gstreamer0.10-x</package>.
   </para>
 </section>
+
+<section id="terminalservices:citrix:localprinter">
+	<title>XenApp client printers</title>
+	<para>
+	  XenApp Printing allows to map local printers to the Citrix session. This requires a local printer queue
+	  on the UCC client. By installing the package <package>univention-ucc-usb-raw-printer</package> a raw printer
+	  queue is created for every USB printer connteced to the client.
+	</para>
+</section>
+
 
 <section id="terminalservices:citrix:servergraphicsettings">
   <title>Possible graphical glitches with Citrix Receiver</title>
