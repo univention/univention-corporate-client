@@ -172,6 +172,16 @@
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
+		<section id="changelog:sessions:xrdp">
+			<title>XRDP</title>
+			<itemizedlist>
+				<listitem><simpara>
+					A missing software dependency to <package>univention-directory-listener</package> has been
+					added to <package>univention-xrdp</package> (<u:bug>38991</u:bug>).
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+
 	</section>
 
 	<section id="changelog:hardware">
