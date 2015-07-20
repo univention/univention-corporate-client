@@ -157,6 +157,11 @@
 						local (raw) printer queues for USB printers in order to enable "Client Printer Redirection"
 						(<u:bug>37889</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+						A UCR config template has been added for the HDX USB redirect daemon rules file /opt/Citrix/ICAClient/usb.conf.
+						USB redirect rules can be configured with the UCR variable ucc/xenapp/ctxusb/rules (<u:bug>38925</u:bug>).
+				</simpara></listitem>
+
 			</itemizedlist>
 		</section>
 		<section id="changelog:sessions:rdp">
