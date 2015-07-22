@@ -384,8 +384,8 @@
 <section id="rollout:gptfix">
   <title>Rollout problems with subsequently enlarged hard disks</title>
   <para>
-	If a hard disk has been subsequently enlarged - typically if a virtualized disk is used, which
-	is then subsequently enlarged - the rollout may encounter GPT partition data from the previous
+	If a hard disk has been subsequently enlarged - typically if a virtualized disk is used -
+	the rollout may encounter GPT partition data from the previous
 	installation procedure, which no longer correspond to the current size of the disk. Generally
 	speaking, when enlarging the memory of a virtualized system, it is more advisable to add an
 	additional disk.

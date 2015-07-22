@@ -175,7 +175,7 @@
 	  <command>ucc-image-root-password</command>, e.g.
 
 	  <programlisting language="sh">
-ucc-image-root-password -i ucc-2.0-desktop-image.img -p
+ucc-image-root-password -i ucc-2.1-desktop-image.img -p
 	  </programlisting>
 	</para>
   </section>

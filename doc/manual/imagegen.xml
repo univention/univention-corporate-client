@@ -89,7 +89,7 @@
 	  <listitem><simpara><property>version</property>: The Ubuntu code
 	  name on which the image is based. It must be taken into account
 	  that the Univention modifications are only built and
-	  tested for a specific release, in the case of UCC 2.0 for Ubuntu 14.04
+	  tested for a specific release, in the case of UCC 2.1 for Ubuntu 14.04
 	  (trusty).</simpara></listitem>
 
 	  <listitem><simpara><property>hostname</property>: The standard host
@@ -268,8 +268,8 @@ umount /mnt/img
 	whether a rolled-out image has been modified:
 
 	<programlisting language="sh">
-md5sum /var/lib/univention-client-boot/ucc-2.0-desktop-image.img \
-> /var/lib/univention-client-boot/ucc-2.0-desktop-image.img.md5
+md5sum /var/lib/univention-client-boot/ucc-2.1-desktop-image.img \
+> /var/lib/univention-client-boot/ucc-2.1-desktop-image.img.md5
 	</programlisting>
   </para>
 

@@ -58,7 +58,7 @@
 	</para>
 
 	<para>
-	  The local mount points are made available in UCC terminal server, Windows terminal server and XenApp terminal
+	  The local mount points are made available in UCC terminal server and Windows terminal server
 	  server sessions if the option <guimenu>Allow access to local mass storage</guimenu> is
 	  activated in the <guimenu>UCC client configuration</guimenu> policy in the UMC computer
 	  management.
