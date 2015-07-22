@@ -80,6 +80,9 @@
 	We recommend using one of the standard configuration files as a template. The configuration file
 	is then processed by the image toolkit, see <xref linkend="imagegen:toolkit"/>).
 	The configuration files can be commented with a hash (#):
+  </para>
+  <para>
+	<guimenu>General</guimenu> section
 	<itemizedlist>
 	  <listitem><simpara>
 		<property>arch</property>: The system architecture, i386 or amd64. The official UCC images
@@ -108,6 +111,10 @@
 	  PASSWORD</command> can be used to generate the hash
 	  value.</simpara></listitem>
 
+	</itemizedlist>
+		
+	<guimenu>Software</guimenu> section
+	<itemizedlist>
 	  <listitem><simpara><property>mirror</property>: Configures the mirror from which the Ubuntu
 	  packages are downloaded. We advise against using a standard Ubuntu mirror; some packages are
 	  built with patches in UCC. When a non Univention mirror is used, it is not possible to
@@ -155,10 +162,17 @@
 		installation status in the <application>dpkg</application> database.
 	  </simpara></listitem>
 
+  	</itemizedlist>
+
+	<guimenu>Configuration</guimenu> section
+	<itemizedlist>
 	  <listitem><simpara><property>ucr_variables</property>: Here one
 	  can define &ucsUCR; variables which are then set directly in the
 	  installed image.</simpara></listitem>
+	</itemizedlist>
 
+	<guimenu>Image</guimenu> section
+	<itemizedlist>
 	  <listitem><simpara><property>version</property>: A version for the image which, among other things, is
 	  also displayed in the image selection in the &ucsUMC;.</simpara></listitem>
 
