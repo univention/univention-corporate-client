@@ -14,7 +14,7 @@
         <revhistory>
             <revision>
                 <revnumber>2.1</revnumber>
-                <date>21 July 2015</date>
+                <date>22 July 2015</date>
             </revision>
         </revhistory>
 
@@ -70,8 +70,8 @@
 		  </para></listitem>
 
 		  <listitem><para>
-			UCC 2.1 images use the newer Linux kernel and X-server version from Ubuntu <wordasword>Utopic</wordasword> by default.
-			UCC 2.1 is still based on Ubuntu 14.04 and will receive its software and security updates.
+			UCC 2.1 images use the newer Linux kernel and Xorg xserver version from Kubuntu <wordasword>Utopic</wordasword> by default.
+			UCC 2.1 is based on Kubuntu 14.04 and will receive its software and security updates.
 		  </para></listitem>
 
 		</itemizedlist>
