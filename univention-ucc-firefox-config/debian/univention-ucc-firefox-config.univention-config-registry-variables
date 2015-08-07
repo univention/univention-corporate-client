@@ -1,5 +1,0 @@
-[ucc/firefox/defaults/*]
-Description[de]=Firefox Konfiguration für pref.js
-Description[en]=Firefox configuration for pref.js
-Type=str
-Categories=univention-ucc-firefox-config

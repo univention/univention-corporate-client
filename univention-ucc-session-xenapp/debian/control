@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: univention-ucc-session-xenapp
 Architecture: all
-Depends: firefox, metacity, univention-lightdm, libspeex1, libvorbis0a, libvorbisenc2, libgstreamer-plugins-base0.10-0, libglib2.0-0, libgstreamer0.10-0, libice6, libgtk2.0-0, libsm6, libx11-6, libxext6, libxmu6, libxpm4, libasound2, libxerces-c3.1, libstdc++6, libwebkit-1.0-2 | libwebkitgtk-1.0-0, devilspie, libcurl3, ${misc:Depends}, univention-ucc-firefox-config
+Depends: firefox, metacity, univention-lightdm, libspeex1, libvorbis0a, libvorbisenc2, libgstreamer-plugins-base0.10-0, libglib2.0-0, libgstreamer0.10-0, libice6, libgtk2.0-0, libsm6, libx11-6, libxext6, libxmu6, libxpm4, libasound2, libxerces-c3.1, libstdc++6, libwebkit-1.0-2 | libwebkitgtk-1.0-0, devilspie, libcurl3, ${misc:Depends}
 Description: Integration package for XenApp terminal services
  This package installs the required packages to allow
  UCC systems to access terminal services.
