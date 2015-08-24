@@ -295,8 +295,8 @@
 	</para>
 
 	<para>
-	  Citrix Receiver version 13.2 is included in the UCC thinclient image.
-	  Other Citrix Receiver versions may be included manually in a thinclient image.
+	  Citrix Receiver version 13.2 is included in the UCC Thin Client image.
+	  Other Citrix Receiver versions may be included manually in a Thin Client image.
 	  It must be downloaded for the 32 bit Intel architecture as a DEB file using the download link provided
 	  and saved in a local directory. Support is only provided for the included Citrix Receiver.
 	  To include a different version, choose the option <guimenu>Use custom receiver</guimenu>
@@ -379,16 +379,16 @@
 	</para>
 
 	<para>
-	  Citrix Receiver can be configured via the wfclient.ini file on the UCC thin client. To disable
+	  Citrix Receiver can be configured via the <filename>wfclient.ini</filename> file on the UCC thin client. To disable
 	  the default settings, the UCR variable <envar>ucc/xenapp/wfclientdefaults</envar> has to be set
 	  to <literal>false</literal>. To set additional options in the ini file, a UCR variable in the form
 	  <envar>ucc/xenapp/wfclient/identifier=value</envar> has to be set. The value will then be written to
-	  the wfclient.ini file.
+	  the <filename>wfclient.ini</filename> file.
 	</para>
 
 	<para>
 	  The package <package>univention-ucc-firefox-config</package> is installed on UCC thin clients
-	  by default. To set defaults for firefox, a UCR variable in the form
+	  by default. To set defaults for <application>Firefox</application>, a UCR variable in the form
 	  <envar>ucc/firefox/defaults/identifier=value</envar> can be set. The value will then be written
 	  to the file <filename>/usr/lib/firefox/defaults/pref/ucc-prefs.js</filename>
 	</para>
@@ -428,7 +428,7 @@
   </para>
 
   <para>
-	  To supress the popup question to optimize flash playback, a UCR policy should e.g. set 
+	  To suppress the pop-up question to optimize flash playback, a UCR policy should e.g. set
 	  <envar>ucc/xenapp/wfclient/flashsetting</envar> to <literal>HDXFlashUseFlashRemoting=Always</literal>.
   </para>
 
@@ -464,7 +464,7 @@ must be created as a <classname>dword</classname>, named <property>FlashPlayerVe
 	<para>
 	  XenApp Printing allows to map local printers to the Citrix session. This requires a local printer queue
 	  on the UCC client. By installing the package <package>univention-ucc-usb-raw-printer</package> a raw printer
-	  queue is created for every USB printer connteced to the client.
+	  queue is created for every USB printer connected to the client.
 	</para>
 </section>
 

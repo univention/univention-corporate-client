@@ -54,7 +54,7 @@
 					packages more reliably by using the <command>dpkg</command> parameters <option>--force-confnew --force-overwrite --force-overwrite-dir</option> (<u:bug>38905</u:bug>).
 			</simpara></listitem>
 			<listitem><simpara>
-					The image generation program <command>ucc-image</command> has been adapted to support creating large iso files on UCS 4 (<u:bug>38906</u:bug>).
+					The image generation program <command>ucc-image</command> has been adapted to support creating large ISO files on UCS 4 (<u:bug>38906</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
@@ -105,9 +105,9 @@
 			<title>General</title>
 			<itemizedlist>
 				<listitem><simpara>
-						An update adds an explicit dependency to the internationalisation (i18n) packages for Firefox:
+						An update adds an explicit dependency to the internationalisation (<abbrev>i18n</abbrev>) packages for Firefox:
 						Updated language packages for Ubuntu Trusty dropped package dependencies, which would lead to 
-						potential removal of the Firefox i18n packages during updates (<u:bug>37219</u:bug>).
+						potential removal of the Firefox <abbrev>i18n</abbrev> packages during updates (<u:bug>37219</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
@@ -118,17 +118,17 @@
 						Citrix Receiver and the Citrix Session are now shipped with the UCC thin client image (<u:bug>38181</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-						The directory <filename>/</filename> is now mounted with option 755 when using overlayfs (<u:bug>38925</u:bug>).
+						The directory <filename>/</filename> is now mounted with option 755 when using <systemitem class="filesystem">overlayfs</systemitem> (<u:bug>38925</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-					Two new binary packages are available that enable support for caching fallback system policies on a thinclient image.
+					Two new binary packages are available that enable support for caching fallback system policies on a Thin Client image.
 					<package>univention-ucc-eval-policies-on-join</package> writes system policies during the initial join process.
 					<package>univention-ucc-eval-policies-on-boot</package> writes system policies during each local boot (<u:bug>35363</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-					Full partition devices (like /dev/sda or /dev/sdb) on removable USB devices	are no longer mounted on to thin clients (UCC desktop systems are not
+					Full partition devices (like <filename class="devicefile">/dev/sda</filename> or <filename class="devicefile">/dev/sdb</filename>) on removable USB devices	are no longer mounted on to thin clients (UCC desktop systems are not
 					affected), since this could lead to delays in freeing unmounted devices in terminal services like RDP or Citrix.
-					The old behaviour can be restored by setting the UCR variable ucc/mount/fullpartition to true (<u:bug>36717</u:bug>).
+					The old behaviour can be restored by setting the UCR variable <envar>ucc/mount/fullpartition</envar> to <literal>true</literal> (<u:bug>36717</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
@@ -150,14 +150,14 @@
 						(<u:bug>37889</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-						A UCR config template has been added for the HDX USB redirect daemon rules file /opt/Citrix/ICAClient/usb.conf.
-						USB redirect rules can be configured with the UCR variable ucc/xenapp/ctxusb/rules (<u:bug>38925</u:bug>).
+						A UCR template has been added for the HDX USB redirect daemon rules file <filename>/opt/Citrix/ICAClient/usb.conf</filename>.
+						USB redirect rules can be configured with the UCR variable <envar>ucc/xenapp/ctxusb/rules</envar> (<u:bug>38925</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
 						The package <package>univention-ucc-session-xenapp</package> has been updated to set the UCR
 						variable 
-						<literal>ucc/firefox/defaults/rememberSignons</literal> to <envar>'user_pref("signon.rememberSignons",false);'</envar> by default.
-						This prevents a recurring popup in firefox when accessing Citrix terminal services (<u:bug>38932</u:bug>).
+						<envar>ucc/firefox/defaults/rememberSignons</envar> to <literal>'user_pref("signon.rememberSignons",false);'</literal> by default.
+						This prevents a recurring pop-up in Firefox when accessing Citrix terminal services (<u:bug>38932</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
@@ -209,7 +209,7 @@
 					The configuration file for the PAM CIFS mount no longer falls back to <envar>ldap/server/name</envar> if <envar>ucc/mount/cifshome/server</envar> is unset (<u:bug>35111</u:bug>).
 			</simpara></listitem>
 			<listitem><simpara>
-					The cifsmount stanza is now only written if <envar>ucc/mount/cifshome/server</envar> is set (<u:bug>35111</u:bug>).
+					The <literal>cifsmount</literal> stanza is now only written if <envar>ucc/mount/cifshome/server</envar> is set (<u:bug>35111</u:bug>).
 			</simpara></listitem>
 			<listitem><simpara>
 					The network timeout for ldap connections is now configurable with the new UCR variable <envar>ucc/ldap/network/timeout</envar>.
@@ -217,7 +217,7 @@
 			</simpara></listitem>
 			<listitem><simpara>
 				Two new UCR variables have been added to configure the behaviour when connecting to unavailable LDAP servers.
-				<envar>ucc/ldap/timeout</envar>: Timeout for LDAP queries.
+				<envar>ucc/ldap/timeout</envar>: Time-out for LDAP queries.
 				<envar>ucc/ldap/timelimit</envar>: Maximum duration of LDAP queries
 				If unset, the default for all variables is ten seconds (<u:bug>37321</u:bug>).
 			</simpara></listitem>
