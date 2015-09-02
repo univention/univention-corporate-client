@@ -35,6 +35,14 @@
 #include <stdint.h>
 #endif
 
+#if !(defined(NO_NEED_ALIGN) || defined(NEED_ALIGN))
+#if defined(__x86__) || defined(__x86_64__) || defined(__AMD64__) || defined(_M_IX86) || defined (_M_AMD64) || defined(__i386__)
+#define NO_NEED_ALIGN
+#else
+#define NEED_ALIGN
+#endif
+#endif
+
 #ifndef DEFINED_Ts
 #define DEFINED_Ts
 typedef char ti8;
@@ -151,6 +159,16 @@ typedef int boolean;
 #endif
 
 #include <freerdp/settings.h>
+
+typedef struct _uuid
+{
+	uint32 time_low;
+	uint16 time_mid;
+	uint16 time_hi_and_version;
+	uint8 clock_seq_hi_and_reserved;
+	uint8 clock_seq_low;
+	uint8 node[6];
+} uuid;
 
 struct _RDP_PLUGIN_DATA
 {

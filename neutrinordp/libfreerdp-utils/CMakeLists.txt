@@ -53,6 +53,7 @@ set(FREERDP_UTILS_SRCS
 if(WIN32)
 else()
 add_definitions(-DGOT_GIT_REF_H)
+add_custom_command(OUTPUT git_ref.h COMMAND ./git_ref.sh)
 endif()
 
 add_definitions(-DPLUGIN_PATH="${FREERDP_PLUGIN_PATH}")

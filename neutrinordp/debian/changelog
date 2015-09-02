@@ -1,3 +1,11 @@
+neutrinordp (1.1.0.20150902) unstable; urgency=medium
+
+  * New upstream version
+  * Bug #38695: Fix bitmap cache problem
+  * Bug #39266: Fix crash in pulseaudio
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 02 Sep 2015 16:57:36 +0200
+
 neutrinordp (1.1.0.20140505-3) unstable; urgency=medium
 
   * Bump version for UCC 2.1 rebuild (Bug #38772) 
