@@ -1,0 +1,12 @@
+product: ucc
+release: "2.0"
+scope: ucs_4.0-0-ucc-2.1-errata
+src: neutrinordp
+fix: 1.1.0.20150902.14.201509030922
+note:
+desc: |
+ This update addresses the following issues:
+ * Fix a crash due to incorrect bitmap cache handling
+ * Fix a crash within the pulseaudio sound module
+version: [0]
+bug: [38695,39266]
