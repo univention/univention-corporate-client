@@ -2,7 +2,7 @@
 #
 # Univention Run Join Scripts
 #
-# Copyright 2004-2015 Univention GmbH
+# Copyright 2004-2016 Univention GmbH
 #
 # http://www.univention.de/
 #
@@ -57,7 +57,7 @@ display_help() {
 
 display_header() {
 	echo "univention-run-join-scripts: runs all join scripts existing on local computer."
-	echo "copyright (c) 2001-2015 Univention GmbH, Germany"
+	echo "copyright (c) 2001-2016 Univention GmbH, Germany"
 	echo ""
 }
 
