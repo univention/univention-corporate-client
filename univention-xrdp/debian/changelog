@@ -1,3 +1,9 @@
+univention-xrdp (3.0.0-1) unstable; urgency=low
+
+  * bumped version
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 31 May 2016 14:24:04 +0200
+
 univention-xrdp (2.1.0-14) unstable; urgency=low
 
   * added dependency to univention-directory-listener (Bug #38991) 

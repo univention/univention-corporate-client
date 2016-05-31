@@ -1,3 +1,9 @@
+univention-ucc-initramfs (5.0.0-1) unstable; urgency=low
+
+  * bumped version
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 31 May 2016 14:24:04 +0200
+
 univention-ucc-initramfs (4.0.0-4) unstable; urgency=low
 
   * Bug #38925: Fix / permissions in overlayfs mode

@@ -1,3 +1,9 @@
+pulseaudio-xrdp (1.0.0-1) unstable; urgency=medium
+
+  * bumped version
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 31 May 2016 14:25:58 +0200
+
 pulseaudio-xrdp (0.9.5-2) unstable; urgency=medium
 
   * Bump version for UCC 2.1 rebuild (Bug #38772)

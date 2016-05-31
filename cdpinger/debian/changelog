@@ -1,3 +1,9 @@
+cdpinger (2.0.0-1) unstable; urgency=medium
+
+  * bumped version
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 31 May 2016 14:25:36 +0200
+
 cdpinger (1.1-2+ucs10) unstable; urgency=medium
 
   * Bump version for UCC 2.1 rebuild (Bug #38772)

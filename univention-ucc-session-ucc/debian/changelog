@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (4.0.0-1) unstable; urgency=medium
+
+  * bumped version
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 31 May 2016 14:24:04 +0200
+
 univention-ucc-session-ucc (3.0.0-1) unstable; urgency=medium
 
   * Bump version for UCC 2.1 rebuild (Bug #38772) 

@@ -1,3 +1,9 @@
+univention-ucc-usb-raw-printer (2.0.0-1) unstable; urgency=low
+
+  * bumped version
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 31 May 2016 14:24:04 +0200
+
 univention-ucc-usb-raw-printer (1.0.0-2) unstable; urgency=low
 
   * set printer as default printer (Bug #37889) 
