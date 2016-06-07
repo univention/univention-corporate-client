@@ -1399,6 +1399,21 @@ ucc_rollout ()
 			joinRetval=$?
 		fi
 
+		_verbose_break
+
+		# copy dhcp resolv.conf settings one more time, so we
+		# we have proper dns settings for "chroot /root do something"
+		if [ -e /etc/resolv.conf ] && cat /etc/resolv.conf | grep -q nameserver; then
+			cp /etc/resolv.conf /root/etc/
+		fi
+
+		notice "Fetch system policies"
+		# we need to make sure that hostname is set correctly for fetch-policies to work
+		chroot /root /bin/hostname -b -F /etc/hostname
+		chroot /root /usr/sbin/univention-ucc-fetch-system-policies
+
+		_verbose_break
+
 		# remove join data
 		if [ -e "/root/$join_password" ]; then
 			rm "/root/$join_password"
@@ -1594,10 +1609,11 @@ mountroot()
 		if _mount_image; then
 			if [ -e /root/var/univention-join/joined ]; then
 				if chroot /root /usr/sbin/univention-ucc-boot-option --read >/tmp/boot_parameter; then
+					notice "Fetch system policies"
+					chroot /root /usr/sbin/univention-ucc-fetch-system-policies
 					notice "Read and set LDAP boot parameter"
 					debug "LDAP boot parameter: $(cat /tmp/boot_parameter)"
 					check_parameter /tmp/boot_parameter
-					test "$verbose" = "y" && set -x || set +x
 				fi
 				chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script
 				chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_nfs_mount_script >/tmp/nfs_mount_script
@@ -1608,6 +1624,8 @@ mountroot()
 			_umount_image
 		fi
 		umount /ucc_tmp/root
+
+		test "$verbose" = "y" && set -x || set +x
 
 		# Restart remote logging, the values may have been changed
 		# TODO: check if the restart is really necessary

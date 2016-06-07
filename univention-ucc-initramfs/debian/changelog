@@ -1,3 +1,9 @@
+univention-ucc-initramfs (5.0.0-2) unstable; urgency=low
+
+  * Bug #41427: Save policies to image during rollout 
+
+ -- Felix Botner <botner@univention.de>  Tue, 07 Jun 2016 16:09:19 +0200
+
 univention-ucc-initramfs (5.0.0-1) unstable; urgency=low
 
   * bumped version
