@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE chapter  PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+<!ENTITY % extensions SYSTEM "../stylesheets/macros.ent" >
+<!ENTITY % entities SYSTEM "../stylesheets/macros-en.ent" >
+%extensions;
+%entities;
+]>
+<chapter id="relnotes:changelog" lang="en">
+	<title>Changelog</title>
+	<section id="Changelog:general">
+		<title>General</title>
+		<itemizedlist>
+			<listitem><simpara>
+				...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
+
+	<section id="changelog:boot">
+		<title>System boot / initial ramdisk</title>
+		<itemizedlist>
+			<listitem><simpara>
+				Directory policies are now applied during the image boot and rollout (<u:bug>41427</u:bug>)
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
+
+	<section id="changelog:rollout">
+		<title>Image roll-outs and image updates</title>
+		<itemizedlist>
+			<listitem><simpara>
+				...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
+
+	<section id="changelog:build">
+		<title>Image build and image management</title>
+		<itemizedlist>
+			<listitem><simpara>
+				...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
+
+	<section id="changelog:ucs">
+		<title>UCS domain integration</title>
+		<section id="changelog:ucs:join">
+			<title>Domains joins of UCC clients</title>
+			<itemizedlist>
+				<listitem><simpara>
+					...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:ucs:umc">
+			<title>&ucsUMC; integration</title>
+			<itemizedlist>
+				<listitem><simpara>
+					...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:wizard">
+			<title>UCC installation wizard</title>
+			<itemizedlist>
+				<listitem><simpara>
+					...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:ucc:image">
+			<title>UCC image module</title>
+			<itemizedlist>
+				<listitem><simpara>
+					...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+	</section>
+
+	<section id="changelog:images">
+		<title>UCC standard images</title>
+		<section id="changelog:images:general">
+			<title>General</title>
+			<itemizedlist>
+				<listitem><simpara>
+					...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:images:thinclient">
+			<title>UCC thin client image</title>
+			<itemizedlist>
+				<listitem><simpara>
+					...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+	</section>
+
+	<section id="changelog:sessions">
+		<title>Terminal sessions</title>
+		<section id="changelog:sessions:XenApp">
+			<title>Citrix</title>
+			<itemizedlist>
+				<listitem><simpara>
+					...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+		<section id="changelog:sessions:rdp">
+			<title>RDP</title>
+			<itemizedlist>
+				<listitem><simpara>
+					...
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
+
+	</section>
+
+	<section id="changelog:hardware">
+		<title>Hardware support</title>
+		<itemizedlist>
+			<listitem><simpara>
+				...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
+
+	<section id="changelog:services">
+		<title>System services</title>
+		<itemizedlist>
+			<listitem><simpara>
+				...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
+
+	<section id="changelog:clients">
+		<title>Client management</title>
+		<itemizedlist>
+			<listitem><simpara>
+				...
+			</simpara></listitem>
+		</itemizedlist>
+	</section>
+</chapter>
+<!-- vim:set ts=2 sw=2 noet: -->
