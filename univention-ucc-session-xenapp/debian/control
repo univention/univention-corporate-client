@@ -36,7 +36,8 @@ Depends: ${misc:Depends},
  libwebkit-1.0-2 | libwebkitgtk-1.0-0,
  devilspie,
  libcurl3,
- univention-ucc-firefox-config
+ univention-ucc-firefox-config,
+ debianutils
 Description: Integration package for XenApp terminal services
  This package installs the required packages to allow
  UCC systems to access terminal services.
@@ -45,6 +46,3 @@ Description: Integration package for XenApp terminal services
  integrated, directory driven solution for managing
  corporate environments. For more information about UCS,
  refer to: http://www.univention.de/
-
-
-

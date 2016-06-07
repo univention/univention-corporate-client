@@ -1,3 +1,7 @@
-/usr/share/xsessions
-/usr/share/ucc
-/etc/devilspie
+usr/share/xsessions
+usr/share/ucc
+etc/devilspie
+usr/share/univention-ucc-session-xenapp/hooks/top.d
+usr/share/univention-ucc-session-xenapp/hooks/pre-firefox.d
+usr/share/univention-ucc-session-xenapp/hooks/post-firefox.d
+usr/share/univention-ucc-session-xenapp/hooks/bottom.d

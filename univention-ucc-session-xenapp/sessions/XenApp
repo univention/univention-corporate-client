@@ -46,6 +46,11 @@ eval "$(/usr/sbin/univention-config-registry shell)"
 . /usr/share/univention-lib/all.sh
 . /usr/share/univention-lib/ucc.sh
 
+hook="/usr/share/univention-ucc-session-xenapp/hooks/top.d"
+if [ -x "$hook" ] ; then
+	run-parts "$hook"
+fi 
+
 export WFICA_OPTS="-span a"
 
 if is_ucr_true 'citrix/accepteula'; then
@@ -73,7 +78,17 @@ if is_ucr_true 'citrix/pulseaudio'; then
     pulseaudio &
 fi
 
+hook="/usr/share/univention-ucc-session-xenapp/hooks/pre-firefox.d"
+if [ -x "$hook" ] ; then
+	run-parts "$hook"
+fi
+
 firefox -url "$citrix_webinterface" -fullscreen
+
+hook="/usr/share/univention-ucc-session-xenapp/hooks/post-firefox.d"
+if [ -x "$hook" ] ; then
+	run-parts "$hook"
+fi
 
 if is_ucr_true 'lightdm/autologin' && [ "$lightdm_autologin_session" = "XenApp" ]; then
 
@@ -105,13 +120,11 @@ if is_ucr_true 'lightdm/autologin' && [ "$lightdm_autologin_session" = "XenApp" 
     done
 
     if [ "$UserShutdown" = "True" ]; then 
-	dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop
+		dbus-send --system --print-reply --dest=org.freedesktop.login1 /org/freedesktop/login1 "org.freedesktop.login1.Manager.PowerOff" boolean:true
     fi
 fi
 
-
-
-
-
-
-
+hook="/usr/share/univention-ucc-session-xenapp/hooks/bottom.d"
+if [ -x "$hook" ] ; then
+	run-parts "$hook"
+fi
