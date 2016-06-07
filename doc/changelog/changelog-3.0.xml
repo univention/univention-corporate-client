@@ -21,7 +21,7 @@
 		<title>System boot / initial ramdisk</title>
 		<itemizedlist>
 			<listitem><simpara>
-				Directory policies are now applied during the image boot and rollout (<u:bug>41427</u:bug>)
+				Directory policies are now applied during the image boot and rollout (<u:bug>41427</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
@@ -94,7 +94,14 @@
 			<title>UCC thin client image</title>
 			<itemizedlist>
 				<listitem><simpara>
-					...
+					Two new UCR variables have been introduced, <envar>ucc/mount/blacklist</envar>
+					to configure a space-separated list of device names which are not mounted
+					(by default the list includes the full partition devices "sda sdb sdc sdd sde")
+					and <envar>ucc/mount/blacklist/disable</envar> to disable the blacklisting.
+					The UCR variable <envar>ucc/mount/fullpartition</envar> has been removed.
+					If <envar>ucc/mount/fullpartition</envar> was used, the old behaviour can be
+					restored by setting the UCR variable <envar>ucc/mount/blacklist/disable</envar>
+					to "true" (<u:bug>41427</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
