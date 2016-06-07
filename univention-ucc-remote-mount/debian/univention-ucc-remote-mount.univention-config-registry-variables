@@ -1,5 +1,11 @@
-[ucc/mount/fullpartition]
-Description[de]=In der Grundeinstellung werden Partitions-Devices wie /dev/sda oder /dev/sdb auf Thin Clients nicht gemountet. Wird diese Option aktiviert, werden sie trotzdem eingebunden.
-Description[en]=In the default setting partition devices like /dev/sda or /dev/sdb are not mounted on thin clients. If this option is activated, they are mounted anyway.
+[ucc/mount/blacklist/disable]
+Description[de]=Blacklisting beim Einbinden von Geräten auf Thin Clients deaktivieren.
+Description[en]=Disables device blacklisting when mouting devices on Thin Clients.
 Type=bool
+Categories=system-base
+
+[ucc/mount/blacklist]
+Description[de]=Leerzeichen separierte Liste von Gerätename, die auf Thin Clients nicht eingebunden werden (default: sda sdb sdc sdd sde).
+Description[en]=Space-separated list of device names which are not mounted on Thin Clients (default: sda sdb sdc sdd sde).
+Type=str
 Categories=system-base
