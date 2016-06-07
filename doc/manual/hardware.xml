@@ -67,7 +67,7 @@
 	<para>
 	  Filesystems directly written to devices (such as <filename class="devicefile">/dev/sda</filename>) are not
 	  mounted by default (only the respective partitions like <filename>/dev/sda1</filename>). If the &ucsUCR;
-	  <envar>ucc/mount/fullpartition</envar> is set to <literal>true</literal>, full partitions
+	  <envar>ucc/mount/blacklist/disable</envar> is set to <literal>true</literal>, full partitions
 	  are mounted as well.
 	</para>
 

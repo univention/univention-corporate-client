@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-MAIN := ucc-manual-2.1
+MAIN := ucc-manual-3.0
 STYLESHEET := univention
 
 COMMON_DIR := ../../../doc-common/docbook

@@ -6,17 +6,17 @@
 	%extensions;
 	%entities;
 ]>
-<book lang="en" id="ucc-2.1">
+<book lang="en" id="ucc-3.0">
   <bookinfo>
     <title>
-      Univention Corporate Client 2.1
+      Univention Corporate Client 3.0
     </title>
     <subtitle>
       Manual for administrators
     </subtitle>
     <legalnotice>
       <literallayout>
-Version 2.1
+Version 3.0
 Date: 2015-07-22
       </literallayout>
 
