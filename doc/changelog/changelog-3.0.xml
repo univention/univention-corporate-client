@@ -113,7 +113,21 @@
 			<title>Citrix</title>
 			<itemizedlist>
 				<listitem><simpara>
-					...
+					Various hooks (run-parts) have been added to the XenApp session script (<u:bug>41427</u:bug>).
+					<itemizedlist>
+						<listitem>
+							/usr/share/univention-ucc-session-xenapp/hooks/top.d - start of the session script
+						</listitem>
+						<listitem>
+							/usr/share/univention-ucc-session-xenapp/hooks/pre-firefox.d - before starting firefox
+						</listitem>
+						<listitem>
+							/usr/share/univention-ucc-session-xenapp/hooks/post-firefox.d - after firefox finished
+						</listitem>
+						<listitem>
+							/usr/share/univention-ucc-session-xenapp/hooks/bottom.d - end of the session script
+						</listitem>
+					</itemizedlist>
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
