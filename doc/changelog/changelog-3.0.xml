@@ -139,7 +139,7 @@
 			<title>RDP</title>
 			<itemizedlist>
 				<listitem><simpara>
-					...
+					xmessage has been replace with zenity for status messages (<u:bug>41427</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
