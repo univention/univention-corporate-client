@@ -23,6 +23,10 @@
 			<listitem><simpara>
 				Directory policies are now applied during the image boot and rollout (<u:bug>41427</u:bug>).
 			</simpara></listitem>
+			<listitem><simpara>
+				The script <command>univention-ucc-force-rw-boot</command> has been added to configure
+				a ucc client to boot in rw mode (<u:bug>41427</u:bug>).
+			</simpara></listitem>
 		</itemizedlist>
 	</section>
 
@@ -94,13 +98,13 @@
 			<title>UCC thin client image</title>
 			<itemizedlist>
 				<listitem><simpara>
-					Two new UCR variables have been introduced, <envar>ucc/mount/blacklist</envar>
+					Two new &ucsUCR; variables have been introduced, <envar>ucc/mount/blacklist</envar>
 					to configure a space-separated list of device names which are not mounted
 					(by default the list includes the full partition devices "sda sdb sdc sdd sde")
 					and <envar>ucc/mount/blacklist/disable</envar> to disable the blacklisting.
-					The UCR variable <envar>ucc/mount/fullpartition</envar> has been removed.
+					The &ucsUCR; variable <envar>ucc/mount/fullpartition</envar> has been removed.
 					If <envar>ucc/mount/fullpartition</envar> was used, the old behaviour can be
-					restored by setting the UCR variable <envar>ucc/mount/blacklist/disable</envar>
+					restored by setting the &ucsUCR; variable <envar>ucc/mount/blacklist/disable</envar>
 					to "true" (<u:bug>41427</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
