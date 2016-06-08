@@ -1,0 +1,117 @@
+#!/bin/bash
+#
+# This script can force the UCC image to boot in read-write mode. It is meant 
+# to be executed via ssh or local shell. The script is intended to be used in 
+# environments where connecting to the LDAP server is not possible.
+#
+# Copyright 2015-2016 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# The source code of the software contained in this package
+# as well as the source package itself are made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this package provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use the software under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+
+FORCE_RW_BOOT_FILE="/ucc_root/force_boot_rw"
+
+# Show friendly help on how to use the script
+display_usage () {
+	echo "Usage:"
+	echo " $(basename $0) [option]"
+	echo
+	echo "Description:"
+	echo " This script can show and change the boot status of the local image."
+	echo " It must be executed with root privileges on a UCC thinclient."
+	echo " A reboot is needed for the changes to take effect."
+	echo
+	echo "Options:"
+	echo " show:      shows the current boot status"
+	echo " set-rw:    sets the boot status to read-write"
+	echo " unset-rw:  sets the boot status back to default"
+	echo
+	echo "Example:"
+	echo " $(basename $0) show"
+}
+
+# Get the information we want
+read_bootstatus () {
+	if [ -e "$FORCE_RW_BOOT_FILE" ]; then
+		echo "The image is configured to boot in read-write mode (RW)."
+		echo "This will overrule other specified boot options (LDAP or UCR)."
+	else
+		echo "The image is NOT configured to boot in read-write mode (RW)."
+		echo "If not specified otherwise (LDAP or UCR), the image will use"
+		echo "the default boot mode."
+	fi
+}
+
+# Set the boot options to RW by creating a file that is checked during boot
+set_bootstatus_rw () {
+	echo  -n "Setting the image to read-write mode ... "
+	if [ -e "$FORCE_RW_BOOT_FILE" ]; then
+		echo -n "(force rw boot already enabled) "
+	else
+		touch "$FORCE_RW_BOOT_FILE"
+		echo "# If this file exists, the image will always boot RW. Delete this file to restore defaults." > "$FORCE_RW_BOOT_FILE"
+	fi
+	echo "done."
+}
+
+# unset the RW boot options
+unset_bootstatus_rw () {
+	echo  -n "Setting the image to default mode ... "
+	if [ ! -e "$FORCE_RW_BOOT_FILE" ]; then
+		echo -n "(force rw boot already disabled) "
+		echo "done."
+	else
+		rm -f "$FORCE_RW_BOOT_FILE" && echo "done."
+	fi
+}
+
+###################################
+## Here we start the main script ##
+###################################
+
+# Now we need to check what the script is meant to do.
+# Should we:
+# - just read the current state? (show)
+# - set the image to read-write? (set-rw)
+# - set the image back to default (read-only)?  (unset-rw)
+# If neither 'show' nor 'set-rw' nor 'unset-rw' is given, show usage.
+
+case "$1" in
+	"show")
+		read_bootstatus
+		;;
+	"set-rw")
+		set_bootstatus_rw
+		;;
+	"unset-rw")
+		unset_bootstatus_rw
+		;;
+	*)
+		display_usage
+		;;
+esac
+
+exit 0

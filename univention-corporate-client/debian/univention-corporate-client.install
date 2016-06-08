@@ -1,10 +1,11 @@
 univention-ldap-server-available usr/sbin
 univention-ucc-manage-persistent usr/sbin
 univention-ucc-sync-persistent-files usr/sbin
+univention-ucc-fetch-system-policies usr/sbin
+univention-ucc-software-update usr/sbin
+univention-ucc-force-rw-boot usr/sbin
 upstart/*.conf etc/init/
 ucc.sh /usr/share/univention-lib
 ucc-archive-key.gpg /usr/share/keyrings
-univention-ucc-fetch-system-policies usr/sbin
-univention-ucc-software-update usr/sbin
 apt-get-pre-invoke.d/univention-ucc-prune-old-kernel-packages usr/share/univention-corporate-client/apt-get-pre-invoke.d/
 univention-ucc-image-update usr/share/univention-corporate-client/
