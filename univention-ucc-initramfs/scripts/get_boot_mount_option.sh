@@ -37,6 +37,12 @@ if [ $? -ne 0 ]; then
 	option=
 fi
 
+# force rw boot
+if [ -e /ucc_root/force_boot_rw ]; then
+	echo "Found local file 'force_boot_rw' - will boot read-write" >&2
+	option="rw"
+fi
+
 test -z "$option" && option="$ucc_boot_mount"
 test -z "$option" && echo "UCR value ucc/boot/mount not defined" >&2 && option="rw"
 
