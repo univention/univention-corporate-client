@@ -116,24 +116,24 @@ if [ -n "$rdp_user" ]; then
 else
 
 if [[ $USER == guest-* ]]; then
-	messageFile=$(mktemp)
-	echo "
-You're currently logged in with a guest user account. This usually means
-that the UCC system hasn't been joined into the UCS domain yet.
+	zenity --info --no-markup --text="
+You're currently logged in with a guest user account.
+This usually means that the UCC system hasn't been joined
+into the UCS domain yet.
 
-You can either 
+You can either:
 
-* Join this system into the domain using univention-join
-  and perform a user login using the <RDP> session 
-* Specify a login for the Windows terminal server using the UCR
-  variable rdp/user.
+(a)
+Join this system into the domain using univention-join and
+perform a user login using the <RDP> session.
 
-A desktop session will now be started. You can initiate a terminal session 
-to a Windows terminal server by launching the application Remmina Remote 
-Desktop Client from the start menu.
+(b)
+Specify a login for the Windows terminal server using the 
+UCR variable rdp/user.
 
-" >>$messageFile
-	xmessage -file "$messageFile"
+A desktop session will now be started. You can initiate a terminal
+session to a Windows terminal server by launching the application
+Remmina Remote Desktop Client from the start menu."
 	/usr/bin/startlxde
 else
     params+=(-u "$USER")
@@ -180,8 +180,7 @@ if [ -n "$rdp_server" ]; then
 fi
 
 if [ -z "$server" ]; then
-	messageFile=$(mktemp)
-	echo "
+	zenity --error --no-markup --text="
 No RDP server has been configured.
 
 The Windows terminal server can be configured through the
@@ -191,10 +190,7 @@ policy or setting the UCR variable rdp/server via an UCR policy.
 This hasn't been setup yet. A desktop session will now be started.
 You can initiate a terminal session to a Windows terminal server
 by launching the application Remmina Remote Desktop Client from
-the start menu.
-
-" >>$messageFile
-	xmessage -file "$messageFile"
+the start menu."
 	/usr/bin/startlxde
 fi
 
@@ -206,7 +202,7 @@ echo "Could not contact terminal server" "$server"  > "$messageFile:"
 ret=$?
 
 if [ $ret == 131 ]; then
-    xmessage -file "$messageFile"
+	zenity --error --no-markup --text="$(cat $messageFile)"
 fi
 
 cleanup_and_exit

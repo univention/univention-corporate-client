@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (4.0.0-2) unstable; urgency=low
+
+  * replaced xmessage with zenity (Bug #41427)
+
+ -- Felix Botner <botner@univention.de>  Wed, 08 Jun 2016 14:31:01 +0200
+
 univention-ucc-session-rdp (4.0.0-1) unstable; urgency=medium
 
   * bumped version
@@ -20,7 +26,7 @@ univention-ucc-session-rdp (2.0.2-2) unstable; urgency=low
 
 univention-ucc-session-rdp (2.0.2-1) unstable; urgency=low
 
-  * added rdp_colordepth (Bug #34274) 
+  * added rdp_colordepth (Bug #34274)
 
  -- Felix Botner <botner@univention.de>  Mon, 19 May 2014 14:02:24 +0200
 
