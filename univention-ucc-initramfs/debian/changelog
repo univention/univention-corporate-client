@@ -1,3 +1,10 @@
+univention-ucc-initramfs (5.0.0-4) unstable; urgency=medium
+
+  * Bug #41512: Add new hook script to copy correct busybox binary to
+    initramfs
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 09 Jun 2016 16:18:27 +0200
+
 univention-ucc-initramfs (5.0.0-3) unstable; urgency=low
 
   * Bug #41427: Check force rw mount get_boot_mount_option.sh
