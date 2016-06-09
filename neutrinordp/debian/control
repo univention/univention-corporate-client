@@ -2,7 +2,7 @@ Source: neutrinordp
 Section: univention
 Priority: optional
 Maintainer: Univention GmbH <packages@univention.de>
-Build-Depends: debhelper, cmake, libssl-dev, libx11-dev, libxext-dev, libxinerama-dev, libxcursor-dev, libxdamage-dev, libxv-dev, libxkbfile-dev, libasound2-dev, libcups2-dev, libxml2, libxml2-dev, libxrandr-dev, libgstreamer0.10-dev, libgstreamer-plugins-base0.10-dev, libavutil-dev, libavcodec-dev, libavformat-dev, autotools-dev, libpcsclite-dev, libpulse-dev, xmlto
+Build-Depends: debhelper, cmake, libssl-dev, libx11-dev, libxext-dev, libxinerama-dev, libxcursor-dev, libxdamage-dev, libxv-dev, libxkbfile-dev, libasound2-dev, libcups2-dev, libxml2, libxml2-dev, libxrandr-dev, libgstreamer0.10-dev, libgstreamer-plugins-base0.10-dev, libavutil-dev, libavcodec-dev, libavformat-dev, autotools-dev, libpcsclite-dev, libpulse-dev, xmlto, gcc-4.8
 Standards-Version: 3.9.3
 
 Package: neutrinordp

@@ -1,3 +1,10 @@
+neutrinordp (2.0.0-2) unstable; urgency=medium
+
+  * Bug #41421: Backport DISTRO_DEBIAN8 build fixes
+  * Add gcc-4.8 to build dependencies
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 09 Jun 2016 12:49:59 +0200
+
 neutrinordp (2.0.0-1) unstable; urgency=medium
 
   * bumped version
