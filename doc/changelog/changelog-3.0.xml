@@ -12,7 +12,7 @@
 		<title>General</title>
 		<itemizedlist>
 			<listitem><simpara>
-				...
+					The UCS packages imported in UCC were updated to the versions in UCS 4.1-2. Patches applied to UCC 2.0 were migrated to UCC 3.0 (if applicable) (<u:bug>41421</u:bug>)
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
