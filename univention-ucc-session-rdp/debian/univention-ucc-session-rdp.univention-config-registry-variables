@@ -75,3 +75,9 @@ Description[de]=Bei aktivierter Variable wird das Zertifikat des Terminalservers
 Description[en]=If this variable is activated the server certificate is ignored and does not have to be approved
 Type=bool
 Categories=system-desktop
+
+[rdp/alternative/command]
+Description[de]=Konfiguriert eine alternatives Programm für die RDP Sessoin (z.B.: 'rdesktop -u $USER  -p $PASSWD $server')
+Description[en]=Configures a alternative binary for the RDP session (e.g., 'rdesktop -u $USER  -p $PASSWD $server')
+Type=str
+Categories=system-desktop

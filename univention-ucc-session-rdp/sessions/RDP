@@ -196,11 +196,26 @@ fi
 
 
 messageFile=$(mktemp)
-echo "Could not contact terminal server" "$server"  > "$messageFile:"
+echo "Could not contact terminal server" "$server"  > "$messageFile"
 
-/usr/bin/neutrinordp "${params[@]}" $server 1>> "$messageFile"
+if [ -n "$rdp_alternative_command" ]; then
+	cmd=()
+	for  i in $rdp_alternative_command; do
+		if [[ $i == \$* ]]; then
+			# remove first character from string (the $)
+			var="${i:1:${#i}-1}"
+			# expand the name in var to the actual value
+			cmd+=("${!var}")
+		else
+			cmd+=("$i")
+		fi
+	done
+	"${cmd[@]}" 2>"$messageFile"
+else
+	/usr/bin/neutrinordp "${params[@]}" $server 2>> "$messageFile"
+fi
+
 ret=$?
-
 if [ $ret == 131 ]; then
 	zenity --error --no-markup --text="$(cat $messageFile)"
 fi
