@@ -141,6 +141,11 @@
 				<listitem><simpara>
 					xmessage has been replace with zenity for status messages (<u:bug>41427</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+					The &ucsUCR; variable <envar>rdp/alternative/command</envar> has been added to overwrite
+					the standard RDP session binary, e.g. rdp/alternative/command='rdesktop -u $USER  $server'
+					(<u:bug>41427</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 
