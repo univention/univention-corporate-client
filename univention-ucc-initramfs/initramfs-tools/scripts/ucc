@@ -659,10 +659,10 @@ _mount_image ()
 	image_mount=rw
 	if [ "$1" = "ro" ]; then
 		image_mount=ro
-		modprobe overlayfs
+		modprobe overlay
 
 		mkdir -p /ucc_tmp/root-ro
-		mkdir -p /ucc_tmp/root-rw
+		mkdir -p /ucc_tmp/tmpfs
 	fi
 
 	if [ -n "${IMAGE}" -a -e "/ucc_tmp/root/${IMAGE}" ]; then
@@ -705,21 +705,22 @@ _mount_image ()
 
 		return 0
 	else
-		mount -t tmpfs tmpfs-root /ucc_tmp/root-rw
+		mount -t tmpfs tmpfs-root /ucc_tmp/tmpfs
+		mkdir -p /ucc_tmp/tmpfs/root-rw
+		mkdir -p /ucc_tmp/tmpfs/workdir
 
 		if ! mount -o loop,ro,noload "/ucc_tmp/root/${local_image}" /ucc_tmp/root-ro; then
 			notice "ERROR: failed to mount /ucc_tmp/root/${local_image}"
 			failure
 		fi
-		if ! mount -t overlayfs -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/root-rw overlayfs-root /root/; then
+		if ! mount -t overlay overlayfs-root -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/tmpfs/root-rw,workdir=/ucc_tmp/tmpfs/workdir /root; then
 			notice "ERROR: failed to initialize overlayfs"
 			failure
 		fi
 		chmod 755 /root
-		mkdir -p /root/root-ro /root/root-rw /root/ucc_root
-		mount -o move /ucc_tmp/root-rw /root/root-rw
+		mkdir -p /root/root-ro /root/tmpfs /root/ucc_root
+		mount -o move /ucc_tmp/tmpfs /root/tmpfs
 		mount -o move /ucc_tmp/root-ro /root/root-ro
-		mount -o move /ucc_tmp/root /root/ucc_root
 		chmod o-rwx /root/ucc_root
 		_verbose_break
 		return 0
@@ -730,13 +731,13 @@ _mount_image ()
 
 _umount_image ()
 {
-	if mount | grep -qs " on /root/root-rw "; then
+	if mount | grep -qs " on /root/tmpfs "; then
 			mount -o move /root/ucc_root /ucc_tmp/root
 			mount -o move /root/root-ro /ucc_tmp/root-ro
-			mount -o move /root/root-rw /ucc_tmp/root-rw
+			mount -o move /root/tmpfs /ucc_tmp/tmpfs
 			umount -d /root
 			umount -d /ucc_tmp/root-ro
-			umount -d /ucc_tmp/root-rw
+			umount -d /ucc_tmp/tmpfs
 	fi
 	if mount | grep -qs " on /root/ucc_root "; then
 		mkdir -p /ucc_tmp/root
@@ -1261,12 +1262,14 @@ ucc_image_ro()
 
 	if _mount_local_boot_device; then
 
-		modprobe "overlayfs"
+		modprobe overlay
 
 		mkdir -p /ucc_tmp/root-ro
-		mkdir -p /ucc_tmp/root-rw
-		
-		mount -t tmpfs tmpfs-root /ucc_tmp/root-rw
+		mkdir -p /ucc_tmp/tmpfs
+
+		mount -t tmpfs tmpfs-root /ucc_tmp/tmpfs
+		mkdir -p /ucc_tmp/tmpfs/root-rw
+		mkdir -p /ucc_tmp/tmpfs/workdir
 
 		if [ -n "${IMAGE}" -a -e "/ucc_tmp/boot_medium/${IMAGE}" ]; then
 			mount -o loop,ro,noload /ucc_tmp/boot_medium/${IMAGE} /ucc_tmp/root-ro
@@ -1278,11 +1281,12 @@ ucc_image_ro()
 			failure
 		fi
 			
-		mount -t overlayfs -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/root-rw overlayfs-root /root/
+		mount -t overlayfs overlayfs-root -o lowerdir=/ucc_tmp/root-ro,upperdir=/ucc_tmp/tmpfs/root-rw,workdir=/ucc_tmp/tmpfs/workdir /root
+		_verbose_break
 		chmod 755 /root
 
-		mkdir -p /root/root-rw /root/root-ro /root/root-boot_medium
-		mount -o move /ucc_tmp/root-rw /root/root-rw
+		mkdir -p /root/tmpfs /root/root-ro /root/root-boot_medium
+		mount -o move /ucc_tmp/tmpfs /root/tmpfs
 		mount -o move /ucc_tmp/root-ro /root/root-ro
 		mount -o move /ucc_tmp/boot_medium /root/root-boot_medium
 	else

@@ -1,3 +1,10 @@
+univention-ucc-initramfs (5.0.0-5) unstable; urgency=medium
+
+  * Bug #41526: Fix overlayfs usage in initramfs script
+  * Bug #41512: Correctly install hook script
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 10 Jun 2016 14:38:30 +0200
+
 univention-ucc-initramfs (5.0.0-4) unstable; urgency=medium
 
   * Bug #41512: Add new hook script to copy correct busybox binary to
