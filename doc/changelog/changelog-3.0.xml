@@ -27,6 +27,9 @@
 				The script <command>univention-ucc-force-rw-boot</command> has been added to configure
 				a ucc client to boot in rw mode (<u:bug>41427</u:bug>).
 			</simpara></listitem>
+			<listitem><simpara>
+				The overlayfs mount directory structure and mount options have been adapted to the current overlayfs version (<u:bug>41526</u:bug>).
+			</simpara></listitem>
 		</itemizedlist>
 	</section>
 
