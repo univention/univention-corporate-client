@@ -136,6 +136,9 @@
 						</listitem>
 					</itemizedlist>
 				</simpara></listitem>
+				<listitem><simpara>
+						The gstreamer dependencies of univention-ucc-session-xenapp have been updated (<u:bug>41528</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 		<section id="changelog:sessions:rdp">
