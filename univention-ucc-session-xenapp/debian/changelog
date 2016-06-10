@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (4.0.0-3) unstable; urgency=medium
+
+  * Bug #41528: Update gstreamer dependencies
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 10 Jun 2016 16:09:18 +0200
+
 univention-ucc-session-xenapp (4.0.0-2) unstable; urgency=low
 
   * Bug #41427: added hooks to xenapp session 
