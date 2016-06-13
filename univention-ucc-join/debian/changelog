@@ -1,3 +1,9 @@
+univention-ucc-join (4.0.0-2) unstable; urgency=medium
+
+  * Bug #41547: Save nameservers temporarily in UCR during join
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 13 Jun 2016 16:35:04 +0200
+
 univention-ucc-join (4.0.0-1) unstable; urgency=medium
 
   * bumped version

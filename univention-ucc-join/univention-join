@@ -179,6 +179,18 @@ fi
 # Save the current domain in $testdomain
 testdomain="$(cat /etc/resolv.conf  | sed -ne 's|^domain\t* *||p')"
 
+# Save the current configured nameserver for the join.
+# Overwritten at the end of univention-join!
+count=1
+cat /etc/resolv.conf | while read line; do
+	if [ -n "$(echo "$line" | grep ^'nameserver')" ]; then
+		nameserver="$(echo "$line" | awk '{print $2}')"
+		ucr set "nameserver${count}"=$nameserver
+		let count++
+	fi
+done
+
+# set domainname
 if [ -z "$DOMAINNAME" ]; then
 	echo -n "Insert domain name of client [$testdomain]: "
 	read DOMAINNAME
@@ -477,6 +489,9 @@ ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 # we are sure that this is not a liveimage because we are joining a domain
 # set interface type to "" ensures that it will be saved persistently. now network-manager can control the interface
 ucr set interfaces/eth0/type="" >>/var/log/univention/join.log 2>&1
+
+# Undefine all previous nameservers
+ucr unset nameserver1 nameserver2 nameserver3
 
 # use dnsmasq (127.0.1.1) as default nameserver
 ucr set nameserver1="127.0.1.1" >>/var/log/univention/join.log 2>&1
