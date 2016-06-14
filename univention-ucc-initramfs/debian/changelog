@@ -1,3 +1,9 @@
+univention-ucc-initramfs (5.0.0-6) unstable; urgency=medium
+
+  * Bug #41526: Re-add accidentally removed line
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 14 Jun 2016 11:01:48 +0200
+
 univention-ucc-initramfs (5.0.0-5) unstable; urgency=medium
 
   * Bug #41526: Fix overlayfs usage in initramfs script

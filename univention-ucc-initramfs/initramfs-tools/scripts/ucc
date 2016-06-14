@@ -178,6 +178,11 @@ search_device()
 			continue
 		fi
 
+		# ignore ramdisk devices
+		if echo "${device}" | grep -sq ^"ram" ; then
+			continue
+		fi
+
 		# include/linux/genhd.h: GENHD_FL_CD
 		ro="$(cat /sys/block/${device}/ro)"
 		if [ "$ro" != 0 ]; then
@@ -721,6 +726,7 @@ _mount_image ()
 		mkdir -p /root/root-ro /root/tmpfs /root/ucc_root
 		mount -o move /ucc_tmp/tmpfs /root/tmpfs
 		mount -o move /ucc_tmp/root-ro /root/root-ro
+		mount -o move /ucc_tmp/root /root/ucc_root
 		chmod o-rwx /root/ucc_root
 		_verbose_break
 		return 0
