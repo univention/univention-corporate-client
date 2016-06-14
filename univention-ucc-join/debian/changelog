@@ -1,3 +1,9 @@
+univention-ucc-join (4.0.0-3) unstable; urgency=medium
+
+  * Bug #41547: Redirect output to join log
+
+ -- Erik Damrose <damrose@univention.de>  Tue, 14 Jun 2016 12:01:46 +0200
+
 univention-ucc-join (4.0.0-2) unstable; urgency=medium
 
   * Bug #41547: Save nameservers temporarily in UCR during join

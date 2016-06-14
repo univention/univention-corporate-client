@@ -491,7 +491,7 @@ ucr set lightdm/autologin=no >>/var/log/univention/join.log 2>&1
 ucr set interfaces/eth0/type="" >>/var/log/univention/join.log 2>&1
 
 # Undefine all previous nameservers
-ucr unset nameserver1 nameserver2 nameserver3
+ucr unset nameserver1 nameserver2 nameserver3 >>/var/log/univention/join.log 2>&1
 
 # use dnsmasq (127.0.1.1) as default nameserver
 ucr set nameserver1="127.0.1.1" >>/var/log/univention/join.log 2>&1
