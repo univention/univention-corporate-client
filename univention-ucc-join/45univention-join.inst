@@ -48,7 +48,7 @@ test -z "$kvno" && kvno=1
 unset binddn bindpwd
 
 # Backup old keytab
-mv /etc/krb5.keytab "/etc/krb5.keytab.old_$(date +%F-%S%M%S)"
+[ -e /etc/krb5.keytab ] && mv /etc/krb5.keytab "/etc/krb5.keytab.old_$(date +%F-%S%M%S)"
 
 # Dump keytab
 /usr/share/univention-join/univention-create-keytab --keytab="/etc/krb5.keytab" \
