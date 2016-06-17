@@ -36,7 +36,7 @@ eval "$(univention-config-registry shell)"
 
 ucr set	grub/hidden/timeout?"0" \
 		grub/timeout?"10" \
-		grub/append?"quiet splash" \
+		grub/append?"quiet splash net.ifnames=0 biosdevname=0 " \
 		grub/font?"/boot/unicode.pf2"
 
 # By default the image should do notthing
