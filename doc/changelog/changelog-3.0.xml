@@ -30,6 +30,9 @@
 			<listitem><simpara>
 				The overlayfs mount directory structure and mount options have been adapted to the current overlayfs version (<u:bug>41526</u:bug>).
 			</simpara></listitem>
+			<listitem><simpara>
+				There is no continuous network connection from initramfs to NetworkManager start. (<u:bug>41599</u:bug>).
+			</simpara></listitem>
 		</itemizedlist>
 	</section>
 
