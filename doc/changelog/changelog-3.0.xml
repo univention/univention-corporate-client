@@ -141,16 +141,22 @@
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
+		<section id="changelog:sessions:firefox">
+			<title>Firefox</title>
+			<itemizedlist>
+				<listitem><simpara>
+					Support for customizing the session command has been added (<envar>firefox/session/cmd</envar>) (<u:bug>41427</u:bug>).
+				</simpara></listitem>
+			</itemizedlist>
+		</section>
 		<section id="changelog:sessions:rdp">
 			<title>RDP</title>
 			<itemizedlist>
 				<listitem><simpara>
-					xmessage has been replace with zenity for status messages (<u:bug>41427</u:bug>).
+					Xmessage has been replaced with zenity for status messages (<u:bug>41427</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-					The &ucsUCR; variable <envar>rdp/alternative/command</envar> has been added to overwrite
-					the standard RDP session binary, e.g. rdp/alternative/command='rdesktop -u $USER  $server'
-					(<u:bug>41427</u:bug>).
+					Support for customizing the session command has been added (<envar>rdp/session/cmd</envar>) (<u:bug>41427</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
