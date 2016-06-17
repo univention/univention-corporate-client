@@ -54,11 +54,11 @@ function cleanup_and_exit {
 
 eval "$(/usr/sbin/univention-config-registry shell)"
 
-params=()
+cmd=("/usr/bin/neutrinordp")
 
 if is_ucr_true 'rdp/ignorecertificate'; then
     echo "By default certificate validation is disabled"
-    params+=(--ignore-certificate)
+    cmd+=(--ignore-certificate)
 else
     echo "Enabling certificate validation"
 fi
@@ -67,52 +67,52 @@ if is_ucr_true 'rdp/checknla'; then
     echo "By default NLA validation is enabled"
 else
     echo "Disabling NLA validation"
-    params+=(--no-nla)
+    cmd+=(--no-nla)
 fi
 
 if is_ucr_true 'rdp/tlsencryption'; then
     echo "By default TLS encryption is enabled"
 else
     echo "Disabling TLS encryption"
-    params+=(--no-tls)
+    cmd+=(--no-tls)
 fi
 
 if [ -n "$rdp_colordepth" ]; then
-    params+=(-a "$rdp_colordepth")
+    cmd+=(-a "$rdp_colordepth")
 else
-    params+=(-a 24)
+    cmd+=(-a 24)
 fi
 
 if test -e /tmp/password-store-$USER; then
     PASSWD=`cat /tmp/password-store-$USER | base64 --decode`
-    params+=(-p "$PASSWD")
+    cmd+=(-p "$PASSWD")
 fi
 
 if [ -n "$rdp_keyboard" ]; then
-    params+=(-k "$rdp_keyboard")
+    cmd+=(-k "$rdp_keyboard")
 else
     rdpKeyboard=`univention-keyboardmapping --xtofreerdp $xorg_keyboard_options_XkbLayout`
-    params+=(-k "$rdpKeyboard")
+    cmd+=(-k "$rdpKeyboard")
 fi
 
 if is_ucr_true 'rdp/disable-sound'; then
 	echo "Deactivating sound output"
 else
- 	params+=(--plugin rdpsnd)
+ 	cmd+=(--plugin rdpsnd)
 fi
 
 if [ -n "$rdp_geometry" ]; then
-    params+=(-g "$rdp_geometry")
+    cmd+=(-g "$rdp_geometry")
 else
-    params+=(-f)
+    cmd+=(-f)
 fi
 
 if [ -n "$rdp_clienthostname" ]; then
-    params+=(-n "$rdp_clienthostname")
+    cmd+=(-n "$rdp_clienthostname")
 fi
 
 if [ -n "$rdp_user" ]; then
-    params+=(-u "$rdp_user")
+    cmd+=(-u "$rdp_user")
 else
 
 if [[ $USER == guest-* ]]; then
@@ -136,35 +136,35 @@ session to a Windows terminal server by launching the application
 Remmina Remote Desktop Client from the start menu."
 	/usr/bin/startlxde
 else
-    params+=(-u "$USER")
+    cmd+=(-u "$USER")
 	fi
 fi
 
 if [ -n "$rdp_domainname" ]; then
-    params+=(-d "$rdp_domainname")
+    cmd+=(-d "$rdp_domainname")
 else
 	policy_windows_domain=`get_user_policy_var univentionCorporateClientUserWindowsDomain` 
 
 if [ -z "$policy_windows_domain" ]; then
 	echo "Use a local workstation login and not a domain login"
 else
-	params+=(-d "$policy_windows_domain")
+	cmd+=(-d "$policy_windows_domain")
 fi	
 
 fi
 
 
 if [ -n "$rdp_additionaloptions" ]; then
-       params+=($rdp_additionaloptions)
+	cmd+=($rdp_additionaloptions)
 fi
 
 if is_ucr_true 'rdp/redirectdisk'; then
-    params+=(--plugin rdpdr --data disk:local-drives:/run/drives --)
+    cmd+=(--plugin rdpdr --data disk:local-drives:/run/drives --)
 else
 	policy_enable_storage=`grep -A 1 univentionCorporateClientComputerLocalStorage= /var/cache/ucc/client-policy-"$(hostname)".txt  | grep univentionCorporateClientComputerLocalStorage= | awk -F "=" '{print $2}' | sed -e 's/^[[:space:]]*//' `
 
-	if [ $policy_enable_storage == '"1"' ]; then
-		params+=(--plugin rdpdr --data disk:local-drives:/run/drives --)
+	if [ "$policy_enable_storage" = '"1"' ]; then
+		cmd+=(--plugin rdpdr --data disk:local-drives:/run/drives --)
 	fi
 fi
 	
@@ -193,28 +193,16 @@ by launching the application Remmina Remote Desktop Client from
 the start menu."
 	/usr/bin/startlxde
 fi
+cmd+=("$server")
 
+if [ -n "$rdp_session_cmd" ]; then
+	eval "$(echo $rdp_session_cmd | base64 -d)"
+fi
 
 messageFile=$(mktemp)
 echo "Could not contact terminal server" "$server"  > "$messageFile"
 
-if [ -n "$rdp_alternative_command" ]; then
-	cmd=()
-	for  i in $rdp_alternative_command; do
-		if [[ $i == \$* ]]; then
-			# remove first character from string (the $)
-			var="${i:1:${#i}-1}"
-			# expand the name in var to the actual value
-			cmd+=("${!var}")
-		else
-			cmd+=("$i")
-		fi
-	done
-	"${cmd[@]}" 2>"$messageFile"
-else
-	/usr/bin/neutrinordp "${params[@]}" $server 2>> "$messageFile"
-fi
-
+"${cmd[@]}" 2>> "$messageFile"
 ret=$?
 if [ $ret == 131 ]; then
 	zenity --error --no-markup --text="$(cat $messageFile)"

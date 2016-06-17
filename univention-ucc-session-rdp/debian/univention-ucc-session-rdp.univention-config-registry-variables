@@ -76,8 +76,8 @@ Description[en]=If this variable is activated the server certificate is ignored 
 Type=bool
 Categories=system-desktop
 
-[rdp/alternative/command]
-Description[de]=Konfiguriert eine alternatives Programm für die RDP Sessoin (z.B.: 'rdesktop -u $USER  -p $PASSWD $server')
-Description[en]=Configures a alternative binary for the RDP session (e.g., 'rdesktop -u $USER  -p $PASSWD $server')
+[rdp/session/cmd]
+Description[de]=Base64 kodiertes Bash-Skript das im Session-Skript ausgeführt wird und das Session-Kommando (Bash Array cmd) ergänzen bzw ersetzen kann.
+Description[en]=Base64 encoded bash script, evaluated in the session script, to supplement or replace the session command (bash array cmd).
 Type=str
 Categories=system-desktop
