@@ -3,3 +3,9 @@ Description[de]=Startseite für den Firefox-Browser
 Description[en]=Start site for the Firefox browser
 Type=str
 Categories=system-desktop
+
+[firefox/session/cmd]
+Description[de]=Base64 kodiertes Bash-Skript das im Session-Skript ausgeführt wird und das Session-Kommando (Bash Array cmd) ergänzen bzw ersetzen kann.
+Description[en]=Base64 encoded bash script, evaluated in the session script, to supplement or replace the session command (bash array cmd).
+Type=str
+Categories=system-desktop
