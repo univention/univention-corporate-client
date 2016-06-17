@@ -10,7 +10,9 @@ Build-Depends: debhelper,
 Package: univention-ucc-lxde
 Architecture: all
 Depends: ${misc:Depends},
- lxde, univention-ucc-theme
+ lxde,
+ lxsession-logout,
+ univention-ucc-theme
 Description: UCC - LXDE integration
  This package integrates the LXDE desktop environment into 
  Univention Corporate Client.
