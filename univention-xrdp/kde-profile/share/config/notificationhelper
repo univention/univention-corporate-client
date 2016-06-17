@@ -1,7 +1,0 @@
-[Event]
-hideApportNotifier[$i]=true
-hideHookNotifier[$i]=true
-hideInstallNotifier[$i]=true
-hideRestartNotifier[$i]=true
-hideDriverNotifier[$i]=true
-hideL10nNotifier[$i]=true

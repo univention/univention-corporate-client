@@ -1,7 +1,0 @@
-images/*.bmp usr/share/univention-xrdp/
-50univention-xrdp.inst usr/lib/univention-install/
-UCC-KDE etc/xrdp
-pulseaudio/asound.conf etc/
-lib/*.py usr/lib/univention-ucc-application-server/
-listener/*.py usr/lib/univention-directory-listener/system/
-kde-profile/* usr/share/univention-xrdp/kde-profile/

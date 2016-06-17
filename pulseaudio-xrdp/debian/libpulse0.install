@@ -1,4 +1,0 @@
-etc/pulse/client.conf
-usr/lib/*/libpulse.so.*
-usr/lib/*/libpulse-simple.so.*
-usr/lib/*/pulseaudio/libpulsecommon-*.so
