@@ -26,7 +26,7 @@
 	  </para>
 
 	  <figure id="lightdm"><title>User login at LightDM</title>
-	  <graphic scalefit="1" width="80%" fileref="illustrations40/ucc-lightdm.png"/>
+	  <graphic scalefit="1" width="80%" fileref="illustrations41/ucc-lightdm.png"/>
 	  </figure>
 
 	  <para>
@@ -47,7 +47,7 @@
 	  </para>
 
 	  <figure id="session-selection"><title>Session selection at LightDM</title>
-	  <graphic scalefit="1" width="40%" fileref="illustrations40/ucc-session-selection.png"/>
+	  <graphic scalefit="1" width="40%" fileref="illustrations41/ucc-session-selection.png"/>
 	  </figure>
 
 	  <para>

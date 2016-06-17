@@ -50,7 +50,7 @@
 	</para>
 
 	<figure id="ucr-policy"><title>Configuring UCR values through a policy</title>
-	<graphic scalefit="1" width="80%" fileref="illustrations40/ucc-ucr-policy.png"/>
+	<graphic scalefit="1" width="80%" fileref="illustrations41/ucc-ucr-policy.png"/>
 	</figure>
 
 	<para>
@@ -101,7 +101,7 @@ cron/COMMAND1/time=@reboot
 	</para>
 
 	<figure id="software-policy"><title>Installing additional software through a software update policy</title>
-	<graphic scalefit="1" width="80%" fileref="illustrations40/ucc-software-policy.png"/>
+	<graphic scalefit="1" width="80%" fileref="illustrations41/ucc-software-policy.png"/>
 	</figure>
 
 	<para>
@@ -181,7 +181,7 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 
 	  <figure id="apt-policy">
 		<title>Example UCR policy for configuring an apt source</title>
-		<graphic scalefit="1" width="80%" fileref="illustrations40/ucc-apt.png"/>
+		<graphic scalefit="1" width="80%" fileref="illustrations41/ucc-apt.png"/>
 	  </figure>
 
 	</para>
