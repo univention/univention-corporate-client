@@ -1088,7 +1088,7 @@ _start_dhcpclient()
 		done
 	fi
 
-	udhcpc -s /etc/default.script -i "$net_dev" -b
+	udhcpc -R -s /etc/default.script -i "$net_dev" -b
 
 	if [ -e /etc/resolv.conf ]; then
 		if ! grep -q "options timeout:" /etc/resolv.conf; then 
@@ -1695,6 +1695,7 @@ mountroot()
 	_verbose_break
 
 	stop_remote_logging
+	kill $(pidof udhcpc)
 
 	# until here the dhcp|previous resolv.conf is used, from
 	# now on the UCR resolv.conf (if the system is joined)

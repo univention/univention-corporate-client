@@ -1,3 +1,10 @@
+univention-ucc-initramfs (5.0.0-7) unstable; urgency=medium
+
+  * Bug #41599: Stop udhcpc at the end of initramfs script to release
+    ip configuration
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 17 Jun 2016 11:45:21 +0200
+
 univention-ucc-initramfs (5.0.0-6) unstable; urgency=medium
 
   * Bug #41526: Re-add accidentally removed line
