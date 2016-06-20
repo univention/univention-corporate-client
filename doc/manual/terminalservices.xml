@@ -13,7 +13,6 @@
 	In addition to the operation of stationary UCC clients, UCC also supports
 	access to terminal services. Login is supported to:
 	<itemizedlist>
-	  <listitem><simpara>UCC terminal servers via the RDP protocol (based on XRDP)</simpara></listitem>
 	  <listitem><simpara>Windows terminal services via the RDP protocol</simpara></listitem>
 	  <listitem><simpara>Citrix XenApp</simpara></listitem>
 	</itemizedlist>
@@ -33,79 +32,6 @@
 	  </simpara></listitem>
 	</itemizedlist>
   </para>
-
-  <section id="terminalservices:xrdp">
-	<title>UCC terminal services based on XRDP</title>
-	<para>
-	  UCC integrates terminal services provided via XRDP, i.e., the KDE Linux desktop is provided
-	  via the RDP protocol.
-	</para>
-
-	<section id="terminalservices:xrdp:installation">
-	  <title>Installation</title>
-
-	  <para>
-	  </para>
-
-	  <para>
-		UCC terminal servers are installed with the UCC desktop image. The setup is described in
-		<xref linkend="umc:manageucc"/>. The <package>univention-xrdp</package> package must also be
-		installed on the desktop image. There is a UCC software policy linked to the container
-		<uri>cn=computers, cn=ucc-xrdpserver</uri> (see <xref
-		linkend="config:softwareupdates"/>), i.e., if the computer object is created in the container,
-		the package is installed automatically during the rollout of the UCC system.
-	  </para>
-
-	  <caution>
-	  	<para>
-		  An XRDP terminal server needs to be restarted once following the installation to be able
-		  to initialise additional PulseAudio drivers correctly!
-	  	</para>
-	  </caution>
-
-	</section>
-
-	<section id="terminalservices:xrdp:access">
-	  <title>Accessing XRDP terminal services</title>
-
-	  <para>
-		The access of an XRDP terminal server from a UCC thin client via the RDP protocol is
-		described in <xref linkend="terminalservices:rdp"/>.
-	  </para>
-
-	  <para>
-		If the forwarding of storage devices is enabled, they appear in the user's home directory in
-		the <filename class="directory">~/xrdp_client</filename> directory. Forwarding of sound output in terminal sessions is also
-		possible. This requires a sound card to be present or emulated on the XRDP terminal server.
-	  </para>
-
-	  <para>
-		Access to the XRDP terminal server from other clients is also supported (e.g., Windows PCs,
-		Mac OS X or thin clients with third-party operating systems). For these clients it is
-		sufficient to configure the IP address or hostname of the XRDP server and perform a login
-		with a user from the UCS domain. An XRDP login screen is provided for the login from
-		external devices. It is not necessary to specify a domain when logging on to an XRDP
-		terminal server.
-	  </para>
-
-	  <para>
-		Password changes are currently not yet supported when logging in from an external device. If
-		the password has expired, the login will fail. Password changes are performed in the login
-		manager LightDM when logging in from UCC thin clients.
-	  </para>
-	</section>
-
-
-	<section id="terminalservices:xrdp:kdeprofile">
-	  <title>KDE desktop in UCC terminal services</title>
-	  <para>
-		As standard, UCC uses a KDE profile optimised for remote operation on terminal servers. It
-		disables e.g. update notifications. The use of this profile can be disabled per UCC terminal
-		server by setting the &ucsUCRV; on the XRDP terminal server <envar>ucc/session/remote/profile</envar> to
-		<literal>false</literal> (see <xref linkend="config:ucr"/>).
-	  </para>
-	</section>
-  </section>
 
   <section id="terminalservices:rdp">
 	<title>Windows terminal services (RDP)</title>
@@ -140,7 +66,7 @@
 
 		<para>
 		  For setting up the RDP access to RDP terminal servers, the <guimenu>UCC Setup</guimenu>
-		  wizard must be opened in the &ucsUMC;. The <guimenu>Configure access to a Windows/XRDP
+		  wizard must be opened in the &ucsUMC;. The <guimenu>Configure access to a Windows
 		  terminal server</guimenu> option must be selected under <guimenu>Thin client
 		  configuration</guimenu> in the <guimenu>Configuration of terminal services</guimenu>
 		  submenu.
@@ -149,8 +75,7 @@
 		<para>
 		  The host name of the RDP terminal server must be entered in the <guimenu>Host name of
 		  terminal server</guimenu> input field. If a Windows terminal server is used, the domain
-		  name must be entered in the <guimenu>Domain name</guimenu> input field. If XRDP is used,
-		  the field may be left blank.
+		  name must be entered in the <guimenu>Domain name</guimenu> input field.
 		</para>
 
 		<para>
@@ -176,8 +101,7 @@
 		  The terminal server and the Windows domain of the terminal server can be specified per
 		  user via a <emphasis>UCC user session</emphasis> user policy. Alternatively, the server
 		  and the domain can also be specified per client by setting the &ucsUCR; variables
-		  <envar>rdp/domainname</envar> and <envar>rdp/server</envar>. If an XRDP server is used as
-		  the terminal server, the <envar>rdp/domainname</envar> can be left blank.
+		  <envar>rdp/domainname</envar> and <envar>rdp/server</envar>.
 		</para>
 
 		<para>

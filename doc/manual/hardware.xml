@@ -58,7 +58,7 @@
 	</para>
 
 	<para>
-	  The local mount points are made available in UCC terminal server and Windows terminal server
+	  The local mount points are made available in Windows terminal
 	  server sessions if the option <guimenu>Allow access to local mass storage</guimenu> is
 	  activated in the <guimenu>UCC client configuration</guimenu> policy in the UMC computer
 	  management.
@@ -97,7 +97,7 @@
 
 	  <itemizedlist>
 		<listitem><simpara>
-		  In RDP sessions to Windows terminal servers and XRDP terminal servers, audio is
+		  In RDP sessions to Windows terminal servers, audio is
 		  transported via an RDP channel.
 		</simpara></listitem>
 

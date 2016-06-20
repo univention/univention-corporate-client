@@ -111,17 +111,15 @@
 
   <para>
 	The thin client image offers a minimal desktop and support for accessing terminal sessions on
-	Windows and UCC terminal servers. UCC thin client images integrate the Citrix Receiver for accessing
+	Windows. UCC thin client images integrate the Citrix Receiver for accessing
 	Citrix terminal services. In addition, a local LXDE desktop environment is also
 	available. Thin clients which are to be operated with this image must be equipped with at least 2
 	GB of local disk space (e.g., CompactFlash or SSD).
   </para>
 
   <para>
-	The desktop client image offers a KDE Plasma desktop and support for terminal sessions to Windows
-	and UCC terminal servers (support for Citrix XenApp can be subsequently installed).
-	In addition, the desktop image is also the basis for the operation of an XRDP terminal server
-	(see <xref linkend="terminalservices:xrdp"/>).
+	The desktop client image offers a Ubuntu 16.04 desktop and support for terminal sessions to Windows
+	(support for Citrix XenApp can be subsequently installed).
   </para>
 
   <para>

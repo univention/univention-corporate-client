@@ -57,14 +57,13 @@
 
 	<para>
 	  The next menu item allows you to select whether desktops and/or thin clients should be
-	  configured. No additional configuration is required for Linux desktop systems / XRDP terminal
-	  servers. The wizards for setting up the thin client access on terminal services are described
+	  configured. No additional configuration is required for Linux desktop systems.
+	  The wizards for setting up the thin client access on terminal services are described
 	  in the following sections:
 
 	   <itemizedlist>
 		 <listitem><simpara>
 		   Thin client access to Windows terminal servers (<xref linkend="terminalservices:rdp"/>)
-		   and XRDP terminal servers (<xref linkend="terminalservices:xrdp"/>)
 		 </simpara></listitem>
 
 		 <listitem><simpara>
@@ -92,8 +91,7 @@
 	   Corporate Client</emphasis> in the computer management module of the &ucsUMC;.
 	   The UCC setup wizard automatically creates three computer containers for thin clients
 	   (<uri>cn=computers, cn=ucc-thinclients</uri>), desktop systems
-	   (<uri>cn=computers, cn=ucc-desktops</uri>) and XRDP terminal servers
-	   (<uri>cn=computers, cn=ucc-xrdpserver</uri>). These should be selected in the
+	   (<uri>cn=computers, cn=ucc-desktops</uri>). These should be selected in the
 	   <guimenu>Container</guimenu> input field depending on the type of the UCC client.
 	 </para>
 

@@ -54,8 +54,7 @@
 		The following session scripts are supported:
 		<itemizedlist>
 		  <listitem><simpara>
-			Univention Corporate Client based on KDE (on a local system and to a XRDP terminal server)
-			(<xref linkend="terminalservices:xrdp"/>, <xref linkend="desktop:chapter"/>)
+			Univention Corporate Client based on Ubuntu (<xref linkend="desktop:chapter"/>)
 		  </simpara></listitem>
 
 		  <listitem><simpara>
