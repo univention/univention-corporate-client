@@ -202,9 +202,12 @@ fi
 messageFile=$(mktemp)
 echo "Could not contact terminal server" "$server"  > "$messageFile"
 
-"${cmd[@]}" 2>> "$messageFile"
+"${cmd[@]}" 2>&1 >> "$messageFile"
 ret=$?
-if [ $ret == 131 ]; then
+
+echo "Logfile: $messageFile" >> "$messageFile"
+
+if [ $ret != 0 ]; then
 	zenity --error --no-markup --text="$(cat $messageFile)"
 fi
 

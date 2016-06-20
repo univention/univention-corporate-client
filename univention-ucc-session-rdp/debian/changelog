@@ -1,3 +1,12 @@
+univention-ucc-session-rdp (4.0.0-5) unstable; urgency=medium
+
+  * Bug #41612: Improve RDP session script logging
+  * Show complete error message in zenity dialog
+  * Log entire error in logfile, show logfile name in zenity dialog
+  * Return value 131 may not be the only way an error has occured
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 20 Jun 2016 13:52:25 +0200
+
 univention-ucc-session-rdp (4.0.0-4) unstable; urgency=low
 
   * added support customizable rdp session (Bug #41427)
