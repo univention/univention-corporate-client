@@ -164,6 +164,9 @@
 				<listitem><simpara>
 					Support for customizing the session command has been added (<envar>rdp/session/cmd</envar>) (<u:bug>41427</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+						Error message logging has been improved: Errors are now logged into the logfile that is shown in the zenity status message dialog (<u:bug>41612</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 
