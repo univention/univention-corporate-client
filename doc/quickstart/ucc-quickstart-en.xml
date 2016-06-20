@@ -55,12 +55,6 @@
   </para>
 
   <para>
-	UCC also offers the possibility of providing a KDE Linux desktop terminal server remotely via
-	the RDP protocol. It is then possible to access it from thin clients, for example. This is
-	documented in the UCC manual <biblioref linkend="ucc-manual"/>.
-  </para>
-
-  <para>
 	Help on Univention Corporate Client is offered in the Univention Forum: <ulink
 	url="http://forum.univention.de/"/>.
   </para>
@@ -210,7 +204,7 @@
 
 	<para>
 	  The next prompt asks which remote desktop services should be accessed. Select <guimenu>RDP
-	  services (Windows Remote Desktop Services, XRDP)</guimenu> and click <guimenu>Next</guimenu>.
+	  services (Remote Desktop Services)</guimenu> and click <guimenu>Next</guimenu>.
 	</para>
 
 	<para>
@@ -286,8 +280,7 @@
 	<para>
 	  The <guimenu>UCC setup</guimenu> UMC module must be opened. In the first menu item you can
 	  select whether desktops and/or thin clients are to be set up. Select <guimenu>Linux desktop
-	  systems configuration / XRDP terminal server setup</guimenu> and click
-	  <guimenu>Next</guimenu>.
+	  systems configuration</guimenu> and click <guimenu>Next</guimenu>.
 	</para>
 
 	<para>
