@@ -96,7 +96,9 @@
 			<title>General</title>
 			<itemizedlist>
 				<listitem><simpara>
-					...
+						The thin client image config has been updated to reflect the Ubuntu 16.04 packages and their dependencies (<u:bug>41509</u:bug>).
+						The thin client image size is now 1.70GiB (<u:bug>41509</u:bug>).
+						lxterminal is not replaced by xterm anymore (<u:bug>41509</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
