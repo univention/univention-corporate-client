@@ -1,3 +1,3 @@
-ucc/*.png lib/plymouth/themes/ucc/
-ucc/ucc.plymouth lib/plymouth/themes/ucc/
-ucc/ucc.script lib/plymouth/themes/ucc/
+ucc/*.png usr/share/plymouth/themes/ucc/
+ucc/ucc.plymouth usr/share/plymouth/themes/ucc/
+ucc/ucc.script usr/share/plymouth/themes/ucc/

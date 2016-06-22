@@ -4,8 +4,8 @@ Description=Script example plugin.
 ModuleName=script
 
 [script]
-ImageDir=/lib/plymouth/themes/ucc
-ScriptFile=/lib/plymouth/themes/ucc/ucc.script
+ImageDir=/usr/share/plymouth/themes/ucc
+ScriptFile=/usr/share/plymouth/themes/ucc/ucc.script
 
 [script-env-vars]
 example_env_var=example env var value

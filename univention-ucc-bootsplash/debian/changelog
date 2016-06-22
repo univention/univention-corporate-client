@@ -1,3 +1,9 @@
+univention-ucc-bootsplash (4.0.0-2) unstable; urgency=low
+
+  * fixed plugin dir (Bug #41545)
+
+ -- Felix Botner <botner@univention.de>  Wed, 22 Jun 2016 16:23:27 +0200
+
 univention-ucc-bootsplash (4.0.0-1) unstable; urgency=medium
 
   * bumped version
