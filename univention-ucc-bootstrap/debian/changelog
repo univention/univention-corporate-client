@@ -1,3 +1,9 @@
+univention-ucc-bootstrap (3.0.0-2) unstable; urgency=low
+
+  * removed whoopsie (Bug #41510)
+
+ -- Felix Botner <botner@univention.de>  Wed, 22 Jun 2016 14:13:40 +0200
+
 univention-ucc-bootstrap (3.0.0-1) unstable; urgency=medium
 
   * bumped version
