@@ -1,3 +1,9 @@
+univention-corporate-client (4.0.0-3) unstable; urgency=low
+
+  * Do not disable drm for cirruy cards (Bug #41545) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 27 Jun 2016 12:14:35 +0200
+
 univention-corporate-client (4.0.0-2) unstable; urgency=low
 
   * Added univention-ucc-force-rw-boot script (Bug #41427)
