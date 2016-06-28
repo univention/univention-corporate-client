@@ -1,3 +1,10 @@
+univention-ucc-initramfs (5.0.0-8) unstable; urgency=low
+
+  * Bug #41427: removed univention-ucc-fetch-system-policies
+    after join
+
+ -- Felix Botner <botner@univention.de>  Tue, 28 Jun 2016 16:47:08 +0200
+
 univention-ucc-initramfs (5.0.0-7) unstable; urgency=medium
 
   * Bug #41599: Stop udhcpc at the end of initramfs script to release
