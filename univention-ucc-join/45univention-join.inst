@@ -55,6 +55,8 @@ unset binddn bindpwd
 	--principal="host/$hostname.$domainname" --alias="host/$hostname.$domainname" \
 	--kvno=$kvno --password="$(cat /etc/machine.secret)" || die
 
+# update system policies
+univention-ucc-fetch-system-policies
 
 joinscript_save_current_version
 
