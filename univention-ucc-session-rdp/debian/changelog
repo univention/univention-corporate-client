@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (4.0.0-6) unstable; urgency=low
+
+  * Bug #41612: fixed lxde fallback 
+
+ -- Felix Botner <botner@univention.de>  Wed, 29 Jun 2016 13:35:04 +0200
+
 univention-ucc-session-rdp (4.0.0-5) unstable; urgency=medium
 
   * Bug #41612: Improve RDP session script logging

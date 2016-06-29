@@ -192,23 +192,24 @@ You can initiate a terminal session to a Windows terminal server
 by launching the application Remmina Remote Desktop Client from
 the start menu."
 	/usr/bin/startlxde
-fi
-cmd+=("$server")
+else
+	cmd+=("$server")
 
-if [ -n "$rdp_session_cmd" ]; then
-	eval "$(echo $rdp_session_cmd | base64 -d)"
-fi
+	if [ -n "$rdp_session_cmd" ]; then
+		eval "$(echo $rdp_session_cmd | base64 -d)"
+	fi
 
-messageFile=$(mktemp)
-echo "Could not contact terminal server" "$server"  > "$messageFile"
+	messageFile=$(mktemp)
+	echo "Could not contact terminal server" "$server"  > "$messageFile"
 
-"${cmd[@]}" 2>&1 >> "$messageFile"
-ret=$?
+	"${cmd[@]}" 2>&1 >> "$messageFile"
+	ret=$?
 
-echo "Logfile: $messageFile" >> "$messageFile"
+	echo "Logfile: $messageFile" >> "$messageFile"
 
-if [ $ret != 0 ]; then
-	zenity --error --no-markup --text="$(cat $messageFile)"
+	if [ $ret != 0 ]; then
+		zenity --error --no-markup --text="$(cat $messageFile)"
+	fi
 fi
 
 cleanup_and_exit
