@@ -22,7 +22,8 @@ Depends: univention-config,
  alsa-utils,
  ntpdate,
  rsyslog-relp,
- network-manager
+ network-manager,
+ libsasl2-modules-gssapi-heimdal
 Recommends: univention-ucc-printerconfig,
  univention-ucc-proxy-settings,
  univention-ucc-cifshome-pam-mount

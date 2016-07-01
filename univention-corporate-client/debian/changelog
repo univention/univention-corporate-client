@@ -1,3 +1,10 @@
+univention-corporate-client (4.0.0-4) unstable; urgency=low
+
+  * added libsasl2-modules-gssapi-heimdal for 
+    ldap gssapi (kerberos) authentication (Bug #35411) 
+
+ -- Felix Botner <botner@univention.de>  Fri, 01 Jul 2016 15:28:21 +0200
+
 univention-corporate-client (4.0.0-3) unstable; urgency=low
 
   * Do not disable drm for cirruy cards (Bug #41545) 
