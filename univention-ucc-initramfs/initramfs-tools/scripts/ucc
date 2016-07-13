@@ -1483,6 +1483,14 @@ stop_remote_logging ()
 	test -e /var/run/rsyslogd.pid && kill "$(cat /var/run/rsyslogd.pid)"
 }
 
+update_ldap_host_dn ()
+{
+	# Update ldap/hostdn in case of object has been moved
+	if ! chroot /root /usr/share/univention-ucc-initramfs/scripts/update-ldap-host-dn >/tmp/ucclog 2>&1; then
+	        debug "$(cat /tmp/ucclog)"
+	fi
+}
+
 check_parameter ()
 {
 	for x in $(cat $1); do
@@ -1599,15 +1607,22 @@ mountroot()
 
 	remote_logging
 
-	# Check if the LDAP settings override the local boot settings
+	mkdir -p /ucc_tmp/root
 	if [ "${ROOT}" != "search" -a "${ROOT}" != "/dev/nfs" ]; then
-		mkdir -p /ucc_tmp/root
 		mount ${ROOT} /ucc_tmp/root
-		if _mount_image; then
-			if [ -e /root/var/univention-join/joined ]; then
+	else
+		_mount_local_root_device || true
+	fi
+
+	if _mount_image; then
+		if [ -e /root/var/univention-join/joined ]; then
+			notice "Verify ldap host DN"
+			update_ldap_host_dn
+			notice "Fetch system policies"
+			chroot /root /usr/sbin/univention-ucc-fetch-system-policies
+			# Check if the LDAP settings override the local boot settings
+			if [ "${ROOT}" != "search" -a "${ROOT}" != "/dev/nfs" ]; then
 				if chroot /root /usr/sbin/univention-ucc-boot-option --read >/tmp/boot_parameter; then
-					notice "Fetch system policies"
-					chroot /root /usr/sbin/univention-ucc-fetch-system-policies
 					notice "Read and set LDAP boot parameter"
 					debug "LDAP boot parameter: $(cat /tmp/boot_parameter)"
 					check_parameter /tmp/boot_parameter
@@ -1617,18 +1632,18 @@ mountroot()
 				# Place scripts that should modify the image in the directory /usr/lib/univention-initramfs-localboot
 				run_parts_in "/usr/lib/univention-initramfs-localboot"
 			fi
-			
-			_umount_image
 		fi
-		umount /ucc_tmp/root
-
-		test "$verbose" = "y" && set -x || set +x
-
-		# Restart remote logging, the values may have been changed
-		# TODO: check if the restart is really necessary
-		stop_remote_logging
-		remote_logging
+		_verbose_break
+		_umount_image
 	fi
+	umount /ucc_tmp/root
+
+	test "$verbose" = "y" && set -x || set +x
+
+	# Restart remote logging, the values may have been changed
+	# TODO: check if the restart is really necessary
+	stop_remote_logging
+	remote_logging
 
 	run_parts_in "/usr/lib/univention-initramfs-pre-boot-option-check"
 

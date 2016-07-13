@@ -15,6 +15,7 @@ Depends: ${misc:Depends},
  rsync,
  lvm2,
  cryptsetup
+ libsasl2-modules-gssapi-heimdal,
 Description: UCS - meta package for the initramfs configuration
  This package contains the configuration for the initramfs configuration.
  .
