@@ -1,3 +1,9 @@
+univention-ucc-initramfs (5.0.0-10) unstable; urgency=low
+
+  * Bug #35411: added scripts/update-ldap-host-dn
+
+ -- Felix Botner <botner@univention.de>  Wed, 13 Jul 2016 15:49:31 +0200
+
 univention-ucc-initramfs (5.0.0-9) unstable; urgency=low
 
   * Bug #35411: added scripts/update-ldap-host-dn
