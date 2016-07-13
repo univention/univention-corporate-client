@@ -100,6 +100,9 @@
 						The thin client image size is now 1.70GiB (<u:bug>41509</u:bug>).
 						lxterminal is not replaced by xterm anymore (<u:bug>41509</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+						univention-ucc-fetch-system-policies now logs its start time (<u:bug>41212</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 		<section id="changelog:images:thinclient">
