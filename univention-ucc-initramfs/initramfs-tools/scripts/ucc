@@ -1451,6 +1451,13 @@ set_boot_variant ()
 	fi
 }
 
+update_current_image ()
+{
+	if ! chroot /root /usr/share/univention-ucc-initramfs/scripts/update-current-image >/tmp/ucclog 2>&1; then
+		debug "$(cat /tmp/ucclog)"
+	fi
+}
+
 
 get_boot_mount_option ()
 {
@@ -1654,6 +1661,7 @@ mountroot()
 		ucc_installation
 		# Start rollout
 		ucc_rollout
+		update_current_image
 	# IMAGE UPDATE
 	elif [ "$UCC" = "rollout" ]; then
 		notice "Starting UCC rollout mode"
@@ -1663,6 +1671,7 @@ mountroot()
 		ucc_rollout
 		if [ -e /tmp/updated ]; then
 			set_boot_variant
+			update_current_image
 		fi
 	# LIVE SYSTEM
 	elif [ "$UCC" = "overlayfs" ]; then
