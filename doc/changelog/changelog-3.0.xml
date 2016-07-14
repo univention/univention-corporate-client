@@ -71,7 +71,9 @@
 			<title>&ucsUMC; integration</title>
 			<itemizedlist>
 				<listitem><simpara>
-					...
+					A new attribute <guimenu>Current image</guimenu> has been added to UCC clients.
+					This non-editable attribute holds the currently installed image of client and
+					is updated by the client during installation and image update (<u:bug>33783</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
