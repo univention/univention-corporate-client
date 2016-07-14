@@ -27,3 +27,9 @@ Description[de]=Regulärer Ausdruck für die Suche nach Kernel-Paketen (default:
 Description[en]=Regular expression used for search for kernel packages (default: linux-image-[[:digit:]])
 Type=str
 Categories=system-desktop
+
+[ucc/timeserver]
+Description[de]=Zeitserver für den timesyncd Dienst.
+Description[en]=Timeserver for the timesyncd service.
+Type=str
+Categories=system-desktop

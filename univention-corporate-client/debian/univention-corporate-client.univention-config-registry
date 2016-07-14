@@ -23,3 +23,7 @@ File: etc/init/lightdm.conf
 
 Type: file
 File: etc/init/plymouth-stop.conf
+
+Type: file
+File: etc/systemd/timesyncd.conf
+Variables: ucc/timeserver

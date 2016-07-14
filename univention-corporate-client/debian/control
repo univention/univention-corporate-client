@@ -20,7 +20,6 @@ Depends: univention-config,
  univention-ucc-bootsplash,
  univention-lightdm,
  alsa-utils,
- ntpdate,
  rsyslog-relp,
  network-manager,
  libsasl2-modules-gssapi-heimdal
