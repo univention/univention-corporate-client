@@ -1661,7 +1661,6 @@ mountroot()
 		ucc_installation
 		# Start rollout
 		ucc_rollout
-		update_current_image
 	# IMAGE UPDATE
 	elif [ "$UCC" = "rollout" ]; then
 		notice "Starting UCC rollout mode"
