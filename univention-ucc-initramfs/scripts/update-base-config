@@ -1,0 +1,105 @@
+#!/bin/bash -e
+#
+# Copyright 2016 Univention GmbH
+#
+# http://www.univention.de/
+#
+# All rights reserved.
+#
+# The source code of this program is made available
+# under the terms of the GNU Affero General Public License version 3
+# (GNU AGPL V3) as published by the Free Software Foundation.
+#
+# Binary versions of this program provided by Univention to you as
+# well as other copyrighted, protected or trademarked materials like
+# Logos, graphics, fonts, specific documentations and configurations,
+# cryptographic keys etc. are subject to a license agreement between
+# you and Univention and not subject to the GNU AGPL V3.
+#
+# In the case you use this program under the terms of the GNU AGPL V3,
+# the program is provided in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License with the Debian GNU/Linux or Univention distribution in file
+# /usr/share/common-licenses/AGPL-3; if not, see
+# <http://www.gnu.org/licenses/>.
+
+eval "$(ucr shell)"
+
+cmdline=${1:-/proc/cmdline}
+
+for x in $(cat "$cmdline"); do
+	case $x in
+		syslog=*)
+		SYSLOG="${x#syslog=}"
+		;;
+		syslogserver=*)
+		SYSLOGSERVER="${x#syslogserver=}"
+		;;
+		ucc=*)
+		BOOTVARIANT="${x#ucc=}"
+		;;
+		keyboard=*)
+		KEYBOARD="${x#keyboard=}"
+		;;
+		locale=*)
+		LOCALE="${x#locale=}"
+		;;
+		timezone=*)
+		TIMEZONE="${x#timezone=}"
+		;;
+	esac
+done
+
+# update grub append
+append=""
+syslog_ucr="$(echo $grub_append | grep '\<syslog=y\>')" || true
+if [ -z "$syslog_ucr" -a "$SYSLOG" = "y" ]; then
+	# remove syslog=X from grub/append and append syslog=y
+	grub_append="$(echo $grub_append | sed 's|syslog=[^ ]||')"
+	append="syslog=y"
+fi
+syslogserver_ucr="$(echo $grub_append | grep '\<syslogserver=')" || true
+if [ -z "$syslogserver_ucr" -a -n "$SYSLOGSERVER" ]; then
+    append="$append syslogserver=$SYSLOGSERVER"
+fi
+if [ -n "$append" ]; then
+    univention-config-registry set grub/append="$grub_append $append"
+fi
+
+# TODO, is this still necessary with ucc 3.0
+## when shutting down a livesystem stop networking at a later time to avoid a deadlock 
+## when unmounting filesystems as the rootfs is mounted via nfs with an overlayfs on top (Bug #29978)
+#if [ "$BOOTVARIANT" = "overlayfs" ]; then
+#    update-rc.d -f networking remove
+#    update-rc.d networking start 65 0 6 .
+#fi
+
+# update locale, keyboard and timezone
+if [ -z "$xorg_keyboard_options_XkbLayout" -a -n "$KEYBOARD" ]; then
+	univention-config-registry set xorg/keyboard/options/XkbLayout="$KEYBOARD"
+fi
+if [ -z "$locale_default" -a -n "$LOCALE" ]; then
+	univention-config-registry set locale/default="$LOCALE"
+fi
+if [ -z "$ucc_timezone" -a -n "$TIMEZONE" ]; then
+	univention-config-registry set ucc/timezone="$TIMEZONE"
+	ucc_timezone="$TIMEZONE"
+fi
+if [ -n "$ucc_timezone" ]; then
+	if [ -e "/usr/share/zoneinfo/$ucc_timezone" ]; then
+		if [ -e /etc/localtime ]; then
+			rm /etc/localtime
+		fi
+		ln -s "/usr/share/zoneinfo/$ucc_timezone" /etc/localtime
+	fi
+fi
+
+# TODO, is this still necessary with ucc 3.0
+#    setupcon --force
+#
+
+exit 0

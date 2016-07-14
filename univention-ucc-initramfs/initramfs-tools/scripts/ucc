@@ -1458,6 +1458,15 @@ update_current_image ()
 	fi
 }
 
+update_base_config ()
+{
+
+	cp /proc/cmdline /root/tmp/cmdline
+	if ! chroot /root /usr/share/univention-ucc-initramfs/scripts/update-base-config >/tmp/ucclog 2>&1; then
+		debug "$(cat /tmp/ucclog)"
+	fi
+}
+
 
 get_boot_mount_option ()
 {
@@ -1685,6 +1694,9 @@ mountroot()
 	fi
 
 	run_parts_in "/usr/lib/univention-initramfs-post-boot-option-check" "mounted"
+	
+	update_base_config
+	_verbose_break
 
 	# mount the image ro if requested
 	if [ "$UCC" != "overlayfs" ]; then

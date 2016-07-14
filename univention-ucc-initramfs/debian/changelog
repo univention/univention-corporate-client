@@ -1,3 +1,9 @@
+univention-ucc-initramfs (5.0.0-14) unstable; urgency=low
+
+  * Bug #41788: added update-base-config
+
+ -- Felix Botner <botner@univention.de>  Thu, 14 Jul 2016 18:20:06 +0200
+
 univention-ucc-initramfs (5.0.0-13) unstable; urgency=low
 
   * Bug #33783: update current image in initrd
