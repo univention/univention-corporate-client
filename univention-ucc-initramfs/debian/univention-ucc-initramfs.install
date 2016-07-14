@@ -6,6 +6,7 @@ scripts/set-bootable-flag-on-protective-mbr /usr/share/univention-ucc-initramfs/
 scripts/set_boot_variant.sh /usr/share/univention-ucc-initramfs/scripts/
 scripts/get_boot_mount_option.sh /usr/share/univention-ucc-initramfs/scripts/
 scripts/update-ldap-host-dn /usr/share/univention-ucc-initramfs/scripts/
+scripts/update-current-image /usr/share/univention-ucc-initramfs/scripts/
 scripts/univention-ucc-boot-option /usr/sbin/
 51univention-ucc-initramfs.inst usr/lib/univention-install/
 initramfs-tools/conf-hooks.d/ucc usr/share/initramfs-tools/conf-hooks.d/
