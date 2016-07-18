@@ -1,3 +1,9 @@
+univention-corporate-client (4.0.0-8) unstable; urgency=low
+
+  * Bug #41788: added systemd services, removed upstart
+
+ -- Felix Botner <botner@univention.de>  Mon, 18 Jul 2016 17:41:09 +0200
+
 univention-corporate-client (4.0.0-7) unstable; urgency=low
 
   * Bug #41788: added systemd services, removed upstart
