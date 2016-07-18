@@ -3,7 +3,7 @@ Section: univention
 Priority: optional
 Maintainer: Univention GmbH <packages@univention.de>
 Standards-Version: 3.8.2
-Build-Depends: debhelper, ucslint, univention-config-dev
+Build-Depends: debhelper, ucslint, univention-config-dev, dh-systemd
 
 Package: univention-corporate-client
 Architecture: all
