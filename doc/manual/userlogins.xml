@@ -253,6 +253,21 @@
 	  site</guimenu> input field. If the wizard is not used, the &ucsUCRV;
 	  <envar>firefox/startsite</envar> must be configured.
 	</para>
+
+	<para>
+	  The Firefox session script can be customized with the &ucsUCRV; <envar>firefox/session/cmd</envar>.
+	  This variable can be set to a base64 encoded bash code snippet which is executed just before
+	  the Firefox command is called. The bash code can overwrite the Firefox command with
+	  <programlisting>
+cmd=("/usr/bin/myfirefox")
+cmd+=(--my-options $USER)
+	  </programlisting>
+	  or supplement the default command.
+	  <programlisting>
+cmd+=(--my-new-option-for-the-default-firefox-command ABC)
+	  </programlisting>
+	</para>
+
   </section>
 
   <section id="logins:sessionobjects">

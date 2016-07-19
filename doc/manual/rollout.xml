@@ -345,6 +345,12 @@
   client using OverlayFS.
 </para>
 
+<para>
+  To force a thin client to boot in rw mode without changing the configuration the command
+  <command>univention-ucc-force-rw-boot</command> can be used. A reboot of the thin client
+  is requiered afterwards.
+</para>
+
 </section>
 
 <section id="rollout:uefi">

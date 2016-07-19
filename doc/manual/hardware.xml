@@ -72,6 +72,12 @@
 	</para>
 
 	<para>
+	  It is also possible to disable devices for the automatic mount.
+	  The &ucsUCRV; <envar>ucc/mount/blacklist</envar> (space-separated list) can be used to configure a list of
+	  devices names which are not mounted (<literal>sda sdb sdc sdd sde</literal> by default).
+	</para>
+
+	<para>
 	  In the standard setting, data on thin clients are cached for up to a tenth of a second before
 	  they are written on the USB medium. The behaviour can be adapted with the &ucsUCR; variables
 	  <envar>ucc/sysctl/dirtywritebackcentisecs</envar> and

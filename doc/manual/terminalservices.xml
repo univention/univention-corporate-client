@@ -163,6 +163,20 @@
 			<envar>rdp/geometry</envar> can be used to specify the screen resolution.
 		  </para>
 
+		  <para>
+			The RDP session script can be customized with the &ucsUCRV; <envar>rdp/session/cmd</envar>.
+			This variable can be set to a base64 encoded bash code snippet which is executed just before
+			the RDP command is called. The bash code can overwrite the RDP command with
+			<programlisting>
+cmd=("/usr/bin/myrdpclient")
+cmd+=(--my-options $USER)
+			</programlisting>
+			or supplement the default command.
+			<programlisting>
+cmd+=(--my-new-option-for-the-default-rdp-command ABC)
+			</programlisting>
+		  </para>
+
 		</section>
 
 	  </section>
@@ -321,6 +335,19 @@
 	  The Citrix session supports USB redirection (if configured on the server). Special rules 
 	  to enable/disable USB redirection for devices can be configured with the UCR variable
 	  <envar>ucc/xenapp/ctxusb/rules</envar> on the UCC thin client.
+	</para>
+
+	<para>
+	  For customization purposes the XenApp session script supports hooks. These hooks
+	  are basically bash scripts which have to be placed in the correct hook directory.
+	  The session script executes these hooks via <command>run-parts</command> at different
+	  stages of the script. The following hook directories are supported:
+	<itemizedlist>
+		<listitem>/usr/share/univention-ucc-session-xenapp/hooks/top.d - start of the session script</listitem>
+		<listitem>/usr/share/univention-ucc-session-xenapp/hooks/pre-firefox.d - before starting firefox</listitem>
+		<listitem>/usr/share/univention-ucc-session-xenapp/hooks/post-firefox.d - after firefox finished</listitem>
+		<listitem>/usr/share/univention-ucc-session-xenapp/hooks/bottom.d - end of the session script</listitem>
+	</itemizedlist>
 	</para>
 
   </section>
