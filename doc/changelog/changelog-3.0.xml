@@ -108,6 +108,9 @@
 				<listitem><simpara>
 						univention-ucc-fetch-system-policies now logs its start time (<u:bug>41212</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+						All upstart init script have been migrated to systemd services (<u:bug>41788</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 		<section id="changelog:images:thinclient">
