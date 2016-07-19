@@ -1,4 +1,4 @@
 ucs_mkhomedir /usr/share/pam-configs/
 local_groups /usr/share/pam-configs/
 univention-ucc-update-nss usr/sbin/
-ucc-nss.conf /etc/init/
+debian/*.service lib/systemd/system/

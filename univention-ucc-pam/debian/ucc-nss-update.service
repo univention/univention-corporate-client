@@ -1,0 +1,11 @@
+[Unit]
+Description=Update NSS information
+Wants=network-online.target
+After=network-online.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/univention-ucc-update-nss
