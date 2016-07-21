@@ -16,3 +16,6 @@ theme-name='Adwaita'
 #high-contrast=false
 #screen-reader=false
 play-ready-sound=false
+
+[org.gnome.desktop.background]
+picture-uri='file:///usr/share/wallpapers/UCC/contents/images/1024x768.png'

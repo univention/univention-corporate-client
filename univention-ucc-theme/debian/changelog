@@ -1,3 +1,9 @@
+univention-ucc-theme (4.0.0-2) unstable; urgency=low
+
+  * unity background (Bug #41792)
+
+ -- Felix Botner <botner@univention.de>  Thu, 21 Jul 2016 18:18:13 +0200
+
 univention-ucc-theme (4.0.0-1) unstable; urgency=medium
 
   * bumped version
