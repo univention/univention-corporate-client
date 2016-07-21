@@ -48,7 +48,7 @@ if [ -e /var/cache/ucc/fixed-session-"$USER".txt ]; then
 fi
 
 if [ "$DESKTOP_SESSION" = "ubuntu" ]; then
-	export XDG_CURRENT_DESKTOP="ubuntu"
+	export XDG_CURRENT_DESKTOP="Unity"
 fi
 
 exec /usr/sbin/lightdm-session "$ucc_xsession"
