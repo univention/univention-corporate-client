@@ -1,3 +1,9 @@
+univention-ucc-initramfs (5.0.0-15) unstable; urgency=low
+
+  * Bug #41792: set /etc/timezone
+
+ -- Felix Botner <botner@univention.de>  Thu, 21 Jul 2016 16:46:11 +0200
+
 univention-ucc-initramfs (5.0.0-14) unstable; urgency=low
 
   * Bug #41788: added update-base-config

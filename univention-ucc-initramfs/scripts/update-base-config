@@ -96,6 +96,7 @@ if [ -n "$ucc_timezone" ]; then
 		fi
 		ln -s "/usr/share/zoneinfo/$ucc_timezone" /etc/localtime
 	fi
+	echo "$ucc_timezone" > /etc/timezone
 fi
 
 # TODO, is this still necessary with ucc 3.0
