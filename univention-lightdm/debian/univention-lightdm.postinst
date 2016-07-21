@@ -56,6 +56,12 @@ if [ "$1" = configure ] && dpkg --compare-versions "$2" lt-nl 1.0.16; then
 	univention-config-registry commit /etc/pam.d/lightdm
 fi
 
-univention-config-registry set lightdm/xserver/allowtcp?false
+univention-config-registry set \
+	lightdm/xserver/allowtcp?false \
+	lightdm/display/setup/script?"/usr/bin/univention-run-lightdm-display-setup" \
+	lightdm/greeter/setup/script?"/usr/bin/univention-run-lightdm-greeter-setup" \
+	lightdm/session/setup/script?"/usr/bin/univention-run-lightdm-session-setup" \
+	lightdm/session/cleanup/script?"/usr/bin/univention-run-lightdm-session-cleanup" \
+	lightdm/session/wrapper?"/usr/bin/univention-run-lightdm-session"
 
 exit 0

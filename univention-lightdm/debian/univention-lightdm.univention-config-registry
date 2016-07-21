@@ -5,6 +5,11 @@ Variables: lightdm/autologin/user
 Variables: lightdm/autologin/session
 Variables: lightdm/sessiondefault
 Variables: lightdm/xserver/allowtcp
+Variables: lightdm/display/setup/script
+Variables: lightdm/greeter/setup/script
+Variables: lightdm/session/setup/script
+Variables: lightdm/session/cleanup/script
+Variables: lightdm/session/wrapper
 
 Type: multifile
 Multifile: etc/pam.d/lightdm

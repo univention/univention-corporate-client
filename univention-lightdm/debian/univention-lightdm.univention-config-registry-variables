@@ -27,3 +27,33 @@ Description[de]=Erlaubt X11-Forwarding über das Netzwerk, die Remote-UCC Sessio
 Description[en]=Allow x11 forwarding via network, the remote ucc session then uses x11 forwarding, not ssh x forwarding (default: false)
 Type=str
 Categories=system-desktop
+
+[lightdm/display/setup/script]
+Description[de]=Wird nach dem Start des X server, aber vor der Benutzersitzung (als root) gestartet.
+Description[en]=Is run after the X server starts but before the user session / greeter is run. It is run as root.
+Type=str
+Categories=system-desktop
+
+[lightdm/greeter/setup/script]
+Description[de]=Wird vor dem Greeter als root gestartet.
+Description[en]=Is run before a greeter starts. It is run as root.
+Type=str
+Categories=system-desktop
+
+[lightdm/session/setup/script]
+Description[de]=Wird vor der Benutzersitzung gestartet.
+Description[en]=Is run before a user session starts.
+Type=str
+Categories=system-desktop
+
+[lightdm/session/cleanup/script]
+Description[de]=Wird nach der Benutzersitzung als root gestartet.
+Description[en]=Is run after a greeter or user session stops. It is run as root. 
+Type=str
+Categories=system-desktop
+
+[lightdm/session/wrapper]
+Description[de]=Kommando für den Start der Benutzersitzung.
+Description[en]=Is a the command to run for a session. This command is run as the user and needs to exec the command passed in the arguments to complete running the session.
+Type=str
+Categories=system-desktop

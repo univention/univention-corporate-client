@@ -3,6 +3,7 @@ univention-run-lightdm-display-setup /usr/bin
 univention-run-lightdm-greeter-setup /usr/bin
 univention-run-lightdm-session-cleanup /usr/bin
 univention-run-lightdm-session-setup /usr/bin
+univention-run-lightdm-session /usr/bin
 libs/force-user-session usr/share/univention-lightdm/
 univention-lightdm-save-pass /usr/bin
 scripts/univention-ucc-setup-multimonitor /usr/sbin
