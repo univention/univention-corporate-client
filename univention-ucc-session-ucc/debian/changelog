@@ -1,3 +1,9 @@
+univention-ucc-session-ucc (4.0.0-2) unstable; urgency=low
+
+  * unity session (Bug #41792)
+
+ -- Felix Botner <botner@univention.de>  Thu, 21 Jul 2016 15:23:24 +0200
+
 univention-ucc-session-ucc (4.0.0-1) unstable; urgency=medium
 
   * bumped version

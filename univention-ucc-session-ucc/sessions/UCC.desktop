@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=UCC
+Comment=This session logs you into UCC
+Exec=gnome-session --session=ubuntu
+TryExec=unity
+Icon=
+Type=Application
+DesktopNames=Unity
+X-Ubuntu-Gettext-Domain=gnome-session-3.0
