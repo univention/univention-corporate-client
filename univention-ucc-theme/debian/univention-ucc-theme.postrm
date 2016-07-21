@@ -64,4 +64,8 @@ if [ -e "/usr/share/unity-greeter/ubuntu_badge.png.distrib" -a ! -e "/usr/share/
 	dpkg-divert --quiet --remove --rename /usr/share/unity-greeter/ubuntu_badge.png
 fi
 
+# enable ubuntu session
+file=/usr/share/xsessions/ubuntu.desktop
+test "$1" = "remove" && dpkg-divert --package univention-ucc-theme --rename --divert "$file.disabled" --remove "$file" || true
+
 exit 0

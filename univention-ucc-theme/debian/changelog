@@ -1,3 +1,9 @@
+univention-ucc-theme (4.0.0-4) unstable; urgency=low
+
+  * disable ubuntu session (Bug #41792)
+
+ -- Felix Botner <botner@univention.de>  Thu, 21 Jul 2016 19:23:15 +0200
+
 univention-ucc-theme (4.0.0-3) unstable; urgency=low
 
   * remove amazon from unity favorites (Bug #41792)
