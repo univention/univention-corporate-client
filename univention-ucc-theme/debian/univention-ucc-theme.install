@@ -1,4 +1,4 @@
 *png /usr/share/wallpapers/UCC/contents/images
 metadata.desktop /usr/share/wallpapers/UCC
-20_ucc-unity-greeter.gschema.override /usr/share/glib-2.0/schemas
+20_ucc.gschema.override /usr/share/glib-2.0/schemas
 UCS_Univention-Corporate-Client_web.png /usr/share/unity-greeter
