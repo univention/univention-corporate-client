@@ -21,3 +21,6 @@ File: etc/update-motd.d/90-updates-available
 Type: file
 File: etc/systemd/timesyncd.conf
 Variables: ucc/timeserver
+
+Type: file
+File: etc/profile.d/ucc.sh

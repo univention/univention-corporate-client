@@ -1,3 +1,9 @@
+univention-corporate-client (4.0.0-9) unstable; urgency=low
+
+  * Bug #41792: always include sbin in PATH
+
+ -- Felix Botner <botner@univention.de>  Thu, 21 Jul 2016 15:19:48 +0200
+
 univention-corporate-client (4.0.0-8) unstable; urgency=low
 
   * Bug #41788: added systemd services, removed upstart
