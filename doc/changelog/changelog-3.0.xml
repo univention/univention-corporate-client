@@ -43,7 +43,7 @@
 		<title>Image roll-outs and image updates</title>
 		<itemizedlist>
 			<listitem><simpara>
-				...
+				Partions that are created during rollout are now aligned using parted optimal align option (<u:bug>41787</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
