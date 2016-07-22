@@ -1,3 +1,9 @@
+univention-ucc-theme (4.0.0-5) unstable; urgency=low
+
+  * changed to 1920x1080.png wallpaper (Bug #41792)
+
+ -- Felix Botner <botner@univention.de>  Fri, 22 Jul 2016 10:05:30 +0200
+
 univention-ucc-theme (4.0.0-4) unstable; urgency=low
 
   * disable ubuntu session (Bug #41792)

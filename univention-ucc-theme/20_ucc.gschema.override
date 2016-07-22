@@ -1,6 +1,7 @@
 [com.canonical.unity-greeter]
 background-color='#00B6BD'
-background='/usr/share/wallpapers/UCC/contents/images/1024x768.png'
+#background='/usr/share/wallpapers/UCC/contents/images/1024x768.png'
+background='/usr/share/wallpapers/UCC/contents/images/1920x1080.png'
 draw-user-backgrounds=false
 draw-grid=false
 logo='/usr/share/unity-greeter/UCS_Univention-Corporate-Client_web.png'
@@ -18,7 +19,8 @@ theme-name='Adwaita'
 play-ready-sound=false
 
 [org.gnome.desktop.background]
-picture-uri = 'file:///usr/share/wallpapers/UCC/contents/images/1024x768.png'
+picture-uri = 'file:///usr/share/wallpapers/UCC/contents/images/1920x1080.png'
+picture-options = 'zoom'
 
 [com.canonical.Unity.Launcher]
 favorites = ['application://ubiquity.desktop', 'application://org.gnome.Nautilus.desktop', 'application://firefox.desktop', 'application://libreoffice-writer.desktop', 'application://libreoffice-calc.desktop', 'application://libreoffice-impress.desktop', 'application://org.gnome.Software.desktop', 'application://unity-control-center.desktop', 'unity://running-apps', 'unity://expo-icon', 'unity://devices']
