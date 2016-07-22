@@ -1,3 +1,9 @@
+univention-ucc-initramfs (5.0.0-16) unstable; urgency=medium
+
+  * Bug #41787: Create partitions with parted --align optimal option
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 22 Jul 2016 12:10:35 +0200
+
 univention-ucc-initramfs (5.0.0-15) unstable; urgency=low
 
   * Bug #41792: set /etc/timezone

@@ -373,7 +373,7 @@ partition()
 			type="$(_get_var partition${i}_type)"
 			test -z "$type" && type="primary"
 
-			parted -s "${partition_device}" mkpart "$type" "$partition_start" "$end_mb"
+			parted --align optimal -s "${partition_device}" mkpart "$type" "$partition_start" "$end_mb"
 
 			partition_start="$end_mb"
 
