@@ -156,6 +156,9 @@
 						The gstreamer dependencies of univention-ucc-session-xenapp have been updated (<u:bug>41528</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
+						Citrix Receiver has been updated to version 13.3 (<u:bug>41507</u:bug>).
+				</simpara></listitem>
+				<listitem><simpara>
 						lxsession-logout was added as a dependency to univention-ucc-lxde (<u:bug>41604</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
