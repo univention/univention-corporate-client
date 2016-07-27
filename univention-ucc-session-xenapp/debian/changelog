@@ -1,6 +1,12 @@
+univention-ucc-session-xenapp (4.0.0-5) unstable; urgency=low
+
+  * Bug #37928: enable Dynamic Client Drive Mapping
+
+ -- Felix Botner <botner@univention.de>  Wed, 27 Jul 2016 13:03:02 +0200
+
 univention-ucc-session-xenapp (4.0.0-4) unstable; urgency=low
 
-  * removed force-user-session from session script (Bug #41792)
+  * Bug #41792: removed force-user-session from session script
 
  -- Felix Botner <botner@univention.de>  Thu, 21 Jul 2016 10:12:51 +0200
 
