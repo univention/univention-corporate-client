@@ -161,6 +161,9 @@
 				<listitem><simpara>
 						lxsession-logout was added as a dependency to univention-ucc-lxde (<u:bug>41604</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+						Dynamic Client Drive Mapping has been enabled for the XenApp session (<u:bug>37928</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 		<section id="changelog:sessions:firefox">
