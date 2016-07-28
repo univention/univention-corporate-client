@@ -1462,7 +1462,7 @@ update_base_config ()
 {
 
 	cp /proc/cmdline /root/tmp/cmdline
-	if ! chroot /root /usr/share/univention-ucc-initramfs/scripts/update-base-config >/tmp/ucclog 2>&1; then
+	if ! chroot /root /usr/share/univention-ucc-initramfs/scripts/update-base-config /tmp/cmdline >/tmp/ucclog 2>&1; then
 		debug "$(cat /tmp/ucclog)"
 	fi
 }
@@ -1630,36 +1630,40 @@ mountroot()
 		_mount_local_root_device || true
 	fi
 
-	if _mount_image; then
-		if [ -e /root/var/univention-join/joined ]; then
-			notice "Verify ldap host DN"
-			update_ldap_host_dn
-			notice "Fetch system policies"
-			chroot /root /usr/sbin/univention-ucc-fetch-system-policies
-			# Check if the LDAP settings override the local boot settings
-			if [ "${ROOT}" != "search" -a "${ROOT}" != "/dev/nfs" ]; then
-				if chroot /root /usr/sbin/univention-ucc-boot-option --read >/tmp/boot_parameter; then
-					notice "Read and set LDAP boot parameter"
-					debug "LDAP boot parameter: $(cat /tmp/boot_parameter)"
-					check_parameter /tmp/boot_parameter
+	# we need this only for non LIVE systems
+	if [ "overlayfs" != "$UCC" ]; then
+		if _mount_image; then
+			if [ -e /root/var/univention-join/joined ]; then
+				notice "Verify ldap host DN"
+				update_ldap_host_dn
+				notice "Fetch system policies"
+				chroot /root /usr/sbin/univention-ucc-fetch-system-policies
+				# Check if the LDAP settings override the local boot settings
+				if [ "${ROOT}" != "search" -a "${ROOT}" != "/dev/nfs" ]; then
+					if chroot /root /usr/sbin/univention-ucc-boot-option --read >/tmp/boot_parameter; then
+						notice "Read and set LDAP boot parameter"
+						debug "LDAP boot parameter: $(cat /tmp/boot_parameter)"
+						check_parameter /tmp/boot_parameter
+					fi
+					chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script
+					chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_nfs_mount_script >/tmp/nfs_mount_script
+					# Place scripts that should modify the image in the directory /usr/lib/univention-initramfs-localboot
+					run_parts_in "/usr/lib/univention-initramfs-localboot"
 				fi
-				chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_upgrade_script >/tmp/upgrade_script
-				chroot /root /usr/share/univention-ucc-initramfs/scripts/generate_nfs_mount_script >/tmp/nfs_mount_script
-				# Place scripts that should modify the image in the directory /usr/lib/univention-initramfs-localboot
-				run_parts_in "/usr/lib/univention-initramfs-localboot"
 			fi
+			_verbose_break
+			_umount_image
 		fi
-		_verbose_break
-		_umount_image
+		umount /ucc_tmp/root
+
+		# Restart remote logging, the values may have been changed
+		# TODO: check if the restart is really necessary
+		stop_remote_logging
+		remote_logging
 	fi
-	umount /ucc_tmp/root
+	_verbose_break
 
 	test "$verbose" = "y" && set -x || set +x
-
-	# Restart remote logging, the values may have been changed
-	# TODO: check if the restart is really necessary
-	stop_remote_logging
-	remote_logging
 
 	run_parts_in "/usr/lib/univention-initramfs-pre-boot-option-check"
 
@@ -1717,11 +1721,32 @@ mountroot()
 	_verbose_break
 
 	stop_remote_logging
-	kill $(pidof udhcpc)
+
+	# for live system network manager is disabeld for eth0
+	# and we use /run/resolvconf/resolv.conf instead of dnsmasq
+	if [ "$UCC" = "overlayfs" ]; then
+		rm /root/etc/resolv.conf && ln -s /run/resolvconf/resolv.conf /root/etc/resolv.conf
+		# also override reboot and shutdown to bypass the init system
+		# during reboot/shutdown (which fails for live systems)
+		sed -i 's/ExecStart=.*/ExecStart=\/sbin\/reboot -f/g' /root/lib/systemd/system/systemd-reboot.service
+		sed -i 's/ExecStart=.*/ExecStart=\/sbin\/poweroff -f/g' /root/lib/systemd/system/systemd-poweroff.service
+		sed -i 's/ExecStart=.*/ExecStart=\/sbin\/halt -f/g' /root/lib/systemd/system/systemd-halt.service
+		# also disable the appamor lightdm-guest-session as this breaks the lightdm guest session
+		if [ -e /root/etc/apparmor.d/lightdm-guest-session ]; then
+			ln -s /etc/apparmor.d/lightdm-guest-session /root/etc/apparmor.d/disable/lightdm-guest-session
+		fi
+		
+	# for other system kill dhcp in order to give network manager
+	# the chance to manage the device
+	else
+		kill $(pidof udhcpc)
+	fi
 
 	# until here the dhcp|previous resolv.conf is used, from
 	# now on the UCR resolv.conf (if the system is joined)
 	if [ -e /root/var/univention-join/joined ]; then
 		chroot /root /usr/sbin/ucr commit /etc/resolv.conf
 	fi
+
+	_verbose_break
 }
