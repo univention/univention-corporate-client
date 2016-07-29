@@ -1,3 +1,9 @@
+univention-ucc-grub (4.0.0-3) unstable; urgency=low
+
+  * Bug #41845: GRUB_DISABLE_LINUX_UUID=true
+
+ -- Felix Botner <botner@univention.de>  Fri, 29 Jul 2016 13:10:31 +0200
+
 univention-ucc-grub (4.0.0-2) unstable; urgency=medium
 
   * Bug #41602: Deactivate predictable network interface nameing support in
