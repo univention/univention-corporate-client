@@ -1622,6 +1622,7 @@ mountroot()
 	_start_dhcpclient "$net_dev"
 
 	remote_logging
+	_verbose_break
 
 	mkdir -p /ucc_tmp/root
 	if [ "${ROOT}" != "search" -a "${ROOT}" != "/dev/nfs" ]; then
@@ -1632,7 +1633,7 @@ mountroot()
 
 	# we need this only for non LIVE systems
 	if [ "overlayfs" != "$UCC" ]; then
-		if _mount_image; then
+		if _mount_image "rw" "no_failure"; then
 			if [ -e /root/var/univention-join/joined ]; then
 				notice "Verify ldap host DN"
 				update_ldap_host_dn
@@ -1697,9 +1698,9 @@ mountroot()
 		ucc_image_local
 	fi
 
-	run_parts_in "/usr/lib/univention-initramfs-post-boot-option-check" "mounted"
-	
 	update_base_config
+	run_parts_in "/usr/lib/univention-initramfs-post-boot-option-check" "mounted"
+
 	_verbose_break
 
 	# mount the image ro if requested

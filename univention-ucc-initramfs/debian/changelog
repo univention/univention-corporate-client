@@ -1,3 +1,9 @@
+univention-ucc-initramfs (5.0.0-18) unstable; urgency=low
+
+  * Bug #41600: fixe live boot
+
+ -- Felix Botner <botner@univention.de>  Fri, 29 Jul 2016 12:14:25 +0200
+
 univention-ucc-initramfs (5.0.0-17) unstable; urgency=low
 
   * Bug #41600: fixe live boot
