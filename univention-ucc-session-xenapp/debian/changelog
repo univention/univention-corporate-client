@@ -1,3 +1,9 @@
+univention-ucc-session-xenapp (4.0.0-6) unstable; urgency=low
+
+  * Bug #37928: gstreamer 0.10 
+
+ -- Felix Botner <botner@univention.de>  Tue, 02 Aug 2016 12:15:08 +0200
+
 univention-ucc-session-xenapp (4.0.0-5) unstable; urgency=low
 
   * Bug #37928: enable Dynamic Client Drive Mapping
