@@ -34,7 +34,7 @@
 				There is no continuous network connection from initramfs to NetworkManager start (<u:bug>41599</u:bug>).
 			</simpara></listitem>
 			<listitem><simpara>
-				The initrd now verifies that the LDAP DN of the computer object matches the ldap/hostdn of the client (<u:bug>35411</u:bug>).
+				The initrd now verifies that the LDAP DN of the computer object matches the ldap/hostdn of the client, and updates it, if necessary (<u:bug>35411</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
