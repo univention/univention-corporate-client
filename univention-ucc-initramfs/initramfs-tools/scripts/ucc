@@ -524,6 +524,7 @@ _sync_from_persistent ()
 		debug "$(cat /tmp/ucclog)"
 	fi
 	chroot /root mv /etc/univention/templates/modules/interfaces.py-temp /etc/univention/templates/modules/interfaces.py
+	ifconfig eth0 up
 	# run the image update script from the new image
 	if [ -x /root/usr/share/univention-corporate-client/univention-ucc-image-update ]; then
 		chroot /root /usr/share/univention-corporate-client/univention-ucc-image-update >/root/var/log/univention/univention-ucc-image-update.log 2>&1

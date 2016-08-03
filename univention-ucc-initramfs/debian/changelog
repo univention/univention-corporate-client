@@ -1,3 +1,9 @@
+univention-ucc-initramfs (5.0.0-21) unstable; urgency=medium
+
+  * Bug #41898: Bring interface up in any case
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 03 Aug 2016 17:26:04 +0200
+
 univention-ucc-initramfs (5.0.0-20) unstable; urgency=low
 
   * Bug #41788: fetch policies after image update
