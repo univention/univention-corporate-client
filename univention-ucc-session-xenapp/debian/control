@@ -37,7 +37,8 @@ Depends: ${misc:Depends},
  libcurl3,
  univention-ucc-firefox-config,
  debianutils,
- x11-utils
+ x11-utils,
+ icaclient
 Description: Integration package for XenApp terminal services
  This package installs the required packages to allow
  UCC systems to access terminal services.
