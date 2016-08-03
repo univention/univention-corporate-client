@@ -1,3 +1,9 @@
+univention-ucc-initramfs (5.0.0-20) unstable; urgency=low
+
+  * Bug #41788: fetch policies after image update
+
+ -- Felix Botner <botner@univention.de>  Wed, 03 Aug 2016 13:07:46 +0200
+
 univention-ucc-initramfs (5.0.0-19) unstable; urgency=medium
 
   * Bug #41898: Temporarily disable network handler

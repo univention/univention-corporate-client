@@ -1688,6 +1688,8 @@ mountroot()
 		if [ -e /tmp/updated ]; then
 			set_boot_variant
 			update_current_image
+			notice "Fetch system policies"
+			chroot /root /usr/sbin/univention-ucc-fetch-system-policies
 		fi
 	# LIVE SYSTEM
 	elif [ "$UCC" = "overlayfs" ]; then
