@@ -1,3 +1,9 @@
+univention-ucc-ucsschool-integration (4.0.0-2) unstable; urgency=medium
+
+  * Bug #41843: remove dependency to univention-ucc-cifshome-pam-mount
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 04 Aug 2016 14:53:30 +0200
+
 univention-ucc-ucsschool-integration (4.0.0-1) unstable; urgency=medium
 
   * bumped version

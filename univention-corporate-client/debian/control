@@ -24,8 +24,7 @@ Depends: univention-config,
  network-manager,
  libsasl2-modules-gssapi-heimdal
 Recommends: univention-ucc-printerconfig,
- univention-ucc-proxy-settings,
- univention-ucc-cifshome-pam-mount
+ univention-ucc-proxy-settings
 Description: Metapackage for Univention Corporate Client
  This package defines dependencies on the various packages
  needed on a Univention Corporate Client system.

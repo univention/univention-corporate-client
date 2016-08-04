@@ -1,3 +1,9 @@
+univention-corporate-client (4.0.0-10) unstable; urgency=medium
+
+  * Bug #41843: remove dependency to univention-ucc-cifshome-pam-mount
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 04 Aug 2016 14:52:44 +0200
+
 univention-corporate-client (4.0.0-9) unstable; urgency=low
 
   * Bug #41792: always include sbin in PATH

@@ -1,1 +1,0 @@
-auth optional pam_mount.so
