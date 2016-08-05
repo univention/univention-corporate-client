@@ -1592,6 +1592,30 @@ run_parts_in ()
 	fi
 }
 
+copy_custom_start_scripts ()
+{
+	# copy custom start scripts into image
+	if [ -z "$(chroot /root/ /usr/sbin/ucr get ucc/custom_start_scripts)" ]; then
+		mkdir /tmp/nfsroot
+		if [ -e "/tmp/nfs_mount_script" ]; then
+			# local boot, run script to mount boot server nfs share
+			sh /tmp/nfs_mount_script
+		else
+			# nfs boot, mount nfsroot and copy part scripts
+			mount -t nfs -o nolock,ro $nfsroot /tmp/nfsroot
+		fi
+
+		notice "Copying custom start scripts..."
+		_verbose_break
+		if [ -e "/tmp/nfsroot/custom_start_scripts" ]; then
+			rsync -rptv --delete --force /tmp/nfsroot/custom_start_scripts/ /root/usr/lib/univention-initramfs-post-boot-option-check
+		else
+			debug "/tmp/nfsroot/custom_start_scripts not found!"
+		fi
+		umount /tmp/nfsroot
+	fi
+}
+
 mountroot()
 {
 	[ "$quiet" != "y" ] && log_begin_msg "Running /scripts/local-top"
@@ -1705,7 +1729,10 @@ mountroot()
 	fi
 
 	update_base_config
+	copy_custom_start_scripts
 	run_parts_in "/usr/lib/univention-initramfs-post-boot-option-check" "mounted"
+
+	notice "Booting UCC"
 
 	_verbose_break
 
