@@ -215,6 +215,9 @@
 			<listitem><simpara>
 				The package univention-ucc-cifshome-pam-mount has been removed (<u:bug>41843</u:bug>).
 			</simpara></listitem>
+			<listitem><simpara>
+				Added the functionality to execute custom start scripts on clients (<u:bug>41919</u:bug>).
+			</simpara></listitem>
 		</itemizedlist>
 	</section>
 </chapter>
