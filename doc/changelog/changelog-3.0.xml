@@ -213,7 +213,7 @@
 		<title>Client management</title>
 		<itemizedlist>
 			<listitem><simpara>
-				...
+				The package univention-ucc-cifshome-pam-mount has been removed (<u:bug>41843</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
