@@ -111,6 +111,9 @@
 				<listitem><simpara>
 						All upstart init script have been migrated to systemd services (<u:bug>41788</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+						Predictable network interface names are deactivated by default, legacy naming such as eth0 is used (<u:bug>41602</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 		<section id="changelog:images:thinclient">
