@@ -11,13 +11,6 @@
       <title>UCC 3.0 release notes</title>
       <subtitle>Release notes for the installation and update of Univention Corporate Client (UCC) 3.0</subtitle>
 
-        <revhistory>
-            <revision>
-                <revnumber>3.0</revnumber>
-                <date>22 July 2016</date>
-            </revision>
-        </revhistory>
-
 		<legalnotice lang="">
 		  <para>
 			Alle Rechte vorbehalten. / All rights reserved.
@@ -110,7 +103,7 @@ $ su root
 $ su testuser
 		  </programlisting>
 
-		  More information can be found at <ulink url="&ucsbug;30243">Bug 30243</ulink>.
+		  More information can be found at <u:bug>30243</u:bug>.
 		</para>
 	  </section>
 

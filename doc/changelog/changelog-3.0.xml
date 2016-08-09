@@ -25,16 +25,16 @@
 			</simpara></listitem>
 			<listitem><simpara>
 				The script <command>univention-ucc-force-rw-boot</command> has been added to configure
-				a ucc client to boot in rw mode (<u:bug>41427</u:bug>).
+				a UCC client to boot in read-write mode (<u:bug>41427</u:bug>).
 			</simpara></listitem>
 			<listitem><simpara>
-				The overlayfs mount directory structure and mount options have been adapted to the current overlayfs version (<u:bug>41526</u:bug>).
+				The OverlayFS mount directory structure and mount options have been adapted to the current OverlayFS version (<u:bug>41526</u:bug>).
 			</simpara></listitem>
 			<listitem><simpara>
-				There is no continuous network connection from initramfs to NetworkManager start (<u:bug>41599</u:bug>).
+				There is no continuous network connection from initramfs to <application>NetworkManager</application> start (<u:bug>41599</u:bug>).
 			</simpara></listitem>
 			<listitem><simpara>
-				The initrd now verifies that the LDAP DN of the computer object matches the ldap/hostdn of the client, and updates it, if necessary (<u:bug>35411</u:bug>).
+				The InitRD now verifies that the LDAP DN of the computer object matches the <envar>ldap/hostdn</envar> of the client, and updates it, if necessary (<u:bug>35411</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
@@ -43,7 +43,7 @@
 		<title>Image roll-outs and image updates</title>
 		<itemizedlist>
 			<listitem><simpara>
-				Partions that are created during rollout are now aligned using parted optimal align option (<u:bug>41787</u:bug>).
+				Partitions that are created during rollout are now aligned using parted optimal align option (<u:bug>41787</u:bug>).
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
@@ -101,18 +101,18 @@
 			<title>General</title>
 			<itemizedlist>
 				<listitem><simpara>
-						The thin client image config has been updated to reflect the Ubuntu 16.04 packages and their dependencies (<u:bug>41509</u:bug>).
+						The thin client image configuration has been updated to reflect the Ubuntu 16.04 packages and their dependencies (<u:bug>41509</u:bug>).
 						The thin client image size is now 1.70GiB (<u:bug>41509</u:bug>).
-						lxterminal is not replaced by xterm anymore (<u:bug>41509</u:bug>).
+						<package>lxterminal</package> is not replaced by <package>xterm</package> anymore (<u:bug>41509</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-						univention-ucc-fetch-system-policies now logs its start time (<u:bug>41212</u:bug>).
+					<package>univention-ucc-fetch-system-policies</package> now logs its start time (<u:bug>41212</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-						All upstart init script have been migrated to systemd services (<u:bug>41788</u:bug>).
+						All upstart init script have been migrated to <systemitem class="service">systemd</systemitem> services (<u:bug>41788</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-						Predictable network interface names are deactivated by default, legacy naming such as eth0 is used (<u:bug>41602</u:bug>).
+						Predictable network interface names are deactivated by default, legacy naming such as <filename class="devicefile">eth0</filename> is used (<u:bug>41602</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
@@ -122,10 +122,10 @@
 				<listitem><simpara>
 					Two new &ucsUCR; variables have been introduced, <envar>ucc/mount/blacklist</envar>
 					to configure a space-separated list of device names which are not mounted
-					(by default the list includes the full partition devices "sda sdb sdc sdd sde")
+					(by default the list includes the full partition devices <literal>sda sdb sdc sdd sde</literal>)
 					and <envar>ucc/mount/blacklist/disable</envar> to disable the blacklisting.
 					The &ucsUCR; variable <envar>ucc/mount/fullpartition</envar> has been removed.
-					If <envar>ucc/mount/fullpartition</envar> was used, the old behaviour can be
+					If <envar>ucc/mount/fullpartition</envar> was used, the old behavior can be
 					restored by setting the &ucsUCR; variable <envar>ucc/mount/blacklist/disable</envar>
 					to "true" (<u:bug>41427</u:bug>).
 				</simpara></listitem>
@@ -138,31 +138,31 @@
 		<section id="changelog:sessions:XenApp">
 			<title>Citrix</title>
 			<itemizedlist>
-				<listitem><simpara>
+				<listitem><para>
 					Various hooks (run-parts) have been added to the XenApp session script (<u:bug>41427</u:bug>).
 					<itemizedlist>
-						<listitem>
-							/usr/share/univention-ucc-session-xenapp/hooks/top.d - start of the session script
-						</listitem>
-						<listitem>
-							/usr/share/univention-ucc-session-xenapp/hooks/pre-firefox.d - before starting firefox
-						</listitem>
-						<listitem>
-							/usr/share/univention-ucc-session-xenapp/hooks/post-firefox.d - after firefox finished
-						</listitem>
-						<listitem>
-							/usr/share/univention-ucc-session-xenapp/hooks/bottom.d - end of the session script
-						</listitem>
+						<listitem><simpara>
+							<filename class="directory">/usr/share/univention-ucc-session-xenapp/hooks/top.d/</filename> - start of the session script
+						</simpara></listitem>
+						<listitem><simpara>
+							<filename class="directory">/usr/share/univention-ucc-session-xenapp/hooks/pre-firefox.d/</filename> - before starting Firefox
+						</simpara></listitem>
+						<listitem><simpara>
+							<filename class="directory">/usr/share/univention-ucc-session-xenapp/hooks/post-firefox.d/</filename> - after Firefox finished
+						</simpara></listitem>
+						<listitem><simpara>
+							<filename class="directory">/usr/share/univention-ucc-session-xenapp/hooks/bottom.d/</filename> - end of the session script
+						</simpara></listitem>
 					</itemizedlist>
-				</simpara></listitem>
+				</para></listitem>
 				<listitem><simpara>
-						The gstreamer dependencies of univention-ucc-session-xenapp have been updated (<u:bug>41528</u:bug>).
+						The <package>gstreamer</package> dependencies of <package>univention-ucc-session-xenapp</package> have been updated (<u:bug>41528</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
 						Citrix Receiver has been updated to version 13.3 (<u:bug>41507</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-						lxsession-logout was added as a dependency to univention-ucc-lxde (<u:bug>41604</u:bug>).
+						<package>lxsession-logout</package> was added as a dependency to <package>univention-ucc-lxde</package> (<u:bug>41604</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
 						Dynamic Client Drive Mapping has been enabled for the XenApp session (<u:bug>37928</u:bug>).
@@ -181,13 +181,13 @@
 			<title>RDP</title>
 			<itemizedlist>
 				<listitem><simpara>
-					Xmessage has been replaced with zenity for status messages (<u:bug>41427</u:bug>).
+					<package>Xmessage</package> has been replaced with <package>zenity</package> for status messages (<u:bug>41427</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
 					Support for customizing the session command has been added (<envar>rdp/session/cmd</envar>) (<u:bug>41427</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-						Error message logging has been improved: Errors are now logged into the logfile that is shown in the zenity status message dialog (<u:bug>41612</u:bug>).
+						Error message logging has been improved: Errors are now logged into the logfile that is shown in the <package>zenity</package> status message dialog (<u:bug>41612</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
@@ -216,7 +216,7 @@
 		<title>Client management</title>
 		<itemizedlist>
 			<listitem><simpara>
-				The package univention-ucc-cifshome-pam-mount has been removed (<u:bug>41843</u:bug>).
+				The package <package>univention-ucc-cifshome-pam-mount</package> has been removed (<u:bug>41843</u:bug>).
 			</simpara></listitem>
 			<listitem><simpara>
 				Added the functionality to execute custom start scripts on clients (<u:bug>41919</u:bug>).
