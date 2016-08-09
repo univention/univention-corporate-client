@@ -166,6 +166,15 @@ _get_var()
 	set | sed -ne "s|'$||;s|^${1}='||p"
 }
 
+_is_ucr_true() {
+    local value
+    value="$1"
+    case "$(echo -n "$value" | tr '[:upper:]' '[:lower:]')" in
+        1|yes|on|true|enable|enabled) return 0 ;;
+        0|no|off|false|disable|disabled) return 1 ;;
+        *) return 2 ;;
+    esac
+}
 
 ## search_devices tries to search the harddisk
 search_device()
@@ -1595,8 +1604,9 @@ run_parts_in ()
 copy_custom_start_scripts ()
 {
 	# copy custom start scripts into image
-	if [ -z "$(chroot /root/ /usr/sbin/ucr get ucc/custom_start_scripts)" ]; then
+	if _is_ucr_true "$(chroot /root/ /usr/sbin/ucr get ucc/custom_start_scripts/enabled)"; then
 		mkdir /tmp/nfsroot
+		mkdir -p /root/usr/lib/univention-custom-start-scripts
 		if [ -e "/tmp/nfs_mount_script" ]; then
 			# local boot, run script to mount boot server nfs share
 			sh /tmp/nfs_mount_script
@@ -1608,11 +1618,14 @@ copy_custom_start_scripts ()
 		notice "Copying custom start scripts..."
 		_verbose_break
 		if [ -e "/tmp/nfsroot/custom_start_scripts" ]; then
-			rsync -rptv --delete --force /tmp/nfsroot/custom_start_scripts/ /root/usr/lib/univention-initramfs-post-boot-option-check
+			rsync -rptv --delete --force /tmp/nfsroot/custom_start_scripts/ /root/usr/lib/univention-custom-start-scripts
+			run_parts_in "/usr/lib/univention-custom-start-scripts" "mounted"
 		else
 			debug "/tmp/nfsroot/custom_start_scripts not found!"
 		fi
 		umount /tmp/nfsroot
+	else
+		debug "custom start scripts deactivated"
 	fi
 }
 

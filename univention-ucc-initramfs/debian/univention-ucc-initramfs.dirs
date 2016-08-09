@@ -1,3 +1,4 @@
 usr/lib/univention-initramfs-localboot
 usr/lib/univention-initramfs-pre-boot-option-check
 usr/lib/univention-initramfs-post-boot-option-check
+usr/lib/univention-custom-start-scripts
