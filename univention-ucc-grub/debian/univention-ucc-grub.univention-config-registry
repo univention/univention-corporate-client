@@ -6,3 +6,4 @@ Variables: grub/timeout
 Variables: grub/append
 Variables: boot/ucc
 Variables: grub/font
+Variables: grub/ucc/traditionalinterfacenames

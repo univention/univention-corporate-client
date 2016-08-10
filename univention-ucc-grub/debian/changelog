@@ -1,3 +1,9 @@
+univention-ucc-grub (4.0.0-4) unstable; urgency=low
+
+  * Bug #41927: added grub/ucc/traditionalinterfacenames
+
+ -- Felix Botner <botner@univention.de>  Wed, 10 Aug 2016 10:57:23 +0200
+
 univention-ucc-grub (4.0.0-3) unstable; urgency=low
 
   * Bug #41845: GRUB_DISABLE_LINUX_UUID=true

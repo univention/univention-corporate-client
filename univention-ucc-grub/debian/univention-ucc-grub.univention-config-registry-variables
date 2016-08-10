@@ -21,3 +21,9 @@ Description[de]=Grub Schriftart-Datei (default: /ucc_root/grub/unicode.pf2)
 Description[en]=Grub font file (default: /ucc_root/grub/unicode.pf2)
 Type=str
 Categories=system-base
+
+[grub/ucc/traditionalinterfacenames]
+Description[de]=Wenn auf 'false' gesetzt, werden vorhersagbare Namen für Netzwerkgeräte deaktiviert. Da dies mit vielen UCC Standards kollidiert, ist der Wert standardmäßig 'true'. Wenn die Variable nicht gesetzt ist, wird sie wie 'false' ausgewertet.
+Description[en]=If set to 'false', predictable network interface names will be deactivated. As this collides with UCC default settings, the value is 'true' by default. If the variable is unset, it is evaluated as 'false'.
+Type=bool
+Categories=system-base
