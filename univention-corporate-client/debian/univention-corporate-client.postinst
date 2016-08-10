@@ -40,12 +40,10 @@ do
 	univention-ucc-manage-persistent ucr add "$var"
 done
 
-univention-config-registry set version/version=2.1
-univention-config-registry set version/releasename=Aller
+univention-config-registry set version/version=3.0
+univention-config-registry set version/releasename=Wuemme
 univention-config-registry set ucc/update/remove/old/kernel?true
 
 apt-key add /usr/share/keyrings/ucc-archive-key.gpg
-
-univention-config-registry unset kdm/autostart
 
 exit 0

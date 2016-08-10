@@ -1,3 +1,9 @@
+univention-corporate-client (4.0.0-11) unstable; urgency=medium
+
+  * Bug #41902: UCC 3 Releasename is Wuemme
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 10 Aug 2016 16:11:00 +0200
+
 univention-corporate-client (4.0.0-10) unstable; urgency=medium
 
   * Bug #41843: remove dependency to univention-ucc-cifshome-pam-mount
