@@ -17,6 +17,9 @@
 			<listitem><simpara>
 					The UCC 3.0 release name is Wuemme (<u:bug>41902</u:bug>)
 			</simpara></listitem>
+			<listitem><simpara>
+					UCC now uses a slighty updated product logo (<u:bug>41106</u:bug>)
+			</simpara></listitem>
 		</itemizedlist>
 	</section>
 
