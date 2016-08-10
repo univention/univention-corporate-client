@@ -1,3 +1,9 @@
+univention-ucc-theme (4.0.0-6) unstable; urgency=medium
+
+  * Bug #41106: Update UCC logo
+
+ -- Erik Damrose <damrose@univention.de>  Wed, 10 Aug 2016 16:35:00 +0200
+
 univention-ucc-theme (4.0.0-5) unstable; urgency=low
 
   * changed to 1920x1080.png wallpaper (Bug #41792)
