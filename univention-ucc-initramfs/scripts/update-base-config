@@ -84,6 +84,7 @@ if [ -z "$xorg_keyboard_options_XkbLayout" -a -n "$KEYBOARD" ]; then
 fi
 if [ -z "$locale_default" -a -n "$LOCALE" ]; then
 	univention-config-registry set locale/default="$LOCALE"
+	locale-gen
 fi
 if [ -z "$ucc_timezone" -a -n "$TIMEZONE" ]; then
 	univention-config-registry set ucc/timezone="$TIMEZONE"
