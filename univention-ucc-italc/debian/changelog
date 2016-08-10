@@ -1,3 +1,9 @@
+univention-ucc-italc (2:4.0.0-1) unstable; urgency=low
+
+  * Bump version for UCC 3.0 rebuild (Bug #41844)
+
+ -- Felix Botner <botner@univention.de>  Wed, 10 Aug 2016 13:57:14 +0200
+
 univention-ucc-italc (2:3.0.0-1) unstable; urgency=medium
 
   * Bump version for UCC 2.1 rebuild (Bug #38772)
