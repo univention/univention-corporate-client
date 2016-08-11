@@ -13,6 +13,9 @@ File: etc/apt/sources.list.d/ucc.list
 Variables: ucc/apt/.*
 
 Type: file
+File: etc/update-motd.d/10-help-text
+
+Type: file
 File: etc/update-motd.d/91-release-upgrade
 
 Type: file
