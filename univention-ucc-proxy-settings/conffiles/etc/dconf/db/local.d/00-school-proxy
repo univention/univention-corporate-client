@@ -1,0 +1,29 @@
+@%@UCRWARNING=# @%@
+
+@!@
+if configRegistry.get('ucc/proxy/autoconfig/url'):
+	print '''
+[system/proxy]
+autoconfig-url='%s'
+mode='auto'
+''' % configRegistry['ucc/proxy/autoconfig/url']
+elif configRegistry.get('ucc/proxy/http'):
+	prot, server, port = configRegistry['ucc/proxy/http'].replace('//', '').split(':', 2)
+	if server and port:
+		print '''
+[system/proxy]
+mode='manual'
+[system/proxy/http]
+host='%(server)s'
+port=%(port)s
+[system/proxy/https]
+host='%(server)s'
+port=%(port)s
+[system/proxy/ftp]
+host='%(server)s'
+port=%(port)s
+[system/proxy/socks]
+host='%(server)s'
+port=%(port)s
+''' % dict(server=server, port=port)
+@!@

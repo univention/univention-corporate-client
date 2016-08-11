@@ -7,3 +7,15 @@ Type: file
 File: usr/lib/firefox/defaults/pref/ucc-proxy.js
 Variables: ucc/proxy/autoconfig/url
 Variables: ucc/proxy/http
+
+Type: file
+File: etc/dconf/db/local.d/00-school-proxy
+Postinst: dconf-local-update.py
+Variables: ucc/proxy/.*
+
+Type: file
+File: etc/dconf/db/local.d/locks/00-school-proxy-locks
+Variables: ucc/proxy/.*
+
+Type: file
+File: etc/dconf/profile/user

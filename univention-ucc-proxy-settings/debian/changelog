@@ -1,3 +1,9 @@
+univention-ucc-proxy-settings (4.0.0-2) unstable; urgency=low
+
+  * Bug #41844: added dconf proxy settings
+
+ -- Felix Botner <botner@univention.de>  Thu, 11 Aug 2016 11:58:14 +0200
+
 univention-ucc-proxy-settings (4.0.0-1) unstable; urgency=medium
 
   * bumped version

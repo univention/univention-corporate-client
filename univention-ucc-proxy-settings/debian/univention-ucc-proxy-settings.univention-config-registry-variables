@@ -1,11 +1,11 @@
 [ucc/proxy/autoconfig/url]
-Description[de]=URL zur Proxy PAC Datei. Falls gesetzt, werden Firefox und KDE Konfigurationen mit dieser URL als Proxy Config Script erzeugt.
-Description[en]=URL to the proxy PAC file. If set, Firefox and KDE configurations are generated with this URL as the proxy config script.
+Description[de]=URL zur Proxy PAC Datei. Falls gesetzt, werden Firefox, KDE und dconf Konfigurationen mit dieser URL als Proxy Config Script erzeugt.
+Description[en]=URL to the proxy PAC file. If set, Firefox, KDE and dconf configurations are generated with this URL as the proxy config script.
 Type=str
 Categories=system-base
 
 [ucc/proxy/http]
-Description[de]=URL to the proxy server. Falls gesetzt, werden Firefox und KDE Konfigurationen mit dieser URL als Proxy server erzeugt.
-Description[en]=URL to the proxy server. If set, Firefox and KDE configurations are generated with this URL as the proxy server.
+Description[de]=URL to the proxy server. Falls gesetzt, werden Firefox, KDE und dconf Konfigurationen mit dieser URL als Proxy server erzeugt.
+Description[en]=URL to the proxy server. If set, Firefox, KDE and dconf configurations are generated with this URL as the proxy server.
 Type=str
 Categories=system-base
