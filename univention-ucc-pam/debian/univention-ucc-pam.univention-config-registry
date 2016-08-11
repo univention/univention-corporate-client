@@ -50,3 +50,14 @@ File: etc/pam.d/common-session
 
 Type: file
 File: etc/pam.d/common-session-noninteractive
+
+Type: multifile
+Multifile: etc/pam.d/lightdm
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/17univention-pam-mount
+
+Type: subfile
+Multifile: etc/pam.d/lightdm
+Subfile: etc/pam.d/lightdm.d/34univention-pam-mount

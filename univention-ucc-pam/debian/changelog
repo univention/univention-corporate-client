@@ -1,3 +1,9 @@
+univention-ucc-pam (4.0.0-3) unstable; urgency=medium
+
+  * Bug #41919: Add pam-mount integration stub
+
+ -- Erik Damrose <damrose@univention.de>  Thu, 11 Aug 2016 18:46:49 +0200
+
 univention-ucc-pam (4.0.0-2) unstable; urgency=low
 
   * Bug #41788: upstart -> systemd migration for ucc-nss

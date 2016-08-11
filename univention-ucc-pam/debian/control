@@ -18,7 +18,9 @@ Depends: ${misc:Depends},
  libpam-heimdal,
  libpam-ccreds,
  libnss-extrausers,
- pam-runasroot
+ pam-runasroot,
+ cifs-utils,
+ libpam-mount
 Description: UCC - PAM configuration and integration into UCS management system
  This package contains the configuration for the pluggable
  authentication modules (PAM) and the network name switch
