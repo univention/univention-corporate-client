@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=sh -c "xdg-desktop-icon uninstall --novendor ucsschool-classshares.desktop; xdg-desktop-icon uninstall --novendor ucsschool-classshares-ubuntu.desktop; xdg-desktop-icon install --novendor /usr/share/univention-ucc-ucsschool-integration/ucsschool-classshares-ubuntu.desktop"
+Name=Create UCS@school desktop icon during login
+Type=Application
+OnlyShowIn=Unity;GNOME;
+Terminal=false
+StartupNotify=false

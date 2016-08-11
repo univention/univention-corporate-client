@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name[de]=Klassen-Freigaben
+Name=Class shares
+Comment=Folder with school server's shares
+Comment[de]=Ordner mit den Freigaben des Schulservers
+Icon=preferences-system-network
+Terminal=false
+StartupNotify=true
+Type=Application
+NotShowIn=KDE;GNOME;
+@!@
+print 'Exec=nautilus smb://%s/' % configRegistry.get('ucc/ucsschool/classshares/server', configRegistry.get('ucc/mount/cifshome/server', 'localhost'))
+@!@
