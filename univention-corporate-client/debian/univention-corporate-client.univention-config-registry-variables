@@ -28,19 +28,19 @@ Description[en]=Timeserver for the timesyncd service.
 Type=str
 Categories=system-desktop
 
-[ucc/apt/languages]
+[ucc/aptconf/languages]
 Description[de]=Sollen Übersetzungen geladen werden?
 Description[en]=Download package translations with apt-get update?
 Type=bool
 Categories=system-desktop
 
-[ucc/apt/updatepackagelists]
+[ucc/aptconf/updatepackagelists]
 Description[de]=Soll die Paketliste periodisch aktualisiert werden?
 Description[en]=Update package list periodically?
 Type=bool
 Categories=system-desktop
 
-[ucc/apt/downloadupgradeablepackages]
+[ucc/aptconf/downloadupgradeablepackages]
 Description[de]=Sollen aktualisierbare Pakete automatisch geladen werden?
 Description[en]=Download upgradeable packages?
 Type=bool

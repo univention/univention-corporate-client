@@ -30,7 +30,7 @@ File: etc/profile.d/ucc.sh
 
 Type: file
 File: etc/apt/apt.conf.d/99ucc
-Variables: ucc/apt/.*
+Variables: ucc/aptconf/.*
 
 Type: file
 File: etc/update-manager/release-upgrades
