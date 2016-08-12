@@ -1,3 +1,9 @@
+univention-ucc-join (4.0.0-6) unstable; urgency=medium
+
+  * Bug #41969: Redirect ssh stop output to join.log
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 12 Aug 2016 09:19:57 +0200
+
 univention-ucc-join (4.0.0-5) unstable; urgency=low
 
   * Bug #41427: univention-ucc-fetch-system-policies
