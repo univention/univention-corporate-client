@@ -27,3 +27,11 @@ Variables: ucc/timeserver
 
 Type: file
 File: etc/profile.d/ucc.sh
+
+Type: file
+File: etc/apt/apt.conf.d/99ucc
+Variables: ucc/apt/.*
+
+Type: file
+File: etc/update-manager/release-upgrades
+Variables: ucc/ubuntu/update/manager/prompt

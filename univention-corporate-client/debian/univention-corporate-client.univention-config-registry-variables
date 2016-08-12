@@ -27,3 +27,27 @@ Description[de]=Zeitserver für den timesyncd Dienst.
 Description[en]=Timeserver for the timesyncd service.
 Type=str
 Categories=system-desktop
+
+[ucc/apt/languages]
+Description[de]=Sollen Übersetzungen geladen werden?
+Description[en]=Download package translations with apt-get update?
+Type=bool
+Categories=system-desktop
+
+[ucc/apt/updatepackagelists]
+Description[de]=Soll die Paketliste periodisch aktualisiert werden?
+Description[en]=Update package list periodically?
+Type=bool
+Categories=system-desktop
+
+[ucc/apt/downloadupgradeablepackages]
+Description[de]=Sollen aktualisierbare Pakete automatisch geladen werden?
+Description[en]=Download upgradeable packages?
+Type=bool
+Categories=system-desktop
+
+[ucc/ubuntu/update/manager/prompt]
+Description[de]=Standardverhalten für den ubuntu Update-Manager.
+Description[en]=Default prompting behavior for the ubuntu update manager.
+Type=str
+Categories=system-deskto
