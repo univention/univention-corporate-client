@@ -3,8 +3,8 @@
 @!@
 if configRegistry.is_false('ucc/apt/languages', True):
 	print('Acquire { Languages "none"; };')
-if configRegistry.is_false('ucc/apt/updatepackagelists', True)
+if configRegistry.is_false('ucc/apt/updatepackagelists', True):
 	print('APT::Periodic::Update-Package-Lists "0";')
-if configRegistry.is_false('ucc/apt/downloadupgradeablepackages', True)
+if configRegistry.is_false('ucc/apt/downloadupgradeablepackages', True):
 	print('APT::Periodic::Download-Upgradeable-Packages "0";')
 @!@
