@@ -15,10 +15,10 @@
 					The UCS packages imported in UCC were updated to the versions in UCS 4.1-2. Patches applied to UCC 2.0 were migrated to UCC 3.0 (if applicable) (<u:bug>41421</u:bug>)
 			</simpara></listitem>
 			<listitem><simpara>
-					The UCC 3.0 release name is Wuemme (<u:bug>41902</u:bug>)
+					The UCC 3.0 release name is <literal>Wuemme</literal> (<u:bug>41902</u:bug>)
 			</simpara></listitem>
 			<listitem><simpara>
-					UCC now uses a slighty updated product logo (<u:bug>41106</u:bug>)
+					UCC now uses a slightly updated product logo (<u:bug>41106</u:bug>)
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
@@ -87,7 +87,7 @@
 			<title>UCC installation wizard</title>
 			<itemizedlist>
 				<listitem><simpara>
-						Rephrased weirdly worded german translations (<u:bug>41936</u:bug>).
+						Rephrased weirdly worded German translations (<u:bug>41936</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
@@ -196,7 +196,7 @@
 						Error message logging has been improved: Errors are now logged into the logfile that is shown in the <package>zenity</package> status message dialog (<u:bug>41612</u:bug>).
 				</simpara></listitem>
 				<listitem><simpara>
-						An update to <package>neutrinordp</package> fixes crashes due to incorrect bitmap cache handling and within the pulseaudio sound module (<u:bug>38695</u:bug>), (<u:bug>39266</u:bug>).
+						An update to <package>neutrinordp</package> fixes crashes due to incorrect bitmap cache handling and within the <package>pulseaudio</package> sound module (<u:bug>38695</u:bug>), (<u:bug>39266</u:bug>).
 				</simpara></listitem>
 			</itemizedlist>
 		</section>

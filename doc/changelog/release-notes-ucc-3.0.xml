@@ -72,7 +72,7 @@
 			Thin clients update their client policies persistently upon booting, which increases robustness in case the LDAP server is not reachable during boot time.
 		  </para></listitem>
 		  <listitem><para>
-			The RDP and Firefox session scripts can be configured to add additional programm parameters, or to execute arbitrary commands, including the possibility to change the program binary.
+			The RDP and Firefox session scripts can be configured to add additional program parameters, or to execute arbitrary commands, including the possibility to change the program binary.
 		  </para></listitem>
 		  <listitem><para>
 			It is possible to activate the custom start script feature. This offers the possibility to sync scripts and other files from the image server and execute them at boot time.
