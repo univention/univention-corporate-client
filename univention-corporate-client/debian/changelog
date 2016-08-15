@@ -1,3 +1,9 @@
+univention-corporate-client (4.0.0-17) unstable; urgency=medium
+
+  * Bug #41998: Set ldap/client/retry/count=0
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 15 Aug 2016 16:35:02 +0200
+
 univention-corporate-client (4.0.0-16) unstable; urgency=low
 
   * Bug #41971: disable automtic package list updates
