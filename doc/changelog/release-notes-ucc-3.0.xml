@@ -132,6 +132,12 @@
 	  	</para>
 	  </section>
 
+	  <section id="relnotes:packages:cifshomemount">
+		  <title>Removal of XRDP termainal server</title>
+		  <para>
+			  As announced with UCC 2.1, the XRDP UCC terminal services have been removed in UCC 3.0.
+		  </para>
+	  </section>
 	</chapter>
 
     <chapter id="relnotes:changelog">
