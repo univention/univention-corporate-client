@@ -1,3 +1,9 @@
+univention-ucc-i18n (3.0.0-2) unstable; urgency=low
+
+  * Bug #41974: removed language-pack-kde-* 
+
+ -- Felix Botner <botner@univention.de>  Mon, 15 Aug 2016 13:29:05 +0200
+
 univention-ucc-i18n (3.0.0-1) unstable; urgency=medium
 
   * bumped version
