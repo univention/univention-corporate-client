@@ -10,7 +10,7 @@
 <title>Installation</title>
 <para>
   Univention Corporate Client integrates into the management system
-  of Univention Corporate Server. UCS 4.0 is a prerequisite for the
+  of Univention Corporate Server. UCS 4.1 is a prerequisite for the
   installation of UCC.
 </para>
 
@@ -48,11 +48,7 @@
 </para>
 
 <para>
-  UCC clients use the 32-bit Intel architecture (i386). We recommend also installing the UCS server
-  with the i386 architecture. The reasoning for this is that a system with the same architecture is
-  required for the build of adapted UCC images (see <xref linkend="imagegen:chapter"/>). If only the
-  official UCC images are used (or if the UCC images are built on another system), the UCS server
-  can also be installed with the amd64 architecture.
+  UCC clients use the 32-bit Intel architecture (i386) for thin client images, and amd64 for desktop images.
 </para>
 
 <section id="installation:installation">
@@ -104,8 +100,8 @@
 
   <para>
 	UCC systems operated with these images must have at least 512 MB of system memory available.
-	Since UCC 2.0 is based on Ubuntu 14.04, all x86 desktop hardware which is supported in Ubuntu
-	14.04 is also supported in Univention Corporate Client. You can either test whether your device is
+	Since UCC 3.0 is based on Ubuntu 16.04, all x86 and amd64 desktop hardware which is supported in Ubuntu
+	16.04 is also supported in Univention Corporate Client. You can either test whether your device is
 	compatible or contact the hardware supplier for compatibility information.
   </para>
 
@@ -143,9 +139,6 @@
   </para>
 
   <para>
-  </para>
-
-  <para>
 	The images are downloaded from <ulink url="http://ucc-images.software-univention.de/download/ucc-images/"/>. A local UCC mirror can
 	also be used, see <xref linkend="installation:imagemanagement:mirror"/>.
   </para>
@@ -173,7 +166,7 @@
 	  <command>ucc-image-root-password</command>, e.g.
 
 	  <programlisting language="sh">
-ucc-image-root-password -i ucc-2.1-desktop-image.img -p
+ucc-image-root-password -i ucc-3.0-desktop-image.img -p
 	  </programlisting>
 	</para>
   </section>

@@ -36,8 +36,8 @@
 </para>
 
 <para>
-  Kubuntu is used as the basis for the images (Version 14.04 in UCC
-  2.1). Univention provides two preconfigured images: a
+  Unity is used as the basis for the images (Version 16.04 in UCC
+  3.0). Univention provides two preconfigured images: a
   minimal image for thin clients and a larger image for desktop
   installations. These two images are maintained and tested
   by Univention. It is also possible to create modified or completely

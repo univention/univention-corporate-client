@@ -142,6 +142,14 @@
 	   version. The boot versions are documented in <xref linkend="rollout:imagerollout"/>.
 	 </para>
 
+	 <para>
+		 UCC clients save their currently installed image in the UCS <literal>LDAP</literal>.
+		 This makes it possible to search for UCC clients with outdated images and configure them
+		 to update their image on the next boot. In the <guimenu>Computers</guimenu> module extended search options,
+		 one can search for the object <guimenu>Type</guimenu> <literal>Univention Corporate Client</literal>,
+		 and the property <literal>image name</literal>. Multiple objects can then be edited simultaneously
+		 to update their boot settings.
+	 </para>
   </section>
 
   <section id="umc:nagios">

@@ -52,7 +52,7 @@
 
 	<para>
 	  The mounting of mass storage devices is disabled on desktop systems (as mass storage devices
-	  are automatically mounted in the KDE desktop anyway). If you still wish to enable the function
+	  are automatically mounted in the Unity desktop anyway). If you still wish to enable the function
 	  in exceptional cases, this can be done by setting the &ucsUCRV; <envar>ucc/mount</envar> to
 	  <literal>true</literal>.
 	</para>
@@ -74,7 +74,7 @@
 	<para>
 	  It is also possible to disable devices for the automatic mount.
 	  The &ucsUCRV; <envar>ucc/mount/blacklist</envar> (space-separated list) can be used to configure a list of
-	  devices names which are not mounted (<literal>sda sdb sdc sdd sde</literal> by default).
+	  device names which are not mounted (<literal>sda sdb sdc sdd sde</literal> by default).
 	</para>
 
 	<para>
@@ -147,7 +147,7 @@
 	<para>
 	  Dual-display setups can be configured using a <guimenu>UCC client configuration</guimenu>
 	  computer policy in the UCS management system: This is primarily only relevant for thin
-	  clients; on desktop systems, the users can also configure their display settings autonomously via the KDE system
+	  clients; on desktop systems, the users can also configure their display settings autonomously via the Unity system
 	  settings.
 	</para>
 

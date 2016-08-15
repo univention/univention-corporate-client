@@ -12,9 +12,9 @@
   <section id="desktop:intro">
 	<title>Introduction</title>
 	<para>
-	  Univention Corporate Client offers a desktop environment based on the KDE Plasma desktop in
-	  version 4.13. It offers a compilation of software components suitable for typical business
-	  applications.
+		Univention Corporate Client offers a desktop environment based on the Unity desktop.
+		It offers a compilation of software components suitable for typical business
+		applications.
 	</para>
 
 	<figure id="ucc-desktop"><title>Univention Corporate Client desktop</title>
@@ -22,8 +22,7 @@
 	</figure>
   
 	<para>
-	  Extensive documentation and manuals for all the KDE components can be found at <ulink
-	  url="http://docs.kde.org/"/>.
+	  Extensive documentation and manuals for Unity can be found at <ulink url="https://help.ubuntu.com/lts/ubuntu-help/index.html"/>.
 	</para>
 
 	<para>
@@ -49,7 +48,7 @@
   <section id="desktop:proxy">
 	<title>Configuration of proxy settings for the desktop</title>
 	<para>
-	  The proxy settings in Firefox and KDE can be centrally configured via &ucsUCR; variables
+	  The proxy settings in Firefox and Unity can be centrally configured via &ucsUCR; variables
 	  provide by the package <package>univention-ucc-proxy-settings</package> (see <xref
 	  linkend="config:ucr"/>). <envar>ucc/proxy/http</envar> configures a specific proxy,
   e.g. <literal>http://192.168.0.100:3128</literal>. Alternatively the URL to a PAC (<phrase>Proxy
@@ -58,7 +57,7 @@
 
 	<para>
 	  Proxy settings configured with the variables above are immutable for the user. In Firefox the
-	  respective dialogues are greyed out. In the system settings of KDE changes can be made in the
+	  respective dialogues are greyed out. In the system settings of Unity changes can be made in the
 	  dialogues, but they are discarded when clicking <guimenu>Apply</guimenu>.
 	</para>
   </section>

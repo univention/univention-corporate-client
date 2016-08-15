@@ -222,35 +222,6 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 	</para>
   </section>
 
-  <section id="config:homeshare">
-	<title>Configuration of the CIFS home share</title>
-
-	<para>
-	  The <package>univention-ucc-cifshome-pam-mount</package> package allows the automatic mount of
-	  a CIFS share with the user's home directory during login. It must be configured using the
-	  following &ucsUCR; variables. This functionality is only suitable for stationary
-	  workstations, mobile systems like notebooks should rather use a local home directory.
-	  Further information on configuring &ucsUCR; variables can be found in  <xref linkend="config:ucr"/>.
-
-	  <itemizedlist>
-		<listitem><simpara>
-		  <envar>ucc/mount/cifshome/server</envar>: The name of the server from which the share is
-		  mounted.
-		</simpara></listitem>
-
-		<listitem><simpara>
-		  <envar>ucc/mount/cifshome/share</envar>: The name of the share to be mounted.
-		</simpara></listitem>
-
-		<listitem><simpara>
-		  <envar>ucc/mount/cifshome/options</envar>: This configures a optional list of mount options. The full
-		  list of available options can be found in the manual page <citerefentry><refentrytitle>mount.cifs</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
-		</simpara></listitem>
-	  </itemizedlist>
-	</para>
-  </section>
-
-
   <section id="config:time">
 	<title>Configuration of the time zone / time server</title>
 	<para>
@@ -332,6 +303,38 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 	<para>
 	  The &ucsUCRV; <envar>ucc/pxe/bootsplash</envar> on the UCS system acting as PXE server can be set to
 	  <literal>no</literal> to deactivate it completely.
+	</para>
+  </section>
+
+  <section id="config:custom-start-scripts">
+	<title>Custom start scripts</title>
+	<para>
+		Clients can sync and execute custom start scripts that are placed on the UCC image server. This is a
+		way to configure individual settings on clients during boot time.
+	</para>
+
+	<para>
+		The &ucsUCRV; <envar>ucc/custom_start_scripts/enabled</envar> has to be set to <literal>yes</literal>
+		on UCC clients, e.g. by a &ucsUCRV; policy. for the feature to be enabled. Only if this is configured,
+		the following happens during UCC boot time:
+	</para>
+
+	  <itemizedlist>
+		<listitem><simpara>
+				The content of the directory <filename class="directory">/var/lib/univention-client-boot/custom_start_scripts</filename>
+				from the image server is synced to the UCC client directory <filename class="directory">/usr/lib/univention-custom-start-scripts</filename>.
+		</simpara></listitem>
+
+		<listitem><simpara>
+				<command>run-parts</command> is run on <filename class="directory">/usr/lib/univention-custom-start-scripts</filename>.
+				Filenames have to conform to the <command>run-parts</command> policy as seen in the manpage, to execute files in the directory.
+		</simpara></listitem>
+	  </itemizedlist>
+
+	<para>
+		A simple example script is included and available in <filename class="directory">/var/lib/univention-client-boot/custom_start_scripts</filename>.
+		It is a simple script which installs a <package>pam_mount</package> config file, so that the user's home directory is mounted
+		at <literal>~/NetworkStorage</literal>. The example config file has to be adapted to every UCS domain environment in order to work
 	</para>
   </section>
 </chapter>

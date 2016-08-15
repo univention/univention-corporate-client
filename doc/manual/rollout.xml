@@ -97,6 +97,7 @@
 		from the image to be installed. If that is the case, the UCC image on the system is replaced.
 		In contrast to the partition option above, no new partitioning occurs. All user data on the
 		<filename>/home</filename> partition is retained.
+		This only works if the computer boots via PXE, as changes in the initrd / initrd system architecture may otherwise cause errors.
 	  </para>
 	</listitem>
 
@@ -348,7 +349,7 @@
 <para>
   To force a thin client to boot in rw mode without changing the configuration the command
   <command>univention-ucc-force-rw-boot</command> can be used. A reboot of the thin client
-  is requiered afterwards.
+  is required afterwards.
 </para>
 
 </section>
