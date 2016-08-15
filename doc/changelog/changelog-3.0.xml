@@ -120,6 +120,9 @@
 				<listitem><simpara>
 						Predictable network interface names are deactivated by default, legacy naming such as <filename class="devicefile">eth0</filename> is used (<u:bug>41602</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+						The &ucsUCR; <envar>ldap/client/retry/count</envar> is set to <literal>0</literal> by default (<u:bug>41998</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 		<section id="changelog:images:thinclient">
