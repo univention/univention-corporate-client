@@ -33,14 +33,14 @@ if [ -e /var/univention-join/joined ]; then
 	uid="$(cat /etc/hostname)\$"
 	ldap_hostdn="$(ucr get ldap/hostdn)"
 	kinit --password-file=/etc/machine.secret "$uid"
-	dn="$(ldapsearch -Q -LLL uid=$uid dn | ldapsearch-wrapper | sed -n 's/^dn: \(.*\)/\1/p')"
-	kdestroy
-
-	# update local ldap/hostdn
-	if [ -n "$dn" -a "$dn" != "$ldap_hostdn" ]; then
-		ucr set ldap/hostdn="$dn"
+	if [ $? -eq 0 ]; then
+		dn="$(ldapsearch -Q -LLL uid=$uid dn | ldapsearch-wrapper | sed -n 's/^dn: \(.*\)/\1/p')"
+		kdestroy
+		# update local ldap/hostdn
+		if [ -n "$dn" -a "$dn" != "$ldap_hostdn" ]; then
+			ucr set ldap/hostdn="$dn"
+		fi
 	fi
-
 fi
 
 exit 0
