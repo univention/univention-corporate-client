@@ -1,3 +1,9 @@
+univention-corporate-client (4.0.0-18) unstable; urgency=low
+
+  * Bug #41971: do not stop/start ucc systemd services
+
+ -- Felix Botner <botner@univention.de>  Mon, 15 Aug 2016 18:47:35 +0200
+
 univention-corporate-client (4.0.0-17) unstable; urgency=medium
 
   * Bug #41998: Set ldap/client/retry/count=0
