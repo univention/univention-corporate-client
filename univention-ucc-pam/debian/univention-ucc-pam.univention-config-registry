@@ -32,6 +32,7 @@ Variables: kerberos/realm
 Variables: kerberos/kdc
 Variables: kerberos/adminserver
 Variables: kerberos/defaults/dns_lookup_kdc
+Variables: kerberos/kdc/timeout
 
 Type: file
 File: etc/security/group.conf

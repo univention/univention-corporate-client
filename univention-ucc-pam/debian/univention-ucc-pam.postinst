@@ -32,4 +32,6 @@
 
 #DEBHELPER#
 
+ucr set kerberos/kdc/timeout?1
+
 exit 0

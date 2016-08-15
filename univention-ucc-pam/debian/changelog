@@ -1,3 +1,9 @@
+univention-ucc-pam (4.0.0-4) unstable; urgency=low
+
+  * Bug #41974: kerberos/kdc/timeout?1
+
+ -- Felix Botner <botner@univention.de>  Mon, 15 Aug 2016 17:04:19 +0200
+
 univention-ucc-pam (4.0.0-3) unstable; urgency=medium
 
   * Bug #41919: Add pam-mount integration stub
