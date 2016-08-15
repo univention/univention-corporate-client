@@ -104,7 +104,7 @@
 		  <title>Removal of CIFS home mount package with UCC 3</title>
 		  <para>
 			  With the release of Univention Corporate Client 3.0 the package <package>univention-ucc-cifshome-pam-mount</package> has been removed due to stability and performance issues in medium and large environments.
-			  The custom start scripts feature can allow administrators to build similar features if they desire.
+			  The custom start scripts feature allows administrators to build similar features if they desire.
 		  </para>
 	  </section>
 
