@@ -46,29 +46,46 @@
 	  <title>Release highlights</title>
 
 		<para>
-		  With Univention Corporate Client (UCC) 3.0 ...
+		  With Univention Corporate Client (UCC) 3.0 the second major release update of Univention Corporate Client is now available. It provides several improvements and bugfixes:
 		</para>
 
 		<itemizedlist>
 		  <listitem><para>
-			...
+			The Ubuntu base has been updated to version 16.04. A large part of available software components are renewed: Unity 7.4, Linux Kernel 4.4, LibreOffice 5.1.4. All Univention packages imported from UCS have been updated to the version of UCS 4.1
 		  </para></listitem>
-
+		  <listitem><para>
+			The default Desktop is now Unity, which allows us to provide maintenance of 5 years for UCC 3.0.
+		  </para></listitem>
+		  <listitem><para>
+			UCC desktops are now available as 64-Bit images. Thin client images are still available as 32-Bit.
+		  </para></listitem>
+		  <listitem><para>
+			Clients report their currently installed image to the UCS management system. This allows to easily search for clients which use outdated images.
+		  </para></listitem>
+		  <listitem><para>
+			Clients check and update their position in the UCS LDAP. The move of a computer object now does not require a client rejoin.
+		  </para></listitem>
+		  <listitem><para>
+			Images for 32- and 64-Bit architecture images can be build on UCS servers that are using 64-Bit architecture.
+		  </para></listitem>
+		  <listitem><para>
+			Thin clients update their client policies persistently upon booting, which increases robustness in case the LDAP server is not reachable during boot time.
+		  </para></listitem>
+		  <listitem><para>
+			The RDP and Firefox session scripts can be configured to add additional programm parameters, or to execute arbitrary commands, including the possibility to change the program binary.
+		  </para></listitem>
+		  <listitem><para>
+			It is possible to activate the custom start script feature. This offers the possibility to sync scripts and other files from the image server and execute them at boot time.
+		  </para></listitem>
 		</itemizedlist>
     </chapter>
 
-    <!-- <chapter id="relnotes:prepare"> -->
-	<!--   <title>Preparation of update</title> -->
-
-	<!-- 	<para> -->
-	<!-- 	</para> -->
-
-	<!-- 	<para> -->
-	<!-- 	</para> -->
-
-	<!-- 	<para> -->
-	<!-- 	</para> -->
-	<!-- </chapter> -->
+	<chapter id="relnotes:prepare">
+		<title>Preparation of update</title>
+		<para>
+			Due to the switch from 32-Bit to 64-Bit architecture in the UCC desktop image, clients are required to boot via PXE for the image update to work.
+		</para>
+	</chapter>
 
     <chapter id="relnotes:postprocessing">
 	  <title>Postprocessing of the installation</title>
@@ -83,28 +100,12 @@
 
     <chapter id="relnotes:packages">
 	  <title>Notes on selected packages</title>
-	  <section id="relnotes:packages:xrdp">
-		  <title>Announcing discontinuation of XRDP terminal services for UCC 3</title>
+	  <section id="relnotes:packages:cifshomemount">
+		  <title>Removal of CIFS home mount package with UCC 3</title>
 		  <para>
-			With the release of Univention Corporate Client 2.1 Univention announces the discontinuation of XRDP terminal services on UCC for the next major release UCC 3.0.
-			This does not affect functionality and support for XRDP UCC terminal services on UCC 2.
+			  With the release of Univention Corporate Client 3.0 the package <package>univention-ucc-cifshome-pam-mount</package> has been removed due to stability and performance issues in medium and large environments.
+			  The custom start scripts feature can allow administrators to build similar features if they desire.
 		  </para>
-	  </section>
-	  <section id="relnotes:packages:su">
-		<title>User switches using <command>su</command></title>
-		<para>
-		  Switching from one non-root user account to another non-root user account with the
-		  <command>su</command> command doesn't work. Switching to the root account is not affected.
-		  The underlying bug cannot be easily fixed as it would lead to invasive changes. As a
-		  workaround it is possible to first switch to root and then switch to the user account, e.g.
-
-		  <programlisting lang="sh">
-$ su root
-$ su testuser
-		  </programlisting>
-
-		  More information can be found at <u:bug>30243</u:bug>.
-		</para>
 	  </section>
 
 	  <section id="relnotes:packages:pam">
