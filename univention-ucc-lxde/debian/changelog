@@ -1,3 +1,9 @@
+univention-ucc-lxde (4.0.0-3) unstable; urgency=low
+
+  * Bug #41985: fixed wallpaper config
+
+ -- Felix Botner <botner@univention.de>  Mon, 15 Aug 2016 12:23:59 +0200
+
 univention-ucc-lxde (4.0.0-2) unstable; urgency=medium
 
   * Bug #41604: Add dependency to lxsession-logout
