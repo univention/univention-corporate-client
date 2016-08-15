@@ -196,7 +196,9 @@ else
 
 	echo "Logfile: $messageFile" >> "$messageFile"
 
-	if [ $ret != 0 ]; then
+	# neutrinordp returns all kind of errors on logout, ignore them
+	# only show message if ts is not available (131)
+	if [ $ret -eq 131 ]; then
 		zenity --error --no-markup --text="$(cat $messageFile)"
 	fi
 fi

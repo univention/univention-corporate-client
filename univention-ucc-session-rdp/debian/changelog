@@ -1,3 +1,9 @@
+univention-ucc-session-rdp (4.0.0-8) unstable; urgency=low
+
+  * Bug #41980: show error only for 131 (ts not available) 
+
+ -- Felix Botner <botner@univention.de>  Mon, 15 Aug 2016 10:30:21 +0200
+
 univention-ucc-session-rdp (4.0.0-7) unstable; urgency=low
 
   * removed force-user-session from session script (Bug #41792)
