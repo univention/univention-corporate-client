@@ -54,7 +54,7 @@
 		</itemizedlist>
 	</section>
 
-	<section id="changelog:build">
+	<!--	<section id="changelog:build">
 		<title>Image build and image management</title>
 		<itemizedlist>
 			<listitem><simpara>
@@ -62,18 +62,18 @@
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
-
+	-->
 	<section id="changelog:ucs">
 		<title>UCS domain integration</title>
-		<section id="changelog:ucs:join">
-			<title>Domains joins of UCC clients</title>
+		<!--<section id="changelog:ucs:join">
+						<title>Domains joins of UCC clients</title>
 			<itemizedlist>
 				<listitem><simpara>
 					...
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
-		<section id="changelog:ucs:umc">
+		-->		<section id="changelog:ucs:umc">
 			<title>&ucsUMC; integration</title>
 			<itemizedlist>
 				<listitem><simpara>
@@ -91,14 +91,14 @@
 				</simpara></listitem>
 			</itemizedlist>
 		</section>
-		<section id="changelog:ucc:image">
+		<!--		<section id="changelog:ucc:image">
 			<title>UCC image module</title>
 			<itemizedlist>
 				<listitem><simpara>
 					...
 				</simpara></listitem>
 			</itemizedlist>
-		</section>
+		</section> -->
 	</section>
 
 	<section id="changelog:images">
@@ -195,12 +195,15 @@
 				<listitem><simpara>
 						Error message logging has been improved: Errors are now logged into the logfile that is shown in the <package>zenity</package> status message dialog (<u:bug>41612</u:bug>).
 				</simpara></listitem>
+				<listitem><simpara>
+						An update to <package>neutrinordp</package> fixes crashes due to incorrect bitmap cache handling and within the pulseaudio sound module (<u:bug>38695</u:bug>), (<u:bug>39266</u:bug>).
+				</simpara></listitem>
 			</itemizedlist>
 		</section>
 
 	</section>
 
-	<section id="changelog:hardware">
+	<!--	<section id="changelog:hardware">
 		<title>Hardware support</title>
 		<itemizedlist>
 			<listitem><simpara>
@@ -217,7 +220,7 @@
 			</simpara></listitem>
 		</itemizedlist>
 	</section>
-
+	-->
 	<section id="changelog:clients">
 		<title>Client management</title>
 		<itemizedlist>

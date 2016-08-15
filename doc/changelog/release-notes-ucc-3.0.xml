@@ -100,6 +100,17 @@
 
     <chapter id="relnotes:packages">
 	  <title>Notes on selected packages</title>
+	  <section id="relnotes:packages:citrix">
+		  <title>Citrix support in UCC 3</title>
+		  <para>
+			  Prior to the release we worked together with Citrix to support Citrix environments in UCC 3.
+			  In these tests we found issues regarding USB device support with the Citrix Receiver and UCC 3.
+			  A Citrix Receiver update is required to fix these issues.
+			  After the update has been released, we will provide an Errata Update for UCC 3.
+			  Until then, the Citrix session does not support all documented features.
+		  </para>
+	  </section>
+
 	  <section id="relnotes:packages:cifshomemount">
 		  <title>Removal of CIFS home mount package with UCC 3</title>
 		  <para>
