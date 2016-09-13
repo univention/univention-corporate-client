@@ -1,0 +1,12 @@
+product: ucc
+release: "2.1"
+version: [0]
+scope: ucs_4.0-0-ucc-2.1-errata
+src: univention-policy
+fix: 6.0.2-8.135.201609131727
+desc: |
+ This update addresses the following issue:
+ * A faulty policy type detection has been fixed that could lead to wrong
+   results of univention_policy_result. This misbehaviour affected services
+   using univention_policy_result.
+bug: [42372]
