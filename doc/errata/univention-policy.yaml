@@ -3,7 +3,7 @@ release: "3.0"
 version: [0]
 scope: ucs_4.1-0-ucc-3.0-errata
 src: univention-policy
-fix: 7.0.1-1.137.201609141206
+fix: 7.0.1-1.138.201609151053
 desc: |
  This update addresses the following issue:
  * A faulty policy type detection has been fixed that could lead to wrong
