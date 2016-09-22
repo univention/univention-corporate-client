@@ -1,0 +1,11 @@
+product: ucc
+release: "3.0"
+version: [0]
+scope: ucs_4.1-0-ucc-3.0-errata
+src: univention-ucc-printerconfig
+fix: 7.0.1-1.138.201609151053
+desc: |
+ This update addresses the following issue:
+ * Dependency to the cups legacy tool (cups-bsd) has been added
+   to provide the lpr command on ucc.
+bug: [42479]
