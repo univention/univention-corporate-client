@@ -1,3 +1,9 @@
+univention-ucc-printerconfig (4.0.0-2) unstable; urgency=low
+
+  * added cups-bsd (Bug #42479)
+
+ -- Felix Botner <botner@univention.de>  Thu, 22 Sep 2016 18:19:04 +0200
+
 univention-ucc-printerconfig (4.0.0-1) unstable; urgency=medium
 
   * bumped version

@@ -9,6 +9,6 @@ Build-Depends: debhelper,
 
 Package: univention-ucc-printerconfig
 Architecture: all
-Depends: ${misc:Depends}, cups-client
+Depends: ${misc:Depends}, cups-client, cups-bsd
 Description: UCC - printer config
  This package contains configuration files for cups.
