@@ -233,7 +233,7 @@ cmd+=(--my-new-option-for-the-default-rdp-command ABC)
 	</para>
 
 	<para>
-	  Citrix Receiver version 13.3 is included in the UCC Thin Client image.
+	  Citrix Receiver version 13.4 is included in the UCC Thin Client image.
 	  Other Citrix Receiver versions may be included manually in a Thin Client image.
 	  It must be downloaded for the 32 bit Intel architecture as a DEB file using the download link provided
 	  and saved in a local directory. Support is only provided for the included Citrix Receiver.
@@ -417,8 +417,14 @@ must be created as a <classname>dword</classname>, named <property>FlashPlayerVe
 	  on the UCC client. By installing the package <package>univention-ucc-usb-raw-printer</package> a raw printer
 	  queue is created for every USB printer connected to the client.
 	</para>
+	<para>
+	  XenApp Printing also allows to map remote printers to the Citrix session. By the installation of the
+	  package <package>univention-ucc-printerconfig</package> the UCC client can be configured as print
+	  client (cups). The print server can be configured with the &ucsUCR; variable <envar>ucc/cups/server</envar>.
+	  All the remote printers, known to the UCC client, are automatically mapped to the XenApp session
+	  (if printer redirection is configured onthe XenApp server).
+	</para>
 </section>
-
 
 <section id="terminalservices:citrix:servergraphicsettings">
   <title>Possible graphical glitches with Citrix Receiver</title>
