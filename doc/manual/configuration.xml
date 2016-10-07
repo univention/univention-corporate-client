@@ -332,7 +332,7 @@ ucc/apt/cs2=deb http://example.com/ application/i386/
 	  </itemizedlist>
 
 	<para>
-		A simple example script is included and available in <filename class="directory">/var/lib/univention-client-boot/custom_start_scripts</filename>.
+		A simple example script is included and available in <filename class="directory">/usr/share/ucc-pxe-boot/custom_start_scripts_example/</filename>.
 		It is a simple script which installs a <package>pam_mount</package> config file, so that the user's home directory is mounted
 		at <literal>~/NetworkStorage</literal>. The example config file has to be adapted to every UCS domain environment in order to work
 	</para>
