@@ -1,3 +1,10 @@
+univention-ucc-initramfs (5.0.0-26) unstable; urgency=medium
+
+  * Bug #42530: Ignore floppy devices when searching for the target
+    installation device
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 07 Oct 2016 15:02:28 +0200
+
 univention-ucc-initramfs (5.0.0-25) unstable; urgency=low
 
   * Bug #41974: fixed update-ldap-host-dn

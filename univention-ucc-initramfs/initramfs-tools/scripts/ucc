@@ -187,6 +187,11 @@ search_device()
 			continue
 		fi
 
+		# ignore floppy devices
+		if echo "${device}" | grep -sq ^"fd[0-9]" ; then
+			continue
+		fi
+
 		# ignore ramdisk devices
 		if echo "${device}" | grep -sq ^"ram" ; then
 			continue
