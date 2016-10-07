@@ -161,9 +161,5 @@ if [ ! -d $MOUNTPOINT ];then
    	mkdir ${MOUNTPOINT}
 fi
 
-mount $mountoptions $filesystemoptions /dev/$devicename ${MOUNTPOINT}
 echo mount $mountoptions $filesystemoptions /dev/$devicename ${MOUNTPOINT} | logger
-
-if [ $? -ne 0 ]; then
-	rmdir ${MOUNTPOINT}
-fi
+echo "mount ${mountoptions} ${filesystemoptions} /dev/${devicename} ${MOUNTPOINT}; [ $? -ne 0 ] && rmdir ${MOUNTPOINT}" | at now
