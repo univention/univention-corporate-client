@@ -1,0 +1,11 @@
+product: ucc
+release: "3.0"
+version: [0]
+scope: ucs_4.1-0-ucc-3.0-errata
+src: univention-ucc-remote-mount
+fix: 4.0.0-3.31.201610071307
+desc: |
+ This update addresses the following issue:
+ * USB sticks with an NTFS filesystem failed to mount correctly. This
+   update provides an alternative way by using an at-job to mount the device.
+bug: [42598]
