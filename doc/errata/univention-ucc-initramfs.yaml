@@ -1,0 +1,11 @@
+product: ucc
+release: "3.0"
+version: [0]
+scope: ucs_4.1-0-ucc-3.0-errata
+src: univention-ucc-initramfs
+fix: 5.0.0-26.164.201610071507
+desc: |
+ This update addresses the following issue:
+ * Floppy devices (fd[0-9]) are ignored when searching for the 
+   target installation device
+bug: [42530]
