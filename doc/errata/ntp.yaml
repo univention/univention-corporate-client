@@ -1,0 +1,11 @@
+product: ucc
+release: "1.0"
+scope: ucs_3.1-0-ucc-errata
+src: ntp
+fix: 1:4.2.6.p3+dfsg-1ubuntu3.11.62.201610071529
+note:
+desc: |
+  UCC uses a patched version of NTP. This update reintegrates the changes
+  into the new NTP packages from Precise.
+version: [0]
+bug: [42601]
