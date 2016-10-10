@@ -1,3 +1,9 @@
+univention-ucc-remote-mount (4.0.0-4) unstable; urgency=medium
+
+  * Bug #42598: Add package dependency on 'at'
+
+ -- Erik Damrose <damrose@univention.de>  Mon, 10 Oct 2016 16:19:02 +0200
+
 univention-ucc-remote-mount (4.0.0-3) unstable; urgency=medium
 
   * Bug #42598: extend udev mountscript to use at-job for mounting devices
