@@ -45,6 +45,7 @@ univention-config-registry set version/releasename=Wuemme
 univention-config-registry set ucc/update/remove/old/kernel?true
 univention-config-registry set ucc/ubuntu/update/manager/prompt?never
 univention-config-registry set ldap/client/retry/count=0
+univention-config-registry set xorg/keyboard/options/XkbModel?pc105
 
 apt-key add /usr/share/keyrings/ucc-archive-key.gpg
 
