@@ -1,0 +1,11 @@
+product: ucc
+release: "3.0"
+version: [0]
+scope: ucs_4.1-0-ucc-3.0-errata
+src: univention-corporate-client
+fix: 4.0.0-19.124.201610131237
+desc: |
+ This update addresses the following issue:
+ * The default value for the keyboard model is set to
+   pc105 to fix a regression with localisation
+bug: [42199]
