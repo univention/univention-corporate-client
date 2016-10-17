@@ -1,0 +1,13 @@
+product: ucc
+release: "3.0"
+version: [0]
+scope: ucs_4.1-0-ucc-3.0-errata
+src: icaclient
+fix: 13.4.0.10109380
+desc: |
+ This update addresses the following issue:
+ * Citrix Receiver version 13.4 is now available, which resolves issues 
+   with USB device support on UCC 3
+ * The Citrix Receiver changelog can be found at
+   https://docs.citrix.com/en-us/receiver/linux/13-4/about.html
+bug: [41859]
