@@ -343,10 +343,10 @@ cmd+=(--my-new-option-for-the-default-rdp-command ABC)
 	  The session script executes these hooks via <command>run-parts</command> at different
 	  stages of the script. The following hook directories are supported:
 	<itemizedlist>
-		<listitem>/usr/share/univention-ucc-session-xenapp/hooks/top.d - start of the session script</listitem>
-		<listitem>/usr/share/univention-ucc-session-xenapp/hooks/pre-firefox.d - before starting firefox</listitem>
-		<listitem>/usr/share/univention-ucc-session-xenapp/hooks/post-firefox.d - after firefox finished</listitem>
-		<listitem>/usr/share/univention-ucc-session-xenapp/hooks/bottom.d - end of the session script</listitem>
+		<listitem><simpara>/usr/share/univention-ucc-session-xenapp/hooks/top.d - start of the session script</simpara></listitem>
+		<listitem><simpara>/usr/share/univention-ucc-session-xenapp/hooks/pre-firefox.d - before starting firefox</simpara></listitem>
+		<listitem><simpara>/usr/share/univention-ucc-session-xenapp/hooks/post-firefox.d - after firefox finished</simpara></listitem>
+		<listitem><simpara>/usr/share/univention-ucc-session-xenapp/hooks/bottom.d - end of the session script</simpara></listitem>
 	</itemizedlist>
 	</para>
 
