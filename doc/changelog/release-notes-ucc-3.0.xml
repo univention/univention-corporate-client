@@ -109,6 +109,10 @@
 			  After the update has been released, we will provide an Errata Update for UCC 3.
 			  Until then, the Citrix session does not support all documented features.
 		  </para>
+		  <note> <para>
+			  Update 2016-10-17: With Citrix Receiver 13.4, UCC 3.0 was successfully verified as Citrix Ready.
+			  The update is provided via Errata Updates and is also preinstalled in updated UCC 3.0 images, which can be downloaded in the UCC-Images module.
+		  </para> </note>
 	  </section>
 
 	  <section id="relnotes:packages:cifshomemount">
