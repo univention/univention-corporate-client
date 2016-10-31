@@ -1,0 +1,12 @@
+product: ucc
+release: "3.0"
+version: [0]
+scope: ucs_4.1-0-ucc-3.0-errata
+src: snapd
+fix: 2.16ubuntu3.1.201610281544
+desc: |
+ This update addresses the following issue:
+ * An issue in the snapd source package prevented it to be upgraded
+   via the UCC software update feature. The problem has been solved by
+   modifying the service start behavior in the postinst script.
+bug: [42785]
