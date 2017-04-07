@@ -20,6 +20,7 @@ Variables: ldap/base
 Variables: ucc/ldap/network/timeout
 Variables: ucc/ldap/timeout
 Variables: ucc/ldap/timelimit
+Variables: ucc/ldap/sasl_mech
 
 Type: file
 File: etc/nsswitch.conf

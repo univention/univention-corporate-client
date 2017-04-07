@@ -33,3 +33,9 @@ Description[de]=Konfiguriert eine maximale Dauer von LDAP-Abfragen in Sekunden (
 Description[en]=Configures a maximum length of LDAP queries in seconds (default: 10 seconds)
 Type=int
 Categories=system-base
+
+[ucc/ldap/sasl_mech]
+Description[de]=Konfiguriert den zu nutzenden SASL Mechanismus (Standard: GSSAPI)
+Description[en]=Specifies the SASL mechanism to use (default: GSSAPI)
+Type=str
+Categories=system-base

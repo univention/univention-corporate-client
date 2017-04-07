@@ -1,3 +1,10 @@
+univention-ucc-pam (4.0.0-5) unstable; urgency=medium
+
+  * Bug #43730: Added SASL_MECH configuration option via UCR
+    ucc/ldap/sasl_mech, default is GSSAPI
+
+ -- Erik Damrose <damrose@univention.de>  Fri, 07 Apr 2017 15:50:16 +0200
+
 univention-ucc-pam (4.0.0-4) unstable; urgency=low
 
   * Bug #41974: kerberos/kdc/timeout?1
