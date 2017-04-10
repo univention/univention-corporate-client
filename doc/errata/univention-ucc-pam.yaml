@@ -1,0 +1,12 @@
+product: ucc
+release: "3.0"
+version: [0]
+scope: ucs_4.1-0-ucc-3.0-errata
+src: univention-ucc-pam
+fix: 4.0.0-5.54.201704071552
+desc: |
+ This update addresses the following issue:
+ * The option SASL_MECH in the ldap.conf can now be
+   configured with the UCR variable ucc/ldap/sasl_mech, the
+   default is GSSAPI. This ensures compatibility with UCS 4.2
+bug: [43730]
