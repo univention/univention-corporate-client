@@ -35,3 +35,11 @@ Variables: ucc/aptconf/.*
 Type: file
 File: etc/update-manager/release-upgrades
 Variables: ucc/ubuntu/update/manager/prompt
+
+Type: file
+File: etc/modprobe.d/ucc.conf
+Variables: ucc/modprobe/*
+
+Type: file
+File: etc/pulse/client.conf
+Variables: ucc/pulseaudio/disabled

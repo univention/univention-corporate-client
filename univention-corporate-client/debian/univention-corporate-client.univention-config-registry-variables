@@ -50,4 +50,17 @@ Categories=system-desktop
 Description[de]=Standardverhalten für den ubuntu Update-Manager.
 Description[en]=Default prompting behavior for the ubuntu update manager.
 Type=str
-Categories=system-deskto
+Categories=system-desktop
+
+[ucc/modprobe/*]
+Description[de]=Konfiguration von modprobe Optionen
+Description[en]=Configuration of modprobe options
+Type=str
+Categories=system-desktop
+
+[ucc/pulseaudio/disabled]
+Description[de]=Pulseaudio global deaktivieren (default: False, pulseaudio ist aktiviert)
+Description[en]=Global pulseaudio deactivation (default: false, pulseaudio is activated)
+Type=str
+Categories=system-desktop
+
