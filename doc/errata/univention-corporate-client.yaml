@@ -1,0 +1,14 @@
+product: ucc
+release: "3.0"
+version: [0]
+scope: ucs_4.1-0-ucc-3.0-errata
+src: univention-corporate-client
+fix: 4.0.0-20.126.201704131631
+desc: |
+ This update addresses the following issue:
+ * Kernel module configuration is now possible using UCR.
+   The value of any UCR variable starting with ucc/modprobe
+   is added to the file /etc/modprobe.d/ucc.conf
+ * To disable pulseaudio automatic spawning, the variable
+   ucc/pulseaudio/disabled can be set to true.
+bug: [44339]
