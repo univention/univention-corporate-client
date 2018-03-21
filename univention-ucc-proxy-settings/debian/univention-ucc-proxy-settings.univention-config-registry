@@ -4,6 +4,6 @@ Variables: ucc/proxy/autoconfig/url
 Variables: ucc/proxy/http
 
 Type: file
-File: usr/lib/firefox/defaults/pref/ucc-proxy.js
+File: usr/lib/firefox/ucc-proxy.cfg
 Variables: ucc/proxy/autoconfig/url
 Variables: ucc/proxy/http
