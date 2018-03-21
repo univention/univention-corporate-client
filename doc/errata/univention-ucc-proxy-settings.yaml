@@ -1,0 +1,10 @@
+product: ucc
+release: "3.0"
+version: [0]
+scope: ucs_4.1-0-ucc-3.0-errata
+src: univention-ucc-proxy-settings
+fix: 4.0.0-3.10.201803211617
+desc: |
+ This update addresses the following issue:
+ * Fix lockPref proxy settings not being applied
+bug: [46716]
