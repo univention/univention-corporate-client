@@ -5,6 +5,6 @@ scope: ucs_4.0-0-ucc-2.1-errata
 src: univention-ucc-proxy-settings
 fix: 3.0.0-2.13.201803211659
 desc: |
-This update addresses the following issue:
-  * Fix lockPref proxy settings not being applied
+ This update addresses the following issue:
+ * Fix lockPref proxy settings not being applied
 bug: [46721]
